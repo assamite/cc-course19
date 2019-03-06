@@ -8,35 +8,36 @@ and then do *pull requests* to this project a couple of times during the course.
 
 Relevant links:
 
-    * `Fork a repo<https://help.github.com/en/articles/fork-a-repo>`_
-    * `About pull requests<https://help.github.com/en/articles/about-pull-requests>`_
-    * `Creating a pull request from a fork<https://help.github.com/en/articles/creating-a-pull-request-from-a-fork>`_
+* `Fork a repo<https://help.github.com/en/articles/fork-a-repo>`_
+* `About pull requests<https://help.github.com/en/articles/about-pull-requests>`_
+* `Creating a pull request from a fork<https://help.github.com/en/articles/creating-a-pull-request-from-a-fork>`_
 
 The first pull request:
 =======================
 
 Create your first pull request after:
-    # You have forked the repo
-    # Made a folder into the repo with your group name
 
-        * Change the group name to match Python module naming, e.g. group "We Are the Best" should have folder "we_are_the_best"
+1. You have forked the repo
+2. Made a folder into the repo with your group name
 
-    # Copied contents of the either one of the pre-existing group examples to your folder
-    # Changed (the class name and the module name if you so wish and) ``self.domain`` of your creator.
-    # Reflected the class name and module name changes to your-group-folder/config.json
-    # Changed your creator's ``create``-function to return (dummy) artifact(s) in your domain. That is, the returned
-      artifact may pre-exist in your folder.
+   * Change the group name to match Python module naming, e.g. group "We Are the Best" should have folder "we_are_the_best"
 
-        * Titles should return ``str``.
-        * Poems should return ``str``.
-        * Images should return absolute paths to the generated images, either in 'png' or 'jpg' format.
-        * Music should return absolute path to either 'wav' (compressed formats are discussable if needed) or to
-          an image file of the generated sheet music in 'png' or 'jpg' format.
-        * The return format of other domains should be discussed with the course staff.
+3. Copied contents of the either one of the pre-existing group examples to your folder
+4. Changed (the class name and the module name if you so wish and) ``self.domain`` of your creator.
+5. Reflected the class name and module name changes to your-group-folder/config.json
+6. Changed your creator's ``create``-function to return (dummy) artifact(s) in your domain. That is, the returned
+   artifact may pre-exist in your folder.
 
-    # Remember to add the metadata dictionary containing 'evaluation' keyword with (dummy) value to each returned artifact.
-    # Check that the code is working by running ``main.py`` using main config file (check ``main_config.json`` but
-      create another one for testing purposes) containing only your own folder.
+   * Titles should return ``str``.
+   * Poems should return ``str``.
+   * Images should return absolute paths to the generated images, either in 'png' or 'jpg' format.
+   * Music should return absolute path to either 'wav' (compressed formats are discussable if needed) or to
+     an image file of the generated sheet music in 'png' or 'jpg' format.
+   * The return format of other domains should be discussed with the course staff.
+
+7. Remember to add the metadata dictionary containing 'evaluation' keyword with (dummy) value to each returned artifact.
+8. Check that the code is working by running ``main.py`` using main config file (check ``main_config.json`` but
+   create another one for testing purposes) containing only your own folder.
 
 Please make your first pull request before Wed 20.3. 23.59
 
@@ -44,12 +45,12 @@ Please make your first pull request before Wed 20.3. 23.59
 Get the code running
 ====================
 
-    # Fork the repo in github (once per group)
-    # Clone your forked repo (for each group member)
-    # Install Python 3.6+
-    # Create python virtual environment in your cloned repo's root using: ``python3.6 -m env``
-    # Activate virtualenv using: ``source env/bin/activate``
-    # Install general requirements: ``pip install -r requirements.txt``
+1. Fork the repo in github (once per group)
+2. Clone your forked repo (for each group member)
+3. Install Python 3.6+
+4. Create python virtual environment in your cloned repo's root using: ``python3.6 -m env``
+5. Activate virtualenv using: ``source env/bin/activate``
+6. Install general requirements: ``pip install -r requirements.txt``
 
 Now you should be able to run the two example groups using ``python main.py`` and see some output (and definetely not
 any errors).
