@@ -56,7 +56,7 @@ Now you should be able to run the two example groups using ``python main.py`` an
 any errors).
 
 Anytime you want to work on the code, you need to run step 5. again. You can exit the virtual environment by typing
-``deactivate``. You can also configure your IDE, e.g. `PyCharm<https://www.jetbrains.com/pycharm/>`_, to use virtual
+``deactivate``. You can also configure your IDE, e.g. `PyCharm <https://www.jetbrains.com/pycharm/>`_, to use virtual
 environment.
 
 
