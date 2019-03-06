@@ -15,9 +15,9 @@ Relevant links:
 The first pull request:
 =======================
 
-Create your first pull request after:
+Create your first pull request after you have:
 
-1. You have forked the repo
+1. Forked the repo
 2. Made a folder into the repo with your group name
 
    * Change the group name to match Python module naming, e.g. group "We Are the Best" should have folder "we_are_the_best"
@@ -35,8 +35,8 @@ Create your first pull request after:
      an image file of the generated sheet music in 'png' or 'jpg' format.
    * The return format of other domains should be discussed with the course staff.
 
-7. Remember to add the metadata dictionary containing 'evaluation' keyword with (dummy) value to each returned artifact.
-8. Check that the code is working by running ``main.py`` using main config file (check ``main_config.json`` but
+7. Remembered to add the metadata dictionary containing 'evaluation' keyword with (dummy) value to each returned artifact.
+8. Checked that the code is working by running ``main.py`` using main config file (check ``main_config.json`` but
    create another one for testing purposes) containing only your own folder.
 
 **Please make your first pull request before Wed 20.3. 23.59.**
