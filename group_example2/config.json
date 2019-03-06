@@ -1,0 +1,11 @@
+{
+    "module_name": "example",
+    "class_name": "RandomWordCreator",
+    "domain": "word",
+    "init_kwargs":
+    {
+      "word_length": [4, 8],
+      "alphabet": "ABCDEFGHIJKLMNOPQRSTUVWXYZ",
+      "vocals": "AEIOUY"
+    }
+}
