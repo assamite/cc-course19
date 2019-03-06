@@ -8,9 +8,9 @@ and then do *pull requests* to this project a couple of times during the course.
 
 Relevant links:
 
-* `Fork a repo<https://help.github.com/en/articles/fork-a-repo>`_
-* `About pull requests<https://help.github.com/en/articles/about-pull-requests>`_
-* `Creating a pull request from a fork<https://help.github.com/en/articles/creating-a-pull-request-from-a-fork>`_
+* `Fork a repo <https://help.github.com/en/articles/fork-a-repo>`_
+* `About pull requests <https://help.github.com/en/articles/about-pull-requests>`_
+* `Creating a pull request from a fork <https://help.github.com/en/articles/creating-a-pull-request-from-a-fork>`_
 
 The first pull request:
 =======================
