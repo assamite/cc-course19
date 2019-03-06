@@ -39,7 +39,7 @@ Create your first pull request after:
 8. Check that the code is working by running ``main.py`` using main config file (check ``main_config.json`` but
    create another one for testing purposes) containing only your own folder.
 
-Please make your first pull request before Wed 20.3. 23.59
+**Please make your first pull request before Wed 20.3. 23.59.**
 
 
 Get the code running
@@ -52,7 +52,7 @@ Get the code running
 5. Activate virtualenv using: ``source env/bin/activate``
 6. Install general requirements: ``pip install -r requirements.txt``
 
-Now you should be able to run the two example groups using ``python main.py`` and see some output (and definetely not
+Now you should be able to run the two example groups using ``python main.py`` and see some output (and definitely not
 any errors).
 
 Anytime you want to work on the code, you need to run step 5. again. You can exit the virtual environment by typing
