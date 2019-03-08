@@ -32,7 +32,7 @@ their own code between the pull requests. The following repository structure is 
         main_config.json
         # This readme
         README.rst
-        # General requirements for the project. See below for details
+        # General requirements for the project. See below for details.
         requirements.txt
 
         # Folder for possible shared resources.
@@ -66,7 +66,7 @@ their own code between the pull requests. The following repository structure is 
             config.json
 
             # Your group's module to import, specified in config.json
-            rleyh_is_rising.py
+            rlyeh_is_rising.py
 
             # Possible sub git ignore file for your needs (e.g. ignore any images created by your creator so that they
             # do not clutter the repository).
@@ -138,12 +138,14 @@ They are already included merely for convenience, and you are not required to us
 * Scikit-learn: Machine learning library for Python.
 * Scikit-image: Image processing library for Python. Easy to use, but restricted implementations.
 * Opencv-python: Python bindings with prebuilt binaries for OpenCV (the computer vision library used by everyone doing CV).
+
     * The prebuilt binaries included should be available for all the common architectures, thus you do not need to
       compile OpenCV yourself.
+      
 * NLTK: Natural language toolkit for Python. Used for ... wait for it ... natural language processing.
 
 We have not included any deep learning libraries, as there are multiple valid choices. The library choice can be
-discussed if several groups are using deep learning
+discussed if several groups are using deep learning.
 
 Adding your own dependencies
 ============================
@@ -152,7 +154,7 @@ It is possible (and probable) that you want to add your own code dependencies to
 libraries which can be installed using 'pip' can be used. We just need to coordinate between the groups that each group
 uses the same version of the library.
 
-Add any extra dependencies to ``your_group_folder/requirements.txt` (create one if it does not exist), and mention this
+Add any extra dependencies to ``your_group_folder/requirements.txt`` (create one if it does not exist), and mention this
 in your pull request. The course staff will merge them to the root folder's ``requirements.txt`` based on the pull
 requests and other groups may then install them using ``pip install -r requirements.txt`` to ensure coherence between
 the groups.
