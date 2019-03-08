@@ -103,5 +103,8 @@ venv.bak/
 # mypy
 .mypy_cache/
 
-# pycharm
+# pycharm project
 .idea/
+
+/*.json
+!/main_config.json
