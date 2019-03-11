@@ -65,7 +65,7 @@ their own code between the pull requests. The following repository structure is 
             # Your group's config
             config.json
 
-            # Your group's module to import, specified in config.json
+            # Your group's module to import, specified in config.json.
             rlyeh_is_rising.py
 
             # Possible sub git ignore file for your needs (e.g. ignore any images created by your creator so that they
@@ -104,10 +104,10 @@ Create your first pull request after you have:
 8. Checked that the code is working by running ``main.py`` using main config file (check ``main_config.json`` but
    create another one for testing purposes) containing only your own folder.
 
-**Make your first pull request before Fri 20.3. 23.59.**
+**Make your first pull request before Sun 17.3. 23.59.**
 
 You may have already began your software development in the first pull request (i.e. done more than the points above),
-but for each pull request the code should be runnable.
+but the code must be runnable for each pull request.
 
 
 Get the code running
