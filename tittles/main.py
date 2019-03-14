@@ -2,10 +2,10 @@
 
 class tittlesTitle():
     def __init__(self):
-        pass
+        self.threshold = 0.8
 
     def generate(self, *args, **kwargs):
-        pass
+        return self.create("", {}, number_of_artifacts=1)
 
     def evaluate(self, title):
         return 1.
@@ -19,7 +19,7 @@ class tittlesTitle():
             # get template
             # morphology
             v = self.evaluate("")
-            if v >= 0.8:
+            if v >= self.threshold:
                 ret.append(":)")
 
         return ",".join(ret)
