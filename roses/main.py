@@ -1,11 +1,11 @@
-"""Group Example's main file.
+"""Group Roses' main file.
 
 Should contain initialize- and create-functions.
 """
 import random
 
 
-class RandomWordCreator:
+class PoemCreator:
 
     def __init__(self, *args, **kwargs):
         """Initialize any data structures, objects, etc. needed by the system so that the system is fully prepared
@@ -13,16 +13,16 @@ class RandomWordCreator:
 
         Only keyword arguments are supported in config.json
         """
-        print("Group Example initialize.")
+        print("Group Roses initialize.")
         self.alphabet = kwargs.pop('alphabet', "ABCDEFGHIJKLMNOPQRSTUVWXYZ")
         self.vocals = kwargs.pop('vocals', "AEIOUY")
         self.word_length = kwargs.pop('word_length', (4, 8))
 
         # Each creator should have domain specified: title, poetry, music, image, etc.
-        self.domain = 'word'
+        self.domain = 'poetry'
 
     def generate(self, *args, **kwargs):
-        """Random word generator.
+        """Poem generator.
         """
         length = random.randint(self.word_length[0], self.word_length[1])
         return "".join([random.choice(self.alphabet) for _ in range(length)])

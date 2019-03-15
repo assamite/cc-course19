@@ -1,7 +1,7 @@
 {
     "module_name": "main",
-    "class_name": "RandomWordCreator",
-    "domain": "word",
+    "class_name": "PoemCreator",
+    "domain": "poetry",
     "init_kwargs":
     {
       "word_length": [2, 4],
