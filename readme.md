@@ -1,1 +1,0 @@
-# Random_team, Computational Creativity course, 2019
