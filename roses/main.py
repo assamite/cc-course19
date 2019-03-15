@@ -3,6 +3,9 @@
 Should contain initialize- and create-functions.
 """
 import random
+import json
+
+DUMMY_POEMS_PATH = "roses/dummy_poems.json"
 
 
 class PoemCreator:
@@ -14,6 +17,12 @@ class PoemCreator:
         Only keyword arguments are supported in config.json
         """
         print("Group Roses initialize.")
+        poems = []
+        with open(DUMMY_POEMS_PATH) as f:
+            s = f.read()
+            poems = json.loads(s)
+            print(f'poems {poems}')
+        self.poems = poems
         self.alphabet = kwargs.pop('alphabet', "ABCDEFGHIJKLMNOPQRSTUVWXYZ")
         self.vocals = kwargs.pop('vocals', "AEIOUY")
         self.word_length = kwargs.pop('word_length', (4, 8))
@@ -24,17 +33,17 @@ class PoemCreator:
     def generate(self, *args, **kwargs):
         """Poem generator.
         """
-        length = random.randint(self.word_length[0], self.word_length[1])
-        return "".join([random.choice(self.alphabet) for _ in range(length)])
+        poem = random.choice(self.poems)
+        return poem
 
-    def evaluate(self, word):
-        """Evaluate word by counting how many vocals it has.
+    def evaluate(self, poem):
+        """Evaluate poem by counting how many vocals it has.
         """
         e = 0
-        for char in word:
+        for char in poem:
             if char in self.vocals:
                 e += 1.0
-        return e / len(word)
+        return e / len(poem)
 
     def create(self, emotion, word_pairs, number_of_artifacts=10, **kwargs):
         """Create artifacts in the group's domain.
@@ -64,7 +73,7 @@ class PoemCreator:
             should be a dictionary holding at least 'evaluation' keyword with float value.
 
         """
-        print("Group Example create with input args: {} {}".format(emotion, word_pairs))
-        ret = [(w, {'evaluation': self.evaluate(w)}) for w in [self.generate() for _ in range(number_of_artifacts)]]
+        print("Group Roses create with input args: {} {}".format(emotion, word_pairs))
+        ret = [(poem, {'evaluation': self.evaluate(poem)}) for poem in [self.generate() for _ in range(number_of_artifacts)]]
         return ret
 
