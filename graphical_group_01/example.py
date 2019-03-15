@@ -1,9 +1,7 @@
 """Group Example's main file.
 
-Should contain initialize- and create-functions.
+Contains init and create functions.
 """
-import random
-
 import os
 import sys
 
@@ -18,34 +16,59 @@ sys.path.append(__GENERAL_PROJECT_ROOT__)
 
 from resources.sample_inputs import SAMPLE_INPUTS
 
-
 __GENERATED_DUMMY_DIR__ = os.path.join(__CURRENT_PROJECT_ROOT__, "dummies")
-__IM_WIDTH__ = 800
-__IM_HEIGHT__ = 600
+__IMAGE_WIDTH__ = 800
+__IMAGE_HEIGHT__ = 600
 __COLOR_CHANNELS__ = 3
-
 
 
 class RandomImageCreator:
 
     def __init__(self, *args, **kwargs):
-        """Initialize any data structures, objects, etc. needed by the system so that the system is fully prepared
+        """Initialises the class.
+
+        Initialize any data structures, objects, etc. needed by the system so that the system is fully prepared
         when create-function is called.
 
-        Only keyword arguments are supported in config.json.
-        """
-        print("Graphical group 01. \nInitialisation...")
-        # self.alphabet = kwargs.pop('alphabet', "ABCDEFGHIJKLMNOPQRSTUVWXYZ")
-        # self.vocals = kwargs.pop('vocals', "AEIOUY")
-        # self.word_length = kwargs.pop('word_length', (4, 8))
+        Parameters
+        ----------
+        args: tuple
+            arguments
 
-        # Each creator should have domain specified: title, poetry, music, image, etc.
+        kwargs: dict
+            keywords arguments
+
+        Notes
+        -----
+        Only keyword arguments are supported in config.json.
+
+        """
         self.domain = 'image'
+        self.group_name = 'Graphical group 01'
+        print(f"{self.group_name}... Initialised!")
 
     def generate(self, *args, **kwargs):
-        """Generator function.
+        """Generates artifacts as random images.
+
+        Saves a new image under the 'dummies' directory and returns its path.
+
+        Parameters
+        ----------
+        args: tuple
+            arguments
+
+        kwargs: dict
+            keywords arguments
+
+        Returns
+        -------
+        str:
+            path to the generated image
+
         """
-        image_tensor = np.random.randint(low=0, high=256, size=(__IM_HEIGHT__, __IM_WIDTH__, 3))
+        image_tensor = np.random.randint(low=0, high=256, size=(__IMAGE_HEIGHT__,
+                                                                __IMAGE_WIDTH__,
+                                                                __COLOR_CHANNELS__))
         image = Image.fromarray(image_tensor, 'RGB')
         image_path = self.get_unique_save_path_name(directory=__GENERATED_DUMMY_DIR__,
                                                     basename="dummy",
@@ -54,6 +77,25 @@ class RandomImageCreator:
         return image_path
 
     def get_unique_save_path_name(self, directory, basename, extension):
+        """Generates a unique filename under the given directory.
+
+        Parameters
+        ----------
+        directory: str
+            path where the file is intended to be saved
+
+        basename: str
+            base part of the name to which a suffix can be added
+
+        extension: str
+            type of file extension
+
+        Returns
+        -------
+        str:
+            unique pathname including directory and unique filename
+
+        """
         i = 0
         tentative_path = os.path.join(directory, f"{basename}.{extension}")
         if not os.path.exists(tentative_path):
@@ -66,7 +108,18 @@ class RandomImageCreator:
                 return tentative_path
 
     def evaluate(self, image_path):
-        """Evaluate word by counting how many vocals it has.
+        """Evaluates the goodness of an image artifact by its scaled average.
+
+        Parameters
+        ----------
+        image_path: str
+            path to an image that is supported by PIL
+
+        Returns
+        -------
+        float:
+            value grade for the artifact
+
         """
         image = Image.open(image_path)
         image_matrix = np.array(image, dtype=np.float)
@@ -75,43 +128,59 @@ class RandomImageCreator:
         return np.average(image_matrix)
 
     def create(self, emotion, word_pairs, number_of_artifacts=10, **kwargs):
-        """Create artifacts in the group's domain.
+        """Creates and evaluates artifacts in the group's domain.
 
         The given inputs can be parsed and deciphered by the system using any methods available.
 
-        The function should return a list in the form of:
 
-            [
-                (artifact1, {"evaluation": 0.76, 'foo': 'bar'}),
-                (artifact2, {"evaluation": 0.89, 'foo': 'baz'}),
-                # ...
-                (artifactn, {"evaluation": 0.29, 'foo': 'bax'})
-            ]
-
-        :param str emotion:
+        Parameters
+        ----------
+        emotion: str
             One of "the six basic emotions": anger, disgust, fear, happiness, sadness or surprise.
             The emotion should be perceivable in the output(s).
-        :param list word_pairs:
+
+        word_pairs: list of tuple of str
             List of 2-tuples, the word pairs associated with the output(s). The word_pairs are (noun, property) pairings
             where each pair presents a noun and its property which may be visible in the output. (Think of more creative
             ways to present the pairings than literal meaning.)
-        :param int number_of_artifacts:
-            Number of artifacts returned
-        :returns:
-            List with *number_of_artifacts* elements. Each element should be (artifact, metadata) pair, where metadata
-            should be a dictionary holding at least 'evaluation' keyword with float value.
+
+        number_of_artifacts: int (optional)
+            Number of artifacts returned. Defaults to 10.
+
+        kwargs: dict
+            keywords arguments
+
+        Returns
+        -------
+        list of tuple
+            The function returns a list in the following form:
+
+            [
+                (artifact_1, {"evaluation": 0.76, 'foo': 'bar'}),
+                (artifact_2, {"evaluation": 0.89, 'foo': 'baz'}),
+                .
+                .                  .
+                .                                         .
+                (artifactn, {"evaluation": 0.29, 'foo': 'bax'})
+            ]
 
         """
-        print("Graphical group 01.")
+        basic_emotions = ["anger", "disgust", "fear", "happiness", "sadness", "surprise"]
+        if emotion not in basic_emotions:
+            raise ValueError(f"Argument 'emotion'='{emotion}'' is not accepted. Accepted values are: {basic_emotions}.")
+
+        print("")
         ret = [(im, {'evaluation': self.evaluate(im)}) for im in [self.generate() for _ in range(number_of_artifacts)]]
         return ret
+
 
 def test():
     print(f"__CURRENT_PROJECT_ROOT__: {__CURRENT_PROJECT_ROOT__}")
     print(f"__RESOURCES_FOLDER__: {__GENERAL_PROJECT_ROOT__}")
-    print(f"SAMPLE_INPUTS: {SAMPLE_INPUTS}")
     im_creator = RandomImageCreator()
-    print(im_creator.create())
+    print(im_creator.create(emotion='happiness',
+                            word_pairs=[("akku", "ankka")]))
+
 
 if __name__ == "__main__":
     test()
