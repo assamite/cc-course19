@@ -44,7 +44,7 @@ class RandomTeamImageGenerator:
             print("Image is saved to %s" % created_image_path)
             grayscale_transformed = cv2.cvtColor(dummy_image, cv2.COLOR_BGR2GRAY)
             cv2.imwrite(created_image_path, grayscale_transformed)
-        return self.path_to_dummy_image
+        return created_image_path
 
     def evaluate(self, word):
         """Evaluate word by counting how many vocals it has.
