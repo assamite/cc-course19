@@ -23,6 +23,6 @@ setup(
     long_description="""\
 Computational Creativity project on the Graphics topic.
 """,
-    install_requires=['numpy'],
+    install_requires=['numpy', 'Pillow'],
     python_requires='>=3.6'
 )

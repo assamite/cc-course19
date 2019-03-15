@@ -1,0 +1,8 @@
+{
+    "module_name": "example",
+    "class_name": "RandomImageCreator",
+    "domain": "image",
+    "init_kwargs":
+    {
+    }
+}
