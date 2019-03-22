@@ -5,11 +5,41 @@ class tittlesTitle():
         self.threshold = 0.8
         self.domain = 'word'
 
+        self.title_bank = None
+
+        # Try reading content for the title_bank
+        try:
+            import pickle
+            from os import path as op
+
+            with open(op.join(op.dirname(__file__), "data", "titles.pickle"), "rb") as f:
+                self.title_bank = pickle.load(f)
+        except ImportError as err:
+            print("Encountered import error, when initialising tittlesTitle. {}".format(err.msg))
+
     def generate(self, *args, **kwargs):
         return self.create("", {}, number_of_artifacts=1)
 
     def evaluate(self, title):
-        return 1.
+        """
+        Evaluates given title to [0,1] range. 1 being best possible value.
+
+        Args:
+            Title (str) : title to be evaluated.
+
+        Returns:
+            Float [0, 1] : How good the title was - high being better.
+        """
+        if self.title_bank is None:
+            return 0.8
+        else:
+            for b_id, b_info in self.title_bank.items():
+                # Check novelty
+                if title.lower().strip() == b_info["title"].lower().strip():
+                    return 0.5
+            return 1.0
+
+
 
     def create(self, emotion, word_pairs, number_of_artifacts=10, **kwargs):
         """Create artifacts in the group's domain.
