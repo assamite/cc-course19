@@ -14,9 +14,11 @@ class Title:
 
         for i, tok in enumerate(self.title):
             if tok == "[[ADJ]]":
-                self.slots["ADJ"].append(i)
+                self.slots["ADJ"].append((i, None))
             elif tok in ["[[NOUN]]", "[[PROPN]]"]:
-                self.slots["NP"].append(i)
+                self.slots["NP"].append((i, "singular"))
+            elif tok in ["[[NOUNS]]", "[[PROPNS]]"]:
+                self.slots["NP"].append((i, "plural"))
 
     def get_slots(self, tag):
         """Get slots for the given tag."""
@@ -40,7 +42,7 @@ class Title:
                 )
         else:
             # If 'pos' not given, inject to first available slot
-            pos = self.slots[tag][0]
+            pos = self.slots[tag][0][0]
 
         self.title[pos] = token
 
