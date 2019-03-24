@@ -3,7 +3,6 @@
 Should contain initialize- and create-functions.
 """
 
-import random
 import os
 
 
@@ -15,19 +14,23 @@ class RandomImageCreator:
 
         Only keyword arguments are supported in config.json
         """
+
         print("Group Example initialize.")
 
         # Each creator should have domain specified: title, poetry, music, image, etc.
         self.domain = 'image'
+        self.folder = os.path.dirname(os.path.realpath(__file__))
 
     def generate(self, *args, **kwargs):
         """Random image generator.
         """
-        return os.path.abspath("picasso.jpg")
+
+        return os.path.join(self.folder, 'picasso.jpg')
 
     def evaluate(self, image):
         """Evaluate image.
         """
+
         return 0
 
     def create(self, emotion, word_pairs, number_of_artifacts=10, **kwargs):
@@ -56,7 +59,7 @@ class RandomImageCreator:
         :returns:
             List with *number_of_artifacts* elements. Each element should be (artifact, metadata) pair, where metadata
             should be a dictionary holding at least 'evaluation' keyword with float value.
-
         """
+
         img = self.generate()
         return [(img, {"evaluation": self.evaluate(img)})]
