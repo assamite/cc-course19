@@ -1,18 +1,24 @@
+import random
+import os
+from pattern.en import pluralize, singularize
 
+from .templates import TemplateBank, Title
 
 class tittlesTitle():
     def __init__(self):
         self.threshold = 0.8
         self.domain = 'word'
+        self.folder = os.path.dirname(os.path.realpath(__file__))
+
+        self.template_bank = TemplateBank(os.path.join(self.folder, "data", "templates.short.uniq"))
 
         self.title_bank = None
 
         # Try reading content for the title_bank
         try:
             import pickle
-            from os import path as op
 
-            with open(op.join(op.dirname(__file__), "data", "titles.pickle"), "rb") as f:
+            with open(os.path.join(self.folder, "data", "titles.pickle"), "rb") as f:
                 self.title_bank = pickle.load(f)
         except ImportError as err:
             print("Encountered import error, when initialising tittlesTitle. {}".format(err.msg))
@@ -39,7 +45,14 @@ class tittlesTitle():
                     return 0.5
             return 1.0
 
-
+    def inject(self, title, word_pair):
+        for i, cat in title.get_slots('NP'):
+            if cat == 'plural':
+                title.inject(pluralize(word_pair[0]).capitalize(), 'NP')
+            else:
+                title.inject(singularize(word_pair[0]).capitalize(), 'NP')
+        for i, cat in title.get_slots('ADJ'):
+            title.inject(word_pair[1], 'ADJ')
 
     def create(self, emotion, word_pairs, number_of_artifacts=10, **kwargs):
         """Create artifacts in the group's domain.
@@ -73,15 +86,18 @@ class tittlesTitle():
         ret = []
 
         while len(ret) != number_of_artifacts:
-            # get synonyms
-            # get template
-            # morphology
-            v = self.evaluate("")
+            # TODO: get synonyms
+            word_pair = random.choice(word_pairs)
+            template = self.template_bank.random_template()
+            title = Title(template)
+            self.inject(title, word_pair)
+            title = str(title)
+            v = self.evaluate(title)
             if v >= self.threshold:
-                ret.append((":)", {"evaluation": v}))
+                ret.append((title, {"evaluation": v}))
 
         return ret
 
 if __name__ == "__main__":
     T = tittlesTitle()
-    print(T.create("", {}, number_of_artifacts=3))
+    print(T.create("happiness", [('cat', 'black'), ('weather', 'rainy')], number_of_artifacts=3))
