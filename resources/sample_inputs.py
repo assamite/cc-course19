@@ -21,7 +21,7 @@ def build_sample_input():
     word_pairs.extend([('animal', x) for x in random.sample(SAMPLE_ANIMAL_MODIFIERS, 3)])
     word_pairs.extend([('location', x) for x in random.sample(SAMPLE_LOCATIONS, 1)])
     word_pairs.extend([('weather', x) for x in random.sample(SAMPLE_WEATHERS, 1)])
-    word_pairs.extend([('human', x) for x in random.sample(SAMPLE_HUMAN_MODIFIERS, 5)])
+    word_pairs.extend([('human', x) for x in random.sample(SAMPLE_HUMAN_MODIFIERS, 6)])
     emotion = random.choice(EMOTIONS)
     return emotion, word_pairs
 
