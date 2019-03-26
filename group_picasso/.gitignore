@@ -1,1 +1,4 @@
 pre-trained_models/
+test_config.json
+images/artifacts/
+images/tmp/

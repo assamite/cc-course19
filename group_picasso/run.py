@@ -4,7 +4,6 @@ Should contain initialize- and create-functions.
 """
 
 import os
-import sys
 import tarfile
 from datetime import datetime
 from urllib.request import urlretrieve
@@ -13,10 +12,6 @@ from PIL import Image
 
 from group_picasso.libs.arbitrary_image_stylization.arbitrary_image_stylization_with_weights import code_entry_point
 from group_picasso.libs.markov_img_gen.imggen import MarkovChain
-
-MODEL_URL = "https://storage.googleapis.com/download.magenta.tensorflow.org/models/arbitrary_style_transfer.tar.gz"
-CONTENT_IMG = "images/content/statue_of_liberty_sq.jpg"
-STYLE_IMG = "images/styles/zigzag_colorful.jpg"
 
 
 class RandomImageCreator:
@@ -33,12 +28,16 @@ class RandomImageCreator:
         # Each creator should have domain specified: title, poetry, music, image, etc.
         self.domain = 'image'
         self.folder = os.path.dirname(os.path.realpath(__file__))
+        self.model_url = "https://storage.googleapis.com/download.magenta.tensorflow.org/models/" \
+                         + "arbitrary_style_transfer.tar.gz"
+        self.content_img = "images/content/statue_of_liberty_sq.jpg"
+        self.style_img = "images/styles/zigzag_colorful.jpg"
 
     def generate(self, *args, **kwargs):
         """Random image generator.
         """
 
-        model_url_basename = os.path.basename(MODEL_URL)
+        model_url_basename = os.path.basename(self.model_url)
         model_folder = os.path.join(self.folder, "pre-trained_models/arbitrary_style_transfer")
         model_download_folder = os.path.dirname(model_folder)
         model_download_path = os.path.join(model_download_folder, model_url_basename)
@@ -46,15 +45,15 @@ class RandomImageCreator:
             os.makedirs(model_download_folder)
         if not os.path.isdir(model_folder):
             print("Downloading pre-trained model...")
-            urlretrieve(MODEL_URL, model_download_path)
+            urlretrieve(self.model_url, model_download_path)
             print("Extracting pre-trained model...")
             tar = tarfile.open(model_download_path, "r:gz")
             tar.extractall(path=model_download_folder)
             tar.close()
             os.remove(model_download_path)
 
-        content_img_path = os.path.join(self.folder, CONTENT_IMG)
-        style_img_path = os.path.join(self.folder, STYLE_IMG)
+        content_img_path = os.path.join(self.folder, self.content_img)
+        style_img_path = os.path.join(self.folder, self.style_img)
         content_img_name = os.path.splitext(os.path.basename(content_img_path))[0]
         style_img_name = os.path.splitext(os.path.basename(style_img_path))[0]
         timestamp = datetime.now().strftime("%Y%m%d-%H%M%S-%f")
