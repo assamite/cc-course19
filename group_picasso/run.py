@@ -3,10 +3,9 @@
 Should contain initialize- and create-functions.
 """
 
+import glob
 import os
-import tarfile
 from datetime import datetime
-from urllib.request import urlretrieve
 
 from PIL import Image
 
@@ -28,8 +27,7 @@ class RandomImageCreator:
         # Each creator should have domain specified: title, poetry, music, image, etc.
         self.domain = 'image'
         self.folder = os.path.dirname(os.path.realpath(__file__))
-        self.model_url = "https://storage.googleapis.com/download.magenta.tensorflow.org/models/" \
-                         + "arbitrary_style_transfer.tar.gz"
+        self.picasso_path = os.path.join(self.folder, "images/picasso.jpg")
         self.content_img = "images/content/statue_of_liberty_sq.jpg"
         self.style_img = "images/styles/zigzag_colorful.jpg"
 
@@ -37,20 +35,9 @@ class RandomImageCreator:
         """Random image generator.
         """
 
-        model_url_basename = os.path.basename(self.model_url)
-        model_folder = os.path.join(self.folder, "pre-trained_models/arbitrary_style_transfer")
-        model_download_folder = os.path.dirname(model_folder)
-        model_download_path = os.path.join(model_download_folder, model_url_basename)
-        if not os.path.isdir(model_download_folder):
-            os.makedirs(model_download_folder)
-        if not os.path.isdir(model_folder):
-            print("Downloading pre-trained model...")
-            urlretrieve(self.model_url, model_download_path)
-            print("Extracting pre-trained model...")
-            tar = tarfile.open(model_download_path, "r:gz")
-            tar.extractall(path=model_download_folder)
-            tar.close()
-            os.remove(model_download_path)
+        if not glob.glob(os.path.join(self.folder, "model.ckpt*")):
+            print("Pre-trained model not found...")
+            return self.picasso_path
 
         content_img_path = os.path.join(self.folder, self.content_img)
         style_img_path = os.path.join(self.folder, self.style_img)
@@ -58,8 +45,8 @@ class RandomImageCreator:
         style_img_name = os.path.splitext(os.path.basename(style_img_path))[0]
         timestamp = datetime.now().strftime("%Y%m%d-%H%M%S-%f")
         style_img_markov_path = os.path.join(self.folder, "images/tmp/{}.png".format(timestamp))
-        tmp_img_path = os.path.join(self.folder, "images/tmp/{}_{}.jpg".format(content_img_name, timestamp))
-        tmp_img_name = os.path.splitext(os.path.basename(tmp_img_path))[0]
+        tmp_img_name = "{}_{}".format(content_img_name, timestamp)
+        tmp_img_path = os.path.join(self.folder, "images/tmp/{}.jpg".format(tmp_img_name))
 
         chain = MarkovChain(bucket_size=1)
         style_img = Image.open(style_img_path)
@@ -69,11 +56,11 @@ class RandomImageCreator:
         style_img_markov = chain.generate(width=64, height=64)
         style_img_markov.save(style_img_markov_path)
 
-        print("Combining styles...")
+        print("Applying the styles...")
         code_entry_point([
             "arbitrary_image_stylization_with_weights",
             "--checkpoint",
-            os.path.join(model_folder, "model.ckpt"),
+            os.path.join(self.folder, "model.ckpt"),
             "--output_dir",
             os.path.join(self.folder, "images/tmp/"),
             "--style_images_paths",
@@ -86,7 +73,7 @@ class RandomImageCreator:
         code_entry_point([
             "arbitrary_image_stylization_with_weights",
             "--checkpoint",
-            os.path.join(model_folder, "model.ckpt"),
+            os.path.join(self.folder, "model.ckpt"),
             "--output_dir",
             os.path.join(self.folder, "images/artifacts/"),
             "--style_images_paths",
