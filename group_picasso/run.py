@@ -53,7 +53,6 @@ class RandomImageCreator:
             tar.close()
             os.remove(model_download_path)
 
-        chain = MarkovChain(bucket_size=1)
         content_img_path = os.path.join(self.folder, CONTENT_IMG)
         style_img_path = os.path.join(self.folder, STYLE_IMG)
         content_img_name = os.path.splitext(os.path.basename(content_img_path))[0]
@@ -63,6 +62,7 @@ class RandomImageCreator:
         tmp_img_path = os.path.join(self.folder, "images/tmp/{}_{}.jpg".format(content_img_name, timestamp))
         tmp_img_name = os.path.splitext(os.path.basename(tmp_img_path))[0]
 
+        chain = MarkovChain(bucket_size=1)
         style_img = Image.open(style_img_path)
         print("Training Markov model...")
         chain.train(style_img)

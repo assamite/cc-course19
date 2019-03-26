@@ -1,16 +1,5 @@
 # Group Picasso
 
-### Installation for Ubuntu
-* ```git clone git@github.com:thalvari/cc-project.git```
-* ```cd cc-project```
-* ```python3 -m venv venv```
-* ```source venv/bin/activate```
-* ```pip install -U pip setuptools```
-* ```pip install -r requirements.txt```
-
-### Usage
-* ```python run.py [PATH_TO_CONTENT_IMG] [PATH_TO_STYLE_IMG]```
-
 ### Examples
 Original content, style, markovified styles and generated artifacts:
 
