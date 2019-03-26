@@ -1,0 +1,1979 @@
+<?xml version="1.0" encoding="utf-8"?>
+<CategoryData>
+	
+
+
+
+
+ 
+	
+	<Members category="meteorological:phenomenon">
+	
+		<Member weight="30">
+		lightning_storm
+		</Member>
+	
+		<Member weight="267">
+		thunderstorm
+		</Member>
+	
+		<Member weight="37">
+		anticyclone
+		</Member>
+	
+		<Member weight="34">
+		torrential_rain
+		</Member>
+	
+		<Member weight="277">
+		typhoon
+		</Member>
+	
+		<Member weight="254">
+		fog
+		</Member>
+	
+		<Member weight="56">
+		wind_circulation
+		</Member>
+	
+		<Member weight="114">
+		wind
+		</Member>
+	
+		<Member weight="131">
+		windstorm
+		</Member>
+	
+		<Member weight="30">
+		freezing_precipitation
+		</Member>
+	
+		<Member weight="59">
+		wild_fire
+		</Member>
+	
+		<Member weight="219">
+		rain
+		</Member>
+	
+		<Member weight="265">
+		hurricane
+		</Member>
+	
+		<Member weight="137">
+		snow
+		</Member>
+	
+		<Member weight="40">
+		migratory_front
+		</Member>
+	
+		<Member weight="31">
+		rainfall
+		</Member>
+	
+		<Member weight="59">
+		high_wind
+		</Member>
+	
+		<Member weight="33">
+		impact
+		</Member>
+	
+		<Member weight="190">
+		front
+		</Member>
+	
+		<Member weight="49">
+		twilight
+		</Member>
+	
+		<Member weight="29">
+		polar_motion
+		</Member>
+	
+		<Member weight="31">
+		air
+		</Member>
+	
+		<Member weight="78">
+		fog_development
+		</Member>
+	
+		<Member weight="29">
+		evaporation
+		</Member>
+	
+		<Member weight="56">
+		severe_thunderstorm
+		</Member>
+	
+		<Member weight="163">
+		flood
+		</Member>
+	
+		<Member weight="55">
+		ball_lightning
+		</Member>
+	
+		<Member weight="52">
+		severe_storm
+		</Member>
+	
+		<Member weight="208">
+		cyclone
+		</Member>
+	
+		<Member weight="30">
+		autumn_frost
+		</Member>
+	
+		<Member weight="207">
+		tornado
+		</Member>
+	
+		<Member weight="81">
+		freezing
+		</Member>
+	
+		<Member weight="42">
+		regional_convection
+		</Member>
+	
+		<Member weight="191">
+		turbulence
+		</Member>
+	
+		<Member weight="126">
+		lightning
+		</Member>
+	
+		<Member weight="45">
+		freezing_fog
+		</Member>
+	
+		<Member weight="31">
+		ice-crystal_formation
+		</Member>
+	
+		<Member weight="38">
+		tidal_wave
+		</Member>
+	
+		<Member weight="45">
+		freezing_rain
+		</Member>
+	
+		<Member weight="45">
+		freezing_drizzle
+		</Member>
+	
+		<Member weight="37">
+		cloud_formation
+		</Member>
+	
+		<Member weight="36">
+		asian_monsoon
+		</Member>
+	
+		<Member weight="29">
+		dew
+		</Member>
+	
+		<Member weight="49">
+		wave
+		</Member>
+	
+		<Member weight="38">
+		shower
+		</Member>
+	
+		<Member weight="100">
+		precipitation
+		</Member>
+	
+		<Member weight="37">
+		heat
+		</Member>
+	
+		<Member weight="39">
+		whirlwind
+		</Member>
+	
+		<Member weight="90">
+		hail
+		</Member>
+	
+		<Member weight="122">
+		cloud
+		</Member>
+	
+		<Member weight="128">
+		storm
+		</Member>
+	
+		<Member weight="78">
+		turbulence_activity
+		</Member>
+	
+		<Member weight="83">
+		mist
+		</Member>
+	
+		<Member weight="48">
+		fire
+		</Member>
+	
+		<Member weight="47">
+		meteor
+		</Member>
+	
+		<Member weight="38">
+		lightning_discharge
+		</Member>
+	
+		<Member weight="81">
+		tropical_storm
+		</Member>
+	
+		<Member weight="41">
+		monsoon
+		</Member>
+	
+		<Member weight="58">
+		haze
+		</Member>
+	
+		<Member weight="74">
+		tropical_cyclone
+		</Member>
+	
+		<Member weight="34">
+		sea_fog
+		</Member>
+	
+		<Member weight="116">
+		earthquake
+		</Member>
+	
+		<Member weight="48">
+		smoke
+		</Member>
+	
+		<Member weight="31">
+		sunshine
+		</Member>
+	
+	</Members>
+	
+
+
+	
+
+
+
+
+ 
+	
+	<Modifiers head="phenomenon">
+	
+		<Modifier weight="262">
+		cellular
+		</Modifier>
+	
+		<Modifier weight="79">
+		abstract
+		</Modifier>
+	
+		<Modifier weight="214">
+		geologic
+		</Modifier>
+	
+		<Modifier weight="22279">
+		natural
+		</Modifier>
+	
+		<Modifier weight="8705">
+		physical
+		</Modifier>
+	
+		<Modifier weight="3727">
+		meteorological
+		</Modifier>
+	
+		<Modifier weight="3338">
+		atmospheric
+		</Modifier>
+	
+		<Modifier weight="23">
+		chaotic
+		</Modifier>
+	
+		<Modifier weight="53">
+		static
+		</Modifier>
+	
+		<Modifier weight="44">
+		tropical
+		</Modifier>
+	
+		<Modifier weight="4">
+		vocal
+		</Modifier>
+	
+		<Modifier weight="9">
+		secondary
+		</Modifier>
+	
+		<Modifier weight="11">
+		unconscious
+		</Modifier>
+	
+		<Modifier weight="5884">
+		weather
+		</Modifier>
+	
+		<Modifier weight="101">
+		cosmic
+		</Modifier>
+	
+		<Modifier weight="125">
+		macroscopic
+		</Modifier>
+	
+		<Modifier weight="2296">
+		complex
+		</Modifier>
+	
+		<Modifier weight="1356">
+		social
+		</Modifier>
+	
+		<Modifier weight="2754">
+		biological
+		</Modifier>
+	
+		<Modifier weight="16">
+		mysterious
+		</Modifier>
+	
+		<Modifier weight="17">
+		diffusive
+		</Modifier>
+	
+		<Modifier weight="25">
+		personal
+		</Modifier>
+	
+		<Modifier weight="83">
+		geographic
+		</Modifier>
+	
+		<Modifier weight="32">
+		spatial
+		</Modifier>
+	
+		<Modifier weight="674">
+		extreme
+		</Modifier>
+	
+		<Modifier weight="13">
+		operational
+		</Modifier>
+	
+		<Modifier weight="90">
+		continuous
+		</Modifier>
+	
+		<Modifier weight="1">
+		vestibular
+		</Modifier>
+	
+		<Modifier weight="18">
+		macroeconomic
+		</Modifier>
+	
+		<Modifier weight="1">
+		cooperative
+		</Modifier>
+	
+		<Modifier weight="63">
+		linguistic
+		</Modifier>
+	
+		<Modifier weight="16">
+		harmful
+		</Modifier>
+	
+		<Modifier weight="1">
+		grammatical
+		</Modifier>
+	
+		<Modifier weight="3">
+		psychoanalytic
+		</Modifier>
+	
+		<Modifier weight="1285">
+		dynamic
+		</Modifier>
+	
+		<Modifier weight="2">
+		intrinsic
+		</Modifier>
+	
+		<Modifier weight="1">
+		financial
+		</Modifier>
+	
+		<Modifier weight="2">
+		scalar
+		</Modifier>
+	
+		<Modifier weight="3">
+		hydrodynamic
+		</Modifier>
+	
+		<Modifier weight="15">
+		current
+		</Modifier>
+	
+		<Modifier weight="11">
+		psychosomatic
+		</Modifier>
+	
+		<Modifier weight="14">
+		warm
+		</Modifier>
+	
+		<Modifier weight="1">
+		urban
+		</Modifier>
+	
+		<Modifier weight="112">
+		localized
+		</Modifier>
+	
+		<Modifier weight="14">
+		pathologic
+		</Modifier>
+	
+		<Modifier weight="230">
+		local
+		</Modifier>
+	
+		<Modifier weight="14">
+		immunological
+		</Modifier>
+	
+		<Modifier weight="588">
+		gaseous
+		</Modifier>
+	
+		<Modifier weight="5">
+		neurologic
+		</Modifier>
+	
+		<Modifier weight="7">
+		clausal
+		</Modifier>
+	
+		<Modifier weight="60">
+		logical
+		</Modifier>
+	
+		<Modifier weight="41">
+		critical
+		</Modifier>
+	
+		<Modifier weight="8">
+		shared
+		</Modifier>
+	
+		<Modifier weight="37">
+		volumetric
+		</Modifier>
+	
+		<Modifier weight="5">
+		sociological
+		</Modifier>
+	
+		<Modifier weight="110">
+		undesirable
+		</Modifier>
+	
+		<Modifier weight="41">
+		behavioral
+		</Modifier>
+	
+		<Modifier weight="10">
+		dyspeptic
+		</Modifier>
+	
+		<Modifier weight="6">
+		metabolic
+		</Modifier>
+	
+		<Modifier weight="27">
+		electromagnetic
+		</Modifier>
+	
+		<Modifier weight="22">
+		regulatory
+		</Modifier>
+	
+		<Modifier weight="49">
+		cosmological
+		</Modifier>
+	
+		<Modifier weight="23">
+		planetary
+		</Modifier>
+	
+		<Modifier weight="8">
+		societal
+		</Modifier>
+	
+		<Modifier weight="348">
+		astronomical
+		</Modifier>
+	
+		<Modifier weight="7">
+		energetic
+		</Modifier>
+	
+		<Modifier weight="7">
+		accidental
+		</Modifier>
+	
+		<Modifier weight="4">
+		additional
+		</Modifier>
+	
+		<Modifier weight="3">
+		unavoidable
+		</Modifier>
+	
+		<Modifier weight="42">
+		magnetic
+		</Modifier>
+	
+		<Modifier weight="1241">
+		violent
+		</Modifier>
+	
+		<Modifier weight="302">
+		solar
+		</Modifier>
+	
+		<Modifier weight="112">
+		new
+		</Modifier>
+	
+		<Modifier weight="12">
+		intrauterine
+		</Modifier>
+	
+		<Modifier weight="136">
+		underlying
+		</Modifier>
+	
+		<Modifier weight="74">
+		observable
+		</Modifier>
+	
+		<Modifier weight="54">
+		global
+		</Modifier>
+	
+		<Modifier weight="14">
+		overlooked
+		</Modifier>
+	
+		<Modifier weight="48">
+		single
+		</Modifier>
+	
+		<Modifier weight="474">
+		diverse
+		</Modifier>
+	
+		<Modifier weight="8">
+		electronic
+		</Modifier>
+	
+		<Modifier weight="18">
+		physiologic
+		</Modifier>
+	
+		<Modifier weight="123">
+		technological
+		</Modifier>
+	
+		<Modifier weight="60">
+		anthropogenic
+		</Modifier>
+	
+		<Modifier weight="13">
+		key
+		</Modifier>
+	
+		<Modifier weight="12">
+		vaporous
+		</Modifier>
+	
+		<Modifier weight="68">
+		rare
+		</Modifier>
+	
+		<Modifier weight="1">
+		bigger
+		</Modifier>
+	
+		<Modifier weight="160">
+		unstable
+		</Modifier>
+	
+		<Modifier weight="10">
+		mundane
+		</Modifier>
+	
+		<Modifier weight="2">
+		degenerative
+		</Modifier>
+	
+		<Modifier weight="539">
+		geological
+		</Modifier>
+	
+		<Modifier weight="8">
+		cytological
+		</Modifier>
+	
+		<Modifier weight="5">
+		semantic
+		</Modifier>
+	
+		<Modifier weight="164">
+		real
+		</Modifier>
+	
+		<Modifier weight="738">
+		severe
+		</Modifier>
+	
+		<Modifier weight="181">
+		intense
+		</Modifier>
+	
+		<Modifier weight="41">
+		seasonal
+		</Modifier>
+	
+		<Modifier weight="4">
+		predictable
+		</Modifier>
+	
+		<Modifier weight="1">
+		objective
+		</Modifier>
+	
+		<Modifier weight="64">
+		powerful
+		</Modifier>
+	
+		<Modifier weight="199">
+		fuzzy
+		</Modifier>
+	
+		<Modifier weight="8">
+		serologic
+		</Modifier>
+	
+		<Modifier weight="97">
+		organizational
+		</Modifier>
+	
+		<Modifier weight="8">
+		atomic
+		</Modifier>
+	
+		<Modifier weight="2">
+		hydraulic
+		</Modifier>
+	
+		<Modifier weight="256">
+		mechanical
+		</Modifier>
+	
+		<Modifier weight="85">
+		elemental
+		</Modifier>
+	
+		<Modifier weight="258">
+		complicated
+		</Modifier>
+	
+		<Modifier weight="45">
+		developmental
+		</Modifier>
+	
+		<Modifier weight="5">
+		intracellular
+		</Modifier>
+	
+		<Modifier weight="58">
+		supernatural
+		</Modifier>
+	
+		<Modifier weight="6">
+		linear
+		</Modifier>
+	
+		<Modifier weight="149">
+		subjective
+		</Modifier>
+	
+		<Modifier weight="4">
+		hemodynamic
+		</Modifier>
+	
+		<Modifier weight="28">
+		molecular
+		</Modifier>
+	
+		<Modifier weight="16">
+		metallurgical
+		</Modifier>
+	
+		<Modifier weight="62">
+		marine
+		</Modifier>
+	
+		<Modifier weight="5">
+		female
+		</Modifier>
+	
+		<Modifier weight="28">
+		threatening
+		</Modifier>
+	
+		<Modifier weight="1">
+		ontological
+		</Modifier>
+	
+		<Modifier weight="138">
+		dramatic
+		</Modifier>
+	
+		<Modifier weight="3">
+		lexical
+		</Modifier>
+	
+		<Modifier weight="1">
+		automatic
+		</Modifier>
+	
+		<Modifier weight="6">
+		syntactic
+		</Modifier>
+	
+		<Modifier weight="2">
+		volcanic
+		</Modifier>
+	
+		<Modifier weight="69">
+		fundamental
+		</Modifier>
+	
+		<Modifier weight="5">
+		muscular
+		</Modifier>
+	
+		<Modifier weight="2">
+		interpersonal
+		</Modifier>
+	
+		<Modifier weight="8">
+		stochastic
+		</Modifier>
+	
+		<Modifier weight="4">
+		extragalactic
+		</Modifier>
+	
+		<Modifier weight="8">
+		animate
+		</Modifier>
+	
+		<Modifier weight="22">
+		international
+		</Modifier>
+	
+		<Modifier weight="1">
+		exogenous
+		</Modifier>
+	
+		<Modifier weight="1">
+		trivial
+		</Modifier>
+	
+		<Modifier weight="235">
+		disastrous
+		</Modifier>
+	
+		<Modifier weight="247">
+		related
+		</Modifier>
+	
+		<Modifier weight="1">
+		polygenic
+		</Modifier>
+	
+		<Modifier weight="108">
+		amorphous
+		</Modifier>
+	
+		<Modifier weight="7">
+		organic
+		</Modifier>
+	
+		<Modifier weight="8">
+		neuronal
+		</Modifier>
+	
+		<Modifier weight="250">
+		visual
+		</Modifier>
+	
+		<Modifier weight="154">
+		changing
+		</Modifier>
+	
+		<Modifier weight="28">
+		coastal
+		</Modifier>
+	
+		<Modifier weight="11">
+		disparate
+		</Modifier>
+	
+		<Modifier weight="34">
+		ordinary
+		</Modifier>
+	
+		<Modifier weight="134">
+		uncontrollable
+		</Modifier>
+	
+		<Modifier weight="54">
+		major
+		</Modifier>
+	
+		<Modifier weight="489">
+		light
+		</Modifier>
+	
+		<Modifier weight="10">
+		motor
+		</Modifier>
+	
+		<Modifier weight="32">
+		morphological
+		</Modifier>
+	
+		<Modifier weight="48">
+		physicochemical
+		</Modifier>
+	
+		<Modifier weight="1">
+		adaptive
+		</Modifier>
+	
+		<Modifier weight="6">
+		massive
+		</Modifier>
+	
+		<Modifier weight="8">
+		emotional
+		</Modifier>
+	
+		<Modifier weight="228">
+		interesting
+		</Modifier>
+	
+		<Modifier weight="206">
+		negative
+		</Modifier>
+	
+		<Modifier weight="710">
+		optical
+		</Modifier>
+	
+		<Modifier weight="4">
+		interfering
+		</Modifier>
+	
+		<Modifier weight="20">
+		political
+		</Modifier>
+	
+		<Modifier weight="38">
+		emergent
+		</Modifier>
+	
+		<Modifier weight="2">
+		inflammatory
+		</Modifier>
+	
+		<Modifier weight="1">
+		capitalist
+		</Modifier>
+	
+		<Modifier weight="720">
+		geophysical
+		</Modifier>
+	
+		<Modifier weight="8">
+		unfortunate
+		</Modifier>
+	
+		<Modifier weight="16">
+		meaningful
+		</Modifier>
+	
+		<Modifier weight="7">
+		reproductive
+		</Modifier>
+	
+		<Modifier weight="98">
+		luminous
+		</Modifier>
+	
+		<Modifier weight="11">
+		gi
+		</Modifier>
+	
+		<Modifier weight="5">
+		galactic
+		</Modifier>
+	
+		<Modifier weight="43">
+		ecological
+		</Modifier>
+	
+		<Modifier weight="2">
+		geometrical
+		</Modifier>
+	
+		<Modifier weight="2">
+		quantitative
+		</Modifier>
+	
+		<Modifier weight="25">
+		crucial
+		</Modifier>
+	
+		<Modifier weight="417">
+		mental
+		</Modifier>
+	
+		<Modifier weight="164">
+		positive
+		</Modifier>
+	
+		<Modifier weight="169">
+		external
+		</Modifier>
+	
+		<Modifier weight="69">
+		sensory
+		</Modifier>
+	
+		<Modifier weight="9">
+		superficial
+		</Modifier>
+	
+		<Modifier weight="3">
+		generalized
+		</Modifier>
+	
+		<Modifier weight="19">
+		sudden
+		</Modifier>
+	
+		<Modifier weight="3">
+		opposing
+		</Modifier>
+	
+		<Modifier weight="1">
+		relational
+		</Modifier>
+	
+		<Modifier weight="83">
+		religious
+		</Modifier>
+	
+		<Modifier weight="8">
+		under
+		</Modifier>
+	
+		<Modifier weight="36">
+		biogeographic
+		</Modifier>
+	
+		<Modifier weight="28">
+		random
+		</Modifier>
+	
+		<Modifier weight="147">
+		eruptive
+		</Modifier>
+	
+		<Modifier weight="8">
+		novel
+		</Modifier>
+	
+		<Modifier weight="26">
+		immoral
+		</Modifier>
+	
+		<Modifier weight="8">
+		auditory
+		</Modifier>
+	
+		<Modifier weight="16">
+		geographical
+		</Modifier>
+	
+		<Modifier weight="138">
+		invisible
+		</Modifier>
+	
+		<Modifier weight="4">
+		concomitant
+		</Modifier>
+	
+		<Modifier weight="24">
+		irregular
+		</Modifier>
+	
+		<Modifier weight="175">
+		fluid
+		</Modifier>
+	
+		<Modifier weight="34">
+		universal
+		</Modifier>
+	
+		<Modifier weight="118">
+		dynamical
+		</Modifier>
+	
+		<Modifier weight="112">
+		fast
+		</Modifier>
+	
+		<Modifier weight="95">
+		evolutionary
+		</Modifier>
+	
+		<Modifier weight="1">
+		statistical
+		</Modifier>
+	
+		<Modifier weight="6">
+		subtle
+		</Modifier>
+	
+		<Modifier weight="2">
+		present
+		</Modifier>
+	
+		<Modifier weight="206">
+		chemical
+		</Modifier>
+	
+		<Modifier weight="2">
+		practical
+		</Modifier>
+	
+		<Modifier weight="7">
+		level
+		</Modifier>
+	
+		<Modifier weight="1">
+		binding
+		</Modifier>
+	
+		<Modifier weight="3">
+		harmonic
+		</Modifier>
+	
+		<Modifier weight="12">
+		inexact
+		</Modifier>
+	
+		<Modifier weight="13">
+		structural
+		</Modifier>
+	
+		<Modifier weight="7">
+		big
+		</Modifier>
+	
+		<Modifier weight="4">
+		traditional
+		</Modifier>
+	
+		<Modifier weight="9">
+		elastic
+		</Modifier>
+	
+		<Modifier weight="34">
+		visible
+		</Modifier>
+	
+		<Modifier weight="1">
+		useful
+		</Modifier>
+	
+		<Modifier weight="19">
+		illusory
+		</Modifier>
+	
+		<Modifier weight="161">
+		extraordinary
+		</Modifier>
+	
+		<Modifier weight="1">
+		defined
+		</Modifier>
+	
+		<Modifier weight="3">
+		isolated
+		</Modifier>
+	
+		<Modifier weight="3">
+		sharp
+		</Modifier>
+	
+		<Modifier weight="36">
+		unwanted
+		</Modifier>
+	
+		<Modifier weight="68">
+		active
+		</Modifier>
+	
+		<Modifier weight="5">
+		biomedical
+		</Modifier>
+	
+		<Modifier weight="5">
+		monetary
+		</Modifier>
+	
+		<Modifier weight="41">
+		individual
+		</Modifier>
+	
+		<Modifier weight="10">
+		heterogeneous
+		</Modifier>
+	
+		<Modifier weight="1">
+		impulsive
+		</Modifier>
+	
+		<Modifier weight="3">
+		therapeutic
+		</Modifier>
+	
+		<Modifier weight="47">
+		rhythmic
+		</Modifier>
+	
+		<Modifier weight="1">
+		graphical
+		</Modifier>
+	
+		<Modifier weight="50">
+		demographic
+		</Modifier>
+	
+		<Modifier weight="40">
+		simple
+		</Modifier>
+	
+		<Modifier weight="42">
+		nonliving
+		</Modifier>
+	
+		<Modifier weight="2">
+		equatorial
+		</Modifier>
+	
+		<Modifier weight="288">
+		electrical
+		</Modifier>
+	
+		<Modifier weight="7">
+		regional
+		</Modifier>
+	
+		<Modifier weight="3">
+		contrapuntal
+		</Modifier>
+	
+		<Modifier weight="951">
+		environmental
+		</Modifier>
+	
+		<Modifier weight="43">
+		temporary
+		</Modifier>
+	
+		<Modifier weight="21">
+		variable
+		</Modifier>
+	
+		<Modifier weight="124">
+		nonlinear
+		</Modifier>
+	
+		<Modifier weight="719">
+		dangerous
+		</Modifier>
+	
+		<Modifier weight="166">
+		celestial
+		</Modifier>
+	
+		<Modifier weight="1">
+		climactic
+		</Modifier>
+	
+		<Modifier weight="35">
+		serious
+		</Modifier>
+	
+		<Modifier weight="166">
+		unpredictable
+		</Modifier>
+	
+		<Modifier weight="76">
+		autonomic
+		</Modifier>
+	
+		<Modifier weight="36">
+		significant
+		</Modifier>
+	
+		<Modifier weight="46">
+		primary
+		</Modifier>
+	
+		<Modifier weight="122">
+		exotic
+		</Modifier>
+	
+		<Modifier weight="14">
+		distinct
+		</Modifier>
+	
+		<Modifier weight="29">
+		phonological
+		</Modifier>
+	
+		<Modifier weight="3">
+		color
+		</Modifier>
+	
+		<Modifier weight="13">
+		popular
+		</Modifier>
+	
+		<Modifier weight="29">
+		concrete
+		</Modifier>
+	
+		<Modifier weight="20">
+		biochemical
+		</Modifier>
+	
+		<Modifier weight="12">
+		potent
+		</Modifier>
+	
+		<Modifier weight="2">
+		disruptive
+		</Modifier>
+	
+		<Modifier weight="137">
+		common
+		</Modifier>
+	
+		<Modifier weight="2">
+		prosodic
+		</Modifier>
+	
+		<Modifier weight="469">
+		cultural
+		</Modifier>
+	
+		<Modifier weight="24">
+		romantic
+		</Modifier>
+	
+		<Modifier weight="22">
+		rapid
+		</Modifier>
+	
+		<Modifier weight="5">
+		nuclear
+		</Modifier>
+	
+		<Modifier weight="87">
+		internal
+		</Modifier>
+	
+		<Modifier weight="111">
+		immaterial
+		</Modifier>
+	
+		<Modifier weight="222">
+		familiar
+		</Modifier>
+	
+		<Modifier weight="765">
+		psychological
+		</Modifier>
+	
+		<Modifier weight="46">
+		perceptual
+		</Modifier>
+	
+		<Modifier weight="60">
+		oceanic
+		</Modifier>
+	
+		<Modifier weight="1">
+		perceivable
+		</Modifier>
+	
+		<Modifier weight="398">
+		astrophysical
+		</Modifier>
+	
+		<Modifier weight="85">
+		historical
+		</Modifier>
+	
+		<Modifier weight="133">
+		analog
+		</Modifier>
+	
+		<Modifier weight="7">
+		earthly
+		</Modifier>
+	
+		<Modifier weight="10">
+		discontinuous
+		</Modifier>
+	
+		<Modifier weight="7">
+		annoying
+		</Modifier>
+	
+		<Modifier weight="4">
+		ephemeral
+		</Modifier>
+	
+		<Modifier weight="13">
+		electrochemical
+		</Modifier>
+	
+		<Modifier weight="113">
+		explosive
+		</Modifier>
+	
+		<Modifier weight="514">
+		destructive
+		</Modifier>
+	
+		<Modifier weight="18">
+		measurable
+		</Modifier>
+	
+		<Modifier weight="3">
+		electrostatic
+		</Modifier>
+	
+		<Modifier weight="9">
+		miscellaneous
+		</Modifier>
+	
+		<Modifier weight="50">
+		acoustic
+		</Modifier>
+	
+		<Modifier weight="22">
+		neurological
+		</Modifier>
+	
+		<Modifier weight="396">
+		important
+		</Modifier>
+	
+		<Modifier weight="221">
+		everyday
+		</Modifier>
+	
+		<Modifier weight="1">
+		typical
+		</Modifier>
+	
+		<Modifier weight="270">
+		world
+		</Modifier>
+	
+		<Modifier weight="1">
+		puzzling
+		</Modifier>
+	
+		<Modifier weight="3">
+		model
+		</Modifier>
+	
+		<Modifier weight="6">
+		elementary
+		</Modifier>
+	
+		<Modifier weight="1">
+		motile
+		</Modifier>
+	
+		<Modifier weight="552">
+		basic
+		</Modifier>
+	
+		<Modifier weight="1">
+		synoptic
+		</Modifier>
+	
+		<Modifier weight="30">
+		unique
+		</Modifier>
+	
+		<Modifier weight="403">
+		physiological
+		</Modifier>
+	
+		<Modifier weight="6">
+		visceral
+		</Modifier>
+	
+		<Modifier weight="57">
+		relevant
+		</Modifier>
+	
+		<Modifier weight="246">
+		periodic
+		</Modifier>
+	
+		<Modifier weight="3">
+		slow
+		</Modifier>
+	
+		<Modifier weight="2">
+		interstellar
+		</Modifier>
+	
+		<Modifier weight="5">
+		kinetic
+		</Modifier>
+	
+		<Modifier weight="32">
+		fantastic
+		</Modifier>
+	
+		<Modifier weight="144">
+		catastrophic
+		</Modifier>
+	
+		<Modifier weight="2">
+		out
+		</Modifier>
+	
+		<Modifier weight="6">
+		sophisticated
+		</Modifier>
+	
+		<Modifier weight="48">
+		driving
+		</Modifier>
+	
+		<Modifier weight="59">
+		genetic
+		</Modifier>
+	
+		<Modifier weight="51">
+		interfacial
+		</Modifier>
+	
+		<Modifier weight="62">
+		biologic
+		</Modifier>
+	
+		<Modifier weight="4">
+		induced
+		</Modifier>
+	
+		<Modifier weight="1">
+		toxic
+		</Modifier>
+	
+		<Modifier weight="391">
+		strange
+		</Modifier>
+	
+		<Modifier weight="491">
+		damaging
+		</Modifier>
+	
+		<Modifier weight="28">
+		terrestrial
+		</Modifier>
+	
+		<Modifier weight="179">
+		scientific
+		</Modifier>
+	
+		<Modifier weight="492">
+		unusual
+		</Modifier>
+	
+		<Modifier weight="30">
+		institutional
+		</Modifier>
+	
+		<Modifier weight="558">
+		hazardous
+		</Modifier>
+	
+		<Modifier weight="15">
+		future
+		</Modifier>
+	
+		<Modifier weight="423">
+		abnormal
+		</Modifier>
+	
+		<Modifier weight="196">
+		economic
+		</Modifier>
+	
+		<Modifier weight="37">
+		cognitive
+		</Modifier>
+	
+		<Modifier weight="11">
+		detailed
+		</Modifier>
+	
+		<Modifier weight="34">
+		synthetic
+		</Modifier>
+	
+		<Modifier weight="29">
+		organisational
+		</Modifier>
+	
+		<Modifier weight="2">
+		concurrent
+		</Modifier>
+	
+		<Modifier weight="63">
+		essential
+		</Modifier>
+	
+		<Modifier weight="6">
+		stationary
+		</Modifier>
+	
+		<Modifier weight="12">
+		optic
+		</Modifier>
+	
+		<Modifier weight="13">
+		thermal
+		</Modifier>
+	
+		<Modifier weight="9">
+		symbolic
+		</Modifier>
+	
+		<Modifier weight="5">
+		moving
+		</Modifier>
+	
+		<Modifier weight="3">
+		nontraditional
+		</Modifier>
+	
+		<Modifier weight="3">
+		exciting
+		</Modifier>
+	
+		<Modifier weight="9">
+		socioeconomic
+		</Modifier>
+	
+		<Modifier weight="114">
+		clinical
+		</Modifier>
+	
+		<Modifier weight="58">
+		irreversible
+		</Modifier>
+	
+		<Modifier weight="163">
+		deadly
+		</Modifier>
+	
+		<Modifier weight="1">
+		macro
+		</Modifier>
+	
+		<Modifier weight="1">
+		neoplastic
+		</Modifier>
+	
+		<Modifier weight="13">
+		thermodynamic
+		</Modifier>
+	
+		<Modifier weight="7">
+		tectonic
+		</Modifier>
+	
+		<Modifier weight="19">
+		unexpected
+		</Modifier>
+	
+		<Modifier weight="12">
+		central
+		</Modifier>
+	
+		<Modifier weight="70">
+		musical
+		</Modifier>
+	
+		<Modifier weight="2">
+		upcoming
+		</Modifier>
+	
+		<Modifier weight="130">
+		adverse
+		</Modifier>
+	
+		<Modifier weight="211">
+		vital
+		</Modifier>
+	
+		<Modifier weight="5">
+		pragmatic
+		</Modifier>
+	
+		<Modifier weight="1">
+		contractile
+		</Modifier>
+	
+		<Modifier weight="67">
+		widespread
+		</Modifier>
+	
+		<Modifier weight="228">
+		dependent
+		</Modifier>
+	
+		<Modifier weight="24">
+		devastating
+		</Modifier>
+	
+		<Modifier weight="10">
+		special
+		</Modifier>
+	
+		<Modifier weight="55">
+		spiritual
+		</Modifier>
+	
+		<Modifier weight="90">
+		modern
+		</Modifier>
+	
+		<Modifier weight="358">
+		climatic
+		</Modifier>
+	
+		<Modifier weight="855">
+		transient
+		</Modifier>
+	
+		<Modifier weight="4">
+		temporal
+		</Modifier>
+	
+		<Modifier weight="32">
+		inanimate
+		</Modifier>
+	
+		<Modifier weight="16">
+		contemporary
+		</Modifier>
+	
+		<Modifier weight="5">
+		stellar
+		</Modifier>
+	
+		<Modifier weight="113">
+		microscopic
+		</Modifier>
+	
+		<Modifier weight="52">
+		seismic
+		</Modifier>
+	
+		<Modifier weight="3">
+		larger
+		</Modifier>
+	
+		<Modifier weight="57">
+		pathological
+		</Modifier>
+	
+		<Modifier weight="15">
+		outside
+		</Modifier>
+	
+		<Modifier weight="147">
+		artificial
+		</Modifier>
+	
+		<Modifier weight="26">
+		general
+		</Modifier>
+	
+		<Modifier weight="4">
+		aggregate
+		</Modifier>
+	
+		<Modifier weight="8">
+		electric
+		</Modifier>
+	
+		<Modifier weight="3">
+		particular
+		</Modifier>
+	
+		<Modifier weight="6">
+		discrete
+		</Modifier>
+	
+		<Modifier weight="15">
+		episodic
+		</Modifier>
+	
+	</Modifiers>
+	
+
+
+	
+
+
+
+
+ 
+	
+	<CategoryHeads modifier="meteorological">
+	
+		<CategoryHead weight="1">
+		force
+		</CategoryHead>
+	
+		<CategoryHead weight="3727">
+		phenomenon
+		</CategoryHead>
+	
+		<CategoryHead weight="1894">
+		instrument
+		</CategoryHead>
+	
+		<CategoryHead weight="50">
+		forecast
+		</CategoryHead>
+	
+		<CategoryHead weight="154">
+		variable
+		</CategoryHead>
+	
+		<CategoryHead weight="65">
+		data
+		</CategoryHead>
+	
+		<CategoryHead weight="7">
+		observatory
+		</CategoryHead>
+	
+		<CategoryHead weight="1510">
+		event
+		</CategoryHead>
+	
+		<CategoryHead weight="7">
+		tragedy
+		</CategoryHead>
+	
+		<CategoryHead weight="1260">
+		condition
+		</CategoryHead>
+	
+		<CategoryHead weight="19">
+		indicator
+		</CategoryHead>
+	
+		<CategoryHead weight="58">
+		characteristic
+		</CategoryHead>
+	
+		<CategoryHead weight="106">
+		sensor
+		</CategoryHead>
+	
+		<CategoryHead weight="113">
+		disturbance
+		</CategoryHead>
+	
+		<CategoryHead weight="541">
+		elements
+		</CategoryHead>
+	
+		<CategoryHead weight="7">
+		field
+		</CategoryHead>
+	
+		<CategoryHead weight="7">
+		subject
+		</CategoryHead>
+	
+		<CategoryHead weight="7">
+		input
+		</CategoryHead>
+	
+		<CategoryHead weight="23">
+		contaminant
+		</CategoryHead>
+	
+		<CategoryHead weight="60">
+		tempest
+		</CategoryHead>
+	
+		<CategoryHead weight="87">
+		measurement
+		</CategoryHead>
+	
+		<CategoryHead weight="540">
+		hazard
+		</CategoryHead>
+	
+		<CategoryHead weight="423">
+		process
+		</CategoryHead>
+	
+		<CategoryHead weight="33">
+		activity
+		</CategoryHead>
+	
+		<CategoryHead weight="27">
+		meter
+		</CategoryHead>
+	
+		<CategoryHead weight="296">
+		quantity
+		</CategoryHead>
+	
+		<CategoryHead weight="17">
+		change
+		</CategoryHead>
+	
+		<CategoryHead weight="33">
+		product
+		</CategoryHead>
+	
+		<CategoryHead weight="106">
+		equipment
+		</CategoryHead>
+	
+		<CategoryHead weight="539">
+		information
+		</CategoryHead>
+	
+		<CategoryHead weight="7">
+		disaster
+		</CategoryHead>
+	
+		<CategoryHead weight="46">
+		situation
+		</CategoryHead>
+	
+		<CategoryHead weight="21">
+		cause
+		</CategoryHead>
+	
+		<CategoryHead weight="72">
+		feature
+		</CategoryHead>
+	
+		<CategoryHead weight="193">
+		property
+		</CategoryHead>
+	
+		<CategoryHead weight="26">
+		episode
+		</CategoryHead>
+	
+		<CategoryHead weight="58">
+		object
+		</CategoryHead>
+	
+		<CategoryHead weight="4">
+		service
+		</CategoryHead>
+	
+		<CategoryHead weight="27">
+		harm
+		</CategoryHead>
+	
+		<CategoryHead weight="69">
+		system
+		</CategoryHead>
+	
+		<CategoryHead weight="22">
+		agent
+		</CategoryHead>
+	
+	</CategoryHeads>
+	
+
+
+	
+
+
+
+
+ 
+	
+
+
+</CategoryData>

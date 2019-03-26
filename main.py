@@ -8,14 +8,15 @@ import importlib
 import json
 import os
 
-from resources.sample_inputs import SAMPLE_INPUTS
+#from resources.sample_inputs import SAMPLE_INPUTS, build_sample_input
+import inputs
 import page
 
 
-def get_input_arguments():
+def get_input_arguments(use_samples):
     """Get input arguments given to all groups' creators.
     """
-    return SAMPLE_INPUTS[0]
+    return inputs.get_input(use_samples)
 
 
 def get_page_layout(creators):
@@ -71,6 +72,8 @@ if __name__ == "__main__":
                         help='Path to the main config file.')
     parser.add_argument('-p', dest='pages', default=10, type=int,
                         help='Number of "pages" to create. A single page contains artifacts from several domains.')
+    parser.add_argument('-s', dest='use_samples', default=1, type=int,
+                        help="1: use input samples (see resources/sample_inputs), 0: use full set of possible inputs.")
 
     args = parser.parse_args()
     n_pages = args.pages
@@ -97,7 +100,8 @@ if __name__ == "__main__":
         print()
 
     # Run each groups creator for a number of times specified in command line.
-    for _ in range(n_pages):
-        input_args = get_input_arguments()
+    for i in range(n_pages):
+        input_args = get_input_arguments(args.use_samples)
+        print("Producing outputs for page {}/{} with input: {}".format(i+1, n_pages, input_args))
         get_outputs(input_args, n_artifacts_per_creator, group_creators)
 
