@@ -6,5 +6,4 @@ six==1.12.0
 nltk==3.4
 opencv-contrib-python==4.0.0.21
 scikit-image==0.14.2
-Pillow
-
+Pillow==5.4.1
