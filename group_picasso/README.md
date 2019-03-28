@@ -28,6 +28,6 @@ Original content, style, markovified styles and generated artifacts:
 ![](gifs/m4.gif)
 ![](gifs/a4.gif)
 
-### References
+### Library references
 * [markov-img-gen](https://github.com/JonnoFTW/markov-img-gen)
-* [Magenta](https://github.com/tensorflow/magenta)
+* [Fast Style Transfer for Arbitrary Styles](https://github.com/tensorflow/magenta/tree/master/magenta/models/arbitrary_image_stylization)

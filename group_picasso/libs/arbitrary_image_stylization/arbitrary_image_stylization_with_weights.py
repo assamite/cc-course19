@@ -27,8 +27,8 @@ from __future__ import print_function
 import ast
 import os
 
-from group_picasso.libs.arbitrary_image_stylization import arbitrary_image_stylization_build_model as build_model
-from group_picasso.libs.image_stylization import image_utils
+from magenta.models.arbitrary_image_stylization import arbitrary_image_stylization_build_model as build_model
+from magenta.models.image_stylization import image_utils
 import numpy as np
 import tensorflow as tf
 
