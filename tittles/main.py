@@ -1,5 +1,6 @@
 import random
 import os
+import pickle
 from pattern.en import pluralize, singularize
 
 from .templates import TemplateBank, Title
@@ -15,13 +16,20 @@ class tittlesTitle():
         self.title_bank = None
 
         # Try reading content for the title_bank
+        
         try:
-            import pickle
-
             with open(os.path.join(self.folder, "data", "titles.pickle"), "rb") as f:
                 self.title_bank = pickle.load(f)
-        except ImportError as err:
-            print("Encountered import error, when initialising tittlesTitle. {}".format(err.msg))
+        
+        except FileNotFoundError:
+            from title_scrape import download_gutenberg, gutenberg_preprocess
+        
+            download_gutenberg()
+            gutenberg_preprocess()
+        
+            with open(os.path.join(self.folder, "data", "titles.pickle"), "rb") as f:
+                self.title_bank = pickle.load(f)
+
 
     def generate(self, *args, **kwargs):
         return self.create("", {}, number_of_artifacts=1)
