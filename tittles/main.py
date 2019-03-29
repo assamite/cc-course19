@@ -3,7 +3,10 @@ import os
 import pickle
 from pattern.en import pluralize, singularize
 
-from .templates import TemplateBank, Title
+try:
+    from .templates import TemplateBank, Title
+except ModuleNotFoundError:
+    from templates import TemplateBank, Title
 
 class tittlesTitle():
     def __init__(self):
