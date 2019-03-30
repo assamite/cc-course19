@@ -15,6 +15,7 @@ class RandomImageCreator:
         """
         print("Group GPRI initialize.")
         self.dims = kwargs.pop('resolution', [100, 100])
+        self.folder = os.path.dirname(os.path.realpath(__file__))
 
         # Each creator should have domain specified: title, poetry, music, image, etc.
         self.domain = 'image'
@@ -22,7 +23,7 @@ class RandomImageCreator:
     def generate(self, *args, **kwargs):
         """Random image generator.
         """
-        return os.path.abspath("babylon_drawing.jpg")
+        return os.path.join(self.folder, 'babylon_drawing.jpg')
 
     def evaluate(self, image):
         """Evaluate image. For now this is a dummy.
@@ -60,4 +61,3 @@ class RandomImageCreator:
         print("Group Example create with input args: {} {}".format(emotion, word_pairs))
         ret = [(w, {'evaluation': self.evaluate(w)}) for w in [self.generate() for _ in range(number_of_artifacts)]]
         return ret
-
