@@ -2,8 +2,17 @@
 
 Contains initialize- and create-functions.
 """
+
 import random
 import os
+from io import BytesIO
+#import IPython.display
+import numpy as np
+import PIL.Image
+import tensorflow as tf
+import tensorflow_hub as hub
+from gpri.gpri_helper import model
+import cv2
 
 class RandomImageCreator:
 
@@ -17,13 +26,28 @@ class RandomImageCreator:
         self.dims = kwargs.pop('resolution', [100, 100])
         self.folder = os.path.dirname(os.path.realpath(__file__))
 
+        #tf.reset_default_graph()
+
+
+        #initializer = tf.global_variables_initializer()
+        #self.sess = tf.Session()
+        #self.sess.run(initializer)
+
         # Each creator should have domain specified: title, poetry, music, image, etc.
         self.domain = 'image'
 
     def generate(self, *args, **kwargs):
         """Random image generator.
         """
-        return os.path.join(self.folder, 'babylon_drawing.jpg')
+        truncate=0.8
+        noise=0
+        n_samples=1
+        idx_cat = args[0]
+        z = model.truncated_z_sample(n_samples, 0.8, noise)
+        y = idx_cat
+        ims = model.sample(z, y, 0.8)
+        cv2.imwrite("gpri/broken_sample.jpg", ims[0])
+        return os.path.join(self.folder, "broken_sample.jpg")
 
     def evaluate(self, image):
         """Evaluate image. For now this is a dummy.
@@ -59,5 +83,23 @@ class RandomImageCreator:
 
         """
         print("Group Example create with input args: {} {}".format(emotion, word_pairs))
-        ret = [(w, {'evaluation': self.evaluate(w)}) for w in [self.generate() for _ in range(number_of_artifacts)]]
+        with open("gpri/categories.txt", "r") as file:
+            buffer = file.read()
+            cat = buffer.split("\n")
+        cat_indx = []
+        for pairs in word_pairs[1]:
+            noun = pairs
+            print(noun)
+            if noun == "animal":
+                idxs =[i for i in range(0,398)]
+            elif noun == "activity":
+                idxs =[i for i in range(398,1000)]
+            else:
+                idxs = -1
+            if idxs == -1:
+                print("Category not available yet as, category annotation is pending.... (Try animal/activity only)")
+            else:
+                import random
+                idx_cat = int(random.choice(idxs))
+            ret = [(w, {'evaluation': self.evaluate(w)}) for w in [self.generate(idx_cat) for _ in range(number_of_artifacts)]]
         return ret
