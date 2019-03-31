@@ -1,0 +1,2716 @@
+<?xml version="1.0" encoding="utf-8"?>
+<HeadData>
+	
+		
+	
+
+
+
+
+ 
+	
+	<Categories member="grassy_meadow" head="site">
+	
+		<Category weight="18">
+		sunny:site
+		</Category>
+	
+	</Categories>
+	
+
+
+	
+		
+	
+
+
+
+
+ 
+	
+	<Modifiers head="site">
+	
+		<Modifier weight="393">
+		historical
+		</Modifier>
+	
+		<Modifier weight="19">
+		popular
+		</Modifier>
+	
+		<Modifier weight="1">
+		prehistoric
+		</Modifier>
+	
+		<Modifier weight="529">
+		disturbed
+		</Modifier>
+	
+		<Modifier weight="6">
+		corporate
+		</Modifier>
+	
+		<Modifier weight="12">
+		primary
+		</Modifier>
+	
+		<Modifier weight="388">
+		sensitive
+		</Modifier>
+	
+		<Modifier weight="5">
+		peripheral
+		</Modifier>
+	
+		<Modifier weight="4">
+		up
+		</Modifier>
+	
+		<Modifier weight="22">
+		permanent
+		</Modifier>
+	
+		<Modifier weight="81">
+		complex
+		</Modifier>
+	
+		<Modifier weight="332">
+		undisturbed
+		</Modifier>
+	
+		<Modifier weight="1">
+		irreplaceable
+		</Modifier>
+	
+		<Modifier weight="54">
+		grassy
+		</Modifier>
+	
+		<Modifier weight="342">
+		open
+		</Modifier>
+	
+		<Modifier weight="6">
+		interactive
+		</Modifier>
+	
+		<Modifier weight="12">
+		hazardous
+		</Modifier>
+	
+		<Modifier weight="20">
+		distant
+		</Modifier>
+	
+		<Modifier weight="227">
+		public
+		</Modifier>
+	
+		<Modifier weight="11">
+		developed
+		</Modifier>
+	
+		<Modifier weight="53">
+		archaeological
+		</Modifier>
+	
+		<Modifier weight="3">
+		localized
+		</Modifier>
+	
+		<Modifier weight="206">
+		indoor
+		</Modifier>
+	
+		<Modifier weight="28">
+		larger
+		</Modifier>
+	
+		<Modifier weight="80">
+		institutional
+		</Modifier>
+	
+		<Modifier weight="53">
+		unique
+		</Modifier>
+	
+		<Modifier weight="1">
+		complementary
+		</Modifier>
+	
+		<Modifier weight="239">
+		central
+		</Modifier>
+	
+		<Modifier weight="250">
+		historic
+		</Modifier>
+	
+		<Modifier weight="4">
+		challenging
+		</Modifier>
+	
+		<Modifier weight="4">
+		legal
+		</Modifier>
+	
+		<Modifier weight="199">
+		sacred
+		</Modifier>
+	
+		<Modifier weight="14">
+		explosive
+		</Modifier>
+	
+		<Modifier weight="6">
+		muslim
+		</Modifier>
+	
+		<Modifier weight="16">
+		static
+		</Modifier>
+	
+		<Modifier weight="1">
+		concrete
+		</Modifier>
+	
+		<Modifier weight="21">
+		mobile
+		</Modifier>
+	
+		<Modifier weight="58">
+		important
+		</Modifier>
+	
+		<Modifier weight="1">
+		terrestrial
+		</Modifier>
+	
+		<Modifier weight="1">
+		clear
+		</Modifier>
+	
+		<Modifier weight="8">
+		surrounding
+		</Modifier>
+	
+		<Modifier weight="25">
+		smaller
+		</Modifier>
+	
+		<Modifier weight="34">
+		stationary
+		</Modifier>
+	
+		<Modifier weight="53">
+		significant
+		</Modifier>
+	
+		<Modifier weight="2">
+		online
+		</Modifier>
+	
+		<Modifier weight="51">
+		political
+		</Modifier>
+	
+		<Modifier weight="2">
+		closed
+		</Modifier>
+	
+		<Modifier weight="145">
+		outdoor
+		</Modifier>
+	
+		<Modifier weight="2">
+		key
+		</Modifier>
+	
+		<Modifier weight="11">
+		external
+		</Modifier>
+	
+		<Modifier weight="17">
+		military
+		</Modifier>
+	
+		<Modifier weight="3">
+		original
+		</Modifier>
+	
+		<Modifier weight="98">
+		moist
+		</Modifier>
+	
+		<Modifier weight="121">
+		local
+		</Modifier>
+	
+		<Modifier weight="49">
+		geographical
+		</Modifier>
+	
+		<Modifier weight="45">
+		private
+		</Modifier>
+	
+		<Modifier weight="5">
+		basic
+		</Modifier>
+	
+		<Modifier weight="1">
+		acid
+		</Modifier>
+	
+		<Modifier weight="43">
+		urban
+		</Modifier>
+	
+		<Modifier weight="38">
+		small
+		</Modifier>
+	
+		<Modifier weight="39">
+		single
+		</Modifier>
+	
+		<Modifier weight="2">
+		unattractive
+		</Modifier>
+	
+		<Modifier weight="140">
+		recreational
+		</Modifier>
+	
+		<Modifier weight="10">
+		reputable
+		</Modifier>
+	
+		<Modifier weight="42">
+		interesting
+		</Modifier>
+	
+		<Modifier weight="4">
+		difficult
+		</Modifier>
+	
+		<Modifier weight="126">
+		wet
+		</Modifier>
+	
+		<Modifier weight="1">
+		international
+		</Modifier>
+	
+		<Modifier weight="9">
+		scenic
+		</Modifier>
+	
+		<Modifier weight="16">
+		ceremonial
+		</Modifier>
+	
+		<Modifier weight="129">
+		commercial
+		</Modifier>
+	
+		<Modifier weight="3">
+		restricted
+		</Modifier>
+	
+		<Modifier weight="166">
+		cultural
+		</Modifier>
+	
+		<Modifier weight="4">
+		particular
+		</Modifier>
+	
+		<Modifier weight="25">
+		unusual
+		</Modifier>
+	
+		<Modifier weight="27">
+		neutral
+		</Modifier>
+	
+		<Modifier weight="47">
+		diverse
+		</Modifier>
+	
+		<Modifier weight="1">
+		official
+		</Modifier>
+	
+		<Modifier weight="1">
+		downtown
+		</Modifier>
+	
+		<Modifier weight="10">
+		archeological
+		</Modifier>
+	
+		<Modifier weight="5">
+		modern
+		</Modifier>
+	
+		<Modifier weight="36">
+		commemorative
+		</Modifier>
+	
+		<Modifier weight="51">
+		temporary
+		</Modifier>
+	
+		<Modifier weight="3">
+		distal
+		</Modifier>
+	
+		<Modifier weight="11">
+		relevant
+		</Modifier>
+	
+		<Modifier weight="8">
+		surgical
+		</Modifier>
+	
+		<Modifier weight="2">
+		strategic
+		</Modifier>
+	
+		<Modifier weight="40">
+		architectural
+		</Modifier>
+	
+		<Modifier weight="95">
+		fixed
+		</Modifier>
+	
+		<Modifier weight="51">
+		natural
+		</Modifier>
+	
+		<Modifier weight="61">
+		religious
+		</Modifier>
+	
+		<Modifier weight="61">
+		roman
+		</Modifier>
+	
+		<Modifier weight="12">
+		major
+		</Modifier>
+	
+		<Modifier weight="44">
+		holy
+		</Modifier>
+	
+		<Modifier weight="191">
+		remote
+		</Modifier>
+	
+		<Modifier weight="5">
+		impressive
+		</Modifier>
+	
+		<Modifier weight="66">
+		jewish
+		</Modifier>
+	
+		<Modifier weight="20">
+		anatomical
+		</Modifier>
+	
+		<Modifier weight="21">
+		stable
+		</Modifier>
+	
+		<Modifier weight="10">
+		formal
+		</Modifier>
+	
+		<Modifier weight="34">
+		mucosal
+		</Modifier>
+	
+		<Modifier weight="1">
+		defined
+		</Modifier>
+	
+		<Modifier weight="9">
+		localised
+		</Modifier>
+	
+		<Modifier weight="8">
+		suitable
+		</Modifier>
+	
+		<Modifier weight="13">
+		alternative
+		</Modifier>
+	
+		<Modifier weight="35">
+		dry
+		</Modifier>
+	
+		<Modifier weight="1">
+		ancillary
+		</Modifier>
+	
+		<Modifier weight="4">
+		extra
+		</Modifier>
+	
+		<Modifier weight="30">
+		residential
+		</Modifier>
+	
+		<Modifier weight="45">
+		informational
+		</Modifier>
+	
+		<Modifier weight="1">
+		intracellular
+		</Modifier>
+	
+		<Modifier weight="1">
+		vascular
+		</Modifier>
+	
+		<Modifier weight="1">
+		reliable
+		</Modifier>
+	
+		<Modifier weight="14">
+		busy
+		</Modifier>
+	
+		<Modifier weight="12">
+		beautiful
+		</Modifier>
+	
+		<Modifier weight="109">
+		accessible
+		</Modifier>
+	
+		<Modifier weight="5">
+		marginal
+		</Modifier>
+	
+		<Modifier weight="34">
+		large
+		</Modifier>
+	
+		<Modifier weight="4">
+		controlled
+		</Modifier>
+	
+		<Modifier weight="14">
+		isolated
+		</Modifier>
+	
+		<Modifier weight="4">
+		symmetric
+		</Modifier>
+	
+		<Modifier weight="48">
+		upland
+		</Modifier>
+	
+		<Modifier weight="25">
+		convenient
+		</Modifier>
+	
+		<Modifier weight="6">
+		operational
+		</Modifier>
+	
+		<Modifier weight="8">
+		olympic
+		</Modifier>
+	
+		<Modifier weight="4">
+		everyday
+		</Modifier>
+	
+		<Modifier weight="37">
+		anatomic
+		</Modifier>
+	
+		<Modifier weight="4">
+		domestic
+		</Modifier>
+	
+		<Modifier weight="47">
+		sunny
+		</Modifier>
+	
+		<Modifier weight="4">
+		geological
+		</Modifier>
+	
+		<Modifier weight="49">
+		secure
+		</Modifier>
+	
+		<Modifier weight="17">
+		visceral
+		</Modifier>
+	
+		<Modifier weight="4">
+		varied
+		</Modifier>
+	
+		<Modifier weight="6">
+		profitable
+		</Modifier>
+	
+		<Modifier weight="26">
+		famous
+		</Modifier>
+	
+		<Modifier weight="20">
+		educational
+		</Modifier>
+	
+		<Modifier weight="121">
+		physical
+		</Modifier>
+	
+		<Modifier weight="1">
+		aboriginal
+		</Modifier>
+	
+		<Modifier weight="28">
+		nearby
+		</Modifier>
+	
+		<Modifier weight="13">
+		deep
+		</Modifier>
+	
+		<Modifier weight="111">
+		industrial
+		</Modifier>
+	
+		<Modifier weight="4">
+		productive
+		</Modifier>
+	
+		<Modifier weight="13">
+		dynamic
+		</Modifier>
+	
+		<Modifier weight="1">
+		civic
+		</Modifier>
+	
+		<Modifier weight="52">
+		bad
+		</Modifier>
+	
+		<Modifier weight="2">
+		older
+		</Modifier>
+	
+		<Modifier weight="10">
+		trusted
+		</Modifier>
+	
+		<Modifier weight="2">
+		individual
+		</Modifier>
+	
+		<Modifier weight="20">
+		familiar
+		</Modifier>
+	
+		<Modifier weight="18">
+		critical
+		</Modifier>
+	
+		<Modifier weight="18">
+		occupied
+		</Modifier>
+	
+		<Modifier weight="10">
+		safe
+		</Modifier>
+	
+		<Modifier weight="5">
+		nonproductive
+		</Modifier>
+	
+		<Modifier weight="8">
+		new
+		</Modifier>
+	
+		<Modifier weight="92">
+		special
+		</Modifier>
+	
+		<Modifier weight="2">
+		sticky
+		</Modifier>
+	
+		<Modifier weight="12">
+		agricultural
+		</Modifier>
+	
+		<Modifier weight="17">
+		artistic
+		</Modifier>
+	
+		<Modifier weight="33">
+		civilian
+		</Modifier>
+	
+		<Modifier weight="6">
+		clinical
+		</Modifier>
+	
+		<Modifier weight="16">
+		related
+		</Modifier>
+	
+		<Modifier weight="19">
+		miscellaneous
+		</Modifier>
+	
+		<Modifier weight="14">
+		geometric
+		</Modifier>
+	
+		<Modifier weight="11">
+		common
+		</Modifier>
+	
+	</Modifiers>
+	
+
+
+	
+		
+	
+
+
+
+
+ 
+	
+	<Members head="site">
+	
+		<Member weight="1">
+		multiple_site
+		</Member>
+	
+		<Member weight="2">
+		archaeological_excavation
+		</Member>
+	
+		<Member weight="496">
+		cemetery
+		</Member>
+	
+		<Member weight="5">
+		native-american_site
+		</Member>
+	
+		<Member weight="396">
+		pasture
+		</Member>
+	
+		<Member weight="109">
+		university_campus
+		</Member>
+	
+		<Member weight="205">
+		park
+		</Member>
+	
+		<Member weight="375">
+		playground
+		</Member>
+	
+		<Member weight="7">
+		drover_camp
+		</Member>
+	
+		<Member weight="1">
+		courthouse_square
+		</Member>
+	
+		<Member weight="6">
+		river_bed
+		</Member>
+	
+		<Member weight="1">
+		cottage_garden
+		</Member>
+	
+		<Member weight="3">
+		pirate_cemetery
+		</Member>
+	
+		<Member weight="8">
+		auction_site
+		</Member>
+	
+		<Member weight="164">
+		battlefield
+		</Member>
+	
+		<Member weight="137">
+		garden
+		</Member>
+	
+		<Member weight="10">
+		first_cemetery
+		</Member>
+	
+		<Member weight="5">
+		fossil_site
+		</Member>
+	
+		<Member weight="13">
+		lumber_yard
+		</Member>
+	
+		<Member weight="7">
+		cattle_yard
+		</Member>
+	
+		<Member weight="19">
+		forest_clearing
+		</Member>
+	
+		<Member weight="136">
+		monument
+		</Member>
+	
+		<Member weight="5">
+		rockefeller_center
+		</Member>
+	
+		<Member weight="4">
+		rice_campus
+		</Member>
+	
+		<Member weight="5">
+		hidden_meadow
+		</Member>
+	
+		<Member weight="4">
+		army_cemetery
+		</Member>
+	
+		<Member weight="18">
+		hayfield
+		</Member>
+	
+		<Member weight="15">
+		mining_camp
+		</Member>
+	
+		<Member weight="132">
+		savanna
+		</Member>
+	
+		<Member weight="2">
+		mound_site
+		</Member>
+	
+		<Member weight="8">
+		craft_site
+		</Member>
+	
+		<Member weight="133">
+		prairie
+		</Member>
+	
+		<Member weight="5">
+		scrap_yard
+		</Member>
+	
+		<Member weight="2">
+		fuel_site
+		</Member>
+	
+		<Member weight="3">
+		worcester_park
+		</Member>
+	
+		<Member weight="26">
+		bed
+		</Member>
+	
+		<Member weight="5">
+		guild_site
+		</Member>
+	
+		<Member weight="9">
+		red_square
+		</Member>
+	
+		<Member weight="4">
+		stream_bed
+		</Member>
+	
+		<Member weight="7">
+		campus
+		</Member>
+	
+		<Member weight="16">
+		law_court
+		</Member>
+	
+		<Member weight="7">
+		bank-account_site
+		</Member>
+	
+		<Member weight="2">
+		union_site
+		</Member>
+	
+		<Member weight="3">
+		publisher_site
+		</Member>
+	
+		<Member weight="3">
+		pornographic_site
+		</Member>
+	
+		<Member weight="1">
+		forest_lawn
+		</Member>
+	
+		<Member weight="8">
+		family_site
+		</Member>
+	
+		<Member weight="19">
+		place
+		</Member>
+	
+		<Member weight="14">
+		jack-pine_site
+		</Member>
+	
+		<Member weight="1">
+		east_park
+		</Member>
+	
+		<Member weight="64">
+		portal
+		</Member>
+	
+		<Member weight="1">
+		ngo_site
+		</Member>
+	
+		<Member weight="15">
+		durbar_square
+		</Member>
+	
+		<Member weight="30">
+		historic_garden
+		</Member>
+	
+		<Member weight="4">
+		heron_rookery
+		</Member>
+	
+		<Member weight="6">
+		town_site
+		</Member>
+	
+		<Member weight="1">
+		esophageal_site
+		</Member>
+	
+		<Member weight="8">
+		internet_portal
+		</Member>
+	
+		<Member weight="1">
+		blend_site
+		</Member>
+	
+		<Member weight="25">
+		wet_meadow
+		</Member>
+	
+		<Member weight="70">
+		clearing
+		</Member>
+	
+		<Member weight="1">
+		storage_center
+		</Member>
+	
+		<Member weight="14">
+		wetland_meadow
+		</Member>
+	
+		<Member weight="3">
+		timeserver_site
+		</Member>
+	
+		<Member weight="7">
+		brain-stem_center
+		</Member>
+	
+		<Member weight="3">
+		stanley_park
+		</Member>
+	
+		<Member weight="19">
+		jewish_cemetery
+		</Member>
+	
+		<Member weight="4">
+		waste_site
+		</Member>
+	
+		<Member weight="13">
+		corporate_portal
+		</Member>
+	
+		<Member weight="1">
+		tennessee_site
+		</Member>
+	
+		<Member weight="6">
+		spiritual_place
+		</Member>
+	
+		<Member weight="1">
+		camp_site
+		</Member>
+	
+		<Member weight="58">
+		court
+		</Member>
+	
+		<Member weight="3">
+		castle_garden
+		</Member>
+	
+		<Member weight="4">
+		oxygen_site
+		</Member>
+	
+		<Member weight="2">
+		info_site
+		</Member>
+	
+		<Member weight="83">
+		campground
+		</Member>
+	
+		<Member weight="3">
+		law-enforcement_site
+		</Member>
+	
+		<Member weight="1">
+		united_center
+		</Member>
+	
+		<Member weight="10">
+		nonprofit_site
+		</Member>
+	
+		<Member weight="1">
+		seasonal_camp
+		</Member>
+	
+		<Member weight="4">
+		king_square
+		</Member>
+	
+		<Member weight="2">
+		ball_court
+		</Member>
+	
+		<Member weight="4">
+		supreme_court
+		</Member>
+	
+		<Member weight="1">
+		existing_site
+		</Member>
+	
+		<Member weight="4">
+		museum_site
+		</Member>
+	
+		<Member weight="4">
+		grounds
+		</Member>
+	
+		<Member weight="4">
+		coal_yard
+		</Member>
+	
+		<Member weight="16">
+		public_website
+		</Member>
+	
+		<Member weight="1">
+		cooling-tower_site
+		</Member>
+	
+		<Member weight="1">
+		senior_center
+		</Member>
+	
+		<Member weight="3">
+		coronation_site
+		</Member>
+	
+		<Member weight="7">
+		arco_arena
+		</Member>
+	
+		<Member weight="2">
+		penn_center
+		</Member>
+	
+		<Member weight="3">
+		national_monument
+		</Member>
+	
+		<Member weight="5">
+		veld
+		</Member>
+	
+		<Member weight="8">
+		retreat_center
+		</Member>
+	
+		<Member weight="3">
+		domestic_premises
+		</Member>
+	
+		<Member weight="2">
+		band_site
+		</Member>
+	
+		<Member weight="3">
+		exhibition_center
+		</Member>
+	
+		<Member weight="5">
+		oil_field
+		</Member>
+	
+		<Member weight="31">
+		genital_tract
+		</Member>
+	
+		<Member weight="3">
+		marathon_battlefield
+		</Member>
+	
+		<Member weight="13">
+		pastureland
+		</Member>
+	
+		<Member weight="1">
+		daycare_center
+		</Member>
+	
+		<Member weight="6">
+		coffee_plantation
+		</Member>
+	
+		<Member weight="19">
+		parking_place
+		</Member>
+	
+		<Member weight="3">
+		tsunami_monument
+		</Member>
+	
+		<Member weight="3">
+		large_garden
+		</Member>
+	
+		<Member weight="3">
+		artist_site
+		</Member>
+	
+		<Member weight="7">
+		pantheon_square
+		</Member>
+	
+		<Member weight="10">
+		work_place
+		</Member>
+	
+		<Member weight="2">
+		industrial_site
+		</Member>
+	
+		<Member weight="17">
+		walter-scott_monument
+		</Member>
+	
+		<Member weight="2">
+		chinese_cemetery
+		</Member>
+	
+		<Member weight="4">
+		homestead_yard
+		</Member>
+	
+		<Member weight="1">
+		brochure_site
+		</Member>
+	
+		<Member weight="2">
+		conifer_plantation
+		</Member>
+	
+		<Member weight="2">
+		ancient_parkland
+		</Member>
+	
+		<Member weight="25">
+		respiratory_tract
+		</Member>
+	
+		<Member weight="5">
+		holland_park
+		</Member>
+	
+		<Member weight="3">
+		new_campus
+		</Member>
+	
+		<Member weight="37">
+		bennett_place
+		</Member>
+	
+		<Member weight="1">
+		soldier_field
+		</Member>
+	
+		<Member weight="1">
+		metal_center
+		</Member>
+	
+		<Member weight="4">
+		devil_grove
+		</Member>
+	
+		<Member weight="14">
+		square
+		</Member>
+	
+		<Member weight="3">
+		personalized_site
+		</Member>
+	
+		<Member weight="8">
+		hancock_cemetery
+		</Member>
+	
+		<Member weight="6">
+		health_center
+		</Member>
+	
+		<Member weight="3">
+		sacred_groves
+		</Member>
+	
+		<Member weight="1">
+		department_site
+		</Member>
+	
+		<Member weight="4">
+		tea_plantation
+		</Member>
+	
+		<Member weight="58">
+		wet_pasture
+		</Member>
+	
+		<Member weight="2">
+		percy_garden
+		</Member>
+	
+		<Member weight="27">
+		rehabilitation_center
+		</Member>
+	
+		<Member weight="10">
+		commercial_lawn
+		</Member>
+	
+		<Member weight="4">
+		shellfish_bed
+		</Member>
+	
+		<Member weight="2">
+		rampart_range
+		</Member>
+	
+		<Member weight="3">
+		genitourinary_tract
+		</Member>
+	
+		<Member weight="8">
+		bobcat_arena
+		</Member>
+	
+		<Member weight="20">
+		historic_site
+		</Member>
+	
+		<Member weight="2">
+		academic_campus
+		</Member>
+	
+		<Member weight="7">
+		dispatch_center
+		</Member>
+	
+		<Member weight="1">
+		green
+		</Member>
+	
+		<Member weight="4">
+		town_cemetery
+		</Member>
+	
+		<Member weight="6">
+		little-bighorn_battlefield
+		</Member>
+	
+		<Member weight="6">
+		favorite_park
+		</Member>
+	
+		<Member weight="3">
+		graphics_site
+		</Member>
+	
+		<Member weight="1">
+		religious_site
+		</Member>
+	
+		<Member weight="5">
+		wide_field
+		</Member>
+	
+		<Member weight="1">
+		corporate_center
+		</Member>
+	
+		<Member weight="16">
+		rv_site
+		</Member>
+	
+		<Member weight="1">
+		canyon_site
+		</Member>
+	
+		<Member weight="4">
+		columbia_park
+		</Member>
+	
+		<Member weight="14">
+		diagnostic_center
+		</Member>
+	
+		<Member weight="2">
+		abbey_lawn
+		</Member>
+	
+		<Member weight="15">
+		urinary_tract
+		</Member>
+	
+		<Member weight="12">
+		historic_monument
+		</Member>
+	
+		<Member weight="6">
+		archeological_excavation
+		</Member>
+	
+		<Member weight="17">
+		industrial_park
+		</Member>
+	
+		<Member weight="3">
+		cherry_park
+		</Member>
+	
+		<Member weight="83">
+		empty_lots
+		</Member>
+	
+		<Member weight="3">
+		emergency_center
+		</Member>
+	
+		<Member weight="1">
+		ulcer_site
+		</Member>
+	
+		<Member weight="5">
+		design_center
+		</Member>
+	
+		<Member weight="3">
+		battleground
+		</Member>
+	
+		<Member weight="2">
+		eucalypt_plantation
+		</Member>
+	
+		<Member weight="6">
+		tivoli_garden
+		</Member>
+	
+		<Member weight="3">
+		slave_plantation
+		</Member>
+	
+		<Member weight="3">
+		major_portal
+		</Member>
+	
+		<Member weight="21">
+		interest-group_site
+		</Member>
+	
+		<Member weight="8">
+		banyan-tree_park
+		</Member>
+	
+		<Member weight="3">
+		gaming_site
+		</Member>
+	
+		<Member weight="2">
+		centre_court
+		</Member>
+	
+		<Member weight="8">
+		informational_site
+		</Member>
+	
+		<Member weight="3">
+		woodland_glade
+		</Member>
+	
+		<Member weight="15">
+		agricultural_field
+		</Member>
+	
+		<Member weight="11">
+		desert
+		</Member>
+	
+		<Member weight="6">
+		penguin_rookery
+		</Member>
+	
+		<Member weight="5">
+		aboriginal_midden
+		</Member>
+	
+		<Member weight="5">
+		ceremonial_site
+		</Member>
+	
+		<Member weight="7">
+		firebreak
+		</Member>
+	
+		<Member weight="3">
+		back_garden
+		</Member>
+	
+		<Member weight="12">
+		shopping_center
+		</Member>
+	
+		<Member weight="4">
+		town_plaza
+		</Member>
+	
+		<Member weight="21">
+		community_garden
+		</Member>
+	
+		<Member weight="3">
+		service-station_site
+		</Member>
+	
+		<Member weight="1">
+		migrant_camp
+		</Member>
+	
+		<Member weight="1">
+		chicano_park
+		</Member>
+	
+		<Member weight="7">
+		railyard
+		</Member>
+	
+		<Member weight="7">
+		nearby_park
+		</Member>
+	
+		<Member weight="2">
+		biliary_tract
+		</Member>
+	
+		<Member weight="8">
+		calculus_site
+		</Member>
+	
+		<Member weight="12">
+		garden_center
+		</Member>
+	
+		<Member weight="71">
+		field
+		</Member>
+	
+		<Member weight="6">
+		chickamauga_battlefield
+		</Member>
+	
+		<Member weight="17">
+		midden
+		</Member>
+	
+		<Member weight="7">
+		big_portal
+		</Member>
+	
+		<Member weight="6">
+		project_site
+		</Member>
+	
+		<Member weight="5">
+		point_park
+		</Member>
+	
+		<Member weight="27">
+		nature_center
+		</Member>
+	
+		<Member weight="57">
+		child-care_center
+		</Member>
+	
+		<Member weight="2">
+		nest_site
+		</Member>
+	
+		<Member weight="4">
+		baptism_site
+		</Member>
+	
+		<Member weight="22">
+		bank_site
+		</Member>
+	
+		<Member weight="4">
+		presidential_monument
+		</Member>
+	
+		<Member weight="2">
+		retail_center
+		</Member>
+	
+		<Member weight="13">
+		croquet_lawn
+		</Member>
+	
+		<Member weight="2">
+		cypress_garden
+		</Member>
+	
+		<Member weight="5">
+		main_square
+		</Member>
+	
+		<Member weight="2">
+		amazon_website
+		</Member>
+	
+		<Member weight="4">
+		suburban_yard
+		</Member>
+	
+		<Member weight="1">
+		membrane_site
+		</Member>
+	
+		<Member weight="2">
+		tumor_site
+		</Member>
+	
+		<Member weight="11">
+		junk_yard
+		</Member>
+	
+		<Member weight="7">
+		fountain_square
+		</Member>
+	
+		<Member weight="97">
+		arena
+		</Member>
+	
+		<Member weight="5">
+		fasting_place
+		</Member>
+	
+		<Member weight="2">
+		republic_square
+		</Member>
+	
+		<Member weight="3">
+		custer_battlefield
+		</Member>
+	
+		<Member weight="7">
+		referral_center
+		</Member>
+	
+		<Member weight="6">
+		historical_place
+		</Member>
+	
+		<Member weight="8">
+		lots
+		</Member>
+	
+		<Member weight="10">
+		ice_arena
+		</Member>
+	
+		<Member weight="3">
+		rooftop_garden
+		</Member>
+	
+		<Member weight="20">
+		rain_garden
+		</Member>
+	
+		<Member weight="6">
+		relative_garden
+		</Member>
+	
+		<Member weight="1">
+		mineral-extraction_site
+		</Member>
+	
+		<Member weight="8">
+		whistle-stop_plaza
+		</Member>
+	
+		<Member weight="3">
+		rugby_grounds
+		</Member>
+	
+		<Member weight="4">
+		shopping-center_site
+		</Member>
+	
+		<Member weight="13">
+		masonry_yard
+		</Member>
+	
+		<Member weight="1">
+		habitation_site
+		</Member>
+	
+		<Member weight="3">
+		logistics_site
+		</Member>
+	
+		<Member weight="33">
+		website
+		</Member>
+	
+		<Member weight="2">
+		wood_pasture
+		</Member>
+	
+		<Member weight="5">
+		sheep_camp
+		</Member>
+	
+		<Member weight="1">
+		surgical_site
+		</Member>
+	
+		<Member weight="1">
+		proctor_center
+		</Member>
+	
+		<Member weight="20">
+		entertainment_site
+		</Member>
+	
+		<Member weight="2">
+		sacred_place
+		</Member>
+	
+		<Member weight="1">
+		rodeo_grounds
+		</Member>
+	
+		<Member weight="13">
+		volunteer_center
+		</Member>
+	
+		<Member weight="7">
+		guardian_website
+		</Member>
+	
+		<Member weight="1">
+		reproductive_tract
+		</Member>
+	
+		<Member weight="16">
+		plaza
+		</Member>
+	
+		<Member weight="8">
+		manufacturing_site
+		</Member>
+	
+		<Member weight="119">
+		meadow
+		</Member>
+	
+		<Member weight="18">
+		grassy_meadow
+		</Member>
+	
+		<Member weight="4">
+		excavation
+		</Member>
+	
+		<Member weight="1">
+		review_site
+		</Member>
+	
+		<Member weight="11">
+		railroad_yard
+		</Member>
+	
+		<Member weight="3">
+		ship_graveyard
+		</Member>
+	
+		<Member weight="2">
+		weather_center
+		</Member>
+	
+		<Member weight="9">
+		pa_site
+		</Member>
+	
+		<Member weight="3">
+		union_square
+		</Member>
+	
+		<Member weight="5">
+		birth_place
+		</Member>
+	
+		<Member weight="4">
+		bird_rookery
+		</Member>
+	
+		<Member weight="2">
+		business_park
+		</Member>
+	
+		<Member weight="6">
+		cornfield
+		</Member>
+	
+		<Member weight="5">
+		weather_site
+		</Member>
+	
+		<Member weight="1">
+		unused_parcel
+		</Member>
+	
+		<Member weight="8">
+		churchyard
+		</Member>
+	
+		<Member weight="1">
+		medical_center
+		</Member>
+	
+		<Member weight="2">
+		home_garden
+		</Member>
+	
+		<Member weight="1">
+		inclusion_site
+		</Member>
+	
+		<Member weight="3">
+		dynamic_website
+		</Member>
+	
+		<Member weight="23">
+		historical_site
+		</Member>
+	
+		<Member weight="11">
+		news_portal
+		</Member>
+	
+		<Member weight="13">
+		burial_place
+		</Member>
+	
+		<Member weight="3">
+		savannah-river_site
+		</Member>
+	
+		<Member weight="27">
+		temple_site
+		</Member>
+	
+		<Member weight="1">
+		public_sector
+		</Member>
+	
+		<Member weight="5">
+		stock_yard
+		</Member>
+	
+		<Member weight="2">
+		totem_park
+		</Member>
+	
+		<Member weight="3">
+		seabird_rookery
+		</Member>
+	
+		<Member weight="9">
+		lafayette_park
+		</Member>
+	
+		<Member weight="79">
+		camp
+		</Member>
+	
+		<Member weight="1">
+		outpatient_center
+		</Member>
+	
+		<Member weight="2">
+		synonymous_site
+		</Member>
+	
+		<Member weight="20">
+		local_park
+		</Member>
+	
+		<Member weight="15">
+		poison_center
+		</Member>
+	
+		<Member weight="7">
+		schoolyard
+		</Member>
+	
+		<Member weight="2">
+		deal_site
+		</Member>
+	
+		<Member weight="11">
+		martin_place
+		</Member>
+	
+		<Member weight="3">
+		picnic_site
+		</Member>
+	
+		<Member weight="12">
+		retail_site
+		</Member>
+	
+		<Member weight="6">
+		company_portal
+		</Member>
+	
+		<Member weight="4">
+		travel_site
+		</Member>
+	
+		<Member weight="8">
+		blues_website
+		</Member>
+	
+		<Member weight="3">
+		demolition_site
+		</Member>
+	
+		<Member weight="1">
+		patas_website
+		</Member>
+	
+		<Member weight="3">
+		winter_range
+		</Member>
+	
+		<Member weight="9">
+		washing_site
+		</Member>
+	
+		<Member weight="5">
+		moss_garden
+		</Member>
+	
+		<Member weight="8">
+		defence_site
+		</Member>
+	
+		<Member weight="1">
+		national_garden
+		</Member>
+	
+		<Member weight="1">
+		gardening_site
+		</Member>
+	
+		<Member weight="3">
+		movie_site
+		</Member>
+	
+		<Member weight="2">
+		barrier_minefield
+		</Member>
+	
+		<Member weight="13">
+		telecommunication_site
+		</Member>
+	
+		<Member weight="3">
+		mountain_portal
+		</Member>
+	
+		<Member weight="5">
+		nomad_camp
+		</Member>
+	
+		<Member weight="6">
+		internet_website
+		</Member>
+	
+		<Member weight="32">
+		national_park
+		</Member>
+	
+		<Member weight="5">
+		factory_premises
+		</Member>
+	
+		<Member weight="3">
+		historic_place
+		</Member>
+	
+		<Member weight="8">
+		documentation_site
+		</Member>
+	
+		<Member weight="5">
+		extension_center
+		</Member>
+	
+		<Member weight="4">
+		wallenstein_garden
+		</Member>
+	
+		<Member weight="18">
+		sedge_meadow
+		</Member>
+	
+		<Member weight="8">
+		bombing_range
+		</Member>
+	
+		<Member weight="8">
+		kit_cemetery
+		</Member>
+	
+		<Member weight="3">
+		hay_meadow
+		</Member>
+	
+		<Member weight="4">
+		blast-furnace_site
+		</Member>
+	
+		<Member weight="23">
+		day-care_center
+		</Member>
+	
+		<Member weight="2">
+		town_garden
+		</Member>
+	
+		<Member weight="3">
+		cliff_site
+		</Member>
+	
+		<Member weight="10">
+		ball_diamond
+		</Member>
+	
+		<Member weight="27">
+		palace_site
+		</Member>
+	
+		<Member weight="12">
+		vast_meadow
+		</Member>
+	
+		<Member weight="3">
+		training_range
+		</Member>
+	
+		<Member weight="11">
+		news_site
+		</Member>
+	
+		<Member weight="14">
+		chopin_monument
+		</Member>
+	
+		<Member weight="1">
+		victoria_park
+		</Member>
+	
+		<Member weight="3">
+		scattered_glade
+		</Member>
+	
+		<Member weight="24">
+		woodland_grove
+		</Member>
+	
+		<Member weight="2">
+		bedding_grounds
+		</Member>
+	
+		<Member weight="11">
+		oasis
+		</Member>
+	
+		<Member weight="14">
+		law-firm_site
+		</Member>
+	
+		<Member weight="5">
+		latte_park
+		</Member>
+	
+		<Member weight="5">
+		skeet_range
+		</Member>
+	
+		<Member weight="6">
+		mining_site
+		</Member>
+	
+		<Member weight="33">
+		gambling_site
+		</Member>
+	
+		<Member weight="5">
+		team_site
+		</Member>
+	
+		<Member weight="7">
+		public_park
+		</Member>
+	
+		<Member weight="7">
+		plymouth_plantation
+		</Member>
+	
+		<Member weight="3">
+		built_site
+		</Member>
+	
+		<Member weight="124">
+		gastrointestinal_tract
+		</Member>
+	
+		<Member weight="6">
+		hospital_grounds
+		</Member>
+	
+		<Member weight="10">
+		home_lawn
+		</Member>
+	
+		<Member weight="1">
+		hero_square
+		</Member>
+	
+		<Member weight="4">
+		college_grounds
+		</Member>
+	
+		<Member weight="1">
+		steeplechase_park
+		</Member>
+	
+		<Member weight="3">
+		open_field
+		</Member>
+	
+		<Member weight="3">
+		neighborhood_playground
+		</Member>
+	
+		<Member weight="24">
+		graveyard
+		</Member>
+	
+		<Member weight="14">
+		dry_prairie
+		</Member>
+	
+		<Member weight="48">
+		plantation
+		</Member>
+	
+		<Member weight="2">
+		initiation_grounds
+		</Member>
+	
+		<Member weight="5">
+		cancer_center
+		</Member>
+	
+		<Member weight="2">
+		fort_site
+		</Member>
+	
+		<Member weight="11">
+		partner_site
+		</Member>
+	
+		<Member weight="4">
+		personal_website
+		</Member>
+	
+		<Member weight="8">
+		customer_portal
+		</Member>
+	
+		<Member weight="4">
+		lot
+		</Member>
+	
+		<Member weight="30">
+		business_center
+		</Member>
+	
+		<Member weight="3">
+		hillside_cemetery
+		</Member>
+	
+		<Member weight="7">
+		alluvial_site
+		</Member>
+	
+		<Member weight="83">
+		groves
+		</Member>
+	
+		<Member weight="9">
+		missile_site
+		</Member>
+	
+		<Member weight="2">
+		lumber_camp
+		</Member>
+	
+		<Member weight="3">
+		privatization_site
+		</Member>
+	
+		<Member weight="4">
+		painted_desert
+		</Member>
+	
+		<Member weight="1">
+		animal_right
+		</Member>
+	
+		<Member weight="6">
+		college_park
+		</Member>
+	
+		<Member weight="3">
+		light_savanna
+		</Member>
+	
+		<Member weight="3">
+		weapon_range
+		</Member>
+	
+		<Member weight="3">
+		church_site
+		</Member>
+	
+		<Member weight="5">
+		parliament_square
+		</Member>
+	
+		<Member weight="5">
+		tool_site
+		</Member>
+	
+		<Member weight="11">
+		bluegrass_meadow
+		</Member>
+	
+		<Member weight="11">
+		historical_monument
+		</Member>
+	
+		<Member weight="4">
+		customer_site
+		</Member>
+	
+		<Member weight="8">
+		battle_grounds
+		</Member>
+	
+		<Member weight="2">
+		urogenital_tract
+		</Member>
+	
+		<Member weight="4">
+		adult_site
+		</Member>
+	
+		<Member weight="1">
+		pornography_site
+		</Member>
+	
+		<Member weight="10">
+		commercial_site
+		</Member>
+	
+		<Member weight="7">
+		training_center
+		</Member>
+	
+		<Member weight="7">
+		university_site
+		</Member>
+	
+		<Member weight="1">
+		gasworks_park
+		</Member>
+	
+		<Member weight="54">
+		orchard
+		</Member>
+	
+		<Member weight="2">
+		gop_site
+		</Member>
+	
+		<Member weight="30">
+		archaeological_site
+		</Member>
+	
+		<Member weight="1">
+		gateway_plaza
+		</Member>
+	
+		<Member weight="13">
+		army_camp
+		</Member>
+	
+		<Member weight="6">
+		under_bed
+		</Member>
+	
+		<Member weight="6">
+		artist_website
+		</Member>
+	
+		<Member weight="2">
+		sacred_site
+		</Member>
+	
+		<Member weight="11">
+		school_grounds
+		</Member>
+	
+		<Member weight="12">
+		mill_site
+		</Member>
+	
+		<Member weight="5">
+		qualification_range
+		</Member>
+	
+		<Member weight="26">
+		grassland
+		</Member>
+	
+		<Member weight="31">
+		service-station_apron
+		</Member>
+	
+		<Member weight="1">
+		flowerbed
+		</Member>
+	
+		<Member weight="7">
+		archeological_site
+		</Member>
+	
+		<Member weight="27">
+		pottery_site
+		</Member>
+	
+		<Member weight="10">
+		saratoga_battlefield
+		</Member>
+	
+		<Member weight="1">
+		commercial_portal
+		</Member>
+	
+		<Member weight="2">
+		triage_center
+		</Member>
+	
+		<Member weight="13">
+		rail_yard
+		</Member>
+	
+		<Member weight="1">
+		education_center
+		</Member>
+	
+		<Member weight="4">
+		back_yard
+		</Member>
+	
+		<Member weight="2">
+		town_green
+		</Member>
+	
+		<Member weight="4">
+		dog-food_website
+		</Member>
+	
+		<Member weight="3">
+		pub_garden
+		</Member>
+	
+		<Member weight="21">
+		center
+		</Member>
+	
+		<Member weight="40">
+		ancient_monument
+		</Member>
+	
+		<Member weight="79">
+		cultural_center
+		</Member>
+	
+		<Member weight="5">
+		college_campus
+		</Member>
+	
+		<Member weight="14">
+		range
+		</Member>
+	
+		<Member weight="33">
+		government_website
+		</Member>
+	
+		<Member weight="1">
+		government_site
+		</Member>
+	
+		<Member weight="3">
+		james-river_plantation
+		</Member>
+	
+		<Member weight="7">
+		arlington_cemetery
+		</Member>
+	
+		<Member weight="3">
+		maintenance_center
+		</Member>
+	
+		<Member weight="75">
+		construction_site
+		</Member>
+	
+		<Member weight="8">
+		village_site
+		</Member>
+	
+		<Member weight="5">
+		branch_campus
+		</Member>
+	
+		<Member weight="3">
+		sport_court
+		</Member>
+	
+		<Member weight="11">
+		science_center
+		</Member>
+	
+		<Member weight="3">
+		public_garden
+		</Member>
+	
+		<Member weight="4">
+		pilgrimage_site
+		</Member>
+	
+		<Member weight="2">
+		old_cemetery
+		</Member>
+	
+		<Member weight="3">
+		fairground
+		</Member>
+	
+		<Member weight="3">
+		woodland_meadow
+		</Member>
+	
+		<Member weight="15">
+		tree_plantation
+		</Member>
+	
+		<Member weight="2">
+		medical_site
+		</Member>
+	
+		<Member weight="3">
+		unattended_site
+		</Member>
+	
+		<Member weight="7">
+		prison_cemetery
+		</Member>
+	
+		<Member weight="4">
+		ship-building_site
+		</Member>
+	
+		<Member weight="31">
+		delivery_yard
+		</Member>
+	
+		<Member weight="12">
+		hockey_arena
+		</Member>
+	
+		<Member weight="8">
+		gift_center
+		</Member>
+	
+		<Member weight="10">
+		individual_plot
+		</Member>
+	
+		<Member weight="14">
+		treatment_center
+		</Member>
+	
+		<Member weight="10">
+		central_park
+		</Member>
+	
+		<Member weight="1">
+		recycling_center
+		</Member>
+	
+		<Member weight="3">
+		camp_grounds
+		</Member>
+	
+		<Member weight="11">
+		residential_subdivision
+		</Member>
+	
+		<Member weight="4">
+		reid_park
+		</Member>
+	
+		<Member weight="3">
+		historical_cemetery
+		</Member>
+	
+		<Member weight="5">
+		support_site
+		</Member>
+	
+		<Member weight="8">
+		industry_portal
+		</Member>
+	
+		<Member weight="4">
+		campsite
+		</Member>
+	
+		<Member weight="8">
+		old_pasture
+		</Member>
+	
+		<Member weight="3">
+		soccer_field
+		</Member>
+	
+		<Member weight="3">
+		relief_site
+		</Member>
+	
+		<Member weight="2">
+		remediation_site
+		</Member>
+	
+		<Member weight="1">
+		promotion_site
+		</Member>
+	
+		<Member weight="3">
+		observation_site
+		</Member>
+	
+		<Member weight="1">
+		madison_square
+		</Member>
+	
+		<Member weight="10">
+		ridge_meadow
+		</Member>
+	
+		<Member weight="3">
+		paddy
+		</Member>
+	
+		<Member weight="22">
+		shell_midden
+		</Member>
+	
+		<Member weight="25">
+		porn_site
+		</Member>
+	
+		<Member weight="57">
+		health-care_center
+		</Member>
+	
+		<Member weight="111">
+		lawn
+		</Member>
+	
+		<Member weight="2">
+		campbell_park
+		</Member>
+	
+		<Member weight="32">
+		school_yard
+		</Member>
+	
+		<Member weight="2">
+		sugarcane_plantation
+		</Member>
+	
+		<Member weight="3">
+		command_center
+		</Member>
+	
+		<Member weight="1">
+		hobby_site
+		</Member>
+	
+		<Member weight="1">
+		circus
+		</Member>
+	
+		<Member weight="47">
+		athletic_arena
+		</Member>
+	
+		<Member weight="3">
+		recreation_grounds
+		</Member>
+	
+		<Member weight="129">
+		data_center
+		</Member>
+	
+		<Member weight="1">
+		film_site
+		</Member>
+	
+		<Member weight="25">
+		processing_site
+		</Member>
+	
+		<Member weight="5">
+		operator_portal
+		</Member>
+	
+		<Member weight="7">
+		staple_arena
+		</Member>
+	
+		<Member weight="2">
+		open_site
+		</Member>
+	
+		<Member weight="1">
+		archive_site
+		</Member>
+	
+		<Member weight="10">
+		grove
+		</Member>
+	
+		<Member weight="5">
+		alder_bed
+		</Member>
+	
+		<Member weight="21">
+		kink_site
+		</Member>
+	
+		<Member weight="28">
+		distribution_center
+		</Member>
+	
+		<Member weight="3">
+		locus
+		</Member>
+	
+		<Member weight="3">
+		somme_battlefield
+		</Member>
+	
+		<Member weight="8">
+		military_site
+		</Member>
+	
+		<Member weight="9">
+		roman_arena
+		</Member>
+	
+		<Member weight="2">
+		archaic_cemetery
+		</Member>
+	
+		<Member weight="1">
+		luna_park
+		</Member>
+	
+		<Member weight="2">
+		travel_center
+		</Member>
+	
+		<Member weight="2">
+		jewelry_site
+		</Member>
+	
+		<Member weight="55">
+		convention_center
+		</Member>
+	
+		<Member weight="14">
+		face_site
+		</Member>
+	
+		<Member weight="69">
+		yard
+		</Member>
+	
+		<Member weight="3">
+		foraging_site
+		</Member>
+	
+		<Member weight="3">
+		monopoly_site
+		</Member>
+	
+		<Member weight="4">
+		vacant_lots
+		</Member>
+	
+		<Member weight="1">
+		range_site
+		</Member>
+	
+		<Member weight="1">
+		educational_portal
+		</Member>
+	
+		<Member weight="6">
+		taylor_yard
+		</Member>
+	
+		<Member weight="6">
+		information_site
+		</Member>
+	
+		<Member weight="3">
+		kingston_range
+		</Member>
+	
+		<Member weight="5">
+		farm_yard
+		</Member>
+	
+		<Member weight="1">
+		wet_clearing
+		</Member>
+	
+		<Member weight="6">
+		group_camp
+		</Member>
+	
+		<Member weight="1">
+		mercenary_camp
+		</Member>
+	
+	</Members>
+	
+
+
+</HeadData>

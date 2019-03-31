@@ -1,5 +1,5 @@
 {
-    "module_name": "main",
+    "module_name": "run",
     "class_name": "RandomImageCreator",
     "domain": "image",
     "init_kwargs": {}

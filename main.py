@@ -8,16 +8,15 @@ import importlib
 import json
 import os
 
-from resources.sample_inputs import SAMPLE_INPUTS
+#from resources.sample_inputs import SAMPLE_INPUTS, build_sample_input
+import inputs
+import page
 
-# Not used at the moment
-PAGE_LAYOUTS = [['title', 'image', 'poem']]
 
-
-def get_input_arguments():
+def get_input_arguments(use_samples):
     """Get input arguments given to all groups' creators.
     """
-    return SAMPLE_INPUTS[0]
+    return inputs.get_input(use_samples)
 
 
 def get_page_layout(creators):
@@ -27,15 +26,44 @@ def get_page_layout(creators):
     return ['word', 'word']
 
 
-def create_page(input_args, n_artifacts_per_creator, creators, layout=['title', 'image', 'poem']):
+def get_outputs(input_args, n_artifacts_per_creator, creators):
     """Create 'a page' of the book.
     """
+    # TODO: Clean out the code and make it simpler.
     all_artifacts = []
+    n_imagepaths = 0
+    kwargs = {'title': "",
+            'poem': "",
+            'imagepath1': "",
+            'imagepath2': "",
+            'imagepath3': "",
+            'imagepath4': ""
+            }
+
+    print()
     for name, creator in creators:
         domain = creator.domain
+        print("Generating for {} ({})...".format(name, domain))
         artifacts = creator.create(*input_args, n_artifacts_per_creator)
+        if domain == 'word':
+            kwargs['title'] = artifacts[0][0]
+        elif domain == 'poetry':
+            kwargs['poem'] = artifacts[0][0]
+        elif domain == 'image':
+            if n_imagepaths == 0:
+                kwargs['imagepath1'] = artifacts[0][0]
+            if n_imagepaths == 1:
+                kwargs['imagepath2'] = artifacts[0][0]
+            if n_imagepaths == 2:
+                kwargs['imagepath3'] = artifacts[0][0]
+            if n_imagepaths == 3:
+                kwargs['imagepath4'] = artifacts[0][0]
+            n_imagepaths += 1
+
+        print("Output of {} ({}): {}\n".format(name, domain, artifacts))
         all_artifacts.append((name, domain, artifacts))
-    print(all_artifacts)
+    #print("All returned artifacts: {}".format(all_artifacts))
+    page.create_page(**kwargs)
 
 
 if __name__ == "__main__":
@@ -44,9 +72,11 @@ if __name__ == "__main__":
                         help='Path to the main config file.')
     parser.add_argument('-p', dest='pages', default=10, type=int,
                         help='Number of "pages" to create. A single page contains artifacts from several domains.')
+    parser.add_argument('-s', dest='use_samples', default=1, type=int,
+                        help="1: use input samples (see resources/sample_inputs), 0: use full set of possible inputs.")
 
     args = parser.parse_args()
-    pages = args.pages
+    n_pages = args.pages
     config = json.load(open(args.config_file))
     folders = config['folders']
 
@@ -62,13 +92,16 @@ if __name__ == "__main__":
         group_kwargs = group_config['init_kwargs']
 
         # Dynamically import the main-module from the group's folder and the class specified in the config.
+        print("Initializing '{}' ({})...".format(group_folder, domain))
         group_module = importlib.import_module("{}.{}".format(group_folder, module_name))
         group_class = getattr(group_module, class_name)
         class_instance = group_class(**group_kwargs)
         group_creators.append([group_folder, class_instance])
+        print()
 
     # Run each groups creator for a number of times specified in command line.
-    for _ in range(pages):
-        input_args = get_input_arguments()
-        create_page(input_args, n_artifacts_per_creator, group_creators)
+    for i in range(n_pages):
+        input_args = get_input_arguments(args.use_samples)
+        print("Producing outputs for page {}/{} with input: {}".format(i+1, n_pages, input_args))
+        get_outputs(input_args, n_artifacts_per_creator, group_creators)
 

@@ -164,9 +164,18 @@ project and contact the course staff if it turns out to be really needed. We wil
 project's idea is simply to demonstrate computational creativity techniques in practice, the general requirements should
 be kept to minimum.
 
+Keep your repository in sync
+============================
 
+The groups are excepted to sync their own personal repository with the main repository after each pull request
+(the course staff will announce when this can be done after each round of pull requests). Follow the instructions in
+`Fork a repo <https://help.github.com/en/articles/fork-a-repo>`_ and `Syncing a fork <https://help.github.com/en/articles/syncing-a-fork>`_
+to achieve this.
 
+**After each sync, there might be new dependencies from other groups.** These requirements should have been merged to
+the root folder's ``requirements.txt``.
 
+To obtain the new required libraries and frameworks, run 'pip' again with your virtual environment activated::
 
-
-
+    > source env/bin/activate
+    > pip install -r requirements.txt
