@@ -185,4 +185,5 @@ Operations after week 3 pull requests
 
 1. Sync your repo
 2. Install mysqlclient (with your virtual environment activated): `pip install mysqlclient`
-3. Install requirements (in the root folder): `pip install requirements.txt`
+3. Install requirements (in the root folder): `pip install -r requirements.txt`
+4. (Optional) See group_picasso/README.rst for the download link to their prebuilt model.
