@@ -179,3 +179,10 @@ To obtain the new required libraries and frameworks, run 'pip' again with your v
 
     > source env/bin/activate
     > pip install -r requirements.txt
+
+Operations after week 3 pull requests
+-------------------------------------
+
+1. Sync your repo
+2. Install mysqlclient (with your virtual environment activated): `pip install mysqlclient`
+3. Install requirements (in the root folder): `pip install requirements.txt`
