@@ -3,12 +3,14 @@ import os
 from pattern.en import pluralize, singularize
 
 from .templates import TemplateBank, Title
+from .evaluator import Evaluator
 
 class tittlesTitle():
     def __init__(self):
         self.threshold = 0.8
         self.domain = 'word'
         self.folder = os.path.dirname(os.path.realpath(__file__))
+        self.evaluator = Evaluator()
 
         self.template_bank = TemplateBank(os.path.join(self.folder, "data", "templates.short.uniq"))
 
@@ -36,14 +38,7 @@ class tittlesTitle():
         Returns:
             Float [0, 1] : How good the title was - high being better.
         """
-        if self.title_bank is None:
-            return 0.8
-        else:
-            for b_id, b_info in self.title_bank.items():
-                # Check novelty
-                if title.lower().strip() == b_info["title"].lower().strip():
-                    return 0.5
-            return 1.0
+        return evaluator.evaluate(title)
 
     def inject(self, title, word_pair):
         for i, cat in title.get_slots('NP'):
@@ -91,10 +86,9 @@ class tittlesTitle():
             template = self.template_bank.random_template()
             title = Title(template)
             self.inject(title, word_pair)
-            title = str(title)
-            v = self.evaluate(title)
+            v = self.evaluate(title.title)
             if v >= self.threshold:
-                ret.append((title, {"evaluation": v}))
+                ret.append((str(title), {"evaluation": v}))
 
         return ret
 
