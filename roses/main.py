@@ -94,8 +94,9 @@ if __name__ == '__main__':
     parser = argparse.ArgumentParser()
     parser.add_argument('emotion', help='Emotion for poem.')
     parser.add_argument('word_pairs', help='File for word pairs. Json list of lists')
+    parser.add_argument('num_poems', help='Number of poems to output.', type=int)
     args = parser.parse_args()
     with open(args.word_pairs) as json_file:
         word_pairs = [tuple(word_pair) for word_pair in json.load(json_file)]
-    for poem in poem_creator.create(args.emotion, [('human', 'boss'), ('animal', 'legged')]):
+    for poem in poem_creator.create(args.emotion, [('human', 'boss'), ('animal', 'legged')], args.num_poems):
         print(f'----\n{poem}\n----')
