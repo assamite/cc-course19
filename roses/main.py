@@ -2,6 +2,7 @@
 
 Should contain initialize- and create-functions.
 """
+import argparse
 import random
 import json
 
@@ -90,5 +91,11 @@ class PoemCreator:
 
 if __name__ == '__main__':
     poem_creator = PoemCreator()
-    for poem in poem_creator.create('sad', [('human', 'boss'), ('animal', 'legged')]):
+    parser = argparse.ArgumentParser()
+    parser.add_argument('emotion', help='Emotion for poem.')
+    parser.add_argument('word_pairs', help='File for word pairs. Json list of lists')
+    args = parser.parse_args()
+    with open(args.word_pairs) as json_file:
+        word_pairs = [tuple(word_pair) for word_pair in json.load(json_file)]
+    for poem in poem_creator.create(args.emotion, [('human', 'boss'), ('animal', 'legged')]):
         print(f'----\n{poem}\n----')
