@@ -3,7 +3,7 @@
 Roses is a poem generator written in Python. It uses state-of-the-art methods to generate poems.
 
 ## Usage
-```bash
+```console
 $ python main.py -h
 usage: main.py [-h] emotion word_pairs num_poems
 
