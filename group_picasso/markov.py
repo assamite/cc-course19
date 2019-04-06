@@ -15,18 +15,15 @@ class MarkovChain(object):
         self.distribs = {}
         self.bucket_size = 16
 
-    def normalize(self, pixel):
-        return pixel // self.bucket_size * self.bucket_size
-
     def train(self, img):
         width, height = img.size
-        img = np.array(img)
+        img = np.array(img) // self.bucket_size * self.bucket_size
         for x in range(height):
             for y in range(width):
-                color = tuple(self.normalize(img[x, y]))
+                color = tuple(img[x, y])
                 for neighbour in get_neighbours(x, y):
                     try:
-                        self.counters[color][tuple(self.normalize(img[neighbour]))] += 1
+                        self.counters[color][tuple(img[neighbour])] += 1
                     except IndexError:
                         continue
 
