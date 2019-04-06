@@ -10,7 +10,7 @@ from datetime import datetime
 from PIL import Image
 
 from group_picasso.libs.arbitrary_image_stylization.arbitrary_image_stylization_with_weights import code_entry_point
-from group_picasso.libs.markov_img_gen.imggen import MarkovChain
+from group_picasso.markov import MarkovChain
 
 
 class RandomImageCreator:
@@ -46,12 +46,12 @@ class RandomImageCreator:
         tmp_img_name = "{}_{}".format(content_img_name, timestamp)
         tmp_img_path = os.path.join(self.folder, "images/tmp/{}.jpg".format(tmp_img_name))
 
-        chain = MarkovChain(bucket_size=1)
+        chain = MarkovChain()
         style_img = Image.open(self.style_img_path)
         print("Training Markov model...")
         chain.train(style_img)
         print("Generating markovified style...")
-        style_img_markov = chain.generate(width=64, height=64)
+        style_img_markov = chain.generate()
         style_img_markov.save(style_img_markov_path)
 
         print("Applying the styles...")
@@ -66,7 +66,7 @@ class RandomImageCreator:
             "--content_images_paths",
             self.content_img_path,
             "--interpolation_weights",
-            "[0.35]",
+            "[0.4]",
         ])
         code_entry_point([
             "arbitrary_image_stylization_with_weights",
@@ -78,6 +78,8 @@ class RandomImageCreator:
             self.style_img_path,
             "--content_images_paths",
             tmp_img_path,
+            "--interpolation_weights",
+            "[0.8]",
         ])
 
         return os.path.join(self.folder, "images/artifacts/{}_{}.jpg".format(tmp_img_name, style_img_name))
