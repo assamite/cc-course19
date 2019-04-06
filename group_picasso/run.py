@@ -28,8 +28,15 @@ class RandomImageCreator:
         self.domain = 'image'
         self.folder = os.path.dirname(os.path.realpath(__file__))
         self.picasso_path = os.path.join(self.folder, "images/picasso.jpg")
+
+        # self.content_img_path = os.path.join(self.folder, "images/content/golden_gate_sq.jpg")
+        # self.style_img_path = os.path.join(self.folder, "images/styles/towers_1916_sq.jpg")
+        # self.content_img_path = os.path.join(self.folder, "images/content/colva_beach_sq.jpg")
+        # self.style_img_path = os.path.join(self.folder, "images/styles/clouds-over-bor-1940_sq.jpg")
         self.content_img_path = os.path.join(self.folder, "images/content/statue_of_liberty_sq.jpg")
         self.style_img_path = os.path.join(self.folder, "images/styles/zigzag_colorful.jpg")
+        # self.content_img_path = os.path.join(self.folder, "images/content/eiffel_tower.jpg")
+        # self.style_img_path = os.path.join(self.folder, "images/styles/red_texture_sq.jpg")
 
     def generate(self, *args, **kwargs):
         """Random image generator.

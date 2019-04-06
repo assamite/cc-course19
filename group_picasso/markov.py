@@ -12,41 +12,44 @@ def get_neighbours(x, y):
 class MarkovChain(object):
     def __init__(self):
         self.counters = defaultdict(Counter)
+        self.distribs = {}
+        self.bucket_size = 16
+
+    def normalize(self, pixel):
+        return pixel // self.bucket_size * self.bucket_size
 
     def train(self, img):
         width, height = img.size
         img = np.array(img)
         for x in range(height):
             for y in range(width):
-                color = tuple(img[x, y])
+                color = tuple(self.normalize(img[x, y]))
                 for neighbour in get_neighbours(x, y):
                     try:
-                        self.counters[color][tuple(img[neighbour])] += 1
+                        self.counters[color][tuple(self.normalize(img[neighbour]))] += 1
                     except IndexError:
                         continue
 
     def generate(self, width=64, height=64):
         img = np.array(Image.new('RGB', (width, height), 'white'))
         init_pos = (np.random.randint(0, height), np.random.randint(0, width))
-        img[init_pos] = random.choice(list(self.counters.keys()))
+        img[init_pos] = random.choice(tuple(self.counters.keys()))
         stack = [init_pos]
         colored = set()
         colored.add(init_pos)
-        distribs = {}
         while stack:
             x, y = stack.pop()
-            colors = None
-            probs = None
             color = tuple(img[x, y])
-            if color not in distribs:
+            colors = probs = ()
+            if color in self.distribs:
+                colors, probs = self.distribs[color]
+            else:
                 counter = self.counters[color]
-                colors = list(counter.keys())
-                freqs = list(counter.values())
+                colors = tuple(counter.keys())
+                freqs = tuple(counter.values())
                 total = sum(freqs, 0.0)
                 probs = np.divide(freqs, total)
-                distribs[color] = (colors, probs)
-            else:
-                colors, probs = distribs[color]
+                self.distribs[color] = (colors, probs)
             color_idxs = np.arange(len(colors))
             neighbours = get_neighbours(x, y)
             np.random.shuffle(neighbours)
