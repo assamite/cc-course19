@@ -3,7 +3,7 @@ from typing import Dict, List
 WORDS = ['crisscross', 'dos', 'chess', 'completed', 'depleted', 'hugged']
 
 
-def rhyme(emotion: str, word_pairs: Dict[str, List]):
+def generate_rhyming_words(emotion: str, word_pairs: Dict[str, List]):
 
     partials_and_rhymes = []
     for word_pair in word_pairs['word_pairs']:

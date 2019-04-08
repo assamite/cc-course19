@@ -1,7 +1,7 @@
 from typing import Dict, List
 
 
-def creativity(emotion: str, rhyming_partials: List[Dict]):
+def fill_and_create_text(emotion: str, rhyming_partials: List[Dict]):
     return [
         # f'Roses are red', f'{word_pair[0]} are {word_pair[1]}'
         ['Roses are red', f'{rp["word_pair"][0]} are {rp["word_pair"][1]}',
