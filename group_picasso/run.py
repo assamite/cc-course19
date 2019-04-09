@@ -26,23 +26,22 @@ class RandomImageCreator:
         self.domain = 'image'
         self.folder = os.path.dirname(os.path.realpath(__file__))
         self.picasso_path = os.path.join(self.folder, "images/picasso.jpg")
-        # self.content_img_path = os.path.join(self.folder, "images/content/dog.jpg")
+        self.content_img_path = os.path.join(self.folder, "images/content/dog.jpg")
         # self.content_img_path = os.path.join(self.folder, "images/content/colva_beach_sq.jpg")
         # self.content_img_path = os.path.join(self.folder, "images/content/eiffel_tower.jpg")
         # self.content_img_path = os.path.join(self.folder, "images/content/golden_gate_sq.jpg")
-        self.content_img_path = os.path.join(self.folder, "images/content/statue_of_liberty_sq.jpg")
-        # self.style_img_path = os.path.join(self.folder, "images/styles/homer.png")
+        # self.content_img_path = os.path.join(self.folder, "images/content/statue_of_liberty_sq.jpg")
         # self.style_img_path = os.path.join(self.folder, "images/styles/black_zigzag.jpg")
         # self.style_img_path = os.path.join(self.folder, "images/styles/bricks_sq.jpg")
         # self.style_img_path = os.path.join(self.folder, "images/styles/Camille_Mauclair.jpg")
-        # self.style_img_path = os.path.join(self.folder, "images/styles/clouds-over-bor-1940_sq.jpg")
+        self.style_img_path = os.path.join(self.folder, "images/styles/clouds-over-bor-1940_sq.jpg")
         # self.style_img_path = os.path.join(self.folder, "images/styles/La_forma.jpg")
         # self.style_img_path = os.path.join(self.folder, "images/styles/piano-keyboard-sketch_sq.jpg")
         # self.style_img_path = os.path.join(self.folder, "images/styles/pink_zigzag.jpg")
         # self.style_img_path = os.path.join(self.folder, "images/styles/red_texture_sq.jpg")
         # self.style_img_path = os.path.join(self.folder, "images/styles/Theo_van_Doesburg_sq.jpg")
         # self.style_img_path = os.path.join(self.folder, "images/styles/towers_1916_sq.jpg")
-        self.style_img_path = os.path.join(self.folder, "images/styles/zigzag_colorful.jpg")
+        # self.style_img_path = os.path.join(self.folder, "images/styles/zigzag_colorful.jpg")
         self.content_img_name = os.path.splitext(os.path.basename(self.content_img_path))[0]
         self.style_img_name = os.path.splitext(os.path.basename(self.style_img_path))[0]
         os.environ["GOOGLE_APPLICATION_CREDENTIALS"] = os.path.join(self.folder, "cc-course19-03de99f05112.json")
@@ -65,8 +64,9 @@ class RandomImageCreator:
         self.generate_markov_style(markov_style_img_path)
         self.generate_artifact(markov_style_img_path, tmp_img_path)
 
-        self.print_img_labels(self.content_img_path)
-        self.print_img_props(artifact_img_path)
+        # self.print_img_labels(self.content_img_path)
+        self.print_img_labels(artifact_img_path)
+        # self.print_img_props(artifact_img_path)
 
         return artifact_img_path
 
