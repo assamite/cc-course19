@@ -10,10 +10,10 @@ def get_neighbours(x, y):
 
 
 class MarkovChain(object):
-    def __init__(self):
+    def __init__(self, bucket_size=1):
         self.counters = defaultdict(Counter)
         self.distribs = {}
-        self.bucket_size = 16
+        self.bucket_size = bucket_size
 
     def train(self, img):
         width, height = img.size

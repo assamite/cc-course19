@@ -2,12 +2,13 @@
 
 Should contain initialize- and create-functions.
 """
-
 import glob
+import io
 import os
 from datetime import datetime
 
 from PIL import Image
+from google.cloud import vision
 
 from group_picasso.libs.arbitrary_image_stylization.arbitrary_image_stylization_with_weights import code_entry_point
 from group_picasso.markov import MarkovChain
@@ -21,47 +22,62 @@ class RandomImageCreator:
 
         Only keyword arguments are supported in config.json
         """
-
-        print("Group Example initialize.")
-
         # Each creator should have domain specified: title, poetry, music, image, etc.
         self.domain = 'image'
         self.folder = os.path.dirname(os.path.realpath(__file__))
         self.picasso_path = os.path.join(self.folder, "images/picasso.jpg")
-
-        # self.content_img_path = os.path.join(self.folder, "images/content/golden_gate_sq.jpg")
-        # self.style_img_path = os.path.join(self.folder, "images/styles/towers_1916_sq.jpg")
+        # self.content_img_path = os.path.join(self.folder, "images/content/dog.jpg")
         # self.content_img_path = os.path.join(self.folder, "images/content/colva_beach_sq.jpg")
-        # self.style_img_path = os.path.join(self.folder, "images/styles/clouds-over-bor-1940_sq.jpg")
-        self.content_img_path = os.path.join(self.folder, "images/content/statue_of_liberty_sq.jpg")
-        self.style_img_path = os.path.join(self.folder, "images/styles/zigzag_colorful.jpg")
         # self.content_img_path = os.path.join(self.folder, "images/content/eiffel_tower.jpg")
+        # self.content_img_path = os.path.join(self.folder, "images/content/golden_gate_sq.jpg")
+        self.content_img_path = os.path.join(self.folder, "images/content/statue_of_liberty_sq.jpg")
+        # self.style_img_path = os.path.join(self.folder, "images/styles/homer.png")
+        # self.style_img_path = os.path.join(self.folder, "images/styles/black_zigzag.jpg")
+        # self.style_img_path = os.path.join(self.folder, "images/styles/bricks_sq.jpg")
+        # self.style_img_path = os.path.join(self.folder, "images/styles/Camille_Mauclair.jpg")
+        # self.style_img_path = os.path.join(self.folder, "images/styles/clouds-over-bor-1940_sq.jpg")
+        # self.style_img_path = os.path.join(self.folder, "images/styles/La_forma.jpg")
+        # self.style_img_path = os.path.join(self.folder, "images/styles/piano-keyboard-sketch_sq.jpg")
+        # self.style_img_path = os.path.join(self.folder, "images/styles/pink_zigzag.jpg")
         # self.style_img_path = os.path.join(self.folder, "images/styles/red_texture_sq.jpg")
+        # self.style_img_path = os.path.join(self.folder, "images/styles/Theo_van_Doesburg_sq.jpg")
+        # self.style_img_path = os.path.join(self.folder, "images/styles/towers_1916_sq.jpg")
+        self.style_img_path = os.path.join(self.folder, "images/styles/zigzag_colorful.jpg")
+        self.content_img_name = os.path.splitext(os.path.basename(self.content_img_path))[0]
+        self.style_img_name = os.path.splitext(os.path.basename(self.style_img_path))[0]
+        os.environ["GOOGLE_APPLICATION_CREDENTIALS"] = os.path.join(self.folder, "cc-course19-03de99f05112.json")
+        self.client = vision.ImageAnnotatorClient()
 
     def generate(self, *args, **kwargs):
         """Random image generator.
         """
-
         if not glob.glob(os.path.join(self.folder, "model.ckpt*")):
             print("Pre-trained model not found...")
             return self.picasso_path
 
-        content_img_name = os.path.splitext(os.path.basename(self.content_img_path))[0]
-        style_img_name = os.path.splitext(os.path.basename(self.style_img_path))[0]
         timestamp = datetime.now().strftime("%Y%m%d-%H%M%S-%f")
-        style_img_markov_path = os.path.join(self.folder, "images/tmp/{}.png".format(timestamp))
-        tmp_img_name = "{}_{}".format(content_img_name, timestamp)
+        markov_style_img_path = os.path.join(self.folder, "images/tmp/{}.png".format(timestamp))
+        tmp_img_name = "{}_{}".format(self.content_img_name, timestamp)
         tmp_img_path = os.path.join(self.folder, "images/tmp/{}.jpg".format(tmp_img_name))
+        artifact_img_path = os.path.join(self.folder,
+                                         "images/artifacts/{}_{}.jpg".format(tmp_img_name, self.style_img_name))
 
-        chain = MarkovChain()
+        self.generate_markov_style(markov_style_img_path)
+        self.generate_artifact(markov_style_img_path, tmp_img_path)
+
+        self.print_img_labels(self.content_img_path)
+        self.print_img_props(artifact_img_path)
+
+        return artifact_img_path
+
+    def generate_markov_style(self, markov_style_img_path):
+        chain = MarkovChain(bucket_size=16)
         style_img = Image.open(self.style_img_path)
-        print("Training Markov model...")
         chain.train(style_img)
-        print("Generating markovified style...")
         style_img_markov = chain.generate()
-        style_img_markov.save(style_img_markov_path)
+        style_img_markov.save(markov_style_img_path)
 
-        print("Applying the styles...")
+    def generate_artifact(self, markov_style_img_path, tmp_img_path):
         code_entry_point([
             "arbitrary_image_stylization_with_weights",
             "--checkpoint",
@@ -69,7 +85,7 @@ class RandomImageCreator:
             "--output_dir",
             os.path.join(self.folder, "images/tmp/"),
             "--style_images_paths",
-            style_img_markov_path,
+            markov_style_img_path,
             "--content_images_paths",
             self.content_img_path,
             "--interpolation_weights",
@@ -89,12 +105,32 @@ class RandomImageCreator:
             "[0.8]",
         ])
 
-        return os.path.join(self.folder, "images/artifacts/{}_{}.jpg".format(tmp_img_name, style_img_name))
+    def print_img_labels(self, img_path):
+        with io.open(img_path, 'rb') as image_file:
+            content = image_file.read()
+        image = vision.types.Image(content=content)
+        response = self.client.label_detection(image=image, max_results=100)
+        labels = response.label_annotations
+        print('Labels:')
+        for label in labels:
+            print("{}: {}".format(label.description, label.score))
+
+    def print_img_props(self, img_path):
+        with io.open(img_path, 'rb') as image_file:
+            content = image_file.read()
+        image = vision.types.Image(content=content)
+        response = self.client.image_properties(image=image)
+        props = response.image_properties_annotation
+        print('Properties:')
+        for color in props.dominant_colors.colors:
+            print('fraction: {}'.format(color.pixel_fraction))
+            print('\tr: {}'.format(color.color.red))
+            print('\tg: {}'.format(color.color.green))
+            print('\tb: {}'.format(color.color.blue))
 
     def evaluate(self, image):
         """Evaluate image.
         """
-
         return 0
 
     def create(self, emotion, word_pairs, number_of_artifacts=10, **kwargs):
@@ -124,6 +160,5 @@ class RandomImageCreator:
             List with *number_of_artifacts* elements. Each element should be (artifact, metadata) pair, where metadata
             should be a dictionary holding at least 'evaluation' keyword with float value.
         """
-
         img = self.generate()
         return [(img, {"evaluation": self.evaluate(img)})]
