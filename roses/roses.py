@@ -6,9 +6,9 @@ import argparse
 import random
 import json
 
-from theme import theme
-from rhyme import rhyme
-from creativity import creativity
+from theme import generate_word_pairs
+from rhyme import generate_rhyming_words
+from creativity import fill_and_create_text
 from evaluate import evaluate_poems
 
 
@@ -30,7 +30,11 @@ class PoemCreator:
     def generate(self, emotion, word_pairs):
         """Poem generator.
         """
-        self.poems = creativity(emotion, rhyme(emotion, theme(emotion, word_pairs)))
+        self.poems = fill_and_create_text(
+            emotion,
+            generate_rhyming_words(
+                emotion,
+                generate_word_pairs(emotion, word_pairs)))
         return self.poems
 
     def evaluate(self, emotion, word_pairs, poems):
@@ -68,7 +72,8 @@ class PoemCreator:
 
         """
         print("Group Roses create with input args: {} {}".format(emotion, word_pairs))
-        poems = self.evaluate(emotion, word_pairs, self.generate(emotion, word_pairs))
+        poems = self.evaluate(emotion, word_pairs,
+                              self.generate(emotion, word_pairs))
         poems.sort(key=lambda x: x[1])
         return list(map(lambda x: ('\n'.join(x[0]), {'evaluation': x[1]}), poems[0:number_of_artifacts]))
 
@@ -77,8 +82,10 @@ if __name__ == '__main__':
     poem_creator = PoemCreator()
     parser = argparse.ArgumentParser()
     parser.add_argument('emotion', help='Emotion for poem.')
-    parser.add_argument('word_pairs', help='File for word pairs. Json list of lists')
-    parser.add_argument('num_poems', help='Number of poems to output.', type=int)
+    parser.add_argument(
+        'word_pairs', help='File for word pairs. Json list of lists')
+    parser.add_argument(
+        'num_poems', help='Number of poems to output.', type=int)
     args = parser.parse_args()
     with open(args.word_pairs) as json_file:
         word_pairs = [tuple(word_pair) for word_pair in json.load(json_file)]
