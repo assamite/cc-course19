@@ -8,6 +8,8 @@ import json
 
 from theme import generate_word_pairs
 from rhyme import generate_rhyming_words
+from find_lines import find_lines
+from magic_function import alter_rest
 from creativity import fill_and_create_text
 from evaluate import evaluate_poems
 
@@ -30,11 +32,14 @@ class PoemCreator:
     def generate(self, emotion, word_pairs):
         """Poem generator.
         """
+        part1 = generate_word_pairs(emotion, word_pairs)
+        part2 = generate_rhyming_words(emotion, part1)
+        part3 = find_lines(emotion, part2)
+        part4 = alter_rest(emotion, part3)
         self.poems = fill_and_create_text(
             emotion,
-            generate_rhyming_words(
-                emotion,
-                generate_word_pairs(emotion, word_pairs)))
+            part4
+        )
         return self.poems
 
     def evaluate(self, emotion, word_pairs, poems):
