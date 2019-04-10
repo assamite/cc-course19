@@ -6,12 +6,12 @@ import argparse
 import random
 import json
 
-from theme import generate_word_pairs
-from rhyme import generate_rhyming_words
-from find_lines import find_lines
-from magic_function import alter_rest
-from creativity import fill_and_create_text
-from evaluate import evaluate_poems
+from alter_word_pairs import generate_word_pairs
+from best_rhymes import generate_rhyming_words
+from choose_lines import find_lines
+from do_magic import alter_rest
+from expand_poem import fill_and_create_text
+from fill_evaluations import evaluate_poems
 
 
 class PoemCreator:
