@@ -13,6 +13,11 @@ try:
 except ModuleNotFoundError:
     from evaluator import Evaluator
 
+try:
+    from .thesaurus import fetch
+except ModuleNotFoundError:
+    from thesaurus import fetch
+
 
 class tittlesTitle():
     def __init__(self):
@@ -80,8 +85,11 @@ class tittlesTitle():
         ret = []
 
         while len(ret) != number_of_artifacts:
-            # TODO: get synonyms
-            word_pair = random.choice(word_pairs)
+            adjectives = list(word_pair[1] for word_pair in word_pairs if word_pair[0] == 'animal')
+            animals = fetch('animal', adjectives)
+            animal = random.choices(list(animals.keys()), list(animals.values()))[0]
+            adjective = random.choice(adjectives)
+            word_pair = (animal, adjective)
             template = self.template_bank.random_template()
             title = Title(template)
             self.inject(title, word_pair)

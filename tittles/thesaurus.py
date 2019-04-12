@@ -10,7 +10,7 @@ def fetch(category, adjectives):
         members = {member.text.strip(): int(member.attrib['weight']) for member in root.iter('Member')}
         members = {k: v / max(members.values()) / len(adjectives) for k, v in members.items()}
         counter.update(members)
-    return counter.most_common(10)
+    return counter
 
 if __name__ == "__main__":
     import sys
@@ -25,7 +25,7 @@ if __name__ == "__main__":
     print(' adjectives:', ', '.join(adjectives))
     print(' suggestions:')
     suggestions = fetch('person', adjectives)
-    for suggestion in suggestions:
+    for suggestion in suggestions.most_common(10):
         print(f'  {suggestion[1]:.2f} {suggestion[0]}')
 
     adjectives = list(word_pair[1] for word_pair in word_pairs if word_pair[0] == 'animal')
@@ -33,5 +33,5 @@ if __name__ == "__main__":
     print(' adjectives:', ', '.join(adjectives))
     print(' suggestions:')
     suggestions = fetch('animal', adjectives)
-    for suggestion in suggestions:
+    for suggestion in suggestions.most_common(10):
         print(f'  {suggestion[1]:.2f} {suggestion[0]}')
