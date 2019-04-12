@@ -15,24 +15,22 @@ def __iterative_levenshtein(s, t, weights=(1,1,1)):
     rows = len(s)+1
     cols = len(t)+1
     
-    alphabet = "abcdefghijklmnopqrstuvwxyz"
-    w = dict( (x, weights) for x in alphabet + alphabet.upper())
     
     dist = [[0 for x in range(cols)] for x in range(rows)]
     # source prefixes can be transformed into empty strings 
     # by deletions:
     for row in range(1, rows):
-        dist[row][0] = dist[row-1][0] + w[s[row-1]][0]
+        dist[row][0] = dist[row-1][0] + s[row-1]weights[0]
     # target prefixes can be created from an empty source string
     # by inserting the characters
     for col in range(1, cols):
-        dist[0][col] = dist[0][col-1] + w[t[col-1]][1]
+        dist[0][col] = dist[0][col-1] + t[col-1]weights[1]
         
     for col in range(1, cols):
         for row in range(1, rows):
-            deletes = w[s[row-1]][0]
-            inserts = w[t[col-1]][1]
-            subs = max( (w[s[row-1]][2], w[t[col-1]][2]))
+            deletes = s[row-1]weights[0]
+            inserts = t[col-1]weights[1]
+            subs = max( (s[row-1]weights[2], t[col-1]weights[2]))
             if s[row-1] == t[col-1]:
                 subs = 0
             else:
@@ -69,7 +67,7 @@ def editDistance(phenotype, title_bank, weights=(1, 1, 1)):
         if abs(len(phenotype.strip()) - len(b_info["title"].strip())) > closest:
             continue
 
-        levenshtein = __iterative_levenshtein(pehnotype.strip(), b_info["title"].strip(), weights)
+        levenshtein = __iterative_levenshtein(phenotype.strip(), b_info["title"].strip(), weights)
         closest = min(closest, levenshtein)
     
     return closest
