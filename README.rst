@@ -116,7 +116,7 @@ Get the code running
 1. Fork the repo in github (once per group)
 2. Clone your forked repo (for each group member)
 3. Install Python 3.6+
-4. Create python virtual environment in your cloned repo's root using: ``python3.6 -m env``
+4. Create python virtual environment in your cloned repo's root using: ``python3.6 -m venv env``
 5. Activate virtualenv using: ``source env/bin/activate``
 6. Install general requirements: ``pip install -r requirements.txt``
 
@@ -179,3 +179,11 @@ To obtain the new required libraries and frameworks, run 'pip' again with your v
 
     > source env/bin/activate
     > pip install -r requirements.txt
+
+Operations after week 3 pull requests
+-------------------------------------
+
+1. Sync your repo
+2. Install mysqlclient (with your virtual environment activated): ``pip install mysqlclient``
+3. Install requirements (in the root folder): ``pip install -r requirements.txt``
+4. (Optional) See ``group_picasso/README.rst`` for the download link to their prebuilt model.
