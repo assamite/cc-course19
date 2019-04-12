@@ -121,5 +121,15 @@ class tittlesTitle():
         return ret
 
 if __name__ == "__main__":
+    import pprint
+    import sys
+    sys.path.insert(0,'..')
+    import inputs
+    pp = pprint.PrettyPrinter(indent=2)
+    emotion, word_pairs = inputs.get_input(False)
     T = tittlesTitle()
-    print(T.create("happiness", [('cat', 'black'), ('weather', 'rainy')], number_of_artifacts=3))
+    print('INPUT')
+    pp.pprint({'emotion': emotion, 'word_pairs': word_pairs})
+    print('')
+    print('OUTPUT')
+    pp.pprint(T.create(emotion, word_pairs, number_of_artifacts=3))
