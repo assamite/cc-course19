@@ -8,6 +8,12 @@ try:
 except ModuleNotFoundError:
     from templates import TemplateBank, Title
 
+try:
+    from .evaluations import editDistance
+except ModuleNotFoundError:
+    from evaluations import editDistance
+
+
 class tittlesTitle():
     def __init__(self):
         self.threshold = 0.8
@@ -47,14 +53,19 @@ class tittlesTitle():
         Returns:
             Float [0, 1] : How good the title was - high being better.
         """
+        if len(title) == 0:
+                # Empty title
+                return 0.
+
         if self.title_bank is None:
             return 0.8
         else:
-            for b_id, b_info in self.title_bank.items():
-                # Check novelty
-                if title.lower().strip() == b_info["title"].lower().strip():
-                    return 0.5
-            return 1.0
+            dist = editDistance(title, self.title_bank, (1, 1, 1))
+            # Scale with the title length
+            # Can be higher than 1 if weights are not all 1.
+            dist = min(1, dist/len(title))
+            return dist
+        
 
     def inject(self, title, word_pair):
         for i, cat in title.get_slots('NP'):
