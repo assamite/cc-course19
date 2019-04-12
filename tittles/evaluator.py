@@ -2,7 +2,7 @@ import cmudict
 import pickle
 import os
 
-class evaluator():
+class Evaluator():
     def __init__(self):
         self.value = 0
         self.cmudict = cmudict.dict()
