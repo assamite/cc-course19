@@ -51,7 +51,7 @@ class tittlesTitle():
             else:
                 title.inject(singularize(word_pair[0]).capitalize(), 'NP')
         for i, cat in title.get_slots('ADJ'):
-            title.inject(word_pair[1], 'ADJ')
+            title.inject(word_pair[1].capitalize(), 'ADJ')
 
     def create(self, emotion, word_pairs, number_of_artifacts=10, **kwargs):
         """Create artifacts in the group's domain.
