@@ -1,8 +1,18 @@
 import random
 import os
+import pickle
 from pattern.en import pluralize, singularize
 
-from .templates import TemplateBank, Title
+try:
+    from .templates import TemplateBank, Title
+except ModuleNotFoundError:
+    from templates import TemplateBank, Title
+
+try:
+    from .evaluations import editDistance
+except ModuleNotFoundError:
+    from evaluations import editDistance
+
 
 class tittlesTitle():
     def __init__(self):
@@ -15,13 +25,20 @@ class tittlesTitle():
         self.title_bank = None
 
         # Try reading content for the title_bank
+        
         try:
-            import pickle
-
             with open(os.path.join(self.folder, "data", "titles.pickle"), "rb") as f:
                 self.title_bank = pickle.load(f)
-        except ImportError as err:
-            print("Encountered import error, when initialising tittlesTitle. {}".format(err.msg))
+        
+        except FileNotFoundError:
+            from title_scrape import download_gutenberg, gutenberg_preprocess
+        
+            download_gutenberg()
+            gutenberg_preprocess()
+        
+            with open(os.path.join(self.folder, "data", "titles.pickle"), "rb") as f:
+                self.title_bank = pickle.load(f)
+
 
     def generate(self, *args, **kwargs):
         return self.create("", {}, number_of_artifacts=1)
@@ -36,14 +53,19 @@ class tittlesTitle():
         Returns:
             Float [0, 1] : How good the title was - high being better.
         """
+        if len(title) == 0:
+                # Empty title
+                return 0.
+
         if self.title_bank is None:
             return 0.8
         else:
-            for b_id, b_info in self.title_bank.items():
-                # Check novelty
-                if title.lower().strip() == b_info["title"].lower().strip():
-                    return 0.5
-            return 1.0
+            dist = editDistance(title, self.title_bank, (1, 1, 1))
+            # Scale with the title length
+            # Can be higher than 1 if weights are not all 1.
+            dist = min(1, dist/len(title))
+            return dist
+        
 
     def inject(self, title, word_pair):
         for i, cat in title.get_slots('NP'):
