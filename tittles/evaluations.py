@@ -20,17 +20,17 @@ def __iterative_levenshtein(s, t, weights=(1,1,1)):
     # source prefixes can be transformed into empty strings 
     # by deletions:
     for row in range(1, rows):
-        dist[row][0] = dist[row-1][0] + s[row-1]weights[0]
+        dist[row][0] = dist[row-1][0] + weights[0]
     # target prefixes can be created from an empty source string
     # by inserting the characters
     for col in range(1, cols):
-        dist[0][col] = dist[0][col-1] + t[col-1]weights[1]
+        dist[0][col] = dist[0][col-1] + weights[1]
         
     for col in range(1, cols):
         for row in range(1, rows):
-            deletes = s[row-1]weights[0]
-            inserts = t[col-1]weights[1]
-            subs = max( (s[row-1]weights[2], t[col-1]weights[2]))
+            deletes = weights[0]
+            inserts = weights[1]
+            subs = max( (weights[2], weights[2]))
             if s[row-1] == t[col-1]:
                 subs = 0
             else:
