@@ -4,7 +4,6 @@ import os
 
 class Evaluator():
     def __init__(self):
-        self.value = 0
         self.cmudict = cmudict.dict()
 
         self.title_bank = None
@@ -109,15 +108,15 @@ class Evaluator():
         Returns:
             float : Weighted average of the different evaluations.
         """
-        self.eval_novelty(" ".join(title))
-        self.eval_alliteration(title)
-        return self.value / 2.0
+        val = 0
+        val += self.eval_novelty(" ".join(title))
+        val += self.eval_alliteration(title)
+        return val / 2.0
 
 
     def eval_novelty(self, title):
         if self.title_bank is None:
-            self.value += 0.8
-            return
+            return 0.8
         else:
             dist = self.editDistance(title, (1, 1, 1))
             # Scale with the title length
@@ -139,7 +138,7 @@ class Evaluator():
             except:
                 #word was not in dict
                 continue
-        self.value += len(unique_phonemes) / title_length
+        return len(unique_phonemes) / title_length
 
 
     def get_alliteration_score(self, ratio):
