@@ -63,7 +63,7 @@ class tittlesTitle():
             dist = editDistance(title, self.title_bank, (1, 1, 1))
             # Scale with the title length
             # Can be higher than 1 if weights are not all 1.
-            dist = min(1, dist/len(title))
+            dist = min(1, (dist/len(title))*(len(title)//5))
             return dist
         
 
