@@ -7,7 +7,9 @@ def fetch(category, adjectives):
     for adjective in adjectives:
         r = requests.get('http://ngrams.ucd.ie/therex3/common-nouns/category.action', params={'cate': f'{adjective}:{category}', 'xml': 'true'})
         root = ET.fromstring(r.text)
-        counter.update({member.text.strip(): int(member.attrib['weight']) for member in root.iter('Member')})
+        members = {member.text.strip(): int(member.attrib['weight']) for member in root.iter('Member')}
+        members = {k: v / max(members.values()) / len(adjectives) for k, v in members.items()}
+        counter.update(members)
     return counter.most_common(10)
 
 if __name__ == "__main__":
@@ -15,23 +17,21 @@ if __name__ == "__main__":
     sys.path.insert(0,'..')
     import inputs
     emotion, word_pairs = inputs.get_input(False)
+    # print(emotion, word_pairs)
+    # exit()
 
     adjectives = list(word_pair[1] for word_pair in word_pairs if word_pair[0] == 'human')
     print('human:')
-    print(' adjectives:')
-    for adjective in adjectives:
-        print('  -', adjective)
+    print(' adjectives:', ', '.join(adjectives))
     print(' suggestions:')
     suggestions = fetch('person', adjectives)
     for suggestion in suggestions:
-        print('  -', suggestion)
+        print(f'  {suggestion[1]:.2f} {suggestion[0]}')
 
     adjectives = list(word_pair[1] for word_pair in word_pairs if word_pair[0] == 'animal')
     print('animal:')
-    print(' adjectives:')
-    for adjective in adjectives:
-        print('  -', adjective)
+    print(' adjectives:', ', '.join(adjectives))
     print(' suggestions:')
     suggestions = fetch('animal', adjectives)
     for suggestion in suggestions:
-        print('  -', suggestion)
+        print(f'  {suggestion[1]:.2f} {suggestion[0]}')
