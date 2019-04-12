@@ -2,11 +2,6 @@ import cmudict
 import pickle
 import os
 
-try:
-    from .evaluations import editDistance
-except ModuleNotFoundError:
-    from evaluations import editDistance
-
 class evaluator():
     def __init__(self):
         self.value = 0
@@ -124,7 +119,7 @@ class evaluator():
             self.value += 0.8
             return
         else:
-            dist = editDistance(title, self.title_bank, (1, 1, 1))
+            dist = self.editDistance(title, (1, 1, 1))
             # Scale with the title length
             # Can be higher than 1 if weights are not all 1.
             dist = min(1.0, (dist/len(title))*(len(title)//5))
