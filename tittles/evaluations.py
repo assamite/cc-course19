@@ -69,7 +69,7 @@ def editDistance(phenotype, title_bank, weights=(1, 1, 1)):
         if abs(len(phenotype.strip()) - len(b_info["title"].strip())) > closest:
             continue
 
-        levenshtein = __iterative(pehnotype.strip(), b_info["title"].strip(), weights)
+        levenshtein = __iterative_levenshtein(pehnotype.strip(), b_info["title"].strip(), weights)
         closest = min(closest, levenshtein)
     
     return closest
