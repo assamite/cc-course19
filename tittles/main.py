@@ -9,9 +9,9 @@ except ModuleNotFoundError:
     from templates import TemplateBank, Title
 
 try:
-    from .evaluations import editDistance
+    from .evaluator import Evaluator
 except ModuleNotFoundError:
-    from evaluations import editDistance
+    from evaluator import Evaluator
 
 
 class tittlesTitle():
@@ -19,25 +19,9 @@ class tittlesTitle():
         self.threshold = 0.8
         self.domain = 'word'
         self.folder = os.path.dirname(os.path.realpath(__file__))
+        self.evaluator = Evaluator()
 
         self.template_bank = TemplateBank(os.path.join(self.folder, "data", "templates.short.uniq"))
-
-        self.title_bank = None
-
-        # Try reading content for the title_bank
-        
-        try:
-            with open(os.path.join(self.folder, "data", "titles.pickle"), "rb") as f:
-                self.title_bank = pickle.load(f)
-        
-        except FileNotFoundError:
-            from title_scrape import download_gutenberg, gutenberg_preprocess
-        
-            download_gutenberg()
-            gutenberg_preprocess()
-        
-            with open(os.path.join(self.folder, "data", "titles.pickle"), "rb") as f:
-                self.title_bank = pickle.load(f)
 
 
     def generate(self, *args, **kwargs):
@@ -53,19 +37,7 @@ class tittlesTitle():
         Returns:
             Float [0, 1] : How good the title was - high being better.
         """
-        if len(title) == 0:
-                # Empty title
-                return 0.
-
-        if self.title_bank is None:
-            return 0.8
-        else:
-            dist = editDistance(title, self.title_bank, (1, 1, 1))
-            # Scale with the title length
-            # Can be higher than 1 if weights are not all 1.
-            dist = min(1, (dist/len(title))*(len(title)//5))
-            return dist
-        
+        return self.evaluator.evaluate(title.split(" "))
 
     def inject(self, title, word_pair):
         for i, cat in title.get_slots('NP'):
@@ -113,10 +85,9 @@ class tittlesTitle():
             template = self.template_bank.random_template()
             title = Title(template)
             self.inject(title, word_pair)
-            title = str(title)
-            v = self.evaluate(title)
+            v = self.evaluate(str(title))
             if v >= self.threshold:
-                ret.append((title, {"evaluation": v}))
+                ret.append((str(title), {"evaluation": v}))
 
         return ret
 
