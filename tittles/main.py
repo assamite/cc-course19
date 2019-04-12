@@ -14,9 +14,9 @@ except ModuleNotFoundError:
     from evaluator import Evaluator
 
 try:
-    from .thesaurus import fetch
-except ModuleNotFoundError:
-    from thesaurus import fetch
+    from . import thesaurus
+except ImportError:
+    import thesaurus
 
 
 class tittlesTitle():
@@ -86,7 +86,7 @@ class tittlesTitle():
 
         while len(ret) != number_of_artifacts:
             adjectives = list(word_pair[1] for word_pair in word_pairs if word_pair[0] == 'animal')
-            animals = fetch('animal', adjectives)
+            animals = thesaurus.find_members('animal', adjectives)
             animal = random.choices(list(animals.keys()), list(animals.values()))[0]
             adjective = random.choice(adjectives)
             word_pair = (animal, adjective)
