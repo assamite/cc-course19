@@ -116,7 +116,7 @@ Get the code running
 1. Fork the repo in github (once per group)
 2. Clone your forked repo (for each group member)
 3. Install Python 3.6+
-4. Create python virtual environment in your cloned repo's root using: ``python3.6 -m env``
+4. Create python virtual environment in your cloned repo's root using: ``python3.6 -m venv env``
 5. Activate virtualenv using: ``source env/bin/activate``
 6. Install general requirements: ``pip install -r requirements.txt``
 
