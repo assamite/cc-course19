@@ -17,7 +17,7 @@ class MarkovChain(object):
 
     def train(self, img):
         width, height = img.size
-        img = np.array(img) // self.bucket_size * self.bucket_size
+        img = np.array(img)[:, :, :3] // self.bucket_size * self.bucket_size
         for x in range(height):
             for y in range(width):
                 color = tuple(img[x, y])
