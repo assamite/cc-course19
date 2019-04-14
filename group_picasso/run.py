@@ -50,7 +50,7 @@ class RandomImageCreator:
         self.__generate_artifact(markov_style_img_path, tmp_img_path)
 
         # self.__print_img_labels(self.content_img_path)
-        self.__print_img_labels(artifact_img_path)
+        # self.__print_img_labels(artifact_img_path)
         # self.__print_img_props(artifact_img_path)
 
         return artifact_img_path
