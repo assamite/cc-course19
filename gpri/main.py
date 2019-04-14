@@ -3,25 +3,20 @@
 Contains initialize- and create-functions.
 """
 
-import random
 import os
-from io import BytesIO
-import IPython.display
 import numpy as np
-import random
-import PIL.Image
-from scipy.stats import truncnorm
+import numpy.random as npr
 import tensorflow as tf
+
 tf.logging.set_verbosity(tf.logging.ERROR)
-import tensorflow_hub as hub
+
 import cv2
 import time
 
-GPU_MODE = False
+from .gpri_helper import style_image_funcs as si
 
-
-animal_idxs =[i for i in range(0,398)]
-activity_idxs =[i for i in range(398,1000)]
+animal_idxs = np.arange(398)
+activity_idxs = np.arange(398, 1000)
 
 
 class RandomImageCreator:
@@ -39,40 +34,74 @@ class RandomImageCreator:
         self.dims = kwargs.pop('resolution', [100, 100])
         self.folder = os.path.dirname(os.path.realpath(__file__))
         self.sess = None
-        choice='N'
-        choice = input("Enable GPU mode (Y/n)? Select N if you don't have a GPU. ")
-        while True:
-            if choice == 'N' or choice == 'n':
-                GPU_MODE=False
-                print('CPU mode enabled, loading dummy image.....')
-                break
-            elif choice == 'Y' or choice == 'y':
-                GPU_MODE=True
-                print('GPU mode enabled..\n')
-                break
-            else:
-                print('Try again (Invalid input).')
-        if GPU_MODE:
-            global graph,model
+        self.GPU_MODE = False
+
+        # Check if user wants to use GPU:
+        choice = input(
+            "Enable GPU mode (N/y)? Select N for now. Code is not yet tested "
+            "for y at the moment.")
+
+        if choice == 'Y' or choice == 'y':
+            self.GPU_MODE = True
+            print('GPU mode enabled..\n')
+            global graph, model
             tf.reset_default_graph()
             graph = tf.get_default_graph()
             from .gpri_helper import model
             initializer = tf.global_variables_initializer()
             self.sess = tf.Session()
             self.sess.run(initializer)
-        
+        else:
+            self.GPU_MODE = False
+            print('GPU mode disabled, loading dummy image.....')
 
-    def generate(self, idx, *args,**kwargs):
+    def generate(self, emotion, word_pairs, **kwargs):
         """Random image generator.
         """
+        contentImage = self.generate_contentImage(word_pairs)
+        styleImage = self.generate_styleImage(emotion)
+        return contentImage
+
+    def generate_styleImage(self, emotion):
+        """
+        Generate the content image for the style transfer.
+        :param emotion: Emotion input
+        :return:
+            Nothing for the moment.
+        """
+        si.create_styleImage((128, 128), 180, 15, 5, 10)
+        # Now the style image is available as numpy array. What to do next?
+        return None
+
+    def generate_contentImage(self, word_pairs):
+        """
+        Generates the intial image, the content image in terms of style
+        transfer, from the 'noun' input variable. Currently only supports a
+        sample image.
+        :param word_pairs: Word pairs input
+        :return:
+            String with file path
+        """
         PATH = str(self.folder)
-        NAME = str("GPRI_%s.png" % (time.time()))
-            
-        if GPU_MODE:
-            truncate=0.8
-            noise=0
-            n_samples=1
-            print(idx)
+        NAME = str("GPRI_%s.png" % (int(time.time())))
+
+        if self.GPU_MODE:
+            with open(f"{self.folder}\categories.txt", "r") as file:
+                buffer = file.read()
+                cat = buffer.split("\n")
+            for pairs in word_pairs:
+                noun = pairs[0]
+                print(noun)
+                if noun == "animal":
+                    idx = int(npr.choice(animal_idxs))
+                elif noun == "activity":
+                    idx = int(npr.choice(activity_idxs))
+                else:
+                    idx = -1  # CheeseBurger
+                break  # taking the first pair for now
+            truncate = 0.8
+            noise = 0
+            n_samples = 1
             idx_cat = idx
             with graph.as_default():
                 z = model.truncated_z_sample(n_samples, truncate, noise)
@@ -81,10 +110,9 @@ class RandomImageCreator:
             print('Saving image.....')
             image = cv2.cvtColor(ims[0], cv2.COLOR_BGR2RGB)
             cv2.imwrite(f"{PATH}\{NAME}", image)
+            return os.path.join(PATH, NAME)
         else:
             return (os.path.join(PATH, "babylon_drawing.jpg"))
-        return os.path.join(PATH, NAME)
-
 
     def evaluate(self, image):
         """Evaluate image. For now this is a dummy.
@@ -119,22 +147,10 @@ class RandomImageCreator:
             should be a dictionary holding at least 'evaluation' keyword with float value.
 
         """
-        print("Group Example create with input args: {} {}".format(emotion, word_pairs))
-        with open(f"{self.folder}\categories.txt", "r") as file:
-            buffer = file.read()
-            cat = buffer.split("\n")
-        for pairs in word_pairs:
-            noun = pairs[0]
-            print(noun)
-            if noun == "animal":
-                idx = int(random.choice(animal_idxs))    
-            elif noun == "activity":
-                idx = int(random.choice(activity_idxs))
-            else:
-                idx = -1 #CheeseBurger
-            break #taking the first pair for now
-        if idx == -1:
-            print("Category not available yet as, category annotation is pending, returning yummy cheeseburger.... (Try animal/activity only)")
-            ret = [(w, {'evaluation': self.evaluate(w)}) for w in [self.generate(933) for _ in range(number_of_artifacts)]]
-        else:
-            ret = [(w, {'evaluation': self.evaluate(w)}) for w in [self.generate(idx) for _ in range(number_of_artifacts)]]
+        print("Group Example create with input args: {} {}".format(emotion,
+                                                                   word_pairs))
+
+        ret = [(w, {'evaluation': self.evaluate(w)}) for w in
+               [self.generate(emotion, word_pairs) for _ in
+                range(number_of_artifacts)]]
+        return ret
