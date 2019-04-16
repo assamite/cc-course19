@@ -78,8 +78,8 @@ class RandomImageCreator:
             # search_query, animal = search_query_generator.generate(word_pairs)
             # content_path = content_downloader.get_content(search_query)
 
-            animal = "bird"
-            content_path = os.path.join(self.folder, "images/content/hybrid.jpg")
+            animal = "dog"
+            content_path = os.path.join(self.folder, "images/content/dog.jpg")
 
             print("Animal is {}...".format(animal))
 
@@ -180,7 +180,7 @@ class RandomImageCreator:
         for label in labels:
             for word in label.description.split():
                 print("{} {}".format(word.lower(), label.score))
-                if word.lower() == "character":
+                if word.lower() in ["character", "dog", "canidae", "carnivore", "akita", "toy"]:
                     print("Style OK!")
                     return True
         return False
