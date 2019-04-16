@@ -5,6 +5,7 @@ Should contain initialize- and create-functions.
 import glob
 import io
 import os
+import random
 from datetime import datetime
 
 from PIL import Image
@@ -25,98 +26,10 @@ class RandomImageCreator:
         self.domain = 'image'
         self.folder = os.path.dirname(os.path.realpath(__file__))
         self.picasso_path = os.path.join(self.folder, "images/picasso.jpg")
-        self.content_img_path = os.path.join(self.folder, "images/content/shark.jpg")
-        self.style_img_path = os.path.join(self.folder, "images/styles/Camille_Mauclair.jpg")
-        self.content_img_name = os.path.splitext(os.path.basename(self.content_img_path))[0]
-        self.style_img_name = os.path.splitext(os.path.basename(self.style_img_path))[0]
         os.environ["GOOGLE_APPLICATION_CREDENTIALS"] = os.path.join(self.folder, "cc-course19-03de99f05112.json")
         self.client = vision.ImageAnnotatorClient()
-
-    def __generate(self):
-        """Random image generator.
-        """
-        if not glob.glob(os.path.join(self.folder, "model.ckpt*")):
-            print("Pre-trained model not found...")
-            return self.picasso_path
-
-        timestamp = datetime.now().strftime("%Y%m%d-%H%M%S-%f")
-        markov_style_img_path = os.path.join(self.folder, "images/tmp/{}.png".format(timestamp))
-        tmp_img_name = "{}_{}".format(self.content_img_name, timestamp)
-        tmp_img_path = os.path.join(self.folder, "images/tmp/{}.jpg".format(tmp_img_name))
-        artifact_img_path = os.path.join(self.folder,
-                                         "images/artifacts/{}_{}.jpg".format(tmp_img_name, self.style_img_name))
-
-        self.__generate_markov_style(markov_style_img_path)
-        self.__generate_artifact(markov_style_img_path, tmp_img_path)
-
-        # self.__print_img_labels(self.content_img_path)
-        # self.__print_img_labels(artifact_img_path)
-        # self.__print_img_props(artifact_img_path)
-
-        return artifact_img_path
-
-    def __generate_markov_style(self, markov_style_img_path):
-        chain = MarkovChain(bucket_size=16)
-        style_img = Image.open(self.style_img_path)
-        chain.train(style_img)
-        style_img_markov = chain.generate()
-        style_img_markov.save(markov_style_img_path)
-
-    def __generate_artifact(self, markov_style_img_path, tmp_img_path):
-        code_entry_point([
-            "arbitrary_image_stylization_with_weights",
-            "--checkpoint",
-            os.path.join(self.folder, "model.ckpt"),
-            "--output_dir",
-            os.path.join(self.folder, "images/tmp/"),
-            "--style_images_paths",
-            markov_style_img_path,
-            "--content_images_paths",
-            self.content_img_path,
-            "--interpolation_weights",
-            "[0.4]",
-        ])
-        code_entry_point([
-            "arbitrary_image_stylization_with_weights",
-            "--checkpoint",
-            os.path.join(self.folder, "model.ckpt"),
-            "--output_dir",
-            os.path.join(self.folder, "images/artifacts/"),
-            "--style_images_paths",
-            self.style_img_path,
-            "--content_images_paths",
-            tmp_img_path,
-            "--interpolation_weights",
-            "[0.8]",
-        ])
-
-    def __print_img_labels(self, img_path):
-        with io.open(img_path, "rb") as image_file:
-            content = image_file.read()
-        image = vision.types.Image(content=content)
-        response = self.client.label_detection(image=image, max_results=100)
-        labels = response.label_annotations
-        print("Labels:")
-        for label in labels:
-            print("{}: {}".format(label.description, label.score))
-
-    def __print_img_props(self, img_path):
-        with io.open(img_path, "rb") as image_file:
-            content = image_file.read()
-        image = vision.types.Image(content=content)
-        response = self.client.image_properties(image=image)
-        props = response.image_properties_annotation
-        print("Properties:")
-        for color in props.dominant_colors.colors:
-            print("fraction: {}".format(color.pixel_fraction))
-            print("\tr: {}".format(color.color.red))
-            print("\tg: {}".format(color.color.green))
-            print("\tb: {}".format(color.color.blue))
-
-    def __evaluate(self, img):
-        """Evaluate image.
-        """
-        return 0
+        self.content_path = None
+        self.artifact_path = None
 
     def create(self, emotion, word_pairs, number_of_artifacts=10):
         """Create artifacts in the group's domain.
@@ -145,5 +58,134 @@ class RandomImageCreator:
             List with *number_of_artifacts* elements. Each element should be (artifact, metadata) pair, where metadata
             should be a dictionary holding at least 'evaluation' keyword with float value.
         """
-        img = self.__generate()
-        return [(img, {"evaluation": self.__evaluate(img)})]
+        if not glob.glob(os.path.join(self.folder, "model.ckpt*")):
+            return [(self.picasso_path, {"evaluation": self.__evaluate_artifact_emotion(self.picasso_path)})]
+
+        for i in range(5):
+            if not self.__generate_content(word_pairs):
+                return [(self.picasso_path, {"evaluation": self.__evaluate_artifact_emotion(self.picasso_path)})]
+
+            if self.__generate_artifact(emotion):
+                return [(self.artifact_path, {"evaluation": self.__evaluate_artifact_emotion(self.artifact_path)})]
+
+        return [(self.picasso_path, {"evaluation": self.__evaluate_artifact_emotion(self.picasso_path)})]
+
+    def __generate_content(self, word_pairs):
+        print("Generating content...")
+        for i in range(10):
+            print("Attempt {}".format(i + 1))
+
+            # search_query, animal = search_query_generator.generate(word_pairs)
+            # content_path = content_downloader.get_content(search_query)
+
+            animal = "bird"
+            content_path = os.path.join(self.folder, "images/content/hybrid.jpg")
+
+            print("Animal is {}...".format(animal))
+
+            if self.__evaluate_content_vision(content_path, animal):
+                self.content_path = content_path
+                return True
+        return False
+
+    def __evaluate_content_vision(self, content_path, animal):
+        print("Evaluating content with vision...")
+        with io.open(content_path, "rb") as image_file:
+            content = image_file.read()
+        image = vision.types.Image(content=content)
+        response = self.client.label_detection(image=image)
+        labels = response.label_annotations
+        for label in labels:
+            for word in label.description.split():
+                print("{} {}".format(word.lower(), label.score))
+                if word.lower() == animal.lower():
+                    print("Content OK!")
+                    return True
+        return False
+
+    def __generate_artifact(self, emotion):
+        for i in range(10):
+            # style_path = image_selector.select(emotion)
+
+            style_name = random.choice(os.listdir(os.path.join(self.folder, "images/styles")))
+            style_path = os.path.join(self.folder, "images/styles/{}".format(style_name))
+
+            print("Trying with style {}...".format(self.__get_basename(style_path)))
+
+            for i in range(5):
+                print("Attempt {}...".format(i + 1))
+                timestamp = datetime.now().strftime("%Y%m%d-%H%M%S-%f")
+                markovified_path = os.path.join(self.folder, "images/tmp/{}.png".format(timestamp))
+                tmp_path = os.path.join(self.folder,
+                                        "images/tmp/{}_{}.jpg".format(self.__get_basename(self.content_path),
+                                                                      timestamp))
+                artifact_path = os.path.join(self.folder,
+                                             "images/artifacts/{}_{}.jpg".format(self.__get_basename(tmp_path),
+                                                                                 self.__get_basename(style_path)))
+
+                self.__generate_markovified(markovified_path, style_path)
+                self.__transfer_style(markovified_path, tmp_path, style_path)
+
+                if self.__evaluate_artifact_vision(artifact_path) and self.__evaluate_artifact_emotion(
+                        artifact_path) > 0:
+                    self.artifact_path = artifact_path
+                    return True
+        return False
+
+    def __get_basename(self, path):
+        return os.path.splitext(os.path.basename(path))[0]
+
+    def __generate_markovified(self, markovified_path, style_path):
+        chain = MarkovChain(bucket_size=16)
+        style_img = Image.open(style_path)
+        chain.train(style_img)
+        style_img_markov = chain.generate()
+        style_img_markov.save(markovified_path)
+
+    def __transfer_style(self, markovified_path, tmp_path, style_path):
+        code_entry_point([
+            "arbitrary_image_stylization_with_weights",
+            "--checkpoint",
+            os.path.join(self.folder, "model.ckpt"),
+            "--output_dir",
+            os.path.join(self.folder, "images/tmp/"),
+            "--style_images_paths",
+            markovified_path,
+            "--content_images_paths",
+            self.content_path,
+            "--interpolation_weights",
+            "[0.4]",
+        ])
+        code_entry_point([
+            "arbitrary_image_stylization_with_weights",
+            "--checkpoint",
+            os.path.join(self.folder, "model.ckpt"),
+            "--output_dir",
+            os.path.join(self.folder, "images/artifacts/"),
+            "--style_images_paths",
+            style_path,
+            "--content_images_paths",
+            tmp_path,
+            "--interpolation_weights",
+            "[0.8]",
+        ])
+
+    def __evaluate_artifact_vision(self, artifact_path):
+        print("Evaluating artifact with vision...")
+        with io.open(artifact_path, "rb") as image_file:
+            content = image_file.read()
+        image = vision.types.Image(content=content)
+        response = self.client.label_detection(image=image)
+        labels = response.label_annotations
+        for label in labels:
+            for word in label.description.split():
+                print("{} {}".format(word.lower(), label.score))
+                if word.lower() == "character":
+                    print("Style OK!")
+                    return True
+        return False
+
+    def __evaluate_artifact_emotion(self, artifact_path):
+        """Evaluate image.
+        """
+        return 1.0
