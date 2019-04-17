@@ -7,13 +7,18 @@ import os
 import numpy as np
 import numpy.random as npr
 import tensorflow as tf
-
-tf.logging.set_verbosity(tf.logging.ERROR)
-
 import cv2
 import time
-
 from .gpri_helper import style_image_funcs as si
+import logging
+
+
+#silence tensorflow spurious-warnings
+tf.logging.set_verbosity(tf.logging.ERROR)
+os.environ['TF_CPP_MIN_LOG_LEVEL'] = '3'
+logging.disable(logging.WARNING)
+logging.getLogger('tensorflow').disabled = True
+
 
 animal_idxs = np.arange(398)
 activity_idxs = np.arange(398, 1000)
@@ -31,29 +36,33 @@ class RandomImageCreator:
 
         # Each creator should have domain specified: title, poetry, music, image, etc.
         self.domain = 'image'
-        self.dims = kwargs.pop('resolution', [100, 100])
+        self.dims = kwargs.pop('resolution', [128, 128])
         self.folder = os.path.dirname(os.path.realpath(__file__))
         self.sess = None
         self.GPU_MODE = False
 
         # Check if user wants to use GPU:
         choice = input(
-            "Enable GPU mode (N/y)? Select N for now. Code is not yet tested "
-            "for y at the moment.")
+            "Enable GPU mode (Y/N)?")
 
-        if choice == 'Y' or choice == 'y':
-            self.GPU_MODE = True
-            print('GPU mode enabled..\n')
-            global graph, model
-            tf.reset_default_graph()
-            graph = tf.get_default_graph()
-            from .gpri_helper import model
-            initializer = tf.global_variables_initializer()
-            self.sess = tf.Session()
-            self.sess.run(initializer)
-        else:
-            self.GPU_MODE = False
-            print('GPU mode disabled, loading dummy image.....')
+        while True:
+            if choice == 'Y' or choice == 'y':
+                self.GPU_MODE = True
+                print('GPU mode enabled..\n')
+                global graph, model
+                tf.reset_default_graph()
+                graph = tf.get_default_graph()
+                from .gpri_helper import model
+                initializer = tf.global_variables_initializer()
+                self.sess = tf.Session()
+                self.sess.run(initializer)
+                break
+            elif choice == 'N' or choice == 'n':
+                self.GPU_MODE = False
+                print('GPU mode disabled, loading dummy image.....')
+                break
+            else:
+                choice = input("Invalid input, Try again..")
 
     def generate(self, emotion, word_pairs, **kwargs):
         """Random image generator.
@@ -71,6 +80,7 @@ class RandomImageCreator:
         """
         si.create_styleImage((128, 128), 180, 15, 5, 10)
         # Now the style image is available as numpy array. What to do next?
+        # Get the style transfer working, and get the entire pipeline working..
         return None
 
     def generate_contentImage(self, word_pairs):
