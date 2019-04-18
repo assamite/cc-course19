@@ -59,16 +59,22 @@ class RandomImageCreator:
             should be a dictionary holding at least 'evaluation' keyword with float value.
         """
         if not glob.glob(os.path.join(self.folder, "model.ckpt*")):
-            return [(self.picasso_path, {"evaluation": self.__evaluate_artifact_emotion(self.picasso_path)})]
+            return self.__get_default_artifact_with_meta(emotion)
 
         for i in range(5):
             if not self.__generate_content(word_pairs):
-                return [(self.picasso_path, {"evaluation": self.__evaluate_artifact_emotion(self.picasso_path)})]
+                return self.__get_default_artifact_with_meta(emotion)
 
             if self.__generate_artifact(emotion):
-                return [(self.artifact_path, {"evaluation": self.__evaluate_artifact_emotion(self.artifact_path)})]
+                return self.__get_artifact_with_meta(emotion)
 
-        return [(self.picasso_path, {"evaluation": self.__evaluate_artifact_emotion(self.picasso_path)})]
+        return self.__get_default_artifact_with_meta(emotion)
+
+    def __get_default_artifact_with_meta(self, emotion):
+        return [(self.picasso_path, {"evaluation": self.__evaluate_artifact_emotion(self.picasso_path, emotion)})]
+
+    def __get_artifact_with_meta(self, emotion):
+        return [(self.artifact_path, {"evaluation": self.__evaluate_artifact_emotion(self.artifact_path, emotion)})]
 
     def __generate_content(self, word_pairs):
         print("Generating content...")
@@ -126,8 +132,8 @@ class RandomImageCreator:
                 self.__generate_markovified(markovified_path, style_path)
                 self.__transfer_style(markovified_path, tmp_path, style_path)
 
-                if self.__evaluate_artifact_vision(artifact_path) and self.__evaluate_artifact_emotion(
-                        artifact_path) > 0:
+                if self.__evaluate_artifact_vision(artifact_path) and self.__evaluate_artifact_emotion(artifact_path,
+                                                                                                       emotion) > .5:
                     self.artifact_path = artifact_path
                     return True
         return False
@@ -185,7 +191,7 @@ class RandomImageCreator:
                     return True
         return False
 
-    def __evaluate_artifact_emotion(self, artifact_path):
+    def __evaluate_artifact_emotion(self, artifact_path, emotion):
         """Evaluate image.
         """
         return 1.0
