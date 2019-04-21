@@ -4,6 +4,7 @@ Contains initialize- and create-functions.
 """
 
 import os
+import sys
 import numpy as np
 import numpy.random as npr
 import tensorflow as tf
@@ -12,13 +13,17 @@ import time
 from .gpri_helper import style_image_funcs as si
 import logging
 
-
 #silence tensorflow spurious-warnings
 tf.logging.set_verbosity(tf.logging.ERROR)
 os.environ['TF_CPP_MIN_LOG_LEVEL'] = '3'
 logging.disable(logging.WARNING)
 logging.getLogger('tensorflow').disabled = True
 
+#silence keras messages
+stderr = sys.stderr
+sys.stderr = open(os.devnull, 'w')
+import keras
+sys.stderr = stderr
 
 animal_idxs = np.arange(398)
 activity_idxs = np.arange(398, 1000)
@@ -32,7 +37,7 @@ class RandomImageCreator:
 
         Only keyword arguments are supported in config.json
         """
-        print("Group GPRI initialize.")
+        print("/----------------Group GPRI initialize----------------/")
 
         # Each creator should have domain specified: title, poetry, music, image, etc.
         self.domain = 'image'
@@ -41,17 +46,20 @@ class RandomImageCreator:
         self.sess = None
         self.GPU_MODE = False
 
+        #load style transfer module
+        global style_transfer
+        from .gpri_helper import style_transfer
+        
         # Check if user wants to use GPU:
-        choice = input(
-            "Enable GPU mode (Y/N)?")
+        choice = input("Enable GPU mode for BigGAN (Y/N)?")
 
         while True:
             if choice == 'Y' or choice == 'y':
                 self.GPU_MODE = True
-                print('GPU mode enabled..\n')
-                global graph, model
+                print('GPU mode enabled..')
+                global graph_GAN, model
                 tf.reset_default_graph()
-                graph = tf.get_default_graph()
+                graph_GAN = tf.Graph()
                 from .gpri_helper import model
                 initializer = tf.global_variables_initializer()
                 self.sess = tf.Session()
@@ -64,13 +72,19 @@ class RandomImageCreator:
             else:
                 choice = input("Invalid input, Try again..")
 
-    def generate(self, emotion, word_pairs, **kwargs):
+    def generate(self, *args, **kwargs):
         """Random image generator.
         """
+        emotion, word_pairs= args
+        #generate content image at images/content
         contentImage = self.generate_contentImage(word_pairs)
+        #generate style image at images/style
         styleImage = self.generate_styleImage(emotion)
-        return contentImage
-
+        #generate style-tranfered image in images/output, alpha [0,1] (higher means more style)
+        artifact = style_transfer.stylize(alpha=0.2,content_path=str(self.folder)+str('\images\content')) #once styleImage function is working, we can add style_path
+        print(artifact)
+        return artifact[0] 
+        
     def generate_styleImage(self, emotion):
         """
         Generate the content image for the style transfer.
@@ -92,16 +106,15 @@ class RandomImageCreator:
         :return:
             String with file path
         """
-        PATH = str(self.folder)
-        NAME = str("GPRI_%s.png" % (int(time.time())))
+        PATH = str(self.folder)+str('\images\content')
 
         if self.GPU_MODE:
             with open(f"{self.folder}\categories.txt", "r") as file:
                 buffer = file.read()
                 cat = buffer.split("\n")
             for pairs in word_pairs:
-                noun = pairs[0]
-                print(noun)
+                noun, property_ = pairs
+                NAME = str(f"GPRI_{noun}_{property_}_0.png")
                 if noun == "animal":
                     idx = int(npr.choice(animal_idxs))
                 elif noun == "activity":
@@ -113,16 +126,16 @@ class RandomImageCreator:
             noise = 0
             n_samples = 1
             idx_cat = idx
-            with graph.as_default():
+            with graph_GAN.as_default():
                 z = model.truncated_z_sample(n_samples, truncate, noise)
                 y = idx_cat
                 ims = model.sample(self.sess, z, y, truncate)
-            print('Saving image.....')
+            print(f'Saving image {NAME} at {PATH}\{NAME} .....')
             image = cv2.cvtColor(ims[0], cv2.COLOR_BGR2RGB)
             cv2.imwrite(f"{PATH}\{NAME}", image)
             return os.path.join(PATH, NAME)
         else:
-            return (os.path.join(PATH, "babylon_drawing.jpg"))
+            return (os.path.join(PATH, "babylon_drawing_0.jpg"))
 
     def evaluate(self, image):
         """Evaluate image. For now this is a dummy.

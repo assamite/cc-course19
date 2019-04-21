@@ -10,8 +10,9 @@ import numpy as np
 from scipy.stats import truncnorm
 
 
-module_path = 'https://tfhub.dev/deepmind/biggan-128/2'
-print ('Loading BigGAN module.........')
+#module_path = 'https://tfhub.dev/deepmind/biggan-128/2' #generate 128x128 images
+module_path = 'https://tfhub.dev/deepmind/biggan-512/2' #generate 512x512 images
+print ('Loading BigGAN module on GPU.........')
 module = hub.Module(module_path)
 print ('BigGAN module loaded!')
 inputs = {k: tf.placeholder(v.dtype, v.get_shape().as_list(), k)
