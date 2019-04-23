@@ -68,17 +68,15 @@ class RandomImageCreator:
             for j in range(n_tries):
                 print("Artifact #{} (attempt #{}):".format(i + 1, j + 1))
                 if not self.__generate_content(word_pairs):
-                    print("Cannot find good enough content!")
+                    print("Couldn't find good enough content!")
                     artifacts_paths_with_meta.append(self.__get_default_artifact_with_meta(emotion))
                     break
-                elif self.__generate_artifact(emotion):
-                    print("Generated good enough artifact!")
+                if self.__generate_artifact(emotion):
                     artifacts_paths_with_meta.append(self.__get_artifact_with_meta(emotion))
                     break
-                elif j == n_tries - 1:
-                    print("Couldn't find good enough style!")
+                if j == n_tries - 1:
+                    print("Couldn't generate good enough artifact!")
                     artifacts_paths_with_meta.append(self.__get_default_artifact_with_meta(emotion))
-                    break
         return artifacts_paths_with_meta
 
     def __get_default_artifact_with_meta(self, emotion):
@@ -100,10 +98,10 @@ class RandomImageCreator:
             # content_path = content_downloader.get_content(search_query)
 
             # Quick fix
-            animal = "dog"
-            content_path = os.path.join(self.folder, "images/content/dog.jpg")
+            content_path = os.path.join(self.folder, "images/content/shark.jpg")
+            animal = self.__get_basename(content_path).split("_")[0]
 
-            print("Animal is {}...".format(animal))
+            print("Animal is {}!".format(animal))
             if self.__evaluate_content_with_vision(animal, content_path):
                 self.content_path = content_path
                 return True
@@ -112,15 +110,14 @@ class RandomImageCreator:
 
     def __evaluate_content_with_vision(self, animal, content_path):
         print("Evaluating content with vision...")
-        print(content_path)
         with io.open(content_path, "rb") as image_file:
             content = image_file.read()
         image = vision.types.Image(content=content)
         response = self.client.label_detection(image=image)
         labels = response.label_annotations
         for label in labels:
+            print("\t{} {}".format(label.description.lower(), label.score))
             for word in label.description.split():
-                print("{} {}".format(word.lower(), label.score))
                 if word.lower() == animal.lower() and label.score > 0.95:
                     print("Content OK!")
                     return True
@@ -130,16 +127,21 @@ class RandomImageCreator:
         # TODO
         # style_selector = StyleSelector()
 
-        n_tries = 10
+        # Quick fix
+        style_filenames = os.listdir(os.path.join(self.folder, "images/styles"))
+
+        print("Generating artifacts with different styles...")
+        best_path = None
+        best_style = None
+        best_score = 0
+        n_tries = len(style_filenames)
         for i in range(n_tries):
             # TODO
             # style_path = style_selector.get_random()
 
             # Quick fix
-            style_name = random.choice(os.listdir(os.path.join(self.folder, "images/styles")))
-            style_path = os.path.join(self.folder, "images/styles/{}".format(style_name))
+            style_path = os.path.join(self.folder, "images/styles/{}".format(style_filenames[i]))
 
-            print("Trying with style {}...".format(self.__get_basename(style_path)))
             timestamp = datetime.now().strftime("%Y%m%d-%H%M%S-%f")
             markovified_path = os.path.join(self.folder, "images/tmp/{}.png".format(timestamp))
             tmp_path = os.path.join(self.folder,
@@ -149,12 +151,21 @@ class RandomImageCreator:
                                                                                               style_path)))
             self.__generate_markovified(markovified_path, style_path)
             self.__transfer_style(markovified_path, tmp_path, style_path)
-            if self.__evaluate_artifact_with_emotion(artifact_path, emotion) > .5:
-                print("Enough emotion!")
-                self.artifact_path = artifact_path
-                return True
-            print("Not enough emotion...")
-        return False
+            artifact_score = self.__evaluate_artifact_with_emotion(artifact_path, emotion)
+
+            print("\t{} {}".format(self.__get_basename(style_path), artifact_score))
+            if artifact_score > best_score:
+                best_score = artifact_score
+                best_path = artifact_path
+                best_style = style_path
+        print("Best emotion score {} with style {}!".format(best_score, self.__get_basename(best_style)))
+        if best_score > .5:
+            print("Enough emotion!")
+            self.artifact_path = best_path
+            return True
+        else:
+            print("Not enough emotion!")
+            return False
 
     @staticmethod
     def __get_basename(path):
@@ -201,4 +212,8 @@ class RandomImageCreator:
         """Evaluate image.
         """
         # TODO
-        return 1.0
+        # emotion_evaluator = EmotionEvaluator(artifact_path)
+        # return emotion_evaluator.evaluate(emotion)
+
+        # Quick fix
+        return random.random()
