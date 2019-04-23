@@ -12,6 +12,9 @@ import cv2
 import time
 from .gpri_helper import style_image_funcs as si
 import logging
+from google_images_download import google_images_download
+import shutil
+
 
 #silence tensorflow spurious-warnings
 tf.logging.set_verbosity(tf.logging.ERROR)
@@ -77,14 +80,13 @@ class RandomImageCreator:
         """
         emotion, word_pairs= args
         #generate content image at images/content
-        contentImage = self.generate_contentImage(word_pairs)
+        contentImage = self.generate_contentImage(emotion, word_pairs)
         #generate style image at images/style
-        styleImage = self.generate_styleImage(emotion)
-        #generate style-tranfered image in images/output, alpha [0,1] (higher means more style)
-        artifact = style_transfer.stylize(alpha=0.2,content_path=str(self.folder)+str('\images\content')) #once styleImage function is working, we can add style_path
-        print(artifact)
+        #styleImage = self.generate_styleImage(emotion)
+        #Apply style-transfer to n - generated images for an emotion and n word pairs in images/output, alpha [0,1] (higher means more style)
+        artifact = style_transfer.stylize(alpha=0.5,content_path=str(self.folder)+str('\images\content')) #once styleImage function is working, we can add style_path
         return artifact[0] 
-        
+    '''    
     def generate_styleImage(self, emotion):
         """
         Generate the content image for the style transfer.
@@ -96,8 +98,29 @@ class RandomImageCreator:
         # Now the style image is available as numpy array. What to do next?
         # Get the style transfer working, and get the entire pipeline working..
         return None
-
-    def generate_contentImage(self, word_pairs):
+    '''
+    def get_googleStyleImage(self, emotion, property_):
+        """
+        Fetch the style image for the style transfer.
+        :param emotion: Emotion input and noun property
+        :return:
+            medium sized style image that captures specified emotion and property.
+        """
+        response = google_images_download.googleimagesdownload()
+        arguments = {"keywords":f"{property_} {emotion} abstract",
+                     "limit":1,
+                     "size":"medium",
+                     "format":"jpg",
+                     "color_tye":"full-color",
+                     "type":"photo",
+                     "output_directory":f"{str(self.folder)}",
+                     "image_directory":"\images\style"}
+        path = response.download(arguments)
+        path = [k for k in path.values()]
+        #rename the downloaded styleImage to a proper name
+        shutil.move(str(path[0][0]),self.folder+'/images/style/'+f'{property_}_{emotion}'+'_0.jpg')
+    
+    def generate_contentImage(self, emotion, word_pairs):
         """
         Generates the intial image, the content image in terms of style
         transfer, from the 'noun' input variable. Currently only supports a
@@ -106,7 +129,7 @@ class RandomImageCreator:
         :return:
             String with file path
         """
-        PATH = str(self.folder)+str('\images\content')
+        PATH = str(self.folder)+'\images\content'
 
         if self.GPU_MODE:
             with open(f"{self.folder}\categories.txt", "r") as file:
@@ -114,6 +137,7 @@ class RandomImageCreator:
                 cat = buffer.split("\n")
             for pairs in word_pairs:
                 noun, property_ = pairs
+                self.get_googleStyleImage(emotion, property_)
                 NAME = str(f"GPRI_{noun}_{property_}_0.png")
                 if noun == "animal":
                     idx = int(npr.choice(animal_idxs))
@@ -122,7 +146,7 @@ class RandomImageCreator:
                 else:
                     idx = -1  # CheeseBurger
                 break  # taking the first pair for now
-            truncate = 0.8
+            truncate = 0.3
             noise = 0
             n_samples = 1
             idx_cat = idx

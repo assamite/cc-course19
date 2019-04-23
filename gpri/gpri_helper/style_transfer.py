@@ -10,8 +10,6 @@ from .style_help.utils import get_files, get_img, get_img_crop, save_img, resize
 import scipy
 import time
 from .style_help.wct import WCT
-import tqdm
-
 
 
 #GLOBAL VARS
@@ -57,7 +55,7 @@ print ('StyleTransfer module loaded!')
 
 
 def stylize(alpha=ALPHA, content_path=CONTENT_PATH, style_path=STYLE_PATH, style_size=STYLE_SIZE,
-             crop_size=CROP_SIZE, keep_colors=KEEP_COLORS, passes=PASSES, concat=CONCAT):
+             crop_size=CROP_SIZE, keep_colors=KEEP_COLORS, passes=PASSES,swap5=SWAP5, concat=CONCAT):
     start = time.time() 
     # Get content & style full paths
     content_path = os.path.join(PATH, content_path)
@@ -65,7 +63,7 @@ def stylize(alpha=ALPHA, content_path=CONTENT_PATH, style_path=STYLE_PATH, style
     if os.path.isdir(content_path):
         content_files = get_files(content_path)
     if os.path.isdir(style_path):
-        style_file = get_files(style_path)[0]
+        style_files = get_files(style_path)
     out_path =  os.path.join(PATH, OUT_PATH)
     os.makedirs(out_path, exist_ok=True)
 
@@ -82,40 +80,40 @@ def stylize(alpha=ALPHA, content_path=CONTENT_PATH, style_path=STYLE_PATH, style
         if CONTENT_SIZE > 0:
             content_img = resize_to(content_img, CONTENT_SIZE)
             
-        style_prefix, _ = os.path.splitext(style_file)
-        style_prefix = os.path.basename(style_prefix)  # Extract filename prefix without ext
-        
-        style_img = get_img(style_file)
+        for style_file in style_files:
+            style_prefix, _ = os.path.splitext(style_file)
+            style_prefix = os.path.basename(style_prefix)  # Extract filename prefix without ext
+            if int(style_prefix[-1]) == 1:
+                continue 
+            style_img = get_img(style_file)
 
-        if style_size > 0:
-            style_img = resize_to(style_img, style_size)
-        if crop_size > 0:
-            style_img = center_crop(style_img, crop_size)
-        if keep_colors:
-            style_img = preserve_colors_np(style_img, content_img)
-        # Run the frame through the style network
-        print(content_file)
-        stylized_rgb = wct_model.predict(content_img, style_img, alpha, SWAP5, SS_ALPHA, ADAIN)
-        print('test')
-        if passes > 1:
-            for _ in range(passes-1):
-                stylized_rgb = wct_model.predict(stylized_rgb, style_img, alpha, SWAP5, SS_ALPHA, ADAIN)
+            if style_size > 0:
+                style_img = resize_to(style_img, style_size)
+            if crop_size > 0:
+                style_img = center_crop(style_img, crop_size)
+            if keep_colors:
+                style_img = preserve_colors_np(style_img, content_img)
+            # Run the frame through the style network
+            stylized_rgb = wct_model.predict(content_img, style_img, alpha, swap5, SS_ALPHA, ADAIN)
+            if passes > 1:
+                for _ in range(passes-1):
+                    stylized_rgb = wct_model.predict(stylized_rgb, style_img, alpha, swap5, SS_ALPHA, ADAIN)
 
-        # Stitch the style + stylized output together, but only if there's one style image
-        if concat:
-            # Resize style img to same height as frame
-            style_img_resized = scipy.misc.imresize(style_img, (stylized_rgb.shape[0], stylized_rgb.shape[0]))
-            stylized_rgb = np.hstack([style_img_resized, stylized_rgb])
+            # Stitch the style + stylized output together, but only if there's one style image
+            if concat:
+                # Resize style img to same height as frame
+                style_img_resized = scipy.misc.imresize(style_img, (stylized_rgb.shape[0], stylized_rgb.shape[0]))
+                stylized_rgb = np.hstack([style_img_resized, stylized_rgb])
 
-        # Format for out filename: {out_path}/{content_prefix}_{style_prefix}.{content_ext}
-        out_f = os.path.join(out_path, '{}_{}{}'.format(content_prefix, style_prefix, content_ext))
-        # out_f = f'{content_prefix}_{style_prefix}.{content_ext}'
-        out_files.append(out_f)
-        save_img(out_f, stylized_rgb)
-        count += 1
-        print("{}: Wrote stylized output image to {}".format(count, out_f))
+            # Format for out filename: {out_path}/{content_prefix}_{style_prefix}.{content_ext}
+            out_f = os.path.join(out_path, '{}_{}{}'.format(content_prefix, style_prefix, content_ext))
+            # out_f = f'{content_prefix}_{style_prefix}.{content_ext}'
+            out_files.append(out_f)
+            save_img(out_f, stylized_rgb)
+            count += 1
+            print("{}: Wrote stylized output image to {}".format(count, out_f))
+            shutil.move(os.path.join(PATH,style_file),os.path.join(PATH,'../images/style/'+style_prefix+'_1'+content_ext)) 
         shutil.move(os.path.join(PATH,content_file),os.path.join(PATH,'../images/content/'+content_prefix+'_1'+content_ext)) 
-
     print("Finished stylizing {} outputs in {}s".format(count, time.time() - start))
     if len(out_files) > 0:
         return out_files
