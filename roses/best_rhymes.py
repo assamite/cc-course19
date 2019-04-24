@@ -6,6 +6,9 @@ import sys
 
 nltk.download('cmudict')
 
+DEBUG = False
+REMOVE_SUBWORD_RHYMES = True
+
 WORDS = ['crisscross', 'dos', 'chess', 'completed', 'depleted', 'hugged']
 
 # this is a placeholder because I dont know to get it from generate_rhyming_words(emotion: str, word_pairs: List[Dict[str, Tuple[str, str]]]) 
@@ -14,24 +17,32 @@ LASTWORDLINE2 = "help"
 def rhyme(inp, level):
     entries = nltk.corpus.cmudict.entries()
     syllables = [(word, syl) for word, syl in entries if word == inp]
+    if DEBUG: print('syllables before matching rhymes', syllables)
     rhymes = []
     for (word, syllable) in syllables:
         rhyming_words = [word for word, pron in entries if pron[-level:] == syllable[-level:]]
-        rhyming_words = evaluate_rhymes(word, rhyming_words)
+        rhyming_words = evaluate_rhymes(word, rhyming_words, REMOVE_SUBWORD_RHYMES)
         rhymes += rhyming_words
+        if DEBUG: print(rhymes, " how many rhymes ", len(rhymes))
         
     return rhymes
 
-def evaluate_rhymes(word: str, rhymes: List[str]) -> List[str]:
-    """remove the rhymes that are subwords of the word (ie. remove 'self-help' if the word is 'help')."""
+def evaluate_rhymes(word: str, rhymes: List[str], remove_subwords = False) -> List[str]:
+    """Remove bad rhymes. If remove_subwords is True, then we will remove rhymes like 'help' if the word is 'self-help'."""
 
-    # TODO this doesn't work as wanted
+    if not remove_subwords:
+        return list(set(rhymes) - set(word)) # remove only the word itself
+
+    if DEBUG: print(len(rhymes) , " rhymes before pruning")
+    to_be_removed = []
+
     for rhyme in rhymes:
-        if word.find(rhyme) == len(word) - len(rhyme):
-            rhymes.remove(rhyme)
-        elif rhyme.find(word) == len(rhyme) - len(word): 
-            rhymes.remove(rhyme)
+        if rhyme in word:
+            if DEBUG: print(rhyme + ' is going to be deleted for word ' + word)
+            to_be_removed.append(rhyme)
 
+    rhymes = list(set(rhymes) - set(to_be_removed))
+    if DEBUG: print(len(rhymes) , "after pruning")
     return rhymes
 
 # setting how strict the rhyme has to be, can be changed
@@ -60,6 +71,7 @@ if __name__ == '__main__':
     example_emotion = 'sad'
     example_word_pairs = [{'word_pair': ("human", "boss"), 'verb': 'was'}, 
                             {'word_pair': ('animal', 'legged'), 'verb': 'is'}]
+    DEBUG = False
     output = generate_rhyming_words(example_emotion, example_word_pairs)
     print(output)
     
