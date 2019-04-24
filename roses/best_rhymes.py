@@ -37,7 +37,7 @@ def evaluate_rhymes(word: str, rhymes: List[str]) -> List[str]:
 # setting how strict the rhyme has to be, can be changed
 def define_strictness_of_rhyme(wordToRhyme):
     strictness = 3
-    if len(LASTWORDLINE2) < 4:
+    if len(wordToRhyme) <= 4:
             strictness = 2
     return strictness
 
