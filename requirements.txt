@@ -12,3 +12,4 @@ magenta==1.0.5
 PyPrind==2.11.2
 requests==2.21.0
 tensorflow-hub>=0.3.0
+inflect==2.1.0
