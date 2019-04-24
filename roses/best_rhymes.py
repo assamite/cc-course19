@@ -33,6 +33,7 @@ def define_strictness_of_rhyme(wordToRhyme):
     strictness = 3
     if len(LASTWORDLINE2) < 4:
             strictness = 2
+    return strictness
 
 def generate_rhyming_words(emotion: str, word_pairs: List[Dict[str, Tuple[str, str]]]):
     """
@@ -46,3 +47,12 @@ def generate_rhyming_words(emotion: str, word_pairs: List[Dict[str, Tuple[str, s
         partials_and_rhymes.append(row)
 
     return partials_and_rhymes
+
+# For testing
+if __name__ == '__main__':
+    example_emotion = 'sad'
+    example_word_pairs = [{'word_pair': ("human", "boss"), 'verb': 'was'}, 
+                            {'word_pair': ('animal', 'legged'), 'verb': 'is'}]
+    output = generate_rhyming_words(example_emotion, example_word_pairs)
+    print(output)
+    
