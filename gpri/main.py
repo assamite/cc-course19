@@ -3,34 +3,16 @@
 Contains initialize- and create-functions.
 """
 
+import random
 import os
-import sys
+from io import BytesIO
+#import IPython.display
 import numpy as np
-import numpy.random as npr
+import PIL.Image
 import tensorflow as tf
+import tensorflow_hub as hub
+from gpri.gpri_helper import model
 import cv2
-import time
-from .gpri_helper import style_image_funcs as si
-import logging
-from google_images_download import google_images_download
-import shutil
-
-
-#silence tensorflow spurious-warnings
-tf.logging.set_verbosity(tf.logging.ERROR)
-os.environ['TF_CPP_MIN_LOG_LEVEL'] = '3'
-logging.disable(logging.WARNING)
-logging.getLogger('tensorflow').disabled = True
-
-#silence keras messages
-stderr = sys.stderr
-sys.stderr = open(os.devnull, 'w')
-import keras
-sys.stderr = stderr
-
-animal_idxs = np.arange(398)
-activity_idxs = np.arange(398, 1000)
-
 
 class RandomImageCreator:
 
@@ -40,126 +22,32 @@ class RandomImageCreator:
 
         Only keyword arguments are supported in config.json
         """
-        print("/----------------Group GPRI initialize----------------/")
+        print("Group GPRI initialize.")
+        self.dims = kwargs.pop('resolution', [100, 100])
+        self.folder = os.path.dirname(os.path.realpath(__file__))
+
+        #tf.reset_default_graph()
+
+
+        #initializer = tf.global_variables_initializer()
+        #self.sess = tf.Session()
+        #self.sess.run(initializer)
 
         # Each creator should have domain specified: title, poetry, music, image, etc.
         self.domain = 'image'
-        self.dims = kwargs.pop('resolution', [128, 128])
-        self.folder = os.path.dirname(os.path.realpath(__file__))
-        self.sess = None
-        self.GPU_MODE = False
-
-        #load style transfer module
-        global style_transfer
-        from .gpri_helper import style_transfer
-        
-        # Check if user wants to use GPU:
-        choice = input("Enable GPU mode for BigGAN (Y/N)?")
-
-        while True:
-            if choice == 'Y' or choice == 'y':
-                self.GPU_MODE = True
-                print('GPU mode enabled..')
-                global graph_GAN, model
-                tf.reset_default_graph()
-                graph_GAN = tf.Graph()
-                from .gpri_helper import model
-                initializer = tf.global_variables_initializer()
-                self.sess = tf.Session()
-                self.sess.run(initializer)
-                break
-            elif choice == 'N' or choice == 'n':
-                self.GPU_MODE = False
-                print('GPU mode disabled, loading dummy image.....')
-                break
-            else:
-                choice = input("Invalid input, Try again..")
 
     def generate(self, *args, **kwargs):
         """Random image generator.
         """
-        emotion, word_pairs= args
-        #generate content image at images/content
-        contentImage = self.generate_contentImage(emotion, word_pairs)
-        #generate style image at images/style
-        #styleImage = self.generate_styleImage(emotion)
-        #Apply style-transfer to n - generated images for an emotion and n word pairs in images/output, alpha [0,1] (higher means more style)
-        artifact = style_transfer.stylize(alpha=0.5,content_path=str(self.folder)+str('\images\content')) #once styleImage function is working, we can add style_path
-        return artifact[0] 
-    '''    
-    def generate_styleImage(self, emotion):
-        """
-        Generate the content image for the style transfer.
-        :param emotion: Emotion input
-        :return:
-            Nothing for the moment.
-        """
-        si.create_styleImage((128, 128), 180, 15, 5, 10)
-        # Now the style image is available as numpy array. What to do next?
-        # Get the style transfer working, and get the entire pipeline working..
-        return None
-    '''
-    def get_googleStyleImage(self, emotion, property_):
-        """
-        Fetch the style image for the style transfer.
-        :param emotion: Emotion input and noun property
-        :return:
-            medium sized style image that captures specified emotion and property.
-        """
-        response = google_images_download.googleimagesdownload()
-        arguments = {"keywords":f"{property_} {emotion} abstract",
-                     "limit":1,
-                     "size":"medium",
-                     "format":"jpg",
-                     "color_tye":"full-color",
-                     "type":"photo",
-                     "output_directory":f"{str(self.folder)}",
-                     "image_directory":"\images\style"}
-        path = response.download(arguments)
-        path = [k for k in path.values()]
-        #rename the downloaded styleImage to a proper name
-        shutil.move(str(path[0][0]),self.folder+'/images/style/'+f'{property_}_{emotion}'+'_0.jpg')
-    
-    def generate_contentImage(self, emotion, word_pairs):
-        """
-        Generates the intial image, the content image in terms of style
-        transfer, from the 'noun' input variable. Currently only supports a
-        sample image.
-        :param word_pairs: Word pairs input
-        :return:
-            String with file path
-        """
-        PATH = str(self.folder)+'\images\content'
-
-        if self.GPU_MODE:
-            with open(f"{self.folder}\categories.txt", "r") as file:
-                buffer = file.read()
-                cat = buffer.split("\n")
-            for pairs in word_pairs:
-                noun, property_ = pairs
-                self.get_googleStyleImage(emotion, property_)
-                NAME = str(f"GPRI_{noun}_{property_}_0.png")
-                if noun == "animal":
-                    idx = int(npr.choice(animal_idxs))
-                elif noun == "activity":
-                    idx = int(npr.choice(activity_idxs))
-                else:
-                    idx = -1  # CheeseBurger
-                break  # taking the first pair for now
-            truncate = 0.3
-            noise = 0
-            n_samples = 1
-            idx_cat = idx
-            with graph_GAN.as_default():
-                z = model.truncated_z_sample(n_samples, truncate, noise)
-                y = idx_cat
-                ims = model.sample(self.sess, z, y, truncate)
-            print(f'Saving image {NAME} at {PATH}\{NAME} .....')
-            image = cv2.cvtColor(ims[0], cv2.COLOR_BGR2RGB)
-            cv2.imwrite(f"{PATH}\{NAME}", image)
-            return os.path.join(PATH, NAME)
-        else:
-            return (os.path.join(PATH, "babylon_drawing_0.jpg"))
+        truncate=0.8
+        noise=0
+        n_samples=1
+        idx_cat = args[0]
+        z = model.truncated_z_sample(n_samples, 0.8, noise)
+        y = idx_cat
+        ims = model.sample(z, y, 0.8)
+        cv2.imwrite("gpri/broken_sample.jpg", ims[0])
+        return os.path.join(self.folder, "broken_sample.jpg")
 
     def evaluate(self, image):
         """Evaluate image. For now this is a dummy.
@@ -194,10 +82,24 @@ class RandomImageCreator:
             should be a dictionary holding at least 'evaluation' keyword with float value.
 
         """
-        print("Group Example create with input args: {} {}".format(emotion,
-                                                                   word_pairs))
-
-        ret = [(w, {'evaluation': self.evaluate(w)}) for w in
-               [self.generate(emotion, word_pairs) for _ in
-                range(number_of_artifacts)]]
+        print("Group Example create with input args: {} {}".format(emotion, word_pairs))
+        with open("gpri/categories.txt", "r") as file:
+            buffer = file.read()
+            cat = buffer.split("\n")
+        cat_indx = []
+        for pairs in word_pairs[1]:
+            noun = pairs
+            print(noun)
+            if noun == "animal":
+                idxs =[i for i in range(0,398)]
+            elif noun == "activity":
+                idxs =[i for i in range(398,1000)]
+            else:
+                idxs = -1
+            if idxs == -1:
+                print("Category not available yet as, category annotation is pending.... (Try animal/activity only)")
+            else:
+                import random
+                idx_cat = int(random.choice(idxs))
+            ret = [(w, {'evaluation': self.evaluate(w)}) for w in [self.generate(idx_cat) for _ in range(number_of_artifacts)]]
         return ret

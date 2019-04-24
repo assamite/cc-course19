@@ -9,22 +9,26 @@ import tensorflow_hub as hub
 import numpy as np
 from scipy.stats import truncnorm
 
+tf.reset_default_graph()
 
-#module_path = 'https://tfhub.dev/deepmind/biggan-128/2' #generate 128x128 images
-module_path = 'https://tfhub.dev/deepmind/biggan-512/2' #generate 512x512 images
-print ('Loading BigGAN module on GPU.........')
+module_path = 'https://tfhub.dev/deepmind/biggan-deep-256/1'
+print ('Loading BigGAN module.........')
 module = hub.Module(module_path)
 print ('BigGAN module loaded!')
-inputs = {k: tf.placeholder(v.dtype, v.get_shape().as_list(), k)
-          for k, v in module.get_input_info_dict().items()}
+
+inputs = {k: tf.placeholder(v.dtype, v.get_shape().as_list(), k) for k, v in module.get_input_info_dict().items()}
 output = module(inputs)
-        
+
 input_z = inputs['z']
 input_y = inputs['y']
 input_trunc = inputs['truncation']
 
 dim_z = input_z.shape.as_list()[1]
 vocab_size = input_y.shape.as_list()[1]
+
+initializer = tf.global_variables_initializer()
+sess = tf.Session()
+sess.run(initializer)
 
 def truncated_z_sample(batch_size, truncation=1., seed=None):
   state = None if seed is None else np.random.RandomState(seed)
@@ -48,7 +52,7 @@ def one_hot_if_needed(label, vocab_size=vocab_size):
   assert len(label.shape) == 2
   return label
 
-def sample(sess, noise, label, truncation=1., batch_size=8,
+def sample(noise, label, truncation=1., batch_size=8,
            vocab_size=vocab_size):
   noise = np.asarray(noise)
   label = np.asarray(label)
@@ -69,5 +73,3 @@ def sample(sess, noise, label, truncation=1., batch_size=8,
   ims = np.clip(((ims + 1) / 2.0) * 256, 0, 255)
   ims = np.uint8(ims)
   return ims
-
-
