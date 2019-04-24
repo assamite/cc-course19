@@ -1,6 +1,6 @@
 from typing import Dict, List
 
-from to_be_or_not_to_be import fit_verb
+from modules.to_be_or_not_to_be import fit_verb
 
 
 def fill_and_create_text(emotion: str, rhyming_partials: List[Dict]):

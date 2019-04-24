@@ -6,12 +6,12 @@ import argparse
 import random
 import json
 
-from alter_word_pairs import generate_word_pairs
-from best_rhymes import generate_rhyming_words
-from choose_lines import find_lines
-from do_magic import alter_rest
-from expand_poem import fill_and_create_text
-from fill_evaluations import evaluate_poems
+from modules.alter_word_pairs import generate_word_pairs
+from modules.best_rhymes import generate_rhyming_words
+from modules.choose_lines import find_lines
+from modules.do_magic import alter_rest
+from modules.expand_poem import fill_and_create_text
+from modules.fill_evaluations import evaluate_poems
 
 DATA_FOLDER = 'data/'
 
