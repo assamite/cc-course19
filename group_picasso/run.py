@@ -5,12 +5,12 @@ Should contain initialize- and create-functions.
 import glob
 import io
 import os
-import random
 from datetime import datetime
 
 from PIL import Image
 from google.cloud import vision
 
+from group_picasso.evaluation1 import EmotionEvaluator
 from group_picasso.libs.arbitrary_image_stylization.arbitrary_image_stylization_with_weights import code_entry_point
 from group_picasso.markov import MarkovChain
 
@@ -154,12 +154,12 @@ class RandomImageCreator:
             artifact_score = self.__evaluate_artifact_with_emotion(artifact_path, emotion)
 
             print("\t{} {}".format(self.__get_basename(style_path), artifact_score))
-            if artifact_score > best_score:
+            if artifact_score >= best_score:
                 best_score = artifact_score
                 best_path = artifact_path
                 best_style = style_path
         print("Best emotion score {} with style {}!".format(best_score, self.__get_basename(best_style)))
-        if best_score > .5:
+        if best_score >= 0:
             print("Enough emotion!")
             self.artifact_path = best_path
             return True
@@ -212,8 +212,8 @@ class RandomImageCreator:
         """Evaluate image.
         """
         # TODO
-        # emotion_evaluator = EmotionEvaluator(artifact_path)
-        # return emotion_evaluator.evaluate(emotion)
+        emotion_evaluator = EmotionEvaluator()
+        return emotion_evaluator.emotions_by_colours(artifact_path, emotion)
 
         # Quick fix
-        return random.random()
+        # return random.random()
