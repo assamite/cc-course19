@@ -61,7 +61,7 @@ def generate_rhyming_words(emotion: str, word_pairs: List[Dict[str, Tuple[str, s
     for row in word_pairs:
         last_word_line2 = row['word_pair'][1] # see an example input in the end of this file
         strictness = define_strictness_of_rhyme(last_word_line2)
-        row['rhymes'] = [rhyme(last_word_line2, strictness)]
+        row['rhymes'] = rhyme(last_word_line2, strictness)
         partials_and_rhymes.append(row)
 
     return partials_and_rhymes
