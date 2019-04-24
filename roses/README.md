@@ -18,6 +18,10 @@ optional arguments:
 $ python roses.py <emotion> <json with wordpairs as list> <number of poems to generate>
 
 ```
+for example
+```
+$ python3 roses.py happy input.json 5
+```
 
 ```python
 from roses import PoemGenerator
