@@ -16,17 +16,23 @@ def rhyme(inp, level):
     syllables = [(word, syl) for word, syl in entries if word == inp]
     rhymes = []
     for (word, syllable) in syllables:
-        rhymes += [word for word, pron in entries if pron[-level:] == syllable[-level:]]
+        rhyming_words = [word for word, pron in entries if pron[-level:] == syllable[-level:]]
+        rhyming_words = evaluate_rhymes(word, rhyming_words)
+        rhymes += rhyming_words
         
     return rhymes
 
-def doTheyRhyme(word1, word2):
-    if word1.find(word2) == len(word1) - len(word2):
-        return False
-    if word2.find(word1) == len(word2) - len(word1): 
-        return False
+def evaluate_rhymes(word: str, rhymes: List[str]) -> List[str]:
+    """remove the rhymes that are subwords of the word (ie. remove 'self-help' if the word is 'help')."""
 
-    return word1 in rhyme(word2, 1)
+    # TODO this doesn't work as wanted
+    for rhyme in rhymes:
+        if word.find(rhyme) == len(word) - len(rhyme):
+            rhymes.remove(rhyme)
+        elif rhyme.find(word) == len(rhyme) - len(word): 
+            rhymes.remove(rhyme)
+
+    return rhymes
 
 # setting how strict the rhyme has to be, can be changed
 def define_strictness_of_rhyme(wordToRhyme):
@@ -42,8 +48,9 @@ def generate_rhyming_words(emotion: str, word_pairs: List[Dict[str, Tuple[str, s
 
     partials_and_rhymes = []
     for row in word_pairs:
-        strictness = define_strictness_of_rhyme(LASTWORDLINE2)
-        row['rhymes'] = [rhyme(LASTWORDLINE2,strictness)]
+        last_word_line2 = row['word_pair'][1] # see an example input in the end of this file
+        strictness = define_strictness_of_rhyme(last_word_line2)
+        row['rhymes'] = [rhyme(last_word_line2, strictness)]
         partials_and_rhymes.append(row)
 
     return partials_and_rhymes
