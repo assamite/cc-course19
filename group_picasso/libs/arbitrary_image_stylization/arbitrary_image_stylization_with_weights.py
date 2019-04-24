@@ -59,7 +59,7 @@ FLAGS = flags.FLAGS
 
 
 def main(unused_argv=None):
-  tf.logging.set_verbosity(tf.logging.INFO)
+  tf.logging.set_verbosity(tf.logging.ERROR)
   if not tf.gfile.Exists(FLAGS.output_dir):
     tf.gfile.MkDir(FLAGS.output_dir)
 
@@ -185,4 +185,5 @@ if __name__ == '__main__':
   console_entry_point()
 
 def code_entry_point(argv):
+    os.environ['TF_CPP_MIN_LOG_LEVEL'] = '3'
     main(flags.FLAGS(argv, known_only=True))
