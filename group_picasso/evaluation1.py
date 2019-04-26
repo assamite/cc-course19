@@ -18,61 +18,38 @@ from scipy.spatial import cKDTree as KDTree
 
 class EmotionEvaluator:
 
-    def __init__(self):
-        self.color_to_emotion = {
-            'aliceblue': (),
-            'antiquewhite': (),
-            'aqua': (),
-            'aquamarine': (),
-            'azure': (),
-            'beige': (),
-            'bisque': (),
-            'black': (),
-            'blanchedalmond': (),
-            'blue': (),
-            'blueviolet': (),
-            'brown': (),
-            'burlywood': (),
-            'cadetblue': (),
-            'chartreuse': (),
-            'chocolate': (), 'coral': (), 'cornflowerblue': (), 'cornsilk': (), 'crimson': (),
-            'cyan': (), 'darkblue': (), 'darkcyan': (), 'darkgoldenrod': (), 'darkgray': (),
-            'darkgreen': (), 'darkgrey': (), 'darkkhaki': (), 'darkmagenta': (),
-            'darkolivegreen': (), 'darkorange': (), 'darkorchid': (), 'darkred': (),
-            'darksalmon': (), 'darkseagreen': (), 'darkslateblue': (), 'darkslategray': (),
-            'darkslategrey': (), 'darkturquoise': (), 'darkviolet': (), 'deeppink': (),
-            'deepskyblue': (), 'dimgray': (), 'dimgrey': (), 'dodgerblue': (), 'firebrick': (),
-            'floralwhite': (), 'forestgreen': (), 'fuchsia': (), 'gainsboro': (), 'ghostwhite': (),
-            'gold': (), 'goldenrod': (), 'gray': (), 'green': (), 'greenyellow': (), 'grey': (),
-            'honeydew': (), 'hotpink': (), 'indianred': (), 'indigo': (), 'ivory': (), 'khaki': (),
-            'lavender': (), 'lavenderblush': (), 'lawngreen': (), 'lemonchiffon': (),
-            'lightblue': (), 'lightcoral': (), 'lightcyan': (), 'lightgoldenrodyellow': (),
-            'lightgray': (), 'lightgreen': (), 'lightgrey': (), 'lightpink': (), 'lightsalmon': (),
-            'lightseagreen': (), 'lightskyblue': (), 'lightslategray': (), 'lightslategrey': (),
-            'lightsteelblue': (), 'lightyellow': (), 'lime': (), 'limegreen': (), 'linen': (),
-            'magenta': (), 'maroon': (), 'mediumaquamarine': (), 'mediumblue': (),
-            'mediumorchid': (), 'mediumpurple': (), 'mediumseagreen': (), 'mediumslateblue': (),
-            'mediumspringgreen': (), 'mediumturquoise': (), 'mediumvioletred': (),
-            'midnightblue': (), 'mintcream': (), 'mistyrose': (), 'moccasin': (),
-            'navajowhite': (), 'navy': (), 'oldlace': (), 'olive': (), 'olivedrab': (),
-            'orange': (), 'orangered': (), 'orchid': (), 'palegoldenrod': (), 'palegreen': (),
-            'paleturquoise': (), 'palevioletred': (), 'papayawhip': (), 'peachpuff': (),
-            'peru': (), 'pink': (), 'plum': (), 'powderblue': (), 'purple': (),
-            'rebeccapurple': (), 'red': (), 'rosybrown': (), 'royalblue': (), 'saddlebrown': (),
-            'salmon': (), 'sandybrown': (), 'seagreen': (), 'seashell': (), 'sienna': (),
-            'silver': (), 'skyblue': (), 'slateblue': (), 'slategray': (), 'slategrey': (),
-            'snow': (), 'springgreen': (), 'steelblue': (), 'tan': (), 'teal': (), 'thistle': (),
-            'tomato': (), 'turquoise': (), 'violet': (), 'wheat': (), 'white': (),
-            'whitesmoke': (), 'yellow': (), 'yellowgreen': ()}
+    def __init__(self, path):
+        self.reds = ['crimson', 'darkred', 'darksalmon', 'firebrick', 'indianred', 'lightcoral', 'lightsalmon', 'red',
+                     'salmon']
+        self.oranges = ['coral', 'darkorange', 'orange', 'orangered', 'tomato']
+        self.pinks = ['deeppink', 'mediumvioletred', 'hotpink', 'lightpink', 'palevioletred', 'pink']
+        self.yellows = ['darkkhaki', 'gold', 'khaki', 'lemonchiffon', 'lightgoldenrodyellow', 'lightyellow', 'moccasin',
+                        'palegoldenrod', 'papayawhip', 'peachpuff', 'yellow']
+        self.browns = ['bisque', 'blanchedalmond', 'brown', 'burlywood', 'chocolate', 'cornsilk', 'darkgoldenrod',
+                       'goldenrod', 'maroon', 'navajowhite', 'peru', 'rosybrown', 'saddlebrown', 'sandybrown', 'sienna',
+                       'tan', 'wheat']
+        self.purples_violets = ['blueviolet', 'darkmagenta', 'darkorchid', 'darkslateblue', 'darkviolet', 'fuchsia',
+                                'indigo', 'lavender', 'magenta', 'mediumorchid', 'mediumpurple', 'mediumslateblue',
+                                'orchid', 'plum', 'purple', 'rebeccapurple', 'slateblue', 'thistle', 'violet']
+        self.whites = ['aliceblue', 'antiquewhite', 'azure', 'beige', 'floralwhite', 'ghostwhite', 'honeydew', 'ivory',
+                       'lavenderblush', 'linen', 'mintcream', 'mistyrose', 'oldlace', 'seashell', 'snow', 'white',
+                       'whitesmoke']
+        self.grays_blacks = ['black', 'darkgray', 'darkgrey', 'darkslategray', 'darkslategrey', 'dimgray', 'gainsboro',
+                             'gray', 'grey', 'lightgray', 'lightgrey', 'lightslategray', 'lightslategrey', 'silver',
+                             'slategray', 'slategrey']
+        self.greens = ['chartreuse', 'darkgreen', 'darkolivegreen', 'darkseagreen', 'forestgreen', 'green',
+                       'greenyellow', 'lawngreen', 'lightgreen', 'lime', 'limegreen', 'mediumaquamarine',
+                       'mediumseagreen', 'mediumspringgreen', 'olive', 'olivedrab', 'palegreen', 'seagreen',
+                       'springgreen', 'yellowgreen']
+        self.cyans = ['aqua', 'aquamarine', 'cadetblue', 'cyan', 'darkcyan', 'darkturquoise', 'lightcyan',
+                      'lightseagreen', 'mediumturquoise', 'paleturquoise', 'teal', 'turquoise']
 
-    def emotions_by_colours(self, path, emotion):
-        """evaluates emotions based on the colours in the image, input should be path to the image and emotion to be detected """
+        self.blues = ['blue', 'cornflowerblue', 'darkblue', 'deepskyblue', 'dodgerblue', 'lightblue', 'lightskyblue',
+                      'lightsteelblue', 'mediumblue', 'midnightblue', 'navy', 'powderblue', 'royalblue', 'skyblue',
+                      'steelblue', 'teal']
+
         pic = plt.imread(path)
         pixels = pic.shape[0] * pic.shape[1]
-        plt.imshow(pic)
-        # col = ['red', 'darkred', 'pink', 'lightpink', 'green', 'lightgreen', 'darkgreen', 'blue', 'lightblue',
-        #        'darkblue', 'yellow', 'lightyellow', 'purple', 'lavender', 'black', 'grey', 'darkgrey', 'lightgrey',
-        #        'orange', 'white', 'darkorange', 'brown', 'darkslategray', 'saddlebrown']
         col = list(colors.cnames.keys())
         colours = {k: colors.cnames[k] for k in col}
         named = {k: tuple(map(int, (v[1:3], v[3:5], v[5:7]), 3 * (16,)))
@@ -83,41 +60,40 @@ class EmotionEvaluator:
         names = list(named)
         tree = KDTree(tup[:-1])
         dist, idx = tree.query(pic, distance_upper_bound=np.inf)
-        count = dict(zip(names, np.bincount(idx.ravel(), None, ncol + 1)))
+        self.count = dict(zip(names, np.bincount(idx.ravel(), None, ncol + 1)))
 
-        for k in count:
-            count[k] = round((count.get(k) / pixels), 2)
+        for k in self.count:
+            self.count[k] = round((self.count.get(k) / pixels), 2)
 
-        print('percentages of colour in the image')
-        print(sorted(count.items(), key=operator.itemgetter(1), reverse=True))
+    def emotions_by_colours(self, emotion):
+        """evaluates emotions based on the colours in the image,
+        input should be path to the image and emotion to be detected
+        """
+        print('Top colors in the image...')
+        sorted_counts = sorted(self.count.items(), key=operator.itemgetter(1), reverse=True)
+        for i in range(len(sorted_counts)):
+            if sorted_counts[i][1] < .03:
+                break
+            print(sorted_counts[i])
 
         emotions = {'anger': 0, 'sadness': 0, 'happiness': 0, 'fear': 0, 'surprise': 0, 'disgust': 0}
 
         for e in emotions:
             if e == 'anger':
-                emotions[e] = count.get('red') + count.get('darkred') + count.get('black') + count.get(
-                    'crimson') + count.get('indianred') + count.get('tomato') + count.get('firebrick')
+                emotions[e] = self.__sum_counts(self.reds + self.oranges + self.browns)
             if e == 'sadness':
-                emotions[e] = count.get('darkblue') + count.get('darkgrey') + count.get('darkviolet') + count.get(
-                    'darkslategray') + count.get('steelblue') + count.get('dimgray') + count.get(
-                    'cadetblue') + count.get('slategray') + count.get('darkslateblue') + count.get(
-                    'lightslategrey') + count.get('grey')
+                emotions[e] = self.__sum_counts(self.blues + self.purples_violets + self.cyans + self.grays_blacks)
             if e == 'happiness':
-                emotions[e] = count.get('lightyellow') + count.get('yellow') + count.get('lightpink') + count.get(
-                    'pink') + count.get('lightgreen') + count.get('lightblue') + count.get('goldenrod') + count.get(
-                    'limegreen') + count.get('mediumseagreen') + count.get('peachpuff') + count.get('mistyrose')
+                emotions[e] = self.__sum_counts(self.whites + self.pinks + self.yellows + self.purples_violets)
             if e == 'fear':
-                emotions[e] = count.get('white') + count.get('black') + count.get('darkgrey')
+                emotions[e] = self.__sum_counts(self.grays_blacks + self.whites)
             if e == 'surprise':
-                emotions[e] = count.get('purple') + count.get('lavender') + count.get('green') + count.get(
-                    'lightgreen') + count.get('limegreen')
+                emotions[e] = self.__sum_counts(
+                    self.greens + self.cyans + self.yellows + self.oranges + self.reds + self.pinks)
             if e == 'disgust':
-                emotions[e] = count.get('brown') + count.get('darkgreen') \
-                              + count.get('darkorange') + count.get('darkslategray') + count.get(
-                    'saddlebrown') + count.get('sienna') + count.get('darkolivegreen') + count.get(
-                    'darkkhaki') + count.get('olivedrab')
+                emotions[e] = self.__sum_counts(self.browns + self.greens)
 
-        print('\nemotions in the image')
+        print('Emotions in the image...')
         print(emotions)
 
         maximumemotion = emotions.get('anger')
@@ -131,3 +107,9 @@ class EmotionEvaluator:
             maximumemotion = 0
 
         return (maximumemotion)
+
+    def __sum_counts(self, colors):
+        sum = 0
+        for color in colors:
+            sum += self.count.get(color)
+        return sum

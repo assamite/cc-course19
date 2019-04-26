@@ -212,8 +212,8 @@ class RandomImageCreator:
         """Evaluate image.
         """
         # TODO
-        emotion_evaluator = EmotionEvaluator()
-        return emotion_evaluator.emotions_by_colours(artifact_path, emotion)
+        emotion_evaluator = EmotionEvaluator(artifact_path)
+        return emotion_evaluator.emotions_by_colours(emotion)
 
         # Quick fix
         # return random.random()
