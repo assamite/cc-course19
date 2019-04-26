@@ -19,34 +19,34 @@ from scipy.spatial import cKDTree as KDTree
 class EmotionEvaluator:
 
     def __init__(self, path):
-        self.reds = ['crimson', 'darkred', 'darksalmon', 'firebrick', 'indianred', 'lightcoral', 'lightsalmon', 'red',
-                     'salmon']
-        self.oranges = ['coral', 'darkorange', 'orange', 'orangered', 'tomato']
-        self.pinks = ['deeppink', 'mediumvioletred', 'hotpink', 'lightpink', 'palevioletred', 'pink']
-        self.yellows = ['darkkhaki', 'gold', 'khaki', 'lemonchiffon', 'lightgoldenrodyellow', 'lightyellow', 'moccasin',
-                        'palegoldenrod', 'papayawhip', 'peachpuff', 'yellow']
+        self.blues = ['blue', 'cornflowerblue', 'darkblue', 'deepskyblue', 'dodgerblue', 'lightblue', 'lightskyblue',
+                      'lightsteelblue', 'mediumblue', 'midnightblue', 'navy', 'powderblue', 'royalblue', 'skyblue',
+                      'steelblue', 'teal']
+        self.blacks = ['black']
         self.browns = ['bisque', 'blanchedalmond', 'brown', 'burlywood', 'chocolate', 'cornsilk', 'darkgoldenrod',
                        'goldenrod', 'maroon', 'navajowhite', 'peru', 'rosybrown', 'saddlebrown', 'sandybrown', 'sienna',
                        'tan', 'wheat']
-        self.purples_violets = ['blueviolet', 'darkmagenta', 'darkorchid', 'darkslateblue', 'darkviolet', 'fuchsia',
-                                'indigo', 'lavender', 'magenta', 'mediumorchid', 'mediumpurple', 'mediumslateblue',
-                                'orchid', 'plum', 'purple', 'rebeccapurple', 'slateblue', 'thistle', 'violet']
-        self.whites = ['aliceblue', 'antiquewhite', 'azure', 'beige', 'floralwhite', 'ghostwhite', 'honeydew', 'ivory',
-                       'lavenderblush', 'linen', 'mintcream', 'mistyrose', 'oldlace', 'seashell', 'snow', 'white',
-                       'whitesmoke']
-        self.grays_blacks = ['black', 'darkgray', 'darkgrey', 'darkslategray', 'darkslategrey', 'dimgray', 'gainsboro',
-                             'gray', 'grey', 'lightgray', 'lightgrey', 'lightslategray', 'lightslategrey', 'silver',
-                             'slategray', 'slategrey']
+        self.cyans = ['aqua', 'aquamarine', 'cadetblue', 'cyan', 'darkcyan', 'darkturquoise', 'lightcyan',
+                      'lightseagreen', 'mediumturquoise', 'paleturquoise', 'teal', 'turquoise']
+
+        self.grays = ['darkgray', 'darkgrey', 'darkslategray', 'darkslategrey', 'dimgray', 'gainsboro', 'gray', 'grey',
+                      'lightgray', 'lightgrey', 'lightslategray', 'lightslategrey', 'silver', 'slategray', 'slategrey']
         self.greens = ['chartreuse', 'darkgreen', 'darkolivegreen', 'darkseagreen', 'forestgreen', 'green',
                        'greenyellow', 'lawngreen', 'lightgreen', 'lime', 'limegreen', 'mediumaquamarine',
                        'mediumseagreen', 'mediumspringgreen', 'olive', 'olivedrab', 'palegreen', 'seagreen',
                        'springgreen', 'yellowgreen']
-        self.cyans = ['aqua', 'aquamarine', 'cadetblue', 'cyan', 'darkcyan', 'darkturquoise', 'lightcyan',
-                      'lightseagreen', 'mediumturquoise', 'paleturquoise', 'teal', 'turquoise']
-
-        self.blues = ['blue', 'cornflowerblue', 'darkblue', 'deepskyblue', 'dodgerblue', 'lightblue', 'lightskyblue',
-                      'lightsteelblue', 'mediumblue', 'midnightblue', 'navy', 'powderblue', 'royalblue', 'skyblue',
-                      'steelblue', 'teal']
+        self.oranges = ['coral', 'darkorange', 'orange', 'orangered', 'tomato']
+        self.pinks = ['deeppink', 'mediumvioletred', 'hotpink', 'lightpink', 'palevioletred', 'pink']
+        self.purples_violets = ['blueviolet', 'darkmagenta', 'darkorchid', 'darkslateblue', 'darkviolet', 'fuchsia',
+                                'indigo', 'lavender', 'magenta', 'mediumorchid', 'mediumpurple', 'mediumslateblue',
+                                'orchid', 'plum', 'purple', 'rebeccapurple', 'slateblue', 'thistle', 'violet']
+        self.reds = ['crimson', 'darkred', 'darksalmon', 'firebrick', 'indianred', 'lightcoral', 'lightsalmon', 'red',
+                     'salmon']
+        self.whites = ['aliceblue', 'antiquewhite', 'azure', 'beige', 'floralwhite', 'ghostwhite', 'honeydew', 'ivory',
+                       'lavenderblush', 'linen', 'mintcream', 'mistyrose', 'oldlace', 'seashell', 'snow', 'white',
+                       'whitesmoke']
+        self.yellows = ['darkkhaki', 'gold', 'khaki', 'lemonchiffon', 'lightgoldenrodyellow', 'lightyellow', 'moccasin',
+                        'palegoldenrod', 'papayawhip', 'peachpuff', 'yellow']
 
         pic = plt.imread(path)
         pixels = pic.shape[0] * pic.shape[1]
@@ -82,11 +82,11 @@ class EmotionEvaluator:
             if e == 'anger':
                 emotions[e] = self.__sum_counts(self.reds + self.oranges + self.browns)
             if e == 'sadness':
-                emotions[e] = self.__sum_counts(self.blues + self.purples_violets + self.cyans + self.grays_blacks)
+                emotions[e] = self.__sum_counts(self.blues + self.purples_violets + self.grays)
             if e == 'happiness':
                 emotions[e] = self.__sum_counts(self.whites + self.pinks + self.yellows + self.purples_violets)
             if e == 'fear':
-                emotions[e] = self.__sum_counts(self.grays_blacks + self.whites)
+                emotions[e] = self.__sum_counts(self.blacks + self.whites)
             if e == 'surprise':
                 emotions[e] = self.__sum_counts(
                     self.greens + self.cyans + self.yellows + self.oranges + self.reds + self.pinks)
