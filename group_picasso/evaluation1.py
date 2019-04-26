@@ -18,7 +18,8 @@ from scipy.spatial import cKDTree as KDTree
 
 class EmotionEvaluator:
 
-    def __init__(self, path):
+    def __init__(self):
+        self.count = None
         self.blues = ['blue', 'cornflowerblue', 'darkblue', 'deepskyblue', 'dodgerblue', 'lightblue', 'lightskyblue',
                       'lightsteelblue', 'mediumblue', 'midnightblue', 'navy', 'powderblue', 'royalblue', 'skyblue',
                       'steelblue', 'teal']
@@ -48,6 +49,10 @@ class EmotionEvaluator:
         self.yellows = ['darkkhaki', 'gold', 'khaki', 'lemonchiffon', 'lightgoldenrodyellow', 'lightyellow', 'moccasin',
                         'palegoldenrod', 'papayawhip', 'peachpuff', 'yellow']
 
+    def emotions_by_colours(self, path, emotion):
+        """evaluates emotions based on the colours in the image,
+        input should be path to the image and emotion to be detected
+        """
         pic = plt.imread(path)
         pixels = pic.shape[0] * pic.shape[1]
         col = list(colors.cnames.keys())
@@ -65,16 +70,12 @@ class EmotionEvaluator:
         for k in self.count:
             self.count[k] = round((self.count.get(k) / pixels), 2)
 
-    def emotions_by_colours(self, emotion):
-        """evaluates emotions based on the colours in the image,
-        input should be path to the image and emotion to be detected
-        """
         print('Top colors in the image...')
         sorted_counts = sorted(self.count.items(), key=operator.itemgetter(1), reverse=True)
-        for i in range(len(sorted_counts)):
-            if sorted_counts[i][1] < .03:
+        for count in sorted_counts:
+            if count[1] < .03:
                 break
-            print(sorted_counts[i])
+            print(count)
 
         emotions = {'anger': 0, 'sadness': 0, 'happiness': 0, 'fear': 0, 'surprise': 0, 'disgust': 0}
 
@@ -86,7 +87,7 @@ class EmotionEvaluator:
             if e == 'happiness':
                 emotions[e] = self.__sum_counts(self.whites + self.pinks + self.yellows + self.purples_violets)
             if e == 'fear':
-                emotions[e] = self.__sum_counts(self.blacks + self.whites)
+                emotions[e] = self.__sum_counts(self.blacks + self.whites + self.grays)
             if e == 'surprise':
                 emotions[e] = self.__sum_counts(
                     self.greens + self.cyans + self.yellows + self.oranges + self.reds + self.pinks)
@@ -94,19 +95,16 @@ class EmotionEvaluator:
                 emotions[e] = self.__sum_counts(self.browns + self.greens)
 
         print('Emotions in the image...')
-        print(emotions)
+        sorted_emotions = sorted(emotions.items(), key=operator.itemgetter(1), reverse=True)
+        for e in sorted_emotions:
+            print(e)
+        print()
 
-        maximumemotion = emotions.get('anger')
-        emotiondetected = 'anger'
-        for e in emotions:
-            if emotions.get(e) > maximumemotion:
-                maximumemotion = emotions.get(e)
-                emotiondetected = e
-
-        if emotion != emotiondetected:
-            maximumemotion = 0
-
-        return (maximumemotion)
+        max_emotion = max(emotions.items(), key=operator.itemgetter(1))[0]
+        if max_emotion is emotion:
+            return emotions[max_emotion]
+        else:
+            return 0
 
     def __sum_counts(self, colors):
         sum = 0

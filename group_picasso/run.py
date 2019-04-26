@@ -131,17 +131,23 @@ class RandomImageCreator:
         style_filenames = os.listdir(os.path.join(self.folder, "images/styles"))
 
         print("Generating artifacts with different styles...")
-        best_path = None
-        best_style = None
-        best_score = 0
+
+        # TODO
+        # n_tries = 10
+
+        # Quick fix
         n_tries = len(style_filenames)
+
+        artifacts = []
         for i in range(n_tries):
             # TODO
-            # style_path = style_selector.get_random()
+            # style_path = style_selector.get_with_emotion(emotion)
 
             # Quick fix
             style_path = os.path.join(self.folder, "images/styles/{}".format(style_filenames[i]))
 
+            style_name = self.__get_basename(style_path)
+            print("Trying style {}...".format(style_name))
             timestamp = datetime.now().strftime("%Y%m%d-%H%M%S-%f")
             markovified_path = os.path.join(self.folder, "images/tmp/{}.png".format(timestamp))
             tmp_path = os.path.join(self.folder,
@@ -153,15 +159,26 @@ class RandomImageCreator:
             self.__transfer_style(markovified_path, tmp_path, style_path)
             artifact_score = self.__evaluate_artifact_with_emotion(artifact_path, emotion)
 
-            print("\t{} {}".format(self.__get_basename(style_path), artifact_score))
-            if artifact_score >= best_score:
-                best_score = artifact_score
-                best_path = artifact_path
-                best_style = style_path
-        print("Best emotion score {} with style {}!".format(best_score, self.__get_basename(best_style)))
-        if best_score >= 0:
-            print("Enough emotion!")
-            self.artifact_path = best_path
+            if artifact_score > 0:
+                artifacts.append({"path": artifact_path, "style_name": style_name,
+                                  "emotion_score": artifact_score})
+        # TODO
+        # distance_evaluator = DistanceEvaluator()
+        # artifacts = distance_evaluator.evaluate(artifacts)
+
+        best_artifact = None
+        for artifact in artifacts:
+            # TODO
+            # if best_articaft is None or artifact["emotion_score"] + artifact["distance_score"] > best_artifact["emotion_score"] + best_artifact["distance_score"]:
+
+            # Quick fix
+            if best_artifact is None or artifact["emotion_score"] > best_artifact["emotion_score"]:
+                best_artifact = artifact
+
+        if best_artifact:
+            print("Enough {} with style {} and score {}!".format(emotion, best_artifact["style_name"],
+                                                                 best_artifact["emotion_score"]))
+            self.artifact_path = best_artifact["path"]
             return True
         else:
             print("Not enough emotion!")
@@ -212,8 +229,8 @@ class RandomImageCreator:
         """Evaluate image.
         """
         # TODO
-        emotion_evaluator = EmotionEvaluator(artifact_path)
-        return emotion_evaluator.emotions_by_colours(emotion)
+        emotion_evaluator = EmotionEvaluator()
+        return emotion_evaluator.emotions_by_colours(artifact_path, emotion)
 
         # Quick fix
         # return random.random()
