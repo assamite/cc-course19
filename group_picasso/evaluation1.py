@@ -31,7 +31,6 @@ class EmotionEvaluator:
                        "tan", "wheat"]
         self.cyans = ["aqua", "aquamarine", "cadetblue", "cyan", "darkcyan", "darkturquoise", "lightcyan",
                       "lightseagreen", "mediumturquoise", "paleturquoise", "teal", "turquoise"]
-
         self.grays = ["darkgray", "darkgrey", "darkslategray", "darkslategrey", "dimgray", "gainsboro", "gray", "grey",
                       "lightgray", "lightgrey", "lightslategray", "lightslategrey", "silver", "slategray", "slategrey"]
         self.greens = ["chartreuse", "darkgreen", "darkolivegreen", "darkseagreen", "forestgreen", "green",
@@ -69,12 +68,13 @@ class EmotionEvaluator:
 
         self.__print_top_colors()
 
-        self.emotions["anger"] = self.__sum_counts(self.reds + self.oranges + self.browns)
-        self.emotions["sadness"] = self.__sum_counts(self.blues + self.purples_violets + self.grays)
-        self.emotions["happiness"] = self.__sum_counts(self.whites + self.pinks + self.yellows + self.purples_violets)
-        self.emotions["fear"] = self.__sum_counts(self.blacks + self.whites + self.grays)
+        self.emotions["anger"] = self.__sum_counts(self.browns + self.oranges + self.reds)
+        self.emotions["sadness"] = self.__sum_counts(self.blues + self.grays + self.purples_violets)
+        self.emotions["happiness"] = self.__sum_counts(self.pinks + self.purples_violets + self.yellows + self.whites)
+        self.emotions["fear"] = self.__sum_counts(self.blacks + self.grays + self.whites)
         self.emotions["surprise"] = self.__sum_counts(
-            self.greens + self.cyans + self.yellows + self.oranges + self.reds + self.pinks)
+            self.blues + self.cyans + self.greens + self.oranges + self.pinks + self.purples_violets + self.reds +
+            self.yellows)
         self.emotions["disgust"] = self.__sum_counts(self.browns + self.greens)
 
         self.__print_top_emotions()
