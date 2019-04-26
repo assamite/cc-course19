@@ -2,6 +2,8 @@ from typing import List, Tuple
 from random import randint
 import numpy as np
 
+DEBUG = False
+
 def eval_semantics(poem: List[str]):
   """Does it make sense?
   
@@ -21,7 +23,9 @@ def eval_length(poem: List[str]):
   for line in poem:
     l += len(line)
   score = np.sqrt(np.abs(l - optimal_length))
-  return np.exp(-score)
+  score = np.exp(-score)
+  if DEBUG: print(f'\teval length score {score}')
+  return score
 
 def eval_rhytm(poem: List[str]):
   """Does it have a nice rhythm, ie. a good amount of syllables in right places?
@@ -46,7 +50,9 @@ def eval_dissimilarity_to_word_pairs(poem: List[str], word_pairs: List[Tuple[str
   for pair in word_pairs:
     score += poem[1].find(pair[0])
     score += poem[1].find(pair[1])
-  return np.exp(-score)
+  score = np.exp(-score)
+  if DEBUG: print(f'\tscore for dissimilarity to word pairs {score}')
+  return score
 
 def evaluate_poems(emotion: str, word_pairs: List[Tuple[str, str]], poems: List[List[str]]):
   """
@@ -55,6 +61,7 @@ def evaluate_poems(emotion: str, word_pairs: List[Tuple[str, str]], poems: List[
 
   scores = [0]*len(poems)
   for i, poem in enumerate(poems):
+    if DEBUG: print(f'for poem {poem}')
     scores[i] += eval_semantics(poem)
     scores[i] += eval_length(poem)
     scores[i] += eval_rhytm(poem)
@@ -80,5 +87,6 @@ if __name__ == '__main__':
       "and you should be egged"
       ]
   ]
+  DEBUG = True
   output = evaluate_poems(example_emotion, example_word_pairs, example_poems)
   print(output)
