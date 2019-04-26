@@ -1,23 +1,37 @@
 from typing import List, Tuple
 from random import randint
+import numpy as np
 
-def eval_semantics(poem: str):
-  """Does it make sense?"""
+def eval_semantics(poem: List[str]):
+  """Does it make sense?
+  
+  We have no idea.
+  """
+
   return 1
 
-def eval_length(poem: str):
-  """Is it nice length?"""
-  return 1
+def eval_length(poem: List[str]):
+  """Is it nice length?
+  
+  exp(- Square root of the absolute distance to the optimal length).
+  """
+  optimal_length = 77 # scientifically proven
 
-def eval_rhytm(poem: str):
+  l = 0
+  for line in poem:
+    l += len(line)
+  score = np.sqrt(np.abs(l - optimal_length))
+  return np.exp(-score)
+
+def eval_rhytm(poem: List[str]):
   """Does it have a nice rhythm, ie. a good amount of syllables in right places?"""
   return 1
 
-def eval_similarity_to_emotion(poem: str, emotion: str):
+def eval_similarity_to_emotion(poem: List[str], emotion: str):
   """Is the feeling of the poem similar to the emotion given as input?"""
   return 1
 
-def eval_dissimilarity_to_word_pairs(poem: str, word_pairs: List[Tuple[str, str]]):
+def eval_dissimilarity_to_word_pairs(poem: List[str], word_pairs: List[Tuple[str, str]]):
   """Has the system been able to alter the word pair from the original input in a craetive manner?"""
   return 1
 
