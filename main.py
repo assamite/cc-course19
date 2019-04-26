@@ -7,6 +7,7 @@ import argparse
 import importlib
 import json
 import os
+import sys
 
 #from resources.sample_inputs import SAMPLE_INPUTS, build_sample_input
 import inputs
@@ -85,6 +86,7 @@ if __name__ == "__main__":
 
     # Initialize each group's creator
     for group_folder in folders:
+        sys.path.append(os.path.join(os.path.dirname(__file__), group_folder))
         group_config = json.load(open(os.path.join(group_folder, 'config.json')))
         module_name = group_config['module_name']
         class_name = group_config['class_name']
