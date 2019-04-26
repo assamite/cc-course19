@@ -13,7 +13,7 @@ from modules.do_magic import alter_rest
 from modules.expand_poem import fill_and_create_text
 from modules.fill_evaluations import evaluate_poems
 
-DATA_FOLDER = 'data/'
+DATA_FOLDER = 'roses/data/'
 
 class PoemCreator:
 
