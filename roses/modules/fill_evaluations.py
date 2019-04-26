@@ -24,16 +24,29 @@ def eval_length(poem: List[str]):
   return np.exp(-score)
 
 def eval_rhytm(poem: List[str]):
-  """Does it have a nice rhythm, ie. a good amount of syllables in right places?"""
+  """Does it have a nice rhythm, ie. a good amount of syllables in right places?
+  
+  This could be done with nltk.
+  """
   return 1
 
 def eval_similarity_to_emotion(poem: List[str], emotion: str):
-  """Is the feeling of the poem similar to the emotion given as input?"""
+  """Is the feeling of the poem similar to the emotion given as input?
+  
+  This one could use Vord2Vec to calculate semantic distances.
+  """
   return 1
 
 def eval_dissimilarity_to_word_pairs(poem: List[str], word_pairs: List[Tuple[str, str]]):
-  """Has the system been able to alter the word pair from the original input in a craetive manner?"""
-  return 1
+  """Has the system been able to alter the word pair from the original input in a craetive manner?
+  
+  Measure distance to the original words, the longer the better. Does this make sense? IDK."""
+
+  score = 0
+  for pair in word_pairs:
+    score += poem[1].find(pair[0])
+    score += poem[1].find(pair[1])
+  return np.exp(-score)
 
 def evaluate_poems(emotion: str, word_pairs: List[Tuple[str, str]], poems: List[List[str]]):
   """
