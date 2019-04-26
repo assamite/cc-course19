@@ -4,6 +4,8 @@ import numpy as np
 
 DEBUG = False
 
+#TODO evaluate novelty w.r.t. all the poems written previously (pushes the algo to search different parts of T)
+
 def eval_semantics(poem: List[str]):
   """Does it make sense?
   
