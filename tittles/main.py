@@ -1,4 +1,3 @@
-import random
 import os
 import pickle
 from pattern.en import pluralize, singularize
@@ -14,10 +13,9 @@ except ModuleNotFoundError:
     from evaluator import Evaluator
 
 try:
-    from . import thesaurus
-except ImportError:
-    import thesaurus
-
+    from .wordpicker import WordPicker
+except ModuleNotFoundError:
+    from wordpicker import WordPicker
 
 class tittlesTitle():
     def __init__(self):
@@ -25,12 +23,16 @@ class tittlesTitle():
         self.domain = 'word'
         self.folder = os.path.dirname(os.path.realpath(__file__))
         self.evaluator = Evaluator()
+        self.wordpicker = WordPicker()
 
         self.template_bank = TemplateBank(os.path.join(self.folder, "data", "templates.short.uniq"))
 
 
     def generate(self, *args, **kwargs):
         return self.create("", {}, number_of_artifacts=1)
+
+    def find_opposites(self, adjectives):
+        return self.wordpicker.find_pairs(adjectives)
 
     def evaluate(self, title):
         """
@@ -86,10 +88,7 @@ class tittlesTitle():
 
         while len(ret) != number_of_artifacts:
             adjectives = list(word_pair[1] for word_pair in word_pairs if word_pair[0] == 'animal')
-            animals = thesaurus.find_members('animal', adjectives)
-            animal = random.choices(list(animals.keys()), list(animals.values()))[0]
-            adjective = random.choice(adjectives)
-            word_pair = (animal, adjective)
+            word_pair = self.find_opposites(adjectives)
             template = self.template_bank.random_template()
             title = Title(template)
             self.inject(title, word_pair)
