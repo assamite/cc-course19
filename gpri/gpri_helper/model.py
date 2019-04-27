@@ -18,7 +18,7 @@ print ('BigGAN module loaded!')
 inputs = {k: tf.placeholder(v.dtype, v.get_shape().as_list(), k)
           for k, v in module.get_input_info_dict().items()}
 output = module(inputs)
-        
+
 input_z = inputs['z']
 input_y = inputs['y']
 input_trunc = inputs['truncation']
@@ -69,5 +69,3 @@ def sample(sess, noise, label, truncation=1., batch_size=8,
   ims = np.clip(((ims + 1) / 2.0) * 256, 0, 255)
   ims = np.uint8(ims)
   return ims
-
-
