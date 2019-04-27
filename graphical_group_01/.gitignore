@@ -13,11 +13,13 @@ dist/
 build/
 *.egg-info/
 
+
+
 .idea/
 
 # No artifacts
-resources/step_1_ready/*.png
-kolme_musaa/step_1/cache/*.png
-kolme_musaa/step_1/eval_dir/*.png
+resources/step_1_ready/*
+kolme_musaa/step_1/cache/*
+kolme_musaa/step_1/eval_dir/*
 
 

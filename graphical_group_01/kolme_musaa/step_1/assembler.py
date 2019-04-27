@@ -12,7 +12,6 @@ def assemble_images_from_params(assembling_parameters, image_path_1, image_path_
                                                             s.__IMAGE_WIDTH__,
                                                             s.__COLOR_CHANNELS__))
     # print(f"(generate): received emotion={emotion}, word_pair={word_pair}")
-    warnings.warn("Not using args yet, generate at random..")
     image = Image.fromarray(image_tensor, 'RGB')
 
     image_path = get_unique_save_path_name(directory=s.__STEP_1_EVAL_DIR__,

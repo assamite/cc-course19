@@ -23,7 +23,19 @@ def execute(word_pairs:list, n_art:int):
     """
     threshold = 0.5
 
-    downloader.download(word_pairs=word_pairs)
+    words = set([w for wp in word_pairs for w in wp])
+
+    # Download images for words, skipping those where there are already enough images.
+    for w in words:
+        word_dir = os.path.join(s.__STEP_1_CACHE_DIR__, w)
+        if os.path.exists(word_dir):
+            if len(os.listdir(word_dir)) < n_art:
+                for im_f in os.listdir(word_dir):
+                    os.remove(os.path.join(word_dir, im_f))
+            else:
+                debug_log(f"We have enough cached images for *{w}*. Skipping..")
+                continue
+        downloader.download(word=w, n_images=n_art)
 
     ready_list = list()
 
