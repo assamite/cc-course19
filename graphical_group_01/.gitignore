@@ -18,9 +18,9 @@ build/
 .idea/
 
 # No artifacts
-resources/step_1_ready/*.jpg
+resources/step_1_ready/*.png
 kolme_musaa/step_1/cache/*/*.jpg
 kolme_musaa/step_1/cache/*/*.png
-kolme_musaa/step_1/eval_dir/*.jpg
+kolme_musaa/step_1/eval_dir/*.png
 
 

@@ -1,4 +1,4 @@
-""" Produces assemling parameters from word pairs """
+""" Produces assembling parameters from word pairs """
 
 import random
 import os
@@ -97,14 +97,24 @@ def estimate_best_parameters(im1, im2):
 
     Returns
     -------
+    tuple
+        The following parameters:
+        im1_x - position x (0 = left, 1 = right)
+        im1_x -  position y (0 = top, 1 = bottom)
+        im2_theta - relative angle theta (0 = 0 deg, 1 = 360 deg)
+        im2_dist - relative position d  (0 = 0px from center, 1=inf px)
+        s1 - scale of image 1 (0 = 0px, 1=inf)
+        s2 - scale of image 2 (0 = 0px, 1=inf)
+        r1 - rotation of image 1 (0 = 0 deg, 1 = 360 deg)
+        r2 - rotation of image 2 (0 = 0 deg, 1 = 360 deg)
+        alpha of foreground image (0 = transparent, 1 = opaque)
 
+        If a function is in range [0, inf] use f: x / (1 - x)
     """
 
-    return (0,0,0,0,0,0,0,0,0)
 
 
-
-
+    return [random.random() for _ in range(10)]
 
 
 if __name__ == "__main__":

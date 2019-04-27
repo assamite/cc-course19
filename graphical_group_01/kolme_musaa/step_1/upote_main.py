@@ -63,7 +63,7 @@ def execute(word_pairs:list, n_art:int):
                 debug_log(f"{image_path} good with {im_eval} > {threshold}")
                 ready_image_path = get_unique_save_path_name(s.__RESOURCES_STEP_1_READY__,
                                                              "upote_ready",
-                                                             "jpg")
+                                                             "png")
                 os.rename(image_path, ready_image_path)
                 ready_list.append((ready_image_path, image_dict))
             else:
