@@ -15,7 +15,9 @@ build/
 
 .idea/
 
-# No dummies
-dummies/
-# But keep init
-!dummies/__init__.py
+# No artifacts
+resources/step_1_ready/*.png
+kolme_musaa/step_1/cache/*.png
+kolme_musaa/step_1/eval_dir/*.png
+
+
