@@ -12,6 +12,7 @@ from modules.choose_lines import find_lines
 from modules.do_magic import alter_rest
 from modules.expand_poem import fill_and_create_text
 from modules.fill_evaluations import evaluate_poems
+from utils import read_json_file
 
 DATA_FOLDER = 'data/'
 
@@ -93,7 +94,7 @@ if __name__ == '__main__':
     parser.add_argument(
         'num_poems', help='Number of poems to output.', type=int)
     args = parser.parse_args()
-    with open(DATA_FOLDER + args.word_pairs) as json_file:
-        word_pairs = [tuple(word_pair) for word_pair in json.load(json_file)]
+    word_pairs = read_json_file(DATA_FOLDER +args.word_pairs)
+    word_pairs = [tuple(word_pair) for word_pair in word_pairs]
     for poem in poem_creator.create(args.emotion, [('human', 'boss'), ('animal', 'legged')], args.num_poems):
         print(f'----Poem evaluated {poem[1]}\n{poem[0]}\n----')
