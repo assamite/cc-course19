@@ -4,9 +4,6 @@ import random
 import os
 from utils import read_json_file
 
-#import utils
-
-
 def find_lines(emotion: str, rhyming_partials: List[Dict]):
     """
     Creates combinations of ending lines (3rd and 4th) from some knowledgebase.

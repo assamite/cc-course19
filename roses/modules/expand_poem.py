@@ -2,12 +2,13 @@ from typing import Dict, List
 
 from modules.to_be_or_not_to_be import fit_verb
 
+DEBUG = False
 
 def fill_and_create_text(emotion: str, rhyming_partials: List[Dict]):
     """
     Finishes the poem to be a 4 long list containing the poems lines.
     """
-    print(rhyming_partials[0]['rest'])
+    if DEBUG: print(rhyming_partials[0]['rest'])
     return [
         [
             'Roses are red',
