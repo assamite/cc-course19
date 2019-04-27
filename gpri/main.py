@@ -14,6 +14,7 @@ from .gpri_helper import style_image_funcs as si
 import logging
 from google_images_download import google_images_download
 import shutil
+import keras
 
 
 #silence tensorflow spurious-warnings
@@ -25,7 +26,6 @@ logging.getLogger('tensorflow').disabled = True
 #silence keras messages
 stderr = sys.stderr
 sys.stderr = open(os.devnull, 'w')
-import keras
 sys.stderr = stderr
 
 animal_idxs = np.arange(398)
@@ -52,7 +52,7 @@ class RandomImageCreator:
         #load style transfer module
         global style_transfer
         from .gpri_helper import style_transfer
-        
+
         # Check if user wants to use GPU:
         choice = input("Enable GPU mode for BigGAN (Y/N)?")
 
@@ -70,7 +70,7 @@ class RandomImageCreator:
                 break
             elif choice == 'N' or choice == 'n':
                 self.GPU_MODE = False
-                print('GPU mode disabled, loading dummy image.....')
+                print('GPU mode disabled, a dummy image is required here: gpri/images/content.jpg .....')
                 break
             else:
                 choice = input("Invalid input, Try again..")
@@ -80,15 +80,25 @@ class RandomImageCreator:
         """
         emotion, word_pairs= args
         #generate content image at images/content
-        contentImage = self.generate_contentImage(emotion, word_pairs)
+        self.generate_contentImage(emotion, word_pairs)
         #generate style image at images/style
         #styleImage = self.generate_styleImage(emotion)
         #Apply style-transfer to n - generated images for an emotion and n word pairs in images/output, alpha [0,1] (higher means more style)
-        artifact = style_transfer.stylize(alpha=0.1,content_path=str(self.folder)+str('\images\content')) #once styleImage function is working, we can add style_path
+
+        images_dir = self.folder + "/images"
+        os.makedirs(images_dir, exist_ok = True)
+
+        content_images_path = self.folder + "/images/content.jpg"
+        style_images_path   = self.folder + "/images/style.jpg"
+        output_images_path  = self.folder + "/images/output.jpg"
+
+        style_transfer.stylize(alpha=0.1,content_path = content_images_path, style_path = style_images_path, output_path = output_images_path)
+
         if self.GPU_MODE:
-            return artifact[0]
-        return artifact 
-    '''    
+            return output_images_path
+        return output_images_path
+
+    '''
     def generate_styleImage(self, emotion):
         """
         Generate the content image for the style transfer.
@@ -109,19 +119,20 @@ class RandomImageCreator:
             medium sized style image that captures specified emotion and property.
         """
         response = google_images_download.googleimagesdownload()
-        arguments = {"keywords":f"{property_} {emotion} abstract art", 
+        arguments = {"keywords":f"{property_} {emotion} abstract art",
                      "limit":1,
                      "size":"medium",
                      "format":"jpg",
                      "color_tye":"full-color",
                      "type":"photo",
                      "output_directory":f"{str(self.folder)}",
-                     "image_directory":"\images\style"}
+                     "image_directory":"images/google_style_dump"}
         path = response.download(arguments)
         path = [k for k in path.values()]
         #rename the downloaded styleImage to a proper name
         try:
-            shutil.move(str(path[0][0]),self.folder+'/images/style/'+f'{property_}_{emotion}'+'_0.jpg')
+            style_images_path   = self.folder + "/images/style.jpg"
+            shutil.move(str(path[0][0]), style_images_path)
         except:
             pass
 
@@ -134,23 +145,25 @@ class RandomImageCreator:
         :return:
             String with file path
         """
-        PATH = str(self.folder)+'\images\content'
+        PATH = self.folder + '/images/content.jpg'
+
+        with open(f"{self.folder}/categories.txt", "r") as file:
+            buffer = file.read()
+            cat = buffer.split("\n")
+        for pairs in word_pairs:
+            noun, property_ = pairs
+            self.get_googleStyleImage(emotion, property_)
+            NAME = str(f"GPRI_{noun}_{property_}_0.png")
+            if noun == "animal":
+                idx = int(npr.choice(animal_idxs))
+            elif noun == "activity":
+                idx = int(npr.choice(activity_idxs))
+            else:
+                idx = -1  # CheeseBurger
+            break  # taking the first pair for now
 
         if self.GPU_MODE:
-            with open(f"{self.folder}\categories.txt", "r") as file:
-                buffer = file.read()
-                cat = buffer.split("\n")
-            for pairs in word_pairs:
-                noun, property_ = pairs
-                self.get_googleStyleImage(emotion, property_)
-                NAME = str(f"GPRI_{noun}_{property_}_0.png")
-                if noun == "animal":
-                    idx = int(npr.choice(animal_idxs))
-                elif noun == "activity":
-                    idx = int(npr.choice(activity_idxs))
-                else:
-                    idx = -1  # CheeseBurger
-                break  # taking the first pair for now
+
             truncate = 0.3
             noise = 0
             n_samples = 1
@@ -159,12 +172,11 @@ class RandomImageCreator:
                 z = model.truncated_z_sample(n_samples, truncate, noise)
                 y = idx_cat
                 ims = model.sample(self.sess, z, y, truncate)
-            print(f'Saving image {NAME} at {PATH}\{NAME} .....')
+            print(f'Saving image content image .....')
             image = cv2.cvtColor(ims[0], cv2.COLOR_BGR2RGB)
-            cv2.imwrite(f"{PATH}\{NAME}", image)
-            return os.path.join(PATH, NAME)
-        else:
-            return (os.path.join(PATH, "babylon_drawing_0.jpg"))
+            cv2.imwrite(PATH, image)
+
+        return PATH
 
     def evaluate(self, image):
         """Evaluate image. For now this is a dummy.
@@ -205,4 +217,11 @@ class RandomImageCreator:
         ret = [(w, {'evaluation': self.evaluate(w)}) for w in
                [self.generate(emotion, word_pairs) for _ in
                 range(number_of_artifacts)]]
+
+        print('-' * 100)
+        print('-' * 100)
+
+        print(ret)
+        print('-' * 100)
+        print('-' * 100)
         return ret
