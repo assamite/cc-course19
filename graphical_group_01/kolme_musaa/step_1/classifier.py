@@ -15,8 +15,8 @@ def evaluate_all(threshold=0.5):
     eval_dir = s.__STEP_1_EVAL_DIR__
 
     for im_path in os.listdir(eval_dir):
-        if not im_path.endswith(".png"):
-            print(f"Skipping evaluation of {im_path} because it doesn't end with '.png'")
+        if not (im_path.endswith(".png") or im_path.endswith(".jpg")):
+            print(f"Skipping evaluation of {im_path} because it's not a recognised image format.")
             continue
 
         image_path = os.path.join(eval_dir, im_path)

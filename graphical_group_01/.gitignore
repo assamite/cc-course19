@@ -18,8 +18,9 @@ build/
 .idea/
 
 # No artifacts
-resources/step_1_ready/*
-kolme_musaa/step_1/cache/*
-kolme_musaa/step_1/eval_dir/*
+resources/step_1_ready/*.jpg
+kolme_musaa/step_1/cache/*/*.jpg
+kolme_musaa/step_1/cache/*/*.png
+kolme_musaa/step_1/eval_dir/*.jpg
 
 

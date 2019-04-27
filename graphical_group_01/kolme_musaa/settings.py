@@ -20,8 +20,8 @@ __RESOURCES_DIR__ = os.path.join(__PROJECT_ACCESS_INTERFACE__, "resources")
 __RESOURCES_STEP_1_READY__ = os.path.join(__RESOURCES_DIR__, "step_1_ready")
 
 # Image definitions
-__IMAGE_WIDTH__ = 500
-__IMAGE_HEIGHT__ = 500
+__IMAGE_SIDE_SIZE_NN__ = 128
+__IMAGE_SIDE_SIZE__ = 512
 __COLOR_CHANNELS__ = 3
 
 __secret__ = '~\x9b\x98\x9c\x9a§\xa0X\x9a\x9c£«Ô\x82ÖÈÑËÛ¡^\x81:\x97\x9e¨¦\xa0\x9a\x82Æ\x9c\x9a¥'

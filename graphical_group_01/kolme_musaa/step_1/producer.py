@@ -1,5 +1,13 @@
 """ Produces assemling parameters from word pairs """
 
+import random
+import os
+
+from PIL import Image
+
+import kolme_musaa.settings as s
+from kolme_musaa.utils import debug_log
+
 def produce_assembling_parameters(word_pair):
     """
 
@@ -11,4 +19,93 @@ def produce_assembling_parameters(word_pair):
     -------
 
     """
-    return (0, 0, 0, 0, 0), "", ""
+
+    w1 = word_pair[0]
+    w2 = word_pair[1]
+
+    w1_path = os.path.join(s.__STEP_1_CACHE_DIR__, w1)
+    w2_path = os.path.join(s.__STEP_1_CACHE_DIR__, w2)
+
+    w1_id = random.choice(os.listdir(w1_path))
+    w2_id = random.choice(os.listdir(w2_path))
+
+    im1_path = os.path.join(w1_path, w1_id)
+    im2_path = os.path.join(w2_path, w2_id)
+
+    debug_log(f"Image 1 ({w1}): {im1_path}")
+    debug_log(f"Image 2 ({w2}): {im2_path}")
+
+    im1 = Image.open(im1_path)
+    im2 = Image.open(im2_path)
+
+
+
+    # Now we have the images but we need to resize them to a 128x128 square
+    im1 = resize_and_crop_to_square(im1, s.__IMAGE_SIDE_SIZE_NN__)
+    im2 = resize_and_crop_to_square(im2, s.__IMAGE_SIDE_SIZE_NN__)
+
+    return estimate_best_parameters(im1, im2), im1_path, im2_path
+
+
+def resize_and_crop_to_square(image, side):
+    """
+
+    Parameters
+    ----------
+    image
+    side
+
+    Returns
+    -------
+
+    """
+    cur_width, cur_height = image.size
+
+    if cur_width < cur_height:
+        # We scale down image so that width = side and later we cut down
+        w, h = int(side), int(cur_height / (cur_width / side))
+        image = image.resize((w, h))
+
+    else: # cur_width >= cur_height
+        # We scale down image so that height = side and later we cut down
+        w, h = int(cur_width / (cur_height / side)), int(side)
+        image = image.resize((w, h))
+
+    # Now crop down to be a square
+    h_margin = int((h - side) / 2)
+    v_margin = int((w - side) / 2)
+
+    image = image.crop((
+        v_margin,           # left
+        h_margin,           # top
+        v_margin + side,    # right
+        h_margin + side     # bottom
+    ))
+
+    debug_log(f"Resized image size: {image.size}")
+
+    return image
+
+
+def estimate_best_parameters(im1, im2):
+    """
+
+    Parameters
+    ----------
+    im1
+    im2
+
+    Returns
+    -------
+
+    """
+
+    return (0,0,0,0,0,0,0,0,0)
+
+
+
+
+
+
+if __name__ == "__main__":
+    produce_assembling_parameters(("animal", "adorable"))
