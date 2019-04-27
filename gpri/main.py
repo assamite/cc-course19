@@ -84,8 +84,10 @@ class RandomImageCreator:
         #generate style image at images/style
         #styleImage = self.generate_styleImage(emotion)
         #Apply style-transfer to n - generated images for an emotion and n word pairs in images/output, alpha [0,1] (higher means more style)
-        artifact = style_transfer.stylize(alpha=0.5,content_path=str(self.folder)+str('\images\content')) #once styleImage function is working, we can add style_path
-        return artifact[0] 
+        artifact = style_transfer.stylize(alpha=0.1,content_path=str(self.folder)+str('\images\content')) #once styleImage function is working, we can add style_path
+        if self.GPU_MODE:
+            return artifact[0]
+        return artifact 
     '''    
     def generate_styleImage(self, emotion):
         """
@@ -107,7 +109,7 @@ class RandomImageCreator:
             medium sized style image that captures specified emotion and property.
         """
         response = google_images_download.googleimagesdownload()
-        arguments = {"keywords":f"{property_} {emotion} abstract",
+        arguments = {"keywords":f"{property_} {emotion} abstract art", 
                      "limit":1,
                      "size":"medium",
                      "format":"jpg",
@@ -118,8 +120,11 @@ class RandomImageCreator:
         path = response.download(arguments)
         path = [k for k in path.values()]
         #rename the downloaded styleImage to a proper name
-        shutil.move(str(path[0][0]),self.folder+'/images/style/'+f'{property_}_{emotion}'+'_0.jpg')
-    
+        try:
+            shutil.move(str(path[0][0]),self.folder+'/images/style/'+f'{property_}_{emotion}'+'_0.jpg')
+        except:
+            pass
+
     def generate_contentImage(self, emotion, word_pairs):
         """
         Generates the intial image, the content image in terms of style
