@@ -1,27 +1,33 @@
 import random
 import os
+import pickle
 from pattern.en import pluralize, singularize
 
-from .templates import TemplateBank, Title
+try:
+    from .templates import TemplateBank, Title
+except ModuleNotFoundError:
+    from templates import TemplateBank, Title
+
+try:
+    from .evaluator import Evaluator
+except ModuleNotFoundError:
+    from evaluator import Evaluator
+
+try:
+    from .thesaurus import fetch
+except ModuleNotFoundError:
+    from thesaurus import fetch
+
 
 class tittlesTitle():
     def __init__(self):
         self.threshold = 0.8
         self.domain = 'word'
         self.folder = os.path.dirname(os.path.realpath(__file__))
+        self.evaluator = Evaluator()
 
         self.template_bank = TemplateBank(os.path.join(self.folder, "data", "templates.short.uniq"))
 
-        self.title_bank = None
-
-        # Try reading content for the title_bank
-        try:
-            import pickle
-
-            with open(os.path.join(self.folder, "data", "titles.pickle"), "rb") as f:
-                self.title_bank = pickle.load(f)
-        except ImportError as err:
-            print("Encountered import error, when initialising tittlesTitle. {}".format(err.msg))
 
     def generate(self, *args, **kwargs):
         return self.create("", {}, number_of_artifacts=1)
@@ -36,14 +42,7 @@ class tittlesTitle():
         Returns:
             Float [0, 1] : How good the title was - high being better.
         """
-        if self.title_bank is None:
-            return 0.8
-        else:
-            for b_id, b_info in self.title_bank.items():
-                # Check novelty
-                if title.lower().strip() == b_info["title"].lower().strip():
-                    return 0.5
-            return 1.0
+        return self.evaluator.evaluate(title.split(" "))
 
     def inject(self, title, word_pair):
         for i, cat in title.get_slots('NP'):
@@ -52,7 +51,7 @@ class tittlesTitle():
             else:
                 title.inject(singularize(word_pair[0]).capitalize(), 'NP')
         for i, cat in title.get_slots('ADJ'):
-            title.inject(word_pair[1], 'ADJ')
+            title.inject(word_pair[1].capitalize(), 'ADJ')
 
     def create(self, emotion, word_pairs, number_of_artifacts=10, **kwargs):
         """Create artifacts in the group's domain.
@@ -86,18 +85,30 @@ class tittlesTitle():
         ret = []
 
         while len(ret) != number_of_artifacts:
-            # TODO: get synonyms
-            word_pair = random.choice(word_pairs)
+            adjectives = list(word_pair[1] for word_pair in word_pairs if word_pair[0] == 'animal')
+            animals = fetch('animal', adjectives)
+            animal = random.choices(list(animals.keys()), list(animals.values()))[0]
+            adjective = random.choice(adjectives)
+            word_pair = (animal, adjective)
             template = self.template_bank.random_template()
             title = Title(template)
             self.inject(title, word_pair)
-            title = str(title)
-            v = self.evaluate(title)
+            v = self.evaluate(str(title))
             if v >= self.threshold:
-                ret.append((title, {"evaluation": v}))
+                ret.append((str(title), {"evaluation": v}))
 
         return ret
 
 if __name__ == "__main__":
+    import pprint
+    import sys
+    sys.path.insert(0,'..')
+    import inputs
+    pp = pprint.PrettyPrinter(indent=2)
+    emotion, word_pairs = inputs.get_input(False)
     T = tittlesTitle()
-    print(T.create("happiness", [('cat', 'black'), ('weather', 'rainy')], number_of_artifacts=3))
+    print('INPUT')
+    pp.pprint({'emotion': emotion, 'word_pairs': word_pairs})
+    print('')
+    print('OUTPUT')
+    pp.pprint(T.create(emotion, word_pairs, number_of_artifacts=3))
