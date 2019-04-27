@@ -35,6 +35,8 @@ class WordPicker():
         If words are none of these things, wordnet path similarity is used
         Default score: 0
         """
+        if word1 == word2:
+            return 0
         opposites = []
         related = []
         antonym_related = []
