@@ -30,11 +30,10 @@ class WordPicker():
     def get_oppositeness_score(self, word1, word2):
         """
         Gets measure of how far words are from each other semantically, using WordNet
-        Score of 0 is neutral
-        Score of -0.5 means words are related (hyper- or hyponyms)
-        Score of -1 means words are synonyms
-        Score of 0.5 means words are semi-antonyms (hyper- or hyponym of antonym)
-        Score of 1 means words are antonyms
+        Score of 0.5 means words are related (hyper- or hyponyms) or semi-antonyms (hyper- or hyponym of antonym)
+        Score of 1 means words are antonyms or synonyms
+        If words are none of these things, wordnet path similarity is used
+        Default score: 0
         """
         opposites = []
         related = []
@@ -60,5 +59,10 @@ class WordPicker():
             return -0.5
         if word2 in antonym_related:
             return 0.5
-        return 0
+        synset1 = synsets[0]
+        synset2 = wn.synsets(word2)[0]
+        wn_similarity = wn.path_similarity(synset1, synset2)
+        if wn_similarity == None:
+            return 0
+        return wn_similarity
 
