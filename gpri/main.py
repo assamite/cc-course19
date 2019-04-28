@@ -51,6 +51,12 @@ class RandomImageCreator:
         self.sess = None
         self.GPU_MODE = False
 
+        # Create necessary folders
+        os.makedirs(self.folder + '/images/output', exist_ok=True)
+        os.makedirs(self.folder + '/images/style', exist_ok=True)
+        os.makedirs(self.folder + '/images/content', exist_ok=True)
+
+
         # load style transfer module
         global style_transfer
         from .gpri_helper import style_transfer
@@ -75,9 +81,6 @@ class RandomImageCreator:
         """
         # Sample one of the word_pairs for use:
         wpr = word_pairs[npr.choice(len(word_pairs))]
-
-        images_dir = self.folder + "/images"
-        os.makedirs(images_dir, exist_ok=True)
 
         # Generate content image
         content_path = self.generate_contentImage(wpr)
