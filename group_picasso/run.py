@@ -13,6 +13,7 @@ from google.cloud import vision
 from group_picasso.evaluation1 import EmotionEvaluator
 from group_picasso.libs.arbitrary_image_stylization.arbitrary_image_stylization_with_weights import code_entry_point
 from group_picasso.markov import MarkovChain
+from group_picasso.search_handler import SearchImage
 
 
 class RandomImageCreator:
@@ -89,17 +90,19 @@ class RandomImageCreator:
         # TODO
         # search_query_generator = SearchQueryGenerator()
         # content_downloader = ContentDownloader()
+        search_image = SearchImage()
 
         print("Generating content...")
         n_tries = 10
         for i in range(n_tries):
             # TODO
-            # search_query, animal = search_query_generator.generate(word_pairs)
-            # content_path = content_downloader.get_content(search_query)
+            search_query, animal = search_image.get_query(word_pairs)
+            content_path = search_image.get_image(search_query)
+            emotion = search_image.get_emotion()
 
             # Quick fix
-            content_path = os.path.join(self.folder, "images/content/shark.jpg")
-            animal = self.__get_basename(content_path).split("_")[0]
+            # content_path = os.path.join(self.folder, "images/content/shark.jpg")
+            # animal = self.__get_basename(content_path).split("_")[0]
 
             print("Animal is {}!".format(animal))
             if self.__evaluate_content_with_vision(animal, content_path):
