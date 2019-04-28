@@ -124,7 +124,9 @@ class RandomImageCreator:
         # style_selector = StyleSelector()
 
         # Quick fix
-        style_filenames = os.listdir(os.path.join(self.folder, "images/styles"))
+        style_folder = os.path.join(self.folder, "images/styles")
+        style_filenames = [os.path.join(style_folder, f) for f in os.listdir(style_folder)]
+        style_filenames = [i for i in style_filenames if os.path.isfile(i)]
 
         print("Generating artifacts with different styles...")
 
@@ -140,7 +142,7 @@ class RandomImageCreator:
             # style_path = style_selector.get_with_emotion(emotion)
 
             # Quick fix
-            style_path = os.path.join(self.folder, "images/styles/{}".format(style_filenames[i]))
+            style_path = os.path.join(style_folder, style_filenames[i])
 
             style_name = self.__get_basename(style_path)
             print("Trying style {}...".format(style_name))
@@ -225,9 +227,10 @@ class RandomImageCreator:
     def __evaluate_artifact_with_emotion(artifact_path, emotion):
         """Evaluate image.
         """
+        limits = {"anger": .4, "disgust": .4, "fear": .8, "happiness": .4, "sadness": .4, "surprise": .4}
         emotion_evaluator = EmotionEvaluator()
         max_emotion, score = emotion_evaluator.emotions_by_colours(artifact_path)
-        if max_emotion == emotion:
+        if max_emotion == emotion and score > limits[max_emotion]:
             return score
         else:
             return 0

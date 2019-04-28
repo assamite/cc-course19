@@ -24,33 +24,41 @@ class EmotionEvaluator:
         self.counts = None
         self.emotions = {}
 
-        self.blues = ["blue", "cornflowerblue", "darkblue", "deepskyblue", "dodgerblue", "lightblue", "lightskyblue",
-                      "lightsteelblue", "mediumblue", "midnightblue", "navy", "powderblue", "royalblue", "skyblue",
-                      "steelblue", "teal"]
+        self.dark_blues = ["blue", "cornflowerblue", "darkblue", "deepskyblue", "dodgerblue", "mediumblue",
+                           "midnightblue", "navy", "royalblue", "steelblue", "teal"]
+        self.light_blues = ["lightsteelblue", "lightblue", "lightskyblue", "skyblue", "powderblue"]
         self.blacks = ["black"]
-        self.browns = ["bisque", "blanchedalmond", "brown", "burlywood", "chocolate", "cornsilk", "darkgoldenrod",
-                       "goldenrod", "maroon", "navajowhite", "peru", "rosybrown", "saddlebrown", "sandybrown", "sienna",
-                       "tan", "wheat"]
-        self.cyans = ["aqua", "aquamarine", "cadetblue", "cyan", "darkcyan", "darkturquoise", "lightcyan",
-                      "lightseagreen", "mediumturquoise", "paleturquoise", "teal", "turquoise"]
-        self.grays = ["darkgray", "darkgrey", "darkslategray", "darkslategrey", "dimgray", "gainsboro", "gray", "grey",
-                      "lightgray", "lightgrey", "lightslategray", "lightslategrey", "silver", "slategray", "slategrey"]
-        self.greens = ["chartreuse", "darkgreen", "darkolivegreen", "darkseagreen", "forestgreen", "green",
-                       "greenyellow", "lawngreen", "lightgreen", "lime", "limegreen", "mediumaquamarine",
-                       "mediumseagreen", "mediumspringgreen", "olive", "olivedrab", "palegreen", "seagreen",
-                       "springgreen", "yellowgreen"]
-        self.oranges = ["coral", "darkorange", "orange", "orangered", "tomato"]
+        self.light_browns = ["bisque", "blanchedalmond", "cornsilk", "navajowhite", "wheat"]
+        self.mid_browns = ["burlywood", "chocolate", "darkgoldenrod", "goldenrod", "peru", "rosybrown", "saddlebrown",
+                           "sandybrown", "sienna", "tan"]
+        self.red_browns = ["brown", "maroon"]
+        self.dark_cyans = ["cadetblue", "darkcyan", "teal"]
+        self.light_cyans = ["aqua", "aquamarine", "cyan", "darkturquoise", "lightcyan", "lightseagreen",
+                            "mediumturquoise", "paleturquoise", "turquoise"]
+        self.slate_grays = ["darkslategray", "darkslategrey", "lightslategray", "lightslategrey", "slategray",
+                            "slategrey"]
+        self.other_grays = ["darkgray", "darkgrey", "dimgray", "gainsboro", "gray", "grey", "lightgray", "lightgrey",
+                            "silver"]
+        self.dark_greens = ["darkgreen", "darkolivegreen", "darkseagreen", "forestgreen", "green", "mediumseagreen",
+                            "olive", "olivedrab", "seagreen"]
+        self.light_greens = ["chartreuse", "greenyellow", "lawngreen", "lightgreen", "lime", "limegreen",
+                             "mediumaquamarine", "mediumspringgreen", "palegreen", "springgreen", "yellowgreen"]
+        self.red_oranges = ["orangered", "tomato"]
+        self.other_oranges = ["coral", "darkorange", "orange"]
         self.pinks = ["deeppink", "mediumvioletred", "hotpink", "lightpink", "palevioletred", "pink"]
-        self.purples_violets = ["blueviolet", "darkmagenta", "darkorchid", "darkslateblue", "darkviolet", "fuchsia",
-                                "indigo", "lavender", "magenta", "mediumorchid", "mediumpurple", "mediumslateblue",
-                                "orchid", "plum", "purple", "rebeccapurple", "slateblue", "thistle", "violet"]
-        self.reds = ["crimson", "darkred", "darksalmon", "firebrick", "indianred", "lightcoral", "lightsalmon", "red",
-                     "salmon"]
+        self.dark_purples_violets = ["blueviolet", "darkmagenta", "darkorchid", "darkslateblue", "darkviolet", "indigo",
+                                     "mediumorchid", "mediumpurple", "mediumslateblue", "purple", "rebeccapurple",
+                                     "slateblue"]
+        self.light_purples_violets = ["fuchsia", "lavender", "magenta", "orchid", "plum", "thistle", "violet"]
+        self.dark_reds = ["crimson", "darkred", "firebrick", "indianred", "red"]
+        self.light_reds = ["darksalmon", "lightcoral", "lightsalmon", "salmon"]
         self.whites = ["aliceblue", "antiquewhite", "azure", "beige", "floralwhite", "ghostwhite", "honeydew", "ivory",
                        "lavenderblush", "linen", "mintcream", "mistyrose", "oldlace", "seashell", "snow", "white",
                        "whitesmoke"]
-        self.yellows = ["darkkhaki", "gold", "khaki", "lemonchiffon", "lightgoldenrodyellow", "lightyellow", "moccasin",
-                        "palegoldenrod", "papayawhip", "peachpuff", "yellow"]
+        self.dark_yellows = ["darkkhaki"]
+        self.mid_yellows = ["gold", "yellow"]
+        self.light_yellows = ["khaki", "lemonchiffon", "lightgoldenrodyellow", "lightyellow", "moccasin",
+                              "palegoldenrod", "papayawhip", "peachpuff"]
 
     def emotions_by_colours(self, path):
         pic = plt.imread(path)
@@ -72,14 +80,16 @@ class EmotionEvaluator:
 
         self.__print_top_colors()
 
-        self.emotions["anger"] = self.__sum_counts(self.browns + self.oranges + self.reds)
-        self.emotions["sadness"] = self.__sum_counts(self.blues + self.grays + self.purples_violets)
-        self.emotions["happiness"] = self.__sum_counts(self.pinks + self.purples_violets + self.yellows + self.whites)
-        self.emotions["fear"] = self.__sum_counts(self.blacks + self.grays + self.whites)
+        self.emotions["anger"] = self.__sum_counts(self.red_browns + self.red_oranges + self.dark_reds)
+        self.emotions["sadness"] = self.__sum_counts(
+            self.dark_blues + self.slate_grays + self.dark_purples_violets + self.dark_cyans)
+        self.emotions["happiness"] = self.__sum_counts(
+            self.pinks + self.light_purples_violets + self.light_yellows + self.mid_yellows + self.whites)
+        self.emotions["fear"] = self.__sum_counts(self.blacks + self.other_grays + self.whites)
         self.emotions["surprise"] = self.__sum_counts(
-            self.blues + self.cyans + self.greens + self.oranges + self.pinks + self.purples_violets + self.reds +
-            self.yellows)
-        self.emotions["disgust"] = self.__sum_counts(self.browns + self.greens)
+            self.light_blues + self.light_cyans + self.light_greens + self.other_oranges + self.pinks +
+            self.light_purples_violets + self.light_reds + self.mid_yellows)
+        self.emotions["disgust"] = self.__sum_counts(self.mid_browns + self.dark_greens + self.dark_yellows)
 
         self.__print_top_emotions()
 
