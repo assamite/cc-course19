@@ -4,6 +4,7 @@ Contains initialize- and create-functions.
 """
 
 import os
+import contextlib
 import sys
 import numpy as np
 import numpy.random as npr
@@ -79,7 +80,7 @@ class RandomImageCreator:
         #generate content image at images/content
         self.generate_contentImage(emotion, word_pairs)
         #generate style image at images/style
-        #styleImage = self.generate_styleImage(emotion)
+        # styleImage = self.generate_styleImage(emotion)
         #Apply style-transfer to n - generated images for an emotion and n word pairs in images/output, alpha [0,1] (higher means more style)
 
         images_dir = self.folder + "/images"
@@ -89,10 +90,9 @@ class RandomImageCreator:
         style_images_path   = self.folder + "/images/style.jpg"
         output_images_path  = self.folder + "/images/output.jpg"
 
-        style_transfer.stylize(alpha=0.1,content_path = content_images_path, style_path = style_images_path, output_path = output_images_path)
+        style_transfer.stylize(alpha=0.1, content_path = content_images_path,
+                               style_path = style_images_path, output_path = output_images_path)
 
-        if self.GPU_MODE:
-            return output_images_path
         return output_images_path
 
     '''
@@ -108,13 +108,16 @@ class RandomImageCreator:
         # Get the style transfer working, and get the entire pipeline working..
         return None
     '''
-    def get_googleStyleImage(self, emotion, property_):
+
+
+    def get_googleImage(self, emotion, property_):
         """
         Fetch the style image for the style transfer.
         :param emotion: Emotion input and noun property
         :return:
             medium sized style image that captures specified emotion and property.
         """
+        print('Downloading an image from Google...')
         response = google_images_download.googleimagesdownload()
         arguments = {"keywords":f"{property_} {emotion} abstract art",
                      "limit":1,
@@ -124,7 +127,11 @@ class RandomImageCreator:
                      "type":"photo",
                      "output_directory":f"{str(self.folder)}",
                      "image_directory":"images/google_style_dump"}
-        path = response.download(arguments)
+
+        with open(os.devnull, 'w') as devnull:
+            with contextlib.redirect_stdout(devnull):
+                path = response.download(arguments)
+
         path = [k for k in path.values()]
         #rename the downloaded styleImage to a proper name
         try:
@@ -132,6 +139,7 @@ class RandomImageCreator:
             shutil.move(str(path[0][0]), style_images_path)
         except:
             pass
+        print('Done!')
 
     def generate_contentImage(self, emotion, word_pairs):
         """
@@ -149,7 +157,7 @@ class RandomImageCreator:
             cat = buffer.split("\n")
         for pairs in word_pairs:
             noun, property_ = pairs
-            self.get_googleStyleImage(emotion, property_)
+            self.get_googleImage(emotion, property_)
             NAME = str(f"GPRI_{noun}_{property_}_0.png")
             if noun == "animal":
                 idx = int(npr.choice(animal_idxs))

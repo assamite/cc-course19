@@ -54,6 +54,7 @@ print ('StyleTransfer module loaded!')
 def stylize(alpha=ALPHA, content_path = CONTENT_PATH, style_path = STYLE_PATH, output_path = OUTPUT_PATH, style_size=STYLE_SIZE,
              crop_size=CROP_SIZE, keep_colors=KEEP_COLORS, passes=PASSES,swap5=SWAP5, concat=CONCAT):
 
+    print('Starting the style transfer process...')
     start = time.time()
 
     content_img = get_img(content_path)
@@ -77,4 +78,4 @@ def stylize(alpha=ALPHA, content_path = CONTENT_PATH, style_path = STYLE_PATH, o
 
     cv2.imwrite(output_path, stylized_rgb)
 
-    print("Finished stylizing in {}s".format(time.time() - start))
+    print("Finished style transfer in {}s".format(time.time() - start))
