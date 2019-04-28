@@ -62,8 +62,8 @@ class SearchImage:
             'language': 'English',
             'safe_search': True
         })
-
-        return image_paths[search_key + ' animal creature']
+        res = image_paths[search_key + ' animal creature']
+        return [img_path for img_path in res if img_path.endswith('.jpg') or img_path.endswith('.jpeg')]
 
     def get_query(self, emotion, word_pairs):
         search_keys = self._build_query(emotion, word_pairs)

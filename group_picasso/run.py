@@ -87,20 +87,14 @@ class RandomImageCreator:
         return self.artifact_path, {"evaluation": self.__evaluate_artifact_with_emotion(self.artifact_path, emotion)}
 
     def __generate_content(self, emotion, word_pairs):
-        # TODO
-        # search_query_generator = SearchQueryGenerator()
-        # content_downloader = ContentDownloader()
         search_image = SearchImage()
-
         print("Generating content...")
         n_tries = 10
         for i in range(n_tries):
-            # TODO
             search_query, animal = search_image.get_query(emotion, word_pairs)
             content_path = search_image.get_image(search_query)
 
-            # Quick fix
-            # content_path = os.path.join(self.folder, "images/content/shark.jpg")
+            # content_path = os.path.join(self.folder, "images/content/bird.jpg")
             # animal = self.__get_basename(content_path).split("_")[0]
 
             print("Animal is {}!".format(animal))
@@ -120,10 +114,9 @@ class RandomImageCreator:
         for label in labels:
             print("\t{} {}".format(label.description.lower(), label.score))
             for word in label.description.split():
-                for animal_part in animal.split("_"):
-                    if word.lower() == animal_part.lower():
-                        print("Content OK!")
-                        return True
+                if word.lower() == animal.lower():
+                    print("Content OK!")
+                    return True
         return False
 
     def __generate_artifact(self, emotion):
@@ -231,9 +224,5 @@ class RandomImageCreator:
     def __evaluate_artifact_with_emotion(artifact_path, emotion):
         """Evaluate image.
         """
-        # TODO
         emotion_evaluator = EmotionEvaluator()
         return emotion_evaluator.emotions_by_colours(artifact_path, emotion)
-
-        # Quick fix
-        # return random.random()
