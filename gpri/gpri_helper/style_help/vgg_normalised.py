@@ -1,8 +1,6 @@
-import numpy as np
-import tensorflow as tf
 import keras.backend as K
 from keras.models import Model
-from keras.layers import Input, Conv2D, UpSampling2D, Activation, Lambda, MaxPooling2D
+from keras.layers import Input, Conv2D, Activation, Lambda, MaxPooling2D
 from .ops import pad_reflect
 from . import torchfile
 

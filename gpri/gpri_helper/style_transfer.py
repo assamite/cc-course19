@@ -2,13 +2,8 @@ from __future__ import division, print_function
 
 import os
 import cv2
-import shutil
-import argparse
-import numpy as np
-import tensorflow as tf
 from .style_help.utils import preserve_colors_np
-from .style_help.utils import get_files, get_img, get_img_crop, save_img, resize_to, center_crop
-import scipy
+from .style_help.utils import get_img, resize_to, center_crop
 import time
 from .style_help.wct import WCT
 

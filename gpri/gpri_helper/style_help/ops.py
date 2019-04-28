@@ -4,7 +4,6 @@ import tensorflow as tf
 import numpy as np
 from keras.layers import Conv2D, Lambda
 from tensorflow.python.layers import utils
-# from numba import jit
 
 
 ### Layers ###

@@ -9,12 +9,9 @@ import numpy as np
 import numpy.random as npr
 import tensorflow as tf
 import cv2
-import time
-from .gpri_helper import style_image_funcs as si
 import logging
 from google_images_download import google_images_download
 import shutil
-import keras
 
 
 #silence tensorflow spurious-warnings

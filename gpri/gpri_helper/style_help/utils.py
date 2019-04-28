@@ -1,9 +1,8 @@
 from __future__ import print_function, division
 
-import scipy.misc, numpy as np, os, sys
+import scipy.misc, numpy as np, os
 import random
-from .coral import coral_numpy # , coral_pytorch
-# from color_transfer import color_transfer
+from .coral import coral_numpy
 
 
 ### Image helpers
