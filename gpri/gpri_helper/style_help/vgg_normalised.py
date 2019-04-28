@@ -4,7 +4,7 @@ import keras.backend as K
 from keras.models import Model
 from keras.layers import Input, Conv2D, UpSampling2D, Activation, Lambda, MaxPooling2D
 from .ops import pad_reflect
-import gpri_helper.style_help.torchfile as torchfile
+from . import torchfile
 
 
 def vgg_from_t7(t7_file, target_layer=None):
