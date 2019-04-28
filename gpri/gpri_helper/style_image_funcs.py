@@ -3,14 +3,6 @@ import numpy as np
 import numpy.random as npr
 import random
 
-emotion_mapping = {
-    'anger': 0,
-    'disgust': 1,
-    'fear': 2,
-    'happiness': 3,
-    'sadness': 4,
-    'surprise': 5
-}
 
 # colour distributions:
 anger     = lambda x: np.array([1 - 0.001 * x, 1 - x, 0.001 * x]) * npr.beta(4, 1)
