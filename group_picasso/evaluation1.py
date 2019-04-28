@@ -6,6 +6,8 @@ Created on Wed Apr 24 13:07:03 2019
 """
 import operator
 
+from PIL import Image
+
 __doc__ = """this module is for evaluating images """
 __version__ = """ version_01"""
 __author__ = """KatMal """
@@ -50,8 +52,10 @@ class EmotionEvaluator:
         self.yellows = ["darkkhaki", "gold", "khaki", "lemonchiffon", "lightgoldenrodyellow", "lightyellow", "moccasin",
                         "palegoldenrod", "papayawhip", "peachpuff", "yellow"]
 
-    def emotions_by_colours(self, path, emotion):
+    def emotions_by_colours(self, path):
         pic = plt.imread(path)
+        if len(pic.shape) == 2:
+            pic = np.array(Image.fromarray(pic).convert("RGB"))
         pixels = pic.shape[0] * pic.shape[1]
         col = list(colors.cnames.keys())
         colours = {k: colors.cnames[k] for k in col}
@@ -80,10 +84,7 @@ class EmotionEvaluator:
         self.__print_top_emotions()
 
         max_emotion = max(self.emotions.items(), key=operator.itemgetter(1))[0]
-        if max_emotion is emotion:
-            return self.emotions[max_emotion]
-        else:
-            return 0
+        return max_emotion, self.emotions[max_emotion]
 
     def __sum_counts(self, counts):
         total = 0

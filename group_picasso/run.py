@@ -153,6 +153,7 @@ class RandomImageCreator:
                                                                                               style_path)))
             self.__generate_markovified(markovified_path, style_path)
             self.__transfer_style(markovified_path, tmp_path, style_path)
+            [os.remove(path) for path in [markovified_path, tmp_path]]
             artifact_score = self.__evaluate_artifact_with_emotion(artifact_path, emotion)
 
             if artifact_score > 0:
@@ -225,4 +226,8 @@ class RandomImageCreator:
         """Evaluate image.
         """
         emotion_evaluator = EmotionEvaluator()
-        return emotion_evaluator.emotions_by_colours(artifact_path, emotion)
+        max_emotion, score = emotion_evaluator.emotions_by_colours(artifact_path)
+        if max_emotion == emotion:
+            return score
+        else:
+            return 0
