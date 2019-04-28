@@ -6,22 +6,24 @@ Contains initialize- and create-functions.
 import os
 import contextlib
 import sys
+import csv
+import time
 import numpy as np
 import numpy.random as npr
 import tensorflow as tf
+import tensorflow_hub as hub
 import cv2
 import logging
 from google_images_download import google_images_download
 import shutil
 
-
-#silence tensorflow spurious-warnings
+# silence tensorflow spurious-warnings
 tf.logging.set_verbosity(tf.logging.ERROR)
 os.environ['TF_CPP_MIN_LOG_LEVEL'] = '3'
 logging.disable(logging.WARNING)
 logging.getLogger('tensorflow').disabled = True
 
-#silence keras messages
+# silence keras messages
 stderr = sys.stderr
 sys.stderr = open(os.devnull, 'w')
 sys.stderr = stderr
@@ -47,53 +49,54 @@ class RandomImageCreator:
         self.sess = None
         self.GPU_MODE = False
 
-        #load style transfer module
+        # load style transfer module
         global style_transfer
         from .gpri_helper import style_transfer
 
         # Check if user wants to use GPU:
-        choice = input("Enable GPU mode for BigGAN (Y/N)?")
+        choice = input("Enable GPU mode (y/n)? If no, initial image will "
+                       "be fetched from Google instead of using BigGAN.")
 
-        while True:
-            if choice == 'Y' or choice == 'y':
-                self.GPU_MODE = True
-                print('GPU mode enabled..')
-                global graph_GAN, model
-                tf.reset_default_graph()
-                graph_GAN = tf.Graph()
-                from .gpri_helper import model
-                initializer = tf.global_variables_initializer()
-                self.sess = tf.Session()
-                self.sess.run(initializer)
-                break
-            elif choice == 'N' or choice == 'n':
-                self.GPU_MODE = False
-                print('GPU mode disabled, a dummy image is required here: gpri/images/content.jpg .....')
-                break
-            else:
-                choice = input("Invalid input, Try again..")
+        if choice == 'Y' or choice == 'y' or choice == 'yes':
+            self.GPU_MODE = True
+            print('GPU mode enabled.')
+            print('Loading BigGAN model...')
+            self.module = hub.Module(
+                'https://tfhub.dev/deepmind/biggan-deep-128/1')
+        else:
+            self.GPU_MODE = False
+            print('GPU mode disabled. Will fetch a content image from '
+                  'Google.')
 
-    def generate(self, *args, **kwargs):
+    def generate(self, emotion, word_pairs, **kwargs):
         """Random image generator.
         """
-        emotion, word_pairs= args
-        #generate content image at images/content
-        self.generate_contentImage(emotion, word_pairs)
-        #generate style image at images/style
-        # styleImage = self.generate_styleImage(emotion)
-        #Apply style-transfer to n - generated images for an emotion and n word pairs in images/output, alpha [0,1] (higher means more style)
+        # Sample one of the word_pairs for use:
+        wpr = word_pairs[npr.choice(len(word_pairs))]
 
         images_dir = self.folder + "/images"
-        os.makedirs(images_dir, exist_ok = True)
+        os.makedirs(images_dir, exist_ok=True)
 
-        content_images_path = self.folder + "/images/content.jpg"
-        style_images_path   = self.folder + "/images/style.jpg"
-        output_images_path  = self.folder + "/images/output.jpg"
+        # Generate content image at images/content
+        content_image_path = self.generate_contentImage(wpr)
 
-        style_transfer.stylize(alpha=0.1, content_path = content_images_path,
-                               style_path = style_images_path, output_path = output_images_path)
+        # Generate style image at images/style
+        # styleImage = self.generate_styleImage(emotion)
 
-        return output_images_path
+        # Apply style-transfer to n - generated images for an emotion and n
+        # word pairs in images/output, alpha [0,1] (higher means more style)
+
+        # content_images_path = self.folder + "/images/content.jpg"
+        style_image_path = self.folder + "/images/style/style.jpg"
+
+        cur_time = str(int(time.time() % 1e7))
+        output_image_path = self.folder + "/images/output/" + cur_time + ".jpg"
+
+        style_transfer.stylize(alpha=0.1, content_path=content_image_path,
+                               style_path=style_image_path,
+                               output_path=output_image_path)
+
+        return output_image_path
 
     '''
     def generate_styleImage(self, emotion):
@@ -109,79 +112,98 @@ class RandomImageCreator:
         return None
     '''
 
-
-    def get_googleImage(self, emotion, property_):
+    def get_googleImage(self, keywords, style):
         """
         Fetch the style image for the style transfer.
-        :param emotion: Emotion input and noun property
+        :param keywords: List of words to search for
+        :param style: Boolean, whether image should be abstract art, for the
+            style image
         :return:
             medium sized style image that captures specified emotion and property.
         """
         print('Downloading an image from Google...')
         response = google_images_download.googleimagesdownload()
-        arguments = {"keywords":f"{property_} {emotion} abstract art",
-                     "limit":1,
-                     "size":"medium",
-                     "format":"jpg",
-                     "color_tye":"full-color",
-                     "type":"photo",
-                     "output_directory":f"{str(self.folder)}",
-                     "image_directory":"images/google_style_dump"}
+        search_term = ''
+        for w in keywords:
+            search_term = search_term + w + ' '
+        if style:
+            search_term = search_term + 'abstract art'
+
+        arguments = {"keywords": search_term,
+                     "limit": 1,
+                     "size": "medium",
+                     "format": "jpg",
+                     "color_tye": "full-color",
+                     "type": "photo",
+                     "output_directory": f"{str(self.folder)}",
+                     "image_directory": "images/google_style_dump"}
 
         with open(os.devnull, 'w') as devnull:
             with contextlib.redirect_stdout(devnull):
                 path = response.download(arguments)
 
         path = [k for k in path.values()]
-        #rename the downloaded styleImage to a proper name
+        # rename the downloaded styleImage to a proper name
+        img_path = ''
         try:
-            style_images_path   = self.folder + "/images/style.jpg"
-            shutil.move(str(path[0][0]), style_images_path)
+            cur_time = str(int(time.time() % 1e7))
+            if style:
+                img_path = self.folder + "/images/style/" + cur_time + ".jpg"
+            else:
+                img_path = self.folder + "/images/content/" + cur_time + ".jpg"
+            shutil.move(str(path[0][0]), img_path)
         except:
-            pass
+            print('Image retrieved from Google could not be moved to correct '
+                  'location!')
         print('Done!')
+        return img_path
 
-    def generate_contentImage(self, emotion, word_pairs):
+    def generate_contentImage(self, wpr):
         """
         Generates the intial image, the content image in terms of style
         transfer, from the 'noun' input variable. Currently only supports a
         sample image.
-        :param word_pairs: Word pairs input
+        :param wpr: A word pair
         :return:
             String with file path
         """
-        PATH = self.folder + '/images/content.jpg'
 
-        with open(f"{self.folder}/categories.txt", "r") as file:
-            buffer = file.read()
-            cat = buffer.split("\n")
-        for pairs in word_pairs:
-            noun, property_ = pairs
-            self.get_googleImage(emotion, property_)
-            NAME = str(f"GPRI_{noun}_{property_}_0.png")
-            if noun == "animal":
-                idx = int(npr.choice(animal_idxs))
-            elif noun == "activity":
-                idx = int(npr.choice(activity_idxs))
-            else:
-                idx = -1  # CheeseBurger
-            break  # taking the first pair for now
+        # If GPU_MODE is disabled or the noun is 'human' or 'weather':
+        if (not self.GPU_MODE) or (
+                wpr[0] not in ['activity', 'animal', 'location']):
+            path = self.get_googleImage(wpr, False)
 
-        if self.GPU_MODE:
+        else:
+            truncation = 0.5  # scalar truncation value in [0.0, 1.0]
+            z = truncation * tf.random.truncated_normal(
+                [1, 128])  # noise sample
 
-            truncate = 0.3
-            noise = 0
-            n_samples = 1
-            idx_cat = idx
-            with graph_GAN.as_default():
-                z = model.truncated_z_sample(n_samples, truncate, noise)
-                y = idx_cat
-                ims = model.sample(self.sess, z, y, truncate)
-            print(f'Saving image content image .....')
-            image = cv2.cvtColor(ims[0], cv2.COLOR_BGR2RGB)
-            cv2.imwrite(PATH, image)
+            y_index = tf.Variable([self.sample_idx(wpr[0])], dtype=tf.int32)
+            y = tf.one_hot(y_index, 1000)  # one-hot ImageNet label
 
-        return PATH
+            samples = self.module(dict(y=y, z=z, truncation=truncation))
+
+            initializer = tf.global_variables_initializer()
+            with tf.Session() as sess:
+                sess.run(initializer)
+                img = sess.run(samples)[0]
+
+            cur_time = str(int(time.time() % 1e7))
+            path = self.folder + "/images/content_" + cur_time + ".jpg"
+
+        return path
+
+    def sample_idx(self, noun):
+        """
+        Sample an index for one of the 1000 categories that matches the
+        required noun.
+        :param noun: The noun from the word_pair
+        :return: int of index
+        """
+        with open('labels/label_table_v1.csv', mode='r') as f:
+            reader = csv.reader(f)
+            categories = [rows[1] for rows in reader][1:]
+        return npr.choice([i for i in range(1000) if categories[i] == noun])
 
     def evaluate(self, image):
         """Evaluate image. For now this is a dummy.
