@@ -35,16 +35,16 @@ def find_lines(emotion: str, rhyming_partials: List[Dict]):
             if indices:
                 for ix in indices:
                     rhyming_sentences.append(keys[ix])
-            
-            
-            
+
+
+
             third = data[random.choice(list(data))]
 
             # selects rhyming sentence if there is at least one, else select random sentence as before
             if rhyming_sentences:
                 fourth = data[random.choice(rhyming_sentences)]
             else:
-                fourth = data[random.choice(list(data))]
+                continue
             
             new_partial = partial.copy()
             new_partial['rest'] = (third, fourth)
