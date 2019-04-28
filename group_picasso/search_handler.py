@@ -24,7 +24,9 @@ class SearchImage:
         parsed = xmltodict.parse(res.content)
 
         for a in parsed['CategoryData']['Members']['Member']:
-            animals.append(a['#text'])
+            x = a['#text'].split('_')
+            x = x[0] if len(x) == 1 else x[1]
+            animals.append(x)
 
         return animals
 
