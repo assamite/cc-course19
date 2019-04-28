@@ -68,7 +68,7 @@ class RandomImageCreator:
         for i in range(number_of_artifacts):
             for j in range(n_tries):
                 print("Artifact #{} (attempt #{}):".format(i + 1, j + 1))
-                if not self.__generate_content(word_pairs):
+                if not self.__generate_content(emotion, word_pairs):
                     print("Couldn't find good enough content!")
                     artifacts_paths_with_meta.append(self.__get_default_artifact_with_meta(emotion))
                     break
@@ -86,7 +86,7 @@ class RandomImageCreator:
     def __get_artifact_with_meta(self, emotion):
         return self.artifact_path, {"evaluation": self.__evaluate_artifact_with_emotion(self.artifact_path, emotion)}
 
-    def __generate_content(self, word_pairs):
+    def __generate_content(self, emotion, word_pairs):
         # TODO
         # search_query_generator = SearchQueryGenerator()
         # content_downloader = ContentDownloader()
@@ -96,9 +96,8 @@ class RandomImageCreator:
         n_tries = 10
         for i in range(n_tries):
             # TODO
-            search_query, animal = search_image.get_query(word_pairs)
+            search_query, animal = search_image.get_query(emotion, word_pairs)
             content_path = search_image.get_image(search_query)
-            emotion = search_image.get_emotion()
 
             # Quick fix
             # content_path = os.path.join(self.folder, "images/content/shark.jpg")
@@ -121,9 +120,10 @@ class RandomImageCreator:
         for label in labels:
             print("\t{} {}".format(label.description.lower(), label.score))
             for word in label.description.split():
-                if word.lower() == animal.lower() and label.score > 0.95:
-                    print("Content OK!")
-                    return True
+                for animal_part in animal.split("_"):
+                    if word.lower() == animal_part.lower():
+                        print("Content OK!")
+                        return True
         return False
 
     def __generate_artifact(self, emotion):

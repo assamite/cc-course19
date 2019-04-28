@@ -11,7 +11,6 @@ BASE_DIR = os.path.dirname(os.path.realpath(__file__))
 
 class SearchImage:
     images = []
-    emotion = ''
     output = 'images'
     image_dir = 'search'
 
@@ -29,11 +28,10 @@ class SearchImage:
 
         return animals
 
-    def _build_query(self, keywords, n=5):
-        emotion = keywords[0]
+    def _build_query(self, emotion, keywords, n=5):
         search_keys = []
 
-        for pair in keywords[1]:
+        for pair in keywords:
             if pair[0] == 'animal':
                 animals = self._extract_keyword(pair[1])
 
@@ -41,8 +39,6 @@ class SearchImage:
                 # samples = random.choices(categories, k=n)
 
                 search_keys += [(s, emotion + ' ' + pair[1] + ' ' + s) for s in samples]
-
-        self.emotion = emotion
 
         return search_keys
 
@@ -67,9 +63,8 @@ class SearchImage:
 
         return image_paths[search_key + ' animal creature']
 
-    def get_query(self, word_pairs: tuple):
-        search_keys = self._build_query(word_pairs)
-
+    def get_query(self, emotion, word_pairs):
+        search_keys = self._build_query(emotion, word_pairs)
         animal, search_key = random.choice(search_keys)
         return search_key, animal
 
