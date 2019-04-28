@@ -11,8 +11,10 @@ import numpy.random as npr
 import tensorflow as tf
 import cv2
 import logging
-from google_images_download import google_images_download
 import shutil
+import imageio
+from google_images_download import google_images_download
+from .gpri_helper import style_image_funcs
 
 
 #silence tensorflow spurious-warnings
@@ -74,28 +76,39 @@ class RandomImageCreator:
                 choice = input("Invalid input, Try again..")
 
     def generate(self, *args, **kwargs):
-        """Random image generator.
         """
+        Image generator.
+        :return:
+            The path to the generated image.
+        """
+
         emotion, word_pairs= args
-        #generate content image at images/content
-        self.generate_contentImage(emotion, word_pairs)
-        #generate style image at images/style
-        # styleImage = self.generate_styleImage(emotion)
+
         #Apply style-transfer to n - generated images for an emotion and n word pairs in images/output, alpha [0,1] (higher means more style)
 
         images_dir = self.folder + "/images"
         os.makedirs(images_dir, exist_ok = True)
 
-        content_images_path = self.folder + "/images/content.jpg"
-        style_images_path   = self.folder + "/images/style.jpg"
-        output_images_path  = self.folder + "/images/output.jpg"
+        content_path              = self.folder + "/images/content.jpg"
+        style_path                = self.folder + "/images/style.jpg"
+        google_style_path         = self.folder + "/images/google_fetched_style.jpg"
+        intermediate_output_path  = self.folder + "/images/intermediate_output.jpg"
+        output_path               = self.folder + "/images/output.jpg"
 
-        style_transfer.stylize(alpha=0.1, content_path = content_images_path,
-                               style_path = style_images_path, output_path = output_images_path)
+        #generate content image at images/content
+        self.generate_contentImage(emotion, word_pairs)
 
-        return output_images_path
+        #generate style image at images/style
+        self.generate_styleImage(emotion)
 
-    '''
+        style_transfer.stylize(alpha = 0.1, content_path = content_path,
+                               style_path = google_style_path, output_path = intermediate_output_path)
+        style_transfer.stylize(alpha = 0.35, content_path = intermediate_output_path,
+                               style_path = style_path, output_path = output_path)
+
+        return output_path
+
+
     def generate_styleImage(self, emotion):
         """
         Generate the content image for the style transfer.
@@ -103,11 +116,40 @@ class RandomImageCreator:
         :return:
             Nothing for the moment.
         """
-        si.create_styleImage((128, 128), 180, 15, 5, 10)
-        # Now the style image is available as numpy array. What to do next?
-        # Get the style transfer working, and get the entire pipeline working..
+
+        path = self.folder + "/images/style.jpg"
+
+        if emotion == "anger":
+            print("Generating style image for anger ...")
+            image = style_image_funcs.create_anger_image((128, 128), 180, 15, 5, 10)
+            imageio.imwrite(path, image)
+
+        elif emotion == "disgust":
+            print("Generating style image for disgust ...")
+            image = style_image_funcs.create_disgust_image((128, 128), 180, 10, 5, 3)
+            imageio.imwrite(path, image)
+
+        elif emotion == "fear":
+            print("Generating style image for fear ...")
+            image = style_image_funcs.create_fear_image((128, 128), 180, 15, 5, 10)
+            imageio.imwrite(path, image)
+
+        elif emotion == "happiness":
+            print("Generating style image for happiness ...")
+            image = style_image_funcs.create_happiness_image((128, 128), 180, 15, 5)
+            imageio.imwrite(path, image)
+
+        elif emotion == "sadness":
+            print("Generating style image for sadness ...")
+            image = style_image_funcs.create_sadness_image((128, 128), 180, 5)
+            imageio.imwrite(path, image)
+
+        elif emotion == "surprise":
+            print("Generating style image for surprise ...")
+            image = style_image_funcs.create_surprise_image((128, 128), 180, 15, 15, 25)
+            imageio.imwrite(path, image)
+
         return None
-    '''
 
 
     def get_googleImage(self, emotion, property_):
@@ -135,7 +177,7 @@ class RandomImageCreator:
         path = [k for k in path.values()]
         #rename the downloaded styleImage to a proper name
         try:
-            style_images_path   = self.folder + "/images/style.jpg"
+            style_images_path   = self.folder + "/images/google_fetched_style.jpg"
             shutil.move(str(path[0][0]), style_images_path)
         except:
             pass
