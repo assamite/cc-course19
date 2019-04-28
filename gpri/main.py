@@ -12,7 +12,6 @@ import numpy as np
 import numpy.random as npr
 import tensorflow as tf
 import tensorflow_hub as hub
-import cv2
 import logging
 import shutil
 import imageio
@@ -105,10 +104,10 @@ class RandomImageCreator:
 
     def generate_styleImage(self, emotion):
         """
-        Generate the content image for the style transfer.
+        Generate the style image for the style transfer.
         :param emotion: Emotion input
         :return:
-            Nothing for the moment.
+            String: Path of the style image.
         """
         cur_time = str(int(time.time() % 1e7))
         path = self.folder + "/images/style/" + cur_time + ".jpg"
@@ -152,7 +151,7 @@ class RandomImageCreator:
         :param style: Boolean, whether image should be abstract art, for the
             style image
         :return:
-            medium sized style image that captures specified emotion and property.
+            Path to medium sized style or content image
         """
         print('Downloading an image from Google...')
         response = google_images_download.googleimagesdownload()
