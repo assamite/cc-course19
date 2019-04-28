@@ -38,8 +38,6 @@ def produce_assembling_parameters(word_pair):
     im1 = Image.open(im1_path)
     im2 = Image.open(im2_path)
 
-
-
     # Now we have the images but we need to resize them to a 128x128 square
     im1 = resize_and_crop_to_square(im1, s.__IMAGE_SIDE_SIZE_NN__)
     im2 = resize_and_crop_to_square(im2, s.__IMAGE_SIDE_SIZE_NN__)
@@ -112,7 +110,7 @@ def estimate_best_parameters(im1, im2):
         If a function is in range [0, inf] use f: x / (1 - x)
     """
 
-
+    # TODO: estimate best parameters
 
     return [random.random() for _ in range(10)]
 
