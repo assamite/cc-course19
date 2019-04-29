@@ -33,6 +33,7 @@ def get_outputs(input_args, n_artifacts_per_creator, creators):
     # TODO: Clean out the code and make it simpler.
     all_artifacts = []
     n_imagepaths = 0
+    group_outputs = {}
     kwargs = {'title': "",
             'poem': "",
             'imagepath1': "",
@@ -45,7 +46,11 @@ def get_outputs(input_args, n_artifacts_per_creator, creators):
     for name, creator in creators:
         domain = creator.domain
         print("Generating for {} ({})...".format(name, domain))
-        artifacts = creator.create(*input_args, n_artifacts_per_creator)
+        if name == 'group_picasso':
+            artifacts = creator.create(*input_args, n_artifacts_per_creator)
+        else:
+            artifacts = creator.create(*input_args, n_artifacts_per_creator, group_outputs=group_outputs)
+        group_outputs[name] = artifacts
         if domain == 'word':
             kwargs['title'] = artifacts[0][0]
         elif domain == 'poetry':
