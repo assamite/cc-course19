@@ -1,6 +1,7 @@
 import cmudict
 import pickle
 import os
+import random
 
 class Evaluator():
     def __init__(self):
@@ -23,6 +24,77 @@ class Evaluator():
         
             with open(os.path.join(self.folder, "data", "titles.pickle"), "rb") as f:
                 self.title_bank = pickle.load(f)
+
+        self.pref_novelty, self.pref_alliteration = self.__learn_preference(sample_size=100)
+
+
+    def __learn_preference(self, sample_size=100):
+        """
+        Learns preference weights from the title_bank.
+
+        Returns:
+            tuple : weights for novelty and alliteration.
+        """
+
+        universe = set(self.title_bank.keys())
+        
+        sample = random.sample(universe, sample_size)
+        
+        # Learn novelty
+        # print("Learning novelty preference for titles")
+        dists = []
+
+        for tid in list(sample):
+
+            # From tid to title
+            title = self.title_bank[tid]["title"].strip()
+
+            closest = 1000
+            
+            # Create subsample
+            subsample = set(sample)
+            subsample.remove(tid)
+
+            for cid in list(subsample):
+                # Skip candidates using lower-bound of the levenshtein distance.
+                # Does not take the weights into account
+                comparable = self.title_bank[cid]["title"].strip()
+
+                if abs(len(title) - len(comparable)) > closest:
+                    continue
+
+                levenshtein = self.__iterative_levenshtein(title, comparable)
+                closest = min(closest, levenshtein)
+            
+            dists.append(closest)
+
+        # print("Learning alliteration preference for titles")
+
+        alliterations = [self.eval_alliteration(self.title_bank[tid]["title"].strip().split(" ")) for tid in sample]
+
+
+        # Find combination for the preferences
+        observed_aestetics = []
+
+        for nov, alli in zip(dists, alliterations):
+            scaled_nov = nov / max(dists)
+            scaled_alli = alli / max(alliterations)
+
+            aestetic = scaled_alli + scaled_nov
+
+            weight_nov = scaled_nov/aestetic
+            weight_alli = scaled_alli/aestetic
+
+            observed_aestetics.append((aestetic, (weight_nov, weight_alli)))
+
+        observed_aestetics = sorted(observed_aestetics, key=lambda x: x[0])
+
+        # Choose preferred aestetic
+        # Prefer artifacts close to 90th percentile
+        preferred_aestetic = observed_aestetics[-int(len(observed_aestetics)/10)]
+        novelty, alliteration = preferred_aestetic[1]
+
+        return (novelty, alliteration)
 
 
     # Modified from https://www.python-course.eu/levenshtein_distance.php
@@ -108,10 +180,9 @@ class Evaluator():
         Returns:
             float : Weighted average of the different evaluations.
         """
-        val = 0
-        val += self.eval_novelty(" ".join(title))
-        val += self.eval_alliteration(title)
-        return val / 2.0
+        nov = self.eval_novelty(" ".join(title))*self.pref_novelty
+        alli = self.eval_alliteration(title)*self.pref_alliteration
+        return nov + alli
 
 
     def eval_novelty(self, title):
@@ -121,7 +192,7 @@ class Evaluator():
             dist = self.editDistance(title, (1, 1, 1))
             # Scale with the title length
             # Can be higher than 1 if weights are not all 1.
-            dist = min(1.0, (dist/len(title))*(len(title)//5))
+            dist = min(1.0, dist/len(title))
             return dist
 
 
