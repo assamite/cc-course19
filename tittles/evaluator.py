@@ -216,4 +216,4 @@ class Evaluator():
         """ A function that has it maximum = 1 when ratio is 1/2, meaning half of the phonemes in the
         title are non-unique, otherwise it grows close to 0
         """
-        return (-4*(ratio-0.5))**2 + 1
+        return max(0., 1 - (abs(ratio-0.5))**4)
