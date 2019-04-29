@@ -43,7 +43,7 @@ class RandomImageCreator:
         Only keyword arguments are supported in config.json
         """
         print("/----------------Group GPRI initialize----------------/")
-        print("\nThis code will need about 8GB or RAM while running (or about 4GB if you don't use the GAN)!\n")
+        print("\nThis code will need about 8GB of RAM while running (or about 4GB if you don't use the GAN)!\n")
 
         # Each creator should have domain specified: title, poetry, music, image, etc.
         self.domain = 'image'
@@ -81,7 +81,7 @@ class RandomImageCreator:
             print('GAN mode enabled.')
             print('Loading BigGAN model...')
             self.gan_module = hub.Module(
-                'https://tfhub.dev/deepmind/biggan-deep-128/1')
+                'https://tfhub.dev/deepmind/biggan-256/2')
         else:
             self.GAN_MODE = False
             print('GAN mode disabled. Will fetch a content image from '
@@ -220,7 +220,7 @@ class RandomImageCreator:
             print("Generating image with GAN...")
             truncation = 0.5  # scalar truncation value in [0.0, 1.0]
             z = truncation * tf.random.truncated_normal(
-                [1, 128])  # noise sample
+                [1, 140])  # noise sample
 
             y_index = tf.Variable([self.sample_idx(wpr[0])], dtype=tf.int32)
             y = tf.one_hot(y_index, 1000)  # one-hot ImageNet label
