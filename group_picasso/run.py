@@ -12,6 +12,7 @@ from PIL import Image
 from google.cloud import vision
 
 from group_picasso.evaluation1 import EmotionEvaluator
+from group_picasso.evaluation2 import DistanceEvaluator
 from group_picasso.libs.arbitrary_image_stylization.arbitrary_image_stylization_with_weights import code_entry_point
 from group_picasso.markov import MarkovChain
 from group_picasso.search_handler import SearchImage
@@ -144,7 +145,7 @@ class RandomImageCreator:
             style_path = os.path.join(style_folder, style_filename)
 
             style_name = self.__get_basename(style_path)
-            print("Trying style {}...".format(style_name))
+            print("Step {}/{}: using {}...".format(i + 1, n_tries, style_name))
             timestamp = datetime.now().strftime("%Y%m%d-%H%M%S-%f")
             markovified_path = os.path.join(self.folder, "images/tmp/{}.png".format(timestamp))
             tmp_path = os.path.join(self.folder,
@@ -158,25 +159,30 @@ class RandomImageCreator:
             artifact_score = self.__evaluate_artifact_with_emotion(artifact_path, emotion)
 
             if artifact_score > 0:
-                artifacts.append({"path": artifact_path, "style_name": style_name,
-                                  "emotion_score": artifact_score})
-        # TODO
-        # distance_evaluator = DistanceEvaluator()
-        # artifacts = distance_evaluator.evaluate(artifacts)
+                artifacts.append({"path": artifact_path, "style_name": style_name, "emotion_score": artifact_score})
 
+        distance_evaluator = DistanceEvaluator()
+        artifacts = distance_evaluator.difference(dlist=artifacts, grayscale=True)
+
+        print("Scores:")
+        keys = ["style_name", "emotion_score", "distance_score"]
         best_artifact = None
         for artifact in artifacts:
-            # TODO
-            # if best_articaft is None or artifact["emotion_score"] + artifact["distance_score"] > best_artifact["emotion_score"] + best_artifact["distance_score"]:
-
-            # Quick fix
-            if best_artifact is None or artifact["emotion_score"] > best_artifact["emotion_score"]:
+            if best_artifact is None or artifact["emotion_score"] + artifact["distance_score"] > \
+                    best_artifact["emotion_score"] + best_artifact["distance_score"]:
                 best_artifact = artifact
+            print(dict((key, artifact[key]) for key in artifact.keys() if key in keys))
+        print()
 
         if best_artifact:
-            print("Enough {} with style {} and score {}!".format(emotion, best_artifact["style_name"],
-                                                                 best_artifact["emotion_score"]))
-            self.artifact_path = best_artifact["path"]
+            if best_artifact:
+                print("Enough {} with style {}: emotion score is {} and distance score is {}!".format(
+                    emotion,
+                    best_artifact["style_name"],
+                    best_artifact["emotion_score"],
+                    best_artifact["distance_score"]
+                ))
+                self.artifact_path = best_artifact["path"]
             return True
         else:
             print("Not enough emotion!")
@@ -226,10 +232,9 @@ class RandomImageCreator:
     def __evaluate_artifact_with_emotion(artifact_path, emotion):
         """Evaluate image.
         """
-        limits = {"anger": .4, "disgust": .85, "fear": .97, "happiness": .4, "sadness": .75, "surprise": .4}
         emotion_evaluator = EmotionEvaluator()
         max_emotion, score = emotion_evaluator.emotions_by_colours(artifact_path)
-        if max_emotion == emotion and score > limits[max_emotion]:
+        if max_emotion == emotion:
             return score
         else:
             return 0
