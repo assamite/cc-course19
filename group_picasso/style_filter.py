@@ -13,14 +13,17 @@ class StyleFilter:
         self.style_folder = os.path.join(self.folder, "images/styles")
         self.emotion_evaluator = EmotionEvaluator()
         self.emotions = ["anger", "disgust", "fear", "happiness", "sadness", "surprise"]
-        self.limits = {"anger": .4, "disgust": .8, "fear": .95, "happiness": .4, "sadness": .6, "surprise": .4}
+        self.limits = {"anger": .4, "disgust": .85, "fear": .97, "happiness": .4, "sadness": .75, "surprise": .4}
 
     def filter_styles(self):
         style_filenames = os.listdir(self.dataset_folder)
         random.shuffle(style_filenames)
         for style_filename in style_filenames:
             style_path = os.path.join(self.dataset_folder, style_filename)
-            max_emotion, score = self.emotion_evaluator.emotions_by_colours(style_path)
+            try:
+                max_emotion, score = self.emotion_evaluator.emotions_by_colours(style_path)
+            except IndexError:
+                print(os.path.basename(style_path))
             if score > self.limits[max_emotion]:
                 print("Style {}: {} {}...".format(style_filename, max_emotion, score))
 

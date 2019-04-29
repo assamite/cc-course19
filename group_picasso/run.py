@@ -35,6 +35,7 @@ class RandomImageCreator:
         self.artifact_path = None
 
     def create(self, emotion, word_pairs, number_of_artifacts=10):
+        emotion = "disgust"
         """Create artifacts in the group's domain.
 
         The given inputs can be parsed and deciphered by the system using any methods available.
@@ -226,7 +227,7 @@ class RandomImageCreator:
     def __evaluate_artifact_with_emotion(artifact_path, emotion):
         """Evaluate image.
         """
-        limits = {"anger": .4, "disgust": .8, "fear": .95, "happiness": .4, "sadness": .6, "surprise": .4}
+        limits = {"anger": .4, "disgust": .85, "fear": .97, "happiness": .4, "sadness": .75, "surprise": .4}
         emotion_evaluator = EmotionEvaluator()
         max_emotion, score = emotion_evaluator.emotions_by_colours(artifact_path)
         if max_emotion == emotion and score > limits[max_emotion]:
