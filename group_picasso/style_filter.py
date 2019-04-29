@@ -1,6 +1,5 @@
 import os
 import random
-import shutil
 
 from PIL import Image
 from evaluation1 import EmotionEvaluator
@@ -9,19 +8,14 @@ from evaluation1 import EmotionEvaluator
 class StyleFilter:
     def __init__(self):
         self.folder = os.path.dirname(os.path.realpath(__file__))
-        self.dataset_folder = os.path.join(self.folder, "images/dataset/test")
+        self.dataset_name = "test"
+        self.dataset_folder = os.path.join(self.folder, "images/dataset/" + self.dataset_name)
         self.style_folder = os.path.join(self.folder, "images/styles")
         self.emotion_evaluator = EmotionEvaluator()
         self.emotions = ["anger", "disgust", "fear", "happiness", "sadness", "surprise"]
-        self.limits = {"anger": .4, "disgust": .7, "fear": .85, "happiness": .4, "sadness": .5, "surprise": .4}
+        self.limits = {"anger": .4, "disgust": .8, "fear": .95, "happiness": .4, "sadness": .6, "surprise": .4}
 
     def filter_styles(self):
-        for emotion in self.emotions:
-            emotion_folder = os.path.join(self.style_folder, emotion)
-            if os.path.exists(emotion_folder) and os.path.isdir(emotion_folder):
-                shutil.rmtree(emotion_folder)
-            os.mkdir(emotion_folder)
-
         style_filenames = os.listdir(self.dataset_folder)
         random.shuffle(style_filenames)
         for style_filename in style_filenames:
@@ -41,7 +35,8 @@ class StyleFilter:
                     img = img.resize((256, round(height / coef)))
 
                 dest_folder = os.path.join(self.style_folder, max_emotion)
-                dest_path = os.path.join(dest_folder, style_filename)
+                dest_filename = self.dataset_name + "_{}_".format(int(score * 100)) + style_filename
+                dest_path = os.path.join(dest_folder, dest_filename)
                 img.save(dest_path)
 
 

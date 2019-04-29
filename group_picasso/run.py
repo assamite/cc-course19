@@ -5,6 +5,7 @@ Should contain initialize- and create-functions.
 import glob
 import io
 import os
+import random
 from datetime import datetime
 
 from PIL import Image
@@ -26,6 +27,7 @@ class RandomImageCreator:
         """
         self.domain = 'image'
         self.folder = os.path.dirname(os.path.realpath(__file__))
+        self.root_style_folder = os.path.join(self.folder, "images/styles")
         self.picasso_path = os.path.join(self.folder, "images/picasso.jpg")
         os.environ["GOOGLE_APPLICATION_CREDENTIALS"] = os.path.join(self.folder, "cc-course19-f3aafd62afc9.json")
         self.client = vision.ImageAnnotatorClient()
@@ -89,11 +91,12 @@ class RandomImageCreator:
     def __generate_content(self, emotion, word_pairs):
         search_image = SearchImage()
         print("Generating content...")
-        n_tries = 10
+        n_tries = 20
         for i in range(n_tries):
             search_query, animal = search_image.get_query(emotion, word_pairs)
             content_path = search_image.get_image(search_query)
 
+            # Quick fix
             # content_path = os.path.join(self.folder, "images/content/bird.jpg")
             # animal = self.__get_basename(content_path).split("_")[0]
 
@@ -120,29 +123,25 @@ class RandomImageCreator:
         return False
 
     def __generate_artifact(self, emotion):
-        # TODO
-        # style_selector = StyleSelector()
-
-        # Quick fix
-        style_folder = os.path.join(self.folder, "images/example_styles")
-        style_filenames = [os.path.join(style_folder, f) for f in os.listdir(style_folder)]
-        style_filenames = [i for i in style_filenames if os.path.isfile(i)]
-
         print("Generating artifacts with different styles...")
 
         # TODO
+        # style_selector = StyleSelector()
         # n_tries = 10
 
         # Quick fix
-        n_tries = len(style_filenames)
+        style_folder = os.path.join(self.root_style_folder, emotion)
+        style_filenames = os.listdir(style_folder)
+        n_tries = 10
 
         artifacts = []
         for i in range(n_tries):
             # TODO
-            # style_path = style_selector.get_with_emotion(emotion)
+            # style_path = style_selector.select_style(self.style_folder, emotion)
 
             # Quick fix
-            style_path = os.path.join(style_folder, style_filenames[i])
+            style_filename = random.choice(style_filenames)
+            style_path = os.path.join(style_folder, style_filename)
 
             style_name = self.__get_basename(style_path)
             print("Trying style {}...".format(style_name))
@@ -227,7 +226,7 @@ class RandomImageCreator:
     def __evaluate_artifact_with_emotion(artifact_path, emotion):
         """Evaluate image.
         """
-        limits = {"anger": .4, "disgust": .4, "fear": .8, "happiness": .4, "sadness": .4, "surprise": .4}
+        limits = {"anger": .4, "disgust": .8, "fear": .95, "happiness": .4, "sadness": .6, "surprise": .4}
         emotion_evaluator = EmotionEvaluator()
         max_emotion, score = emotion_evaluator.emotions_by_colours(artifact_path)
         if max_emotion == emotion and score > limits[max_emotion]:
