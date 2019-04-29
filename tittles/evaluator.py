@@ -2,6 +2,9 @@ import cmudict
 import pickle
 import os
 import random
+import csv
+from operator import add
+import math
 
 class Evaluator():
     TITLE_DUMP_PATH = os.path.join(os.path.dirname(os.path.realpath(__file__)), "data", "titles.pickle")
@@ -24,7 +27,7 @@ class Evaluator():
 
             download_gutenberg()
             gutenberg_preprocess()
-        
+
             with open(self.TITLE_DUMP_PATH, "rb") as f:
                 self.title_bank = pickle.load(f)
 
@@ -40,9 +43,9 @@ class Evaluator():
         """
 
         universe = set(self.title_bank.keys())
-        
+
         sample = random.sample(universe, sample_size)
-        
+
         # Learn novelty
         # print("Learning novelty preference for titles")
         dists = []
@@ -53,7 +56,7 @@ class Evaluator():
             title = self.title_bank[tid]["title"].strip()
 
             closest = 1000
-            
+
             # Create subsample
             subsample = set(sample)
             subsample.remove(tid)
@@ -68,7 +71,7 @@ class Evaluator():
 
                 levenshtein = self.__iterative_levenshtein(title, comparable)
                 closest = min(closest, levenshtein)
-            
+
             dists.append(closest)
 
         # print("Learning alliteration preference for titles")
@@ -99,6 +102,18 @@ class Evaluator():
 
         return (novelty, alliteration)
 
+        #Read content for the sentiment dictionary
+        self.sentimentDictionary = {}
+        with open(os.path.join(self.folder, "data", "EmotionLexicon.txt")) as emotionLexicon:
+            lexicon = csv.reader(emotionLexicon, delimiter='\t')
+            word = ""
+            values = {}
+            for row in lexicon:
+                if word != row[0]:
+                    self.sentimentDictionary[word] = values
+                    word = row[0]
+                    values = {}
+                values[row[1]] = row[2]
 
     # Modified from https://www.python-course.eu/levenshtein_distance.php
     def __iterative_levenshtein(self, s, t, weights=(1, 1, 1)):
@@ -142,7 +157,6 @@ class Evaluator():
 
         return dist[row][col]
 
-
     def add_title(self, title):
         """
         Save the given title as one that has been observed before.
@@ -157,7 +171,7 @@ class Evaluator():
 
         if self.title_bank is None:
             return False
-        
+
         # Generate a random key for the title
         used_keys = set(self.title_bank.keys())
 
@@ -229,8 +243,8 @@ class Evaluator():
         """
         nov = self.eval_novelty(" ".join(title))*self.pref_novelty
         alli = self.eval_alliteration(title)*self.pref_alliteration
-        return nov + alli
-
+        senti = self.eval_sentiment(title, emotion)
+        return nov + alli + senti
 
     def eval_novelty(self, title):
         if self.title_bank is None:
@@ -267,7 +281,7 @@ class Evaluator():
             except IndexError:
                 #word was not in dict
                 continue
-        
+
         try:
             ratio = len(unique_phonemes) / title_length
         except ZeroDivisionError:
@@ -281,3 +295,30 @@ class Evaluator():
         title are non-unique, otherwise it grows close to 0
         """
         return max(0., 1 - (abs(ratio-0.5))**4)
+
+    def eval_sentiment(self, title, emotion):
+        """
+        Builds a vector of emotions in the title and compares that vector to the emotion in the input
+        Each word gets a weight of 1/n, where n is the number of words in the title
+        """
+        self.emotions = ['anger', 'disgust', 'fear', 'happiness', 'sadness', 'surprise']
+        goal_sentiment = list(map(lambda x: int(x == emotion), self.emotions))
+        self.emotions = ['anger', 'disgust', 'fear', 'joy', 'sadness', 'surprise']
+        title_sentiment = [0, 0, 0, 0, 0, 0]
+        for word in title:
+            sentiments = self.sentimentDictionary.get(word.lower(), None)
+            if sentiments is not None:
+                word_sentiment = list(map(lambda x: int(sentiments[x]), self.emotions))
+                title_sentiment = list(map(add, title_sentiment, word_sentiment))
+        title_sentiment = list(map(lambda x: x/len(title), title_sentiment))
+        return self.get_sentiment_vector_diff(goal_sentiment, title_sentiment)
+
+    def get_sentiment_vector_diff(self, goal, sentiment):
+        """
+        Take squared difference of vectors
+        """
+        diff = 0
+        for i in range(len(self.emotions)):
+            diff += (goal[i] - sentiment[i])**2
+        #Normalize to range 0-1 and take complement, since small difference is good
+        return 1 - math.sqrt(diff)/math.sqrt(6)
