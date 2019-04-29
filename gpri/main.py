@@ -43,6 +43,7 @@ class RandomImageCreator:
         Only keyword arguments are supported in config.json
         """
         print("/----------------Group GPRI initialize----------------/")
+        print("This code will need about 6GB or RAM while running (or about 4GB if you don't use the GAN)!\n")
 
         # Each creator should have domain specified: title, poetry, music, image, etc.
         self.domain = 'image'
@@ -62,7 +63,7 @@ class RandomImageCreator:
         from .gpri_helper import style_transfer
 
         # load inception gan_module for evaluation
-        print("Loading inception v3 network...")
+        print("Loading Inception v3 network...")
         self.inception_module = hub.Module(
             'https://tfhub.dev/google/imagenet/inception_v3/classification/1')
 
@@ -216,6 +217,7 @@ class RandomImageCreator:
             path = self.get_googleImage(wpr, False)
 
         else:
+            print("Generating image with GAN...")
             truncation = 0.5  # scalar truncation value in [0.0, 1.0]
             z = truncation * tf.random.truncated_normal(
                 [1, 128])  # noise sample
@@ -231,7 +233,8 @@ class RandomImageCreator:
                 img = sess.run(samples)[0]
 
             cur_time = str(int(time.time() % 1e7))
-            path = self.folder + "/images/content_" + cur_time + ".jpg"
+            path = self.folder + "/images/content/" + cur_time + ".jpg"
+            imageio.imwrite(path, img)
 
         return path
 
@@ -242,7 +245,7 @@ class RandomImageCreator:
         :param noun: The noun from the word_pair
         :return: int of index
         """
-        with open(self.folder + 'labels/label_table_v1.csv', mode='r') as f:
+        with open(self.folder + '/labels/label_table_v1.csv', mode='r') as f:
             reader = csv.reader(f)
             categories = [rows[1] for rows in reader][1:]
         return npr.choice([i for i in range(1000) if categories[i] == noun])
@@ -280,7 +283,7 @@ class RandomImageCreator:
                     [l[1:] for l in self.vec_list if l[0] == c - 1]]
             vecs = vecs + [vecs_sub]
 
-        # Calculate distances between top predictions 3 for each image,
+        # Calculate distances between 3 top predictions for each image,
         # then take the min of those
         dists = []
         # Go through pictures
@@ -291,7 +294,7 @@ class RandomImageCreator:
                 dists_to_othr_lbl = []
                 # Go through each word in the label
                 for v in l:
-                    # And now compare with all other labels and each words
+                    # And now compare with all other labels and their words
                     for l2 in pic:
                         if l2 != l:
                             for v2 in l2:
