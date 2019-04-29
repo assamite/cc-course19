@@ -101,7 +101,7 @@ class tittlesTitle():
 if __name__ == "__main__":
     import pprint
     import sys
-    sys.path.insert(0,'..')
+    sys.path.append(os.path.join(os.path.dirname(__file__), '..'))
     import inputs
     pp = pprint.PrettyPrinter(indent=2)
     emotion, word_pairs = inputs.get_input(False)
