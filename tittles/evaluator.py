@@ -198,18 +198,35 @@ class Evaluator():
 
     def eval_alliteration(self, title):
         unique_phonemes = []
-        title_length = 1
+        title_length = 0
+
         for word in title:
+
+            word = word.lower()
+            word = word.replace(":", "")
+            word = word.replace("'", "")
+            word = word.replace(";", "")
+            word = word.replace(";", "")
+            word = word.replace(".", "")
+            word = word.replace("!", "")
+            word = word.replace("?", "")
+
             try:
                 phonemes = self.cmudict[word][0]
                 title_length += len(phonemes)
                 for phoneme in phonemes:
                     if phoneme not in unique_phonemes:
                         unique_phonemes.append(phoneme)
-            except:
+            except IndexError:
                 #word was not in dict
                 continue
-        return len(unique_phonemes) / title_length
+        
+        try:
+            ratio = len(unique_phonemes) / title_length
+        except ZeroDivisionError:
+            ratio = 0.
+
+        return self.get_alliteration_score(ratio)
 
 
     def get_alliteration_score(self, ratio):
