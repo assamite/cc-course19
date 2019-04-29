@@ -35,7 +35,6 @@ class RandomImageCreator:
         self.artifact_path = None
 
     def create(self, emotion, word_pairs, number_of_artifacts=10):
-        emotion = "disgust"
         """Create artifacts in the group's domain.
 
         The given inputs can be parsed and deciphered by the system using any methods available.
