@@ -4,16 +4,17 @@ import os
 import random
 
 class Evaluator():
+    TITLE_DUMP_PATH = os.path.join(os.path.dirname(os.path.realpath(__file__)), "data", "titles.pickle")
+
     def __init__(self):
         self.cmudict = cmudict.dict()
 
         self.title_bank = None
-        self.folder = os.path.dirname(os.path.realpath(__file__))
 
         # Try reading content for the title_bank
         
         try:
-            with open(os.path.join(self.folder, "data", "titles.pickle"), "rb") as f:
+            with open(self.TITLE_DUMP_PATH, "rb") as f:
                 self.title_bank = pickle.load(f)
         
         except FileNotFoundError:
@@ -22,7 +23,7 @@ class Evaluator():
             download_gutenberg()
             gutenberg_preprocess()
         
-            with open(os.path.join(self.folder, "data", "titles.pickle"), "rb") as f:
+            with open(self.TITLE_DUMP_PATH, "rb") as f:
                 self.title_bank = pickle.load(f)
 
         self.pref_novelty, self.pref_alliteration = self.__learn_preference(sample_size=100)
@@ -140,7 +141,51 @@ class Evaluator():
         return dist[row][col]
 
 
-    def editDistance(self, phenotype, weights=(1, 1, 1)):
+    def add_title(self, title):
+        """
+        Save the given title as one that has been observed before.
+
+        Args:
+            title (str) : Title to be added.
+
+        Returns:
+            Boolean : True if title was saved succesfully.
+        """
+        assert(isinstance(title, str))
+
+        if self.title_bank is None:
+            return False
+        
+        # Generate a random key for the title
+        used_keys = set(self.title_bank.keys())
+
+        if len(used_keys) == 1500000:
+            # Close to exhausted space
+            return False
+
+        key = None
+
+        while key is None:
+            candidate = random.randint(-1000000, 1000000)
+            if candidate not in used_keys:
+                key = candidate
+
+        self.title_bank[key] = {"title": title}
+        return True
+
+
+    def dump_titles(self):
+        """
+        Saves the current known titles to a local file.
+
+        Returns:
+            None
+        """
+        # Overwrite previous file
+        with open(self.TITLE_DUMP_PATH, "wb") as f:
+            pickle.dump(self.title_bank, f)
+
+    def edit_distance(self, phenotype, weights=(1, 1, 1)):
         """
         Calculate the shortest levenshtein distance between phenotype and known titles.
 
@@ -189,7 +234,7 @@ class Evaluator():
         if self.title_bank is None:
             return 0.8
         else:
-            dist = self.editDistance(title, (1, 1, 1))
+            dist = self.edit_distance(title, (1, 1, 1))
             # Scale with the title length
             # Can be higher than 1 if weights are not all 1.
             dist = min(1.0, dist/len(title))

@@ -95,7 +95,10 @@ class tittlesTitle():
             v = self.evaluate(str(title))
             if v >= self.threshold:
                 ret.append((str(title), {"evaluation": v}))
+                self.evaluator.add_title(str(title))
 
+        # Comment out if you want to keep the original titles
+        self.evaluator.dump_titles()
         return ret
 
 if __name__ == "__main__":
