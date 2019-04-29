@@ -7,19 +7,21 @@ class Evaluator():
     TITLE_DUMP_PATH = os.path.join(os.path.dirname(os.path.realpath(__file__)), "data", "titles.pickle")
 
     def __init__(self):
+        self.emotions = ['anger', 'disgust', 'fear', 'happiness', 'sadness', 'surprise']
+
         self.cmudict = cmudict.dict()
 
         self.title_bank = None
 
         # Try reading content for the title_bank
-        
+
         try:
             with open(self.TITLE_DUMP_PATH, "rb") as f:
                 self.title_bank = pickle.load(f)
-        
+
         except FileNotFoundError:
             from title_scrape import download_gutenberg, gutenberg_preprocess
-        
+
             download_gutenberg()
             gutenberg_preprocess()
         
@@ -100,12 +102,12 @@ class Evaluator():
 
     # Modified from https://www.python-course.eu/levenshtein_distance.php
     def __iterative_levenshtein(self, s, t, weights=(1, 1, 1)):
-        """ 
+        """
         iterative_levenshtein(s, t) -> ldist
-        ldist is the Levenshtein distance between the strings 
+        ldist is the Levenshtein distance between the strings
         s and t.
-        For all i and j, dist[i,j] will contain the Levenshtein 
-        distance between the first i characters of s and the 
+        For all i and j, dist[i,j] will contain the Levenshtein
+        distance between the first i characters of s and the
         first j characters of t
 
         weight_dict: keyword parameters setting the costs for characters,
@@ -116,7 +118,7 @@ class Evaluator():
 
 
         dist = [[0 for x in range(cols)] for x in range(rows)]
-        # source prefixes can be transformed into empty strings 
+        # source prefixes can be transformed into empty strings
         # by deletions:
         for row in range(1, rows):
             dist[row][0] = dist[row-1][0] + weights[0]
@@ -216,9 +218,9 @@ class Evaluator():
 
         return closest
 
-    def evaluate(self, title):
+    def evaluate(self, title, emotion):
         """Runs the different evaluation schemes, which return values between 0 and 1, and returns an average over them.
-        
+
         Args:
             title (list) : list of words forming the title when.
 
