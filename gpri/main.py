@@ -43,7 +43,7 @@ class RandomImageCreator:
         Only keyword arguments are supported in config.json
         """
         print("/----------------Group GPRI initialize----------------/")
-        print("This code will need about 6GB or RAM while running (or about 4GB if you don't use the GAN)!\n")
+        print("\nThis code will need about 8GB or RAM while running (or about 4GB if you don't use the GAN)!\n")
 
         # Each creator should have domain specified: title, poetry, music, image, etc.
         self.domain = 'image'
