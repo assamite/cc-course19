@@ -1,6 +1,6 @@
 {
-    "module_name": "example",
-    "class_name": "RandomImageCreator",
+    "module_name": "kolme_muusaa_interface",
+    "class_name": "KolmeMuusaaInterface",
     "domain": "image",
     "init_kwargs":
     {

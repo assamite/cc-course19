@@ -13,3 +13,6 @@ PyPrind==2.11.2
 requests==2.21.0
 tensorflow-hub>=0.3.0
 inflect==2.1.0
+cmudict
+google_images_download
+google-cloud-vision==0.36.0
