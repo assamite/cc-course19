@@ -1,4 +1,8 @@
 import random
+import spacy
+
+
+nlp = spacy.load("en_core_web_sm")
 
 
 class Title:
@@ -9,7 +13,9 @@ class Title:
         # Keep slots in memory for injections
         self.slots = {
             "ADJ": [],
-            "NP": []
+            "NP": [],
+            "PERSON": [],
+            "LOC": [],
         }
 
         for i, tok in enumerate(self.title):
@@ -19,10 +25,14 @@ class Title:
                 self.slots["NP"].append((i, "singular"))
             elif tok in ["[[NOUNS]]", "[[PROPNS]]"]:
                 self.slots["NP"].append((i, "plural"))
+            elif tok == "[[PERSON]]":
+                self.slots["PERSON"].append((i, None))
+            elif tok == "[[LOC]]":
+                self.slots["LOC"].append((i, None))
 
     def get_slots(self, tag):
         """Get slots for the given tag."""
-        assert tag in ["ADJ", "NP"]
+        assert tag in ["ADJ", "NP", "PERSON", "LOC"]
         return self.slots[tag]
 
     def inject(self, token, tag, pos=-1):
@@ -30,7 +40,7 @@ class Title:
         # Fix these eventually
         assert pos >= -1
         assert pos < len(self.title)
-        assert tag in ["ADJ", "NP"]
+        assert tag in ["ADJ", "NP", "PERSON", "LOC"]
 
         if len(self.slots[tag]) == 0:
             return None
@@ -53,31 +63,44 @@ class Title:
 
 
 class TemplateBank:
-    def __init__(self, filepath=None):
-        self.template_strings = []
-        if filepath:
-            self.read_templates(filepath)
-
-    def read_templates(self, filepath):
-        """Read tempaltes from the given file."""
-        try:
-            with open(filepath, "r") as f:
-                self.template_strings = [l.strip() for l in f.readlines()]
-        except FileNotFoundError:
-            return 0
-
-        return len(self.template_strings)
-
-    def __len__(self):
-        return len(self.template_strings)
-
-    def __getitem__(self, i):
-        if (i < 0) or (i >= len(self)):
-            raise ValueError("Got index {} while bank has {} templates".format(
-                i, len(self)))
-
-        return self.template_strings[i]
+    def __init__(self, title_bank):
+        self.title_bank = title_bank
 
     def random_template(self):
         """Get random template from the bank."""
-        return self.template_strings[random.randint(0, len(self) - 1)]
+        title = random.choice(list(self.title_bank.values()))["title"].replace('—', '-')
+
+        replacements = []
+        tokens = []
+        doc = nlp(title)
+
+        for token in doc:
+            # Consider named entities as single token.
+            if token.ent_type_ in ('PERSON', 'FAC', 'GPE', 'LOC'):
+                if token.ent_iob == 1:
+                    tokens[-1] += ' ' + token.text
+                else:
+                    tokens.append(token.text)
+                continue
+
+            tokens.append(token.text)
+            if token.tag_ in ("NN", "NNP"):
+                replacements.append((token.text, "[[NOUN]]"))
+            elif token.tag_ in ("NNS", "NNPS"):
+                replacements.append((token.text, "[[NOUNS]]"))
+            elif token.pos_ == "ADJ":
+                replacements.append((token.text, "[[ADJ]]"))
+
+        for entity in doc.ents:
+            if entity.label_ == 'PERSON':
+                replacements.append((entity.text, '[[PERSON]]'))
+            elif entity.label_ in ('FAC', 'GPE', 'LOC'):
+                replacements.append((entity.text, '[[LOC]]'))
+
+        if len(replacements) < 2:
+            return self.random_template()
+
+        for old, new in random.sample(replacements, 2):
+            tokens[tokens.index(old)] = new
+
+        return ' '.join(tokens)

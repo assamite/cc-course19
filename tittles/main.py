@@ -24,8 +24,7 @@ class tittlesTitle():
         self.folder = os.path.dirname(os.path.realpath(__file__))
         self.evaluator = Evaluator()
         self.wordpicker = WordPicker()
-
-        self.template_bank = TemplateBank(os.path.join(self.folder, "data", "templates.short.uniq"))
+        self.template_bank = TemplateBank(self.evaluator.title_bank)
 
 
     def generate(self, *args, **kwargs):
