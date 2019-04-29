@@ -6,15 +6,15 @@ from PIL import Image
 import numpy as np
 import json
 
-from . import assembler, classifier, downloader, producer
+from kolme_musaa.step_1 import assembler, classifier, downloader, producer
 from kolme_musaa import settings as s
-from kolme_musaa.utils import get_unique_save_path_name, debug_log
+from kolme_musaa.utils import get_unique_save_path_name, debug_log, remove_images
 
 
 __PRODUCE_ARTIFACTS_MODE__ = False
 
 
-def execute(word_pairs:list, n_art:int):
+def execute(word_pairs:list, n_art:int, threshold=0.5):
     """Generates artifacts to be evaluated.
 
     New images are saved under __STEP_1_EVAL_DIR__.
@@ -33,12 +33,9 @@ def execute(word_pairs:list, n_art:int):
 
     # Clear content of eval dir
     if __PRODUCE_ARTIFACTS_MODE__ == False:
-        for im_f in os.listdir(s.__STEP_1_EVAL_DIR__):
-            if im_f.endswith(".py"):
-                continue
-            os.remove(os.path.join(s.__STEP_1_EVAL_DIR__, im_f))
+        if s.__DO_NOT_DELETE_DIR__ not in os.listdir(s.__STEP_1_EVAL_DIR__):
+            remove_images(s.__STEP_1_EVAL_DIR__)
 
-    threshold = 0.5
     n_images_per_word = min(max(n_art*10, 10), 100)
 
     words = set([w for wp in word_pairs for w in wp])
@@ -47,11 +44,18 @@ def execute(word_pairs:list, n_art:int):
     for w in words:
         word_dir = os.path.join(s.__STEP_1_CACHE_DIR__, w)
         if os.path.exists(word_dir):
-            if len(os.listdir(word_dir)) < n_images_per_word:
-                for im_f in os.listdir(word_dir):
-                    os.remove(os.path.join(word_dir, im_f))
+            dirlist = os.listdir(word_dir)
+
+            if s.__SATURATED_DIR__ in dirlist:
+                warnings.warn("No more images for '{w}' are available. Skipping..".format(w=w))
+                continue
+
+            if len(dirlist) < n_images_per_word:
+                if not s.__DO_NOT_DELETE_DIR__ in dirlist:
+                    remove_images(word_dir)
+
             else:
-                debug_log(f"We have enough cached images for *{w}*. Skipping..")
+                debug_log(f"We have enough cached images for '{w}'. Skipping..")
                 continue
         downloader.download(word=w, n_images=n_images_per_word)
 
@@ -70,7 +74,23 @@ def execute(word_pairs:list, n_art:int):
             assembling_parameters, image_path_1, image_path_2 = producer.produce_assembling_parameters(
                 word_pair=wp
             )
-            assembler.assemble_images_from_params(assembling_parameters, image_path_1, image_path_2, wp)
+            art_path = assembler.assemble_images_from_params(assembling_parameters, image_path_1, image_path_2, wp)
+            art_name = art_name = os.path.basename(art_path)[:-4]
+
+            # Save metadata
+            json_data_dict = {}
+            if os.path.exists(s.__JSON_ART_DATA_STEP_1__):
+                with open(s.__JSON_ART_DATA_STEP_1__) as json_file:
+                    json_data_dict = json.load(json_file)
+            json_data_dict[art_name] = {
+                "word_pair": wp,
+                "base_image_1": os.path.basename(image_path_1)[:-4],
+                "base_image_2": os.path.basename(image_path_2)[:-4],
+                "assembling_parameters": assembling_parameters,
+                "art_path": art_path
+            }
+            with open(s.__JSON_ART_DATA_STEP_1__, "w") as json_file:
+                json.dump(json_data_dict, json_file)
 
         # In produce mode this is the exit point
         if __PRODUCE_ARTIFACTS_MODE__ == True:
@@ -85,28 +105,70 @@ def execute(word_pairs:list, n_art:int):
         evals = classifier.evaluate_all()
 
         # Decide what to do based on evaluation
-        for image_path, image_dict in evals:
-            im_eval = image_dict["evaluation"]
+        with open(s.__JSON_ART_DATA_STEP_1__) as json_file:
+            json_data_dict = json.load(json_file)
+        for art_path, art_dict in evals:
+            im_eval = art_dict["evaluation"]
+            art_name = os.path.basename(art_path)[:-4]
+            json_data_dict[art_name]["evaluation"] = im_eval
             if im_eval > threshold:
-                image_name = os.path.basename(image_path)[:-4]
-                debug_log(f"{image_name} good with: {im_eval} > {threshold}")
-                ready_image_path = get_unique_save_path_name(s.__RESOURCES_STEP_1_READY__,
-                                                             image_name,
+                debug_log(f"{art_name} good with: {im_eval} > {threshold}")
+                ready_art_path = get_unique_save_path_name(s.__RESOURCES_STEP_1_READY__,
+                                                             art_name,
                                                              "png")
-                os.rename(image_path, ready_image_path)
-                ready_list.append((ready_image_path, image_dict))
+                os.rename(art_path, ready_art_path)
+                json_data_dict[art_name]["art_path"] = ready_art_path
+                ready_list.append((ready_art_path, json_data_dict[art_name]))
             else:
-                debug_log(f"{image_path} bad with {im_eval} <= {threshold}")
-                debug_log(f"Deleting {image_path}..")
-                os.remove(image_path)
+                debug_log(f"{art_name} bad with {im_eval} <= {threshold}")
+                discarded_art_path = get_unique_save_path_name(s.__RESOURCES_STEP_1_DISCARDED__,
+                                                           art_name,
+                                                           "png")
+                os.rename(art_path, discarded_art_path)
+                json_data_dict[art_name]["art_path"] = discarded_art_path
 
-    # end of while
+        if len(ready_list) < n_art:
+            debug_log(f"Not enough art. Only [{len(ready_list) }/{n_art}]. Getting more inspiration..")
+
+    # >>> end of big while
+
+    # Finally save art metadata
+    json_file_name = get_unique_save_path_name(directory=s.__RESOURCES_DIR__,
+                                        basename="art_data",
+                                        extension="json")
+    debug_log(f"Saving final JSON_DICT {json_file_name}..", end="")
+    with open(json_file_name, "w") as json_file:
+        json.dump(json_data_dict, json_file)
+    debug_log("Done")
+
+
+    # Delete non needed stuff
+    if s.__DO_NOT_DELETE_DIR__ not in os.listdir(s.__STEP_1_EVAL_DIR__):
+        debug_log(f"Deleting JSON_DICT {s.__JSON_ART_DATA_STEP_1__}.. ", end="")
+        os.remove(s.__JSON_ART_DATA_STEP_1__)
+        debug_log("Done")
 
     return ready_list
 
 
 if __name__ == "__main__":
-    word_list = [('activity', 'war'), ('animal', 'venomous'), ('animal', 'unusual'), ('animal', 'adorable'), ('location', 'cemetery'), ('weather', 'rain'), ('human', 'ruthless'), ('human', 'evil'), ('human', 'barbaric'), ('human', 'brutal'), ('human', 'compassionate'), ('human', 'liberal')]
 
+    import sys
+    sys.path.append(s.__GENERAL_PROJECT_ROOT__)
+
+    import inputs
+
+    word_list = []
+    for i in range(500):
+        word_list += inputs.get_input(use_samples=False)[1]
+        print(f"Len of list: {len(word_list)}")
+    print(f"Len of list: {len(word_list)}")
+    word_list = set(word_list)
+    print(f"Len of set: {len(word_list)}")
+    print(word_list)
+    __PRODUCE_ARTIFACTS_MODE__ = True
+    execute(word_list, n_art=10000, threshold=-1)
+
+    # execute([("adorable", "pet")], 5)
 
 

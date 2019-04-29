@@ -116,16 +116,16 @@ def estimate_best_parameters(im1, im2):
     l = lambda x: min(max(x, 0.000000000000000000001), 0.99999999999999999999999)
 
     return [
-        l(random.gauss(0.5, 0.35)),  # pos x
-        l(random.gauss(0.5, 0.35)),  # pos y
+        l(random.gauss(0.46, 0.06)),  # pos x
+        l(random.gauss(0.46, 0.06)),  # pos y
         random.random(),  # theta
-        l(abs(random.gauss(0, 0.3))),  # dist
-        l(random.gauss(0.55, 0.35)),  # s1
-        l(random.gauss(0.55, 0.35)),  # s2
-        l(abs(random.gauss(0.5, 2)) % 1),  # rot 1
-        l(abs(random.gauss(0.5, 2)) % 1),  # rot 2
-        l(1 - random.gauss(0.0, 0.8)),  # alpha
-        random.random() # bg color
+        l(abs(random.gauss(0, 0.2))),  # dist
+        l(random.gauss(0.45, 0.2)),  # s1
+        l(random.gauss(0.45, 0.2)),  # s2
+        l(abs(random.gauss(0.5, 0.12)) % 1),  # rot 1
+        l(abs(random.gauss(0.5, 0.12)) % 1),  # rot 2
+        l(1 - abs(random.gauss(0.0, 0.8))),  # alpha
+        random.random()  # bg color
     ]
 
 

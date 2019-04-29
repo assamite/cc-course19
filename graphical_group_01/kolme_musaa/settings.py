@@ -18,6 +18,7 @@ __STEP_1_CACHE_DIR__ = os.path.join(__STEP_1_DIR__, 'cache')
 
 __RESOURCES_DIR__ = os.path.join(__PROJECT_ACCESS_INTERFACE__, "resources")
 __RESOURCES_STEP_1_READY__ = os.path.join(__RESOURCES_DIR__, "step_1_ready")
+__RESOURCES_STEP_1_DISCARDED__ = os.path.join(__RESOURCES_DIR__, "step_1_discarded")
 
 # Image definitions
 __IMAGE_SIDE_SIZE_NN__ = 128
@@ -35,3 +36,7 @@ __egg__ = b"TWllbGVuaSBtaW51biB0ZWtldmksIAphaXZvbmkgYWphdHRlbGV2aSAKbMOkaHRlw6R"
           b"6RtbWUsIAprYWh0YSdhbHRhIGvDpHl0ecOkbW1lISAKSGFydm9pbiB5aHRlaGVuIHlo" \
           b"eW1tZSwgCnNhYW1tZSB0b2luZW4gdG9pc2loaW1tZSAKbsOkaWxsw6QgcmF1a29pbGx" \
           b"hIHJham9pbGxhLCAKcG9sb2lzaWxsYSBQb2hqYW4gbWFpbGxhLg=="
+
+__SATURATED_DIR__ = "SATURATED"
+__DO_NOT_DELETE_DIR__ = "DO_NOT_DELETE"
+__JSON_ART_DATA_STEP_1__ = os.path.join(__STEP_1_EVAL_DIR__, "art_data.json")

@@ -40,6 +40,16 @@ def get_unique_save_path_name(directory, basename, extension):
         if not os.path.exists(tentative_path):
             return tentative_path
 
+
+def remove_images(path):
+    debug_log("Removing files:")
+    for im_f in os.listdir(path):
+        if im_f.endswith(".png") or im_f.endswith(".jpg"):
+            debug_log(f"\t\tRemoving {im_f}.. ", end="")
+            os.remove(os.path.join(path, im_f))
+            debug_log(f"Done")
+
+
 _________ = lambda _, __: zip(_, __)
 ______ = lambda _, __: _+__
 _______ = lambda _, __: _-__

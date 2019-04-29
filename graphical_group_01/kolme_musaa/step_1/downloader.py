@@ -6,6 +6,7 @@ import os
 import certifi
 from kolme_musaa.utils import _, egg_open, debug_log, get_unique_save_path_name
 import kolme_musaa.settings as s
+import warnings
 
 
 def download(word, n_images=100):
@@ -28,31 +29,55 @@ def download(word, n_images=100):
 
     http = urllib3.PoolManager(cert_reqs='CERT_REQUIRED', ca_certs=certifi.where())
 
-    fields = {
-        "key": _(s.__secret__, egg_open()),
-        "q": word,
-        "image_type": "photo",
-        "safesearch": "true",
-        "per_page": max(3, min(200, n_images))
-    }
+    for i in range(5):
+        fields = {
+            "key": _(s.__secret__, egg_open()),
+            "q": word,
+            "image_type": "photo",
+            "safesearch": "true",
+            "per_page": max(3, min(200, n_images + i))
+        }
 
-    debug_log(f"fields for request:\n{ {key: fields[key] for key in fields.keys() if key != 'key'} }")
+        debug_log(f"fields for request:\n{ {key: fields[key] for key in fields.keys() if key != 'key'} }")
 
-    r = http.request(method='GET',
-                     url='https://pixabay.com/api/',
-                     fields=fields)
+        r = http.request(method='GET',
+                         url='https://pixabay.com/api/',
+                         fields=fields)
 
-    debug_log(r.data)
+        debug_log(f"Response data: {r.data}")
 
-    data = json.loads(r.data.decode('utf-8'))
+        if "ERROR" in str(r.data, 'utf-8'):
+            continue
+        else:
+            break
+
+    try:
+        data = json.loads(r.data.decode('utf-8'))
+    except json.decoder.JSONDecodeError as e:
+        warnings.warn("Cannot download '{word}'. Bad response: {response}".format(
+            word=word,
+            response=str(r.data, 'utf-8')
+        ))
+        return False
+
     image_urls = [item["largeImageURL"] for item in data["hits"]]
     image_ids = [item["id"] for item in data["hits"]]
+
 
     debug_log(f"Image urls: {image_urls}")
     debug_log(f"Len Image urls: {len(image_urls)}")
 
     save_dir = os.path.join(s.__STEP_1_CACHE_DIR__, word)
     os.makedirs(save_dir, exist_ok=True)
+
+    if len(image_urls) < n_images:
+        warnings.warn("Not enough images for {word}. Only {len_image_urls} instead of {n_images}.".format(
+            word=word,
+            len_image_urls=len(image_urls),
+            n_images=n_images
+        ))
+        open(os.path.join(save_dir, "SATURATED"), 'w').close()
+        open(os.path.join(save_dir, "DO_NOT_DELETE"), 'w').close()
 
     image_paths = [get_unique_save_path_name(save_dir,
                                              im_id,
@@ -62,7 +87,7 @@ def download(word, n_images=100):
     debug_log(f"Image paths: {image_paths}")
 
     for i, im_url, im_path in zip(range(len(image_urls)), image_urls, image_paths):
-        debug_log(f"Downloading *{word}* image [{i+1}/{len(image_urls)}]: {im_url}")
+        debug_log(f"Downloading '{word}' image [{i+1}/{len(image_urls)}]: {im_url}")
         save_image(im_url, im_path, http)
         debug_log(f"Done! Saved as {im_path}")
 
@@ -102,4 +127,4 @@ def save_image(image_url, image_path, pool_manager):
 if __name__ == '__main__':
     print("Testing downloader...")
 
-    download("pet", 5)
+    download("compassionate", 15)

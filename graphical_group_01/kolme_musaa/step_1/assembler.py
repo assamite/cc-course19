@@ -11,7 +11,20 @@ import numpy as np
 import warnings
 import math
 
-eps = sys.float_info.epsilon
+def machine_eps():
+    eps_1 = sys.float_info.epsilon
+    eps_2 = eps_1 / 2
+    while eps_1 != eps_2:
+        eps_1 = eps_2
+        eps_2 /= 2
+        if eps_2 == 0.0:
+            break
+        if 1 / eps_2 == math.inf:
+            break
+    return eps_1
+
+eps = machine_eps()
+
 
 def assemble_images_from_params(assembling_parameters, image_path_1, image_path_2, wp):
     """
@@ -53,9 +66,9 @@ def assemble_images_from_params(assembling_parameters, image_path_1, image_path_
         s2 = min(s1, 0.9)
 
     # Define a function in range [0, inf[
-    dist_fun = lambda x: x / (1 - x - eps)
+    dist_fun = lambda x: x / (1 - x + eps)
     # Define a function in range ] -inf , +inf [  (logit)
-    pos_fun = lambda x: math.log(eps + dist_fun(x))
+    pos_fun = lambda x: math.log(dist_fun(x) + eps)
 
     # Convert the parameters to actual values
     im1_position_x = pos_fun(im1_x) * s.__IMAGE_SIDE_SIZE__ + (s.__IMAGE_SIDE_SIZE__ / 2)
@@ -163,7 +176,7 @@ if __name__ == "__main__":
     if __FIXED__:
         assemble_images_from_params([
             0.5,  # pos x
-            0.46,  # pos y
+            1,#0.46,  # pos y
             0.222,  # theta
             0.31,  # dist
             0.5,  # s1
