@@ -4,8 +4,8 @@ Roses is a poem generator written in Python. It uses state-of-the-art methods to
 
 ## Usage
 ```console
-$ python main.py -h
-usage: main.py [-h] emotion word_pairs num_poems
+$ python roses.py -h
+usage: roses.py [-h] emotion word_pairs num_poems
 
 positional arguments:
   emotion     Emotion for poem.
@@ -15,8 +15,12 @@ positional arguments:
 optional arguments:
   -h, --help  show this help message and exit
 
-$ python main.py <emotion> <json with wordpairs as list> <number of poems to generate>
+$ python roses.py <emotion> <json with wordpairs as list> <number of poems to generate>
 
+```
+for example
+```
+$ python3 roses.py happy input.json 5
 ```
 
 ```python
