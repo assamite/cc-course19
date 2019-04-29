@@ -8,6 +8,7 @@ import contextlib
 import sys
 import csv
 import time
+import cv2
 import numpy as np
 import numpy.random as npr
 import tensorflow as tf
@@ -48,7 +49,7 @@ class RandomImageCreator:
         self.dims = kwargs.pop('resolution', [128, 128])
         self.folder = os.path.dirname(os.path.realpath(__file__))
         self.sess = None
-        self.GPU_MODE = False
+        self.GAN_MODE = False
 
         # Create necessary folders
         os.makedirs(self.folder + '/images/output', exist_ok=True)
@@ -56,23 +57,33 @@ class RandomImageCreator:
         os.makedirs(self.folder + '/images/content', exist_ok=True)
 
 
-        # load style transfer module
+        # load style transfer gan_module
         global style_transfer
         from .gpri_helper import style_transfer
 
-        # Check if user wants to use GPU:
-        choice = input("Enable GPU mode (y/n)? If no, initial image will "
+        # load inception gan_module for evaluation
+        print("Loading inception v3 network...")
+        self.inception_module = hub.Module(
+            'https://tfhub.dev/google/imagenet/inception_v3/classification/1')
+
+        # Load the vectors for word -> vector based on glove model
+        print("Loading GloVe vectors...")
+        self.vec_list = self.load_glove_vecs()
+
+
+        # Check if user wants to use BigGAN:
+        choice = input("Enable GAN mode (y/n)? If no, initial image will "
                        "be fetched from Google instead of using BigGAN.")
 
         if choice == 'Y' or choice == 'y' or choice == 'yes':
-            self.GPU_MODE = True
-            print('GPU mode enabled.')
+            self.GAN_MODE = True
+            print('GAN mode enabled.')
             print('Loading BigGAN model...')
-            self.module = hub.Module(
+            self.gan_module = hub.Module(
                 'https://tfhub.dev/deepmind/biggan-deep-128/1')
         else:
-            self.GPU_MODE = False
-            print('GPU mode disabled. Will fetch a content image from '
+            self.GAN_MODE = False
+            print('GAN mode disabled. Will fetch a content image from '
                   'Google.')
 
     def generate(self, emotion, word_pairs, **kwargs):
@@ -187,7 +198,6 @@ class RandomImageCreator:
         except:
             print('Image retrieved from Google could not be moved to correct '
                   'location!')
-        print('Done!')
         return img_path
 
     def generate_contentImage(self, wpr):
@@ -200,8 +210,8 @@ class RandomImageCreator:
             String with file path
         """
 
-        # If GPU_MODE is disabled or the noun is 'human' or 'weather':
-        if (not self.GPU_MODE) or (
+        # If GAN_MODE is disabled or the noun is 'human' or 'weather':
+        if (not self.GAN_MODE) or (
                 wpr[0] not in ['activity', 'animal', 'location']):
             path = self.get_googleImage(wpr, False)
 
@@ -213,7 +223,7 @@ class RandomImageCreator:
             y_index = tf.Variable([self.sample_idx(wpr[0])], dtype=tf.int32)
             y = tf.one_hot(y_index, 1000)  # one-hot ImageNet label
 
-            samples = self.module(dict(y=y, z=z, truncation=truncation))
+            samples = self.gan_module(dict(y=y, z=z, truncation=truncation))
 
             initializer = tf.global_variables_initializer()
             with tf.Session() as sess:
@@ -232,15 +242,88 @@ class RandomImageCreator:
         :param noun: The noun from the word_pair
         :return: int of index
         """
-        with open('labels/label_table_v1.csv', mode='r') as f:
+        with open(self.folder + 'labels/label_table_v1.csv', mode='r') as f:
             reader = csv.reader(f)
             categories = [rows[1] for rows in reader][1:]
         return npr.choice([i for i in range(1000) if categories[i] == noun])
 
-    def evaluate(self, image):
-        """Evaluate image. For now this is a dummy.
+    def evaluate(self, image_paths):
+        """Evaluate image by trying to recognise something in there.
+        :param image_paths: The path or paths to the image(s) that is/are to be
+            evaluated
+        :returns: A value between 0 and 1, the higher the number the better
+            the evaluation
         """
-        return 1
+
+        print("Starting evaluation...")
+        if type(image_paths) == str:
+            image_paths = [image_paths]
+        imgs = [imageio.imread(ip) for ip in image_paths]
+        imgs = [np.array(cv2.resize(i, (299, 299))) / 255 for i in imgs]
+        logits = self.inception_module(dict(images=np.array(imgs)))
+        softmax = tf.nn.softmax(logits)
+        top_k_values, top_k_indices = tf.nn.top_k(softmax, 3,
+                                                  name='top_predictions')
+        init = tf.global_variables_initializer()
+
+        # Calculate top k predictions for each picture
+        with tf.Session() as sess:
+            sess.run(init)
+            pics = sess.run(top_k_indices)
+
+        # Fetch the vector representations for each label for each picture
+        vecs = []
+        for i in pics:
+            vecs_sub = []
+            for c in i:
+                vecs_sub = vecs_sub + [
+                    [l[1:] for l in self.vec_list if l[0] == c - 1]]
+            vecs = vecs + [vecs_sub]
+
+        # Calculate distances between top predictions 3 for each image,
+        # then take the min of those
+        dists = []
+        # Go through pictures
+        for pic in vecs:
+            dists_btwn_lbls = []
+            # Go through labels
+            for l in pic:
+                dists_to_othr_lbl = []
+                # Go through each word in the label
+                for v in l:
+                    # And now compare with all other labels and each words
+                    for l2 in pic:
+                        if l2 != l:
+                            for v2 in l2:
+                                dists_to_othr_lbl = dists_to_othr_lbl + [np.sqrt(
+                                    np.sum((np.array(v) - np.array(v2)) ** 2))]
+                dists_btwn_lbls = dists_btwn_lbls + [np.mean(dists_to_othr_lbl)]
+            dists = dists + [np.min(dists_btwn_lbls)]
+
+        # Scale from 0 to 1 using (mirrored) sigmoid function with 0.5 at 8.5,
+        # lower dists giving higher evals and scaling by 2 to make the
+        # transition from 1 to 0 quicker.
+        evals = 1 / (1 + np.exp((np.array(dists) - 8.5) * 2))
+
+        return list(evals)
+
+    def load_glove_vecs(self):
+        """
+        Load the vector representation for certain words from a pretrained
+        glove model.
+        :return: List of vectors, where the first element of each entry in
+            the list is the imagenet class index and the rest are the vector
+            entries
+        """
+        file_content = ''
+        with open(self.folder + '/labels/glove_vecs.txt') as f:
+            for line in f:
+                file_content = file_content + line
+        file_content = file_content.replace('\n', '')
+        vec_list = file_content.split(']')
+        vec_list = [s.replace('[', '') for s in vec_list]
+        vec_list = [[float(v) for v in s.split()] for s in vec_list][:-1]
+        return vec_list
 
     def create(self, emotion, word_pairs, number_of_artifacts=10, **kwargs):
         """Create artifacts in the group's domain.
@@ -273,7 +356,7 @@ class RandomImageCreator:
         print("Group Example create with input args: {} {}".format(emotion,
                                                                    word_pairs))
 
-        ret = [(w, {'evaluation': self.evaluate(w)}) for w in
+        ret = [(w, {'evaluation': self.evaluate(w)[0]}) for w in
                [self.generate(emotion, word_pairs) for _ in
                 range(number_of_artifacts)]]
 
