@@ -6,13 +6,25 @@ import argparse
 import random
 import json
 
-from alter_word_pairs import generate_word_pairs
-from best_rhymes import generate_rhyming_words
-from choose_lines import find_lines
-from do_magic import alter_rest
-from expand_poem import fill_and_create_text
-from fill_evaluations import evaluate_poems
+## These imports work with main.py
+from roses.modules.alter_word_pairs import generate_word_pairs
+from roses.modules.best_rhymes import generate_rhyming_words
+from roses.modules.choose_lines import find_lines
+from roses.modules.do_magic import alter_rest
+from roses.modules.expand_poem import fill_and_create_text
+from roses.modules.fill_evaluations import evaluate_poems
+from roses.utils import read_json_file
 
+## These imports work with roses.py
+# from modules.alter_word_pairs import generate_word_pairs
+# from modules.best_rhymes import generate_rhyming_words
+# from modules.choose_lines import find_lines
+# from modules.do_magic import alter_rest
+# from modules.expand_poem import fill_and_create_text
+# from modules.fill_evaluations import evaluate_poems
+# from utils import read_json_file
+
+DATA_FOLDER = 'data/'
 
 class PoemCreator:
 
@@ -92,7 +104,7 @@ if __name__ == '__main__':
     parser.add_argument(
         'num_poems', help='Number of poems to output.', type=int)
     args = parser.parse_args()
-    with open(args.word_pairs) as json_file:
-        word_pairs = [tuple(word_pair) for word_pair in json.load(json_file)]
+    word_pairs = read_json_file(DATA_FOLDER +args.word_pairs)
+    word_pairs = [tuple(word_pair) for word_pair in word_pairs]
     for poem in poem_creator.create(args.emotion, [('human', 'boss'), ('animal', 'legged')], args.num_poems):
         print(f'----Poem evaluated {poem[1]}\n{poem[0]}\n----')
