@@ -6,13 +6,13 @@ import argparse
 import random
 import json
 
-from modules.alter_word_pairs import generate_word_pairs
-from modules.best_rhymes import generate_rhyming_words
-from modules.choose_lines import find_lines
-from modules.do_magic import alter_rest
-from modules.expand_poem import fill_and_create_text
-from modules.fill_evaluations import evaluate_poems
-from utils import read_json_file
+from roses.modules.alter_word_pairs import generate_word_pairs
+from roses.modules.best_rhymes import generate_rhyming_words
+from roses.modules.choose_lines import find_lines
+from roses.modules.do_magic import alter_rest
+from roses.modules.expand_poem import fill_and_create_text
+from roses.modules.fill_evaluations import evaluate_poems
+from roses.utils import read_json_file
 
 DATA_FOLDER = 'data/'
 
