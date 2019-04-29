@@ -1,4 +1,16 @@
 [
   ["human", "boss"],
-  ["animal", "legged"]
+  ["animal", "legged"],
+  ["activity", "fishing"],
+  ["animal", "venomous"], 
+  ["animal", "adorable"], 
+  ["animal", "mythical"], 
+  ["location", "battlefield"], 
+  ["weather", "rain"], 
+  ["human", "evil"], 
+  ["human", "creative"], 
+  ["human", "caring"], 
+  ["human", "deceptive"], 
+  ["human", "liberal"], 
+  ["human", "compassionate"]
 ]
