@@ -1,12 +1,18 @@
 """ Main file for step 1 """
 import warnings
 import os
+import shutil
 from PIL import Image
 import numpy as np
+import json
 
 from . import assembler, classifier, downloader, producer
 from kolme_musaa import settings as s
 from kolme_musaa.utils import get_unique_save_path_name, debug_log
+
+
+__PRODUCE_ARTIFACTS_MODE__ = False
+
 
 def execute(word_pairs:list, n_art:int):
     """Generates artifacts to be evaluated.
@@ -21,7 +27,19 @@ def execute(word_pairs:list, n_art:int):
         Number of artifacts to be produced.
 
     """
+
+    # Create the *eval* folder if it doesn't exist
+    os.makedirs(s.__STEP_1_EVAL_DIR__, exist_ok=True)
+
+    # Clear content of eval dir
+    if __PRODUCE_ARTIFACTS_MODE__ == False:
+        for im_f in os.listdir(s.__STEP_1_EVAL_DIR__):
+            if im_f.endswith(".py"):
+                continue
+            os.remove(os.path.join(s.__STEP_1_EVAL_DIR__, im_f))
+
     threshold = 0.5
+    n_images_per_word = min(max(n_art*10, 10), 100)
 
     words = set([w for wp in word_pairs for w in wp])
 
@@ -29,13 +47,13 @@ def execute(word_pairs:list, n_art:int):
     for w in words:
         word_dir = os.path.join(s.__STEP_1_CACHE_DIR__, w)
         if os.path.exists(word_dir):
-            if len(os.listdir(word_dir)) < n_art:
+            if len(os.listdir(word_dir)) < n_images_per_word:
                 for im_f in os.listdir(word_dir):
                     os.remove(os.path.join(word_dir, im_f))
             else:
                 debug_log(f"We have enough cached images for *{w}*. Skipping..")
                 continue
-        downloader.download(word=w, n_images=min(max(n_art*10, 10), 100))
+        downloader.download(word=w, n_images=n_images_per_word)
 
 
     # Now learn the parameters for assembling the artifacts and judge them
@@ -54,10 +72,19 @@ def execute(word_pairs:list, n_art:int):
             )
             assembler.assemble_images_from_params(assembling_parameters, image_path_1, image_path_2, wp)
 
+        # In produce mode this is the exit point
+        if __PRODUCE_ARTIFACTS_MODE__ == True:
+            if len(os.listdir(s.__STEP_1_EVAL_DIR__)) - 1 < n_art:
+                continue
+            else:
+                return {}
+        # In produce mode this is the exit point
+
+
+        # Evaluate the produced artifacts
         evals = classifier.evaluate_all()
 
-        # Decide on evaluation
-
+        # Decide what to do based on evaluation
         for image_path, image_dict in evals:
             im_eval = image_dict["evaluation"]
             if im_eval > threshold:
@@ -78,9 +105,8 @@ def execute(word_pairs:list, n_art:int):
     return ready_list
 
 
-
-
-
+if __name__ == "__main__":
+    word_list = [('activity', 'war'), ('animal', 'venomous'), ('animal', 'unusual'), ('animal', 'adorable'), ('location', 'cemetery'), ('weather', 'rain'), ('human', 'ruthless'), ('human', 'evil'), ('human', 'barbaric'), ('human', 'brutal'), ('human', 'compassionate'), ('human', 'liberal')]
 
 
 

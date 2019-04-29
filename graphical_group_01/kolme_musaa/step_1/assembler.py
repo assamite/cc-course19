@@ -64,8 +64,8 @@ def assemble_images_from_params(assembling_parameters, image_path_1, image_path_
     im2_relative_distance = dist_fun(im2_dist) * s.__IMAGE_SIDE_SIZE__
     im1_scale = dist_fun(s1)
     im2_scale = dist_fun(s2)
-    im1_rotation = r1 * 359
-    im2_rotation = r2 * 359
+    im1_rotation = r1 * 360 - 180
+    im2_rotation = r2 * 360 - 180
     im2_alpha_channel = math.ceil(im2_alpha * 255)
     im2_position_x = im1_position_x + math.cos(math.radians(im2_angle_theta)) * im2_relative_distance
     im2_position_y = im1_position_y + math.sin(math.radians(im2_angle_theta)) * im2_relative_distance
@@ -155,16 +155,34 @@ if __name__ == "__main__":
     import random, os
     p1 = os.path.join(s.__STEP_1_CACHE_DIR__, "activity", "570881.jpg")
     p2 = os.path.join(s.__STEP_1_CACHE_DIR__, "adorable", "623417.jpg")
-    # assemble_images_from_params([random.random() for _ in range(10)], p1, p2)
-    assemble_images_from_params([
-        0.5,  # pos x
-        0.5,  # pos y
-        0,  # theta
-        0.4,  # dist
-        0.45,  # s1
-        0.35,  # s2
-        0,  # rot 1
-        45,  # rot 2
-        0.6,  # alpha
-        random.random()  # bg color
-    ], p1, p2)
+
+    __FIXED__ = False
+
+    l = lambda x: min(max(x, 0.000000000000000000001), 0.99999999999999999999999)
+
+    if __FIXED__:
+        assemble_images_from_params([
+            0.5,  # pos x
+            0.46,  # pos y
+            0.222,  # theta
+            0.31,  # dist
+            0.5,  # s1
+            0.5,  # s2
+            0.5,  # rot 1
+            0.5,  # rot 2
+            0.6,  # alpha
+            random.random()  # bg color
+        ], p1, p2, ('activity', 'adorable'))
+    else:
+        assemble_images_from_params([
+            l(random.gauss(0.46, 0.06)),  # pos x
+            l(random.gauss(0.46, 0.06)),  # pos y
+            random.random(),  # theta
+            l(abs(random.gauss(0, 0.2))),  # dist
+            l(random.gauss(0.45, 0.2)),  # s1
+            l(random.gauss(0.45, 0.2)),  # s2
+            l(abs(random.gauss(0.5, 0.12)) % 1),  # rot 1
+            l(abs(random.gauss(0.5, 0.12)) % 1),  # rot 2
+            l(1 - abs(random.gauss(0.0, 0.8))),  # alpha
+            random.random()  # bg color
+        ], p1, p2, ('activity', 'adorable'))
