@@ -2,7 +2,8 @@ from typing import Dict, List
 import json
 import random
 import os
-from roses.utils import read_json_file
+from roses.utils import read_json_file # works with main.py
+# from utils import read_json_file # works with roses.py
 import string
 
 def find_lines(emotion: str, rhyming_partials: List[Dict]):

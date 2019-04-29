@@ -1,6 +1,7 @@
 from typing import Dict, List
 
-from roses.modules.to_be_or_not_to_be import fit_verb
+from roses.modules.to_be_or_not_to_be import fit_verb # works with main.py
+# from modules.to_be_or_not_to_be import fit_verb # works with roses.py
 
 DEBUG = False
 
