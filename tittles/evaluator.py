@@ -8,6 +8,7 @@ import math
 
 class Evaluator():
     TITLE_DUMP_PATH = os.path.join(os.path.dirname(os.path.realpath(__file__)), "data", "titles.pickle")
+    SENTIMENT_LEXICON_PATH = os.path.join(os.path.dirname(os.path.realpath(__file__)), "data", "EmotionLexicon.txt")
 
     def __init__(self):
         self.emotions = ['anger', 'disgust', 'fear', 'happiness', 'sadness', 'surprise']
@@ -30,6 +31,19 @@ class Evaluator():
 
             with open(self.TITLE_DUMP_PATH, "rb") as f:
                 self.title_bank = pickle.load(f)
+
+        #Read content for the sentiment dictionary
+        self.sentimentDictionary = {}
+        with open(self.SENTIMENT_LEXICON_PATH) as emotionLexicon:
+            lexicon = csv.reader(emotionLexicon, delimiter='\t')
+            word = ""
+            values = {}
+            for row in lexicon:
+                if word != row[0]:
+                    self.sentimentDictionary[word] = values
+                    word = row[0]
+                    values = {}
+                values[row[1]] = row[2]
 
         self.pref_novelty, self.pref_alliteration = self.__learn_preference(sample_size=100)
 
@@ -102,19 +116,6 @@ class Evaluator():
 
         return (novelty, alliteration)
 
-        #Read content for the sentiment dictionary
-        self.sentimentDictionary = {}
-        with open(os.path.join(self.folder, "data", "EmotionLexicon.txt")) as emotionLexicon:
-            lexicon = csv.reader(emotionLexicon, delimiter='\t')
-            word = ""
-            values = {}
-            for row in lexicon:
-                if word != row[0]:
-                    self.sentimentDictionary[word] = values
-                    word = row[0]
-                    values = {}
-                values[row[1]] = row[2]
-
     # Modified from https://www.python-course.eu/levenshtein_distance.php
     def __iterative_levenshtein(self, s, t, weights=(1, 1, 1)):
         """
@@ -130,7 +131,6 @@ class Evaluator():
         """
         rows = len(s)+1
         cols = len(t)+1
-
 
         dist = [[0 for x in range(cols)] for x in range(rows)]
         # source prefixes can be transformed into empty strings
