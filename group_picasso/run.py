@@ -114,7 +114,7 @@ class RandomImageCreator:
         for label in labels:
             print("\t{} {}".format(label.description.lower(), label.score))
             for word in label.description.split():
-                if word.lower() == animal.lower():
+                if word.lower() == animal.lower() and label.score > .9:
                     print("Content OK!")
                     return True
         return False
@@ -124,7 +124,7 @@ class RandomImageCreator:
         # style_selector = StyleSelector()
 
         # Quick fix
-        style_folder = os.path.join(self.folder, "images/styles")
+        style_folder = os.path.join(self.folder, "images/example_styles")
         style_filenames = [os.path.join(style_folder, f) for f in os.listdir(style_folder)]
         style_filenames = [i for i in style_filenames if os.path.isfile(i)]
 

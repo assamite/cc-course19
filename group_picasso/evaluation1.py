@@ -13,7 +13,6 @@ __version__ = """ version_01"""
 __author__ = """KatMal """
 
 import numpy as np
-import matplotlib.pyplot as plt
 from matplotlib import colors
 from scipy.spatial import cKDTree as KDTree
 
@@ -61,9 +60,10 @@ class EmotionEvaluator:
                               "palegoldenrod", "papayawhip", "peachpuff"]
 
     def emotions_by_colours(self, path):
-        pic = plt.imread(path)
-        if len(pic.shape) == 2:
-            pic = np.array(Image.fromarray(pic).convert("RGB"))
+        pic = Image.open(path)
+        if pic.mode is not "RGB":
+            pic = pic.convert("RGB")
+        pic = np.array(pic)
         pixels = pic.shape[0] * pic.shape[1]
         col = list(colors.cnames.keys())
         colours = {k: colors.cnames[k] for k in col}
@@ -84,7 +84,7 @@ class EmotionEvaluator:
         self.emotions["sadness"] = self.__sum_counts(
             self.dark_blues + self.slate_grays + self.dark_purples_violets + self.dark_cyans)
         self.emotions["happiness"] = self.__sum_counts(
-            self.pinks + self.light_purples_violets + self.light_yellows + self.mid_yellows + self.whites)
+            self.pinks + self.light_reds + self.light_yellows + self.mid_yellows + self.whites)
         self.emotions["fear"] = self.__sum_counts(self.blacks + self.other_grays + self.whites)
         self.emotions["surprise"] = self.__sum_counts(
             self.light_blues + self.light_cyans + self.light_greens + self.other_oranges + self.pinks +
