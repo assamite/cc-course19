@@ -32,9 +32,6 @@ stderr = sys.stderr
 sys.stderr = open(os.devnull, 'w')
 sys.stderr = stderr
 
-animal_idxs = np.arange(398)
-activity_idxs = np.arange(398, 1000)
-
 
 class RandomImageCreator:
 
