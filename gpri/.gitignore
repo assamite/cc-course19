@@ -1,9 +1,3 @@
-relu1_1/
-relu2_1/
-relu3_1/
-relu4_1/
-relu5_1/
-models.zip
-vgg_normalised.t7
+models/
 *.jpg
 *.ipynb

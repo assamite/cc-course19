@@ -9,6 +9,8 @@ import sys
 import csv
 import time
 import cv2
+import urllib.request as ur
+import zipfile
 import numpy as np
 import numpy.random as npr
 import tensorflow as tf
@@ -43,7 +45,8 @@ class RandomImageCreator:
         Only keyword arguments are supported in config.json
         """
         print("/----------------Group GPRI initialize----------------/")
-        print("\nThis code will need about 8GB of RAM while running (or about 4GB if you don't use the GAN)!\n")
+        print(
+            "\nThis code will need about 8GB of RAM while running (or about 4GB if you don't use the GAN)!\n")
 
         # Each creator should have domain specified: title, poetry, music, image, etc.
         self.domain = 'image'
@@ -56,7 +59,26 @@ class RandomImageCreator:
         os.makedirs(self.folder + '/images/output', exist_ok=True)
         os.makedirs(self.folder + '/images/style', exist_ok=True)
         os.makedirs(self.folder + '/images/content', exist_ok=True)
+        os.makedirs(self.folder + '/gpri_helper/style_help/models', exist_ok=True)
 
+        vgg_path = self.folder + "/gpri_helper/style_help/models/vgg_normalised.t7"
+        if not os.path.isfile(vgg_path):
+            print("Downloading the VGG model needed for style transfer...")
+            ur.urlretrieve("https://www.dropbox.com/s/kh8izr3fkvhitfn"
+                           "/vgg_normalised.t7?dl=1", vgg_path)
+
+        models_path = self.folder + "/gpri_helper/style_help/models"
+        if not os.path.exists(models_path + "/relu1_1"):
+            print(
+                "Downloading checkpoints for the pretrained model for style "
+                "transfer (might take a while, this is 500MB...")
+            ur.urlretrieve("https://www.dropbox.com/s/ssg39coiih5hjzz/models"
+                           ".zip?dl=1",
+                           models_path + "/models.zip")
+
+            with zipfile.ZipFile(models_path + "/models.zip", "r") as zip_ref:
+                zip_ref.extractall(models_path)
+            os.remove(models_path + "/models.zip")
 
         # load style transfer gan_module
         global style_transfer
@@ -70,7 +92,6 @@ class RandomImageCreator:
         # Load the vectors for word -> vector based on glove model
         print("Loading GloVe vectors...")
         self.vec_list = self.load_glove_vecs()
-
 
         # Check if user wants to use BigGAN:
         choice = input("Enable GAN mode (y/n)? If no, initial image will "
@@ -109,7 +130,8 @@ class RandomImageCreator:
         style_transfer.stylize(alpha=0.1, content_path=content_path,
                                style_path=google_style_path,
                                output_path=intermediate_output_path)
-        style_transfer.stylize(alpha=0.35, content_path=intermediate_output_path,
+        style_transfer.stylize(alpha=0.35,
+                               content_path=intermediate_output_path,
                                style_path=style_path, output_path=output_path)
 
         return output_path
@@ -126,22 +148,26 @@ class RandomImageCreator:
 
         if emotion == "anger":
             print("Generating style image for anger ...")
-            image = style_image_funcs.create_anger_image((128, 128), 180, 15, 5, 10)
+            image = style_image_funcs.create_anger_image((128, 128), 180, 15, 5,
+                                                         10)
             imageio.imwrite(path, image)
 
         elif emotion == "disgust":
             print("Generating style image for disgust ...")
-            image = style_image_funcs.create_disgust_image((128, 128), 180, 10, 5, 3)
+            image = style_image_funcs.create_disgust_image((128, 128), 180, 10,
+                                                           5, 3)
             imageio.imwrite(path, image)
 
         elif emotion == "fear":
             print("Generating style image for fear ...")
-            image = style_image_funcs.create_fear_image((128, 128), 180, 15, 5, 10)
+            image = style_image_funcs.create_fear_image((128, 128), 180, 15, 5,
+                                                        10)
             imageio.imwrite(path, image)
 
         elif emotion == "happiness":
             print("Generating style image for happiness ...")
-            image = style_image_funcs.create_happiness_image((128, 128), 180, 15, 5)
+            image = style_image_funcs.create_happiness_image((128, 128), 180,
+                                                             15, 5)
             imageio.imwrite(path, image)
 
         elif emotion == "sadness":
@@ -151,7 +177,8 @@ class RandomImageCreator:
 
         elif emotion == "surprise":
             print("Generating style image for surprise ...")
-            image = style_image_funcs.create_surprise_image((128, 128), 180, 15, 15, 25)
+            image = style_image_funcs.create_surprise_image((128, 128), 180, 15,
+                                                            15, 25)
             imageio.imwrite(path, image)
 
         return path
@@ -298,8 +325,10 @@ class RandomImageCreator:
                     for l2 in pic:
                         if l2 != l:
                             for v2 in l2:
-                                dists_to_othr_lbl = dists_to_othr_lbl + [np.sqrt(
-                                    np.sum((np.array(v) - np.array(v2)) ** 2))]
+                                dists_to_othr_lbl = dists_to_othr_lbl + [
+                                    np.sqrt(
+                                        np.sum(
+                                            (np.array(v) - np.array(v2)) ** 2))]
                 dists_btwn_lbls = dists_btwn_lbls + [np.mean(dists_to_othr_lbl)]
             dists = dists + [np.min(dists_btwn_lbls)]
 
