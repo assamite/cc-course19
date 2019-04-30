@@ -59,7 +59,9 @@ class RandomImageCreator:
         os.makedirs(self.folder + '/images/output', exist_ok=True)
         os.makedirs(self.folder + '/images/style', exist_ok=True)
         os.makedirs(self.folder + '/images/content', exist_ok=True)
-        os.makedirs(self.folder + '/gpri_helper/style_help/models', exist_ok=True)
+        os.makedirs(self.folder + '/gpri_helper/style_help/models',
+                    exist_ok=True)
+        os.makedirs(self.folder + '/gpri_helper/glove_vecs', exist_ok=True)
 
         vgg_path = self.folder + "/gpri_helper/style_help/models/vgg_normalised.t7"
         if not os.path.isfile(vgg_path):
@@ -71,7 +73,7 @@ class RandomImageCreator:
         if not os.path.exists(models_path + "/relu1_1"):
             print(
                 "Downloading checkpoints for the pretrained model for style "
-                "transfer (might take a while, this is 500MB...")
+                "transfer (might take a while, this is 500MB)...")
             ur.urlretrieve("https://www.dropbox.com/s/ssg39coiih5hjzz/models"
                            ".zip?dl=1",
                            models_path + "/models.zip")
@@ -79,6 +81,13 @@ class RandomImageCreator:
             with zipfile.ZipFile(models_path + "/models.zip", "r") as zip_ref:
                 zip_ref.extractall(models_path)
             os.remove(models_path + "/models.zip")
+
+        vecs_path = self.folder + "/gpri_helper/glove_vecs"
+        if not os.path.isfile(vecs_path + "/glove_vecs.txt"):
+            print("Downloading GloVe vectors which are needed during "
+                  "evaluation...")
+            ur.urlretrieve("https://cloud.ception.net/s/LHfmew27qxBki3G"
+                           "/download", vecs_path + "/glove_vecs.txt")
 
         # load style transfer gan_module
         global style_transfer
