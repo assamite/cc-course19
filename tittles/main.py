@@ -30,8 +30,8 @@ class tittlesTitle():
     def generate(self, *args, **kwargs):
         return self.create("", {}, number_of_artifacts=1)
 
-    def find_words(self, adjectives, slots):
-        return self.wordpicker.find_pairs(adjectives, slots)
+    def find_words(self, adjectives, activity, location, weather, slots):
+        return self.wordpicker.find_pairs(adjectives, activity, location, weather, slots)
 
     def evaluate(self, title):
         """
@@ -89,9 +89,13 @@ class tittlesTitle():
 
         while len(ret) != number_of_artifacts:
             adjectives = (list(word_pair[1] for word_pair in word_pairs if word_pair[0] == 'animal'), list(word_pair[1] for word_pair in word_pairs if word_pair[0] == 'human'))
+            weather = dict(word_pairs)['weather']
+            activity = dict(word_pairs)['activity']
+            location = dict(word_pairs)['location']
+
             template = self.template_bank.random_template()
             title = Title(template)
-            word_pair = self.find_words(adjectives, title.slots)
+            word_pair = self.find_words(adjectives, activity, location, weather, title.slots)
             print(word_pair)
             self.inject(title, word_pair)
             v = self.evaluate(str(title))

@@ -10,7 +10,7 @@ class WordPicker():
     def __init__(self):
         self.thesaurus = thesaurus
 
-    def find_pairs(self, adjectives, tags):
+    def find_pairs(self, adjectives, activity, location, weather, tags):
         """
         Finds 2 candidates for each slot of adjectives and nouns and picks the best combination (4 combinations with 2 slots)
         tags: 0 = adjective, 1 = noun, 2 = person, 3 = location
@@ -23,14 +23,14 @@ class WordPicker():
             tag = tag_list[i]
             for slot in tags[tag]:
                 if i == 0:
-                    candidates.append(self.get_adjective())
+                    candidates.append(self.get_adjective(activity, location, weather))
                 if i == 1:
                     candidates.append(self.get_noun('animal', adjectives[0]))
                 if i == 2:
                     candidates.append(self.get_noun('person', adjectives[1]))
                 if i == 3:
-                    #todo: get location nuances for adjectives instead
-                    candidates.append(self.get_noun('location', adjectives[1]))
+                    nuance_adj = self.get_adjective(activity, location, weather, 3)
+                    candidates.append(self.get_noun('location', nuance_adj))
         #If template has only one slot, no need to get oppositeness score
         if len(candidates) == 1:
             return candidates[0][0]
@@ -44,12 +44,12 @@ class WordPicker():
 
         return word_pair
 
-    def get_adjective(self):
+    def get_adjective(self, activity, location, weather, n=2):
         """
-        Returns two candidates for adjective
-        Todo: implement fetching nuance adjectives from thesaurus rex
+        Returns candidates for adjective
         """
-        return ("black", "white")
+        adjectives = self.thesaurus.find_nuances(activity)
+        return random.sample(list(adjectives), n)
 
     def get_noun(self, category, adjectives):
         """
