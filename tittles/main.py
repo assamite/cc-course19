@@ -30,8 +30,8 @@ class tittlesTitle():
     def generate(self, *args, **kwargs):
         return self.create("", {}, number_of_artifacts=1)
 
-    def find_opposites(self, adjectives):
-        return self.wordpicker.find_pairs(adjectives)
+    def find_words(self, adjectives, slots):
+        return self.wordpicker.find_pairs(adjectives, slots)
 
     def evaluate(self, title):
         """
@@ -88,10 +88,11 @@ class tittlesTitle():
         ret = []
 
         while len(ret) != number_of_artifacts:
-            adjectives = list(word_pair[1] for word_pair in word_pairs if word_pair[0] == 'animal')
-            word_pair = self.find_opposites(adjectives)
+            adjectives = (list(word_pair[1] for word_pair in word_pairs if word_pair[0] == 'animal'), list(word_pair[1] for word_pair in word_pairs if word_pair[0] == 'human'))
             template = self.template_bank.random_template()
             title = Title(template)
+            word_pair = self.find_words(adjectives, title.slots)
+            print(word_pair)
             self.inject(title, word_pair)
             v = self.evaluate(str(title))
             if v >= self.threshold:
