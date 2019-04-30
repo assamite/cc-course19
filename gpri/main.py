@@ -354,7 +354,7 @@ class RandomImageCreator:
             entries
         """
         file_content = ''
-        with open(self.folder + '/labels/glove_vecs.txt') as f:
+        with open(self.folder + '/gpri_helper/glove_vecs/glove_vecs.txt') as f:
             for line in f:
                 file_content = file_content + line
         file_content = file_content.replace('\n', '')
