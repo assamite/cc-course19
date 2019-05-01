@@ -23,7 +23,8 @@ class StyleFilter:
             try:
                 max_emotion, score = self.emotion_evaluator.emotions_by_colours(style_path)
             except IndexError:
-                print(os.path.basename(style_path))
+                print("Error: {}".format(os.path.basename(style_path)))
+                continue
             if score > self.limits[max_emotion]:
                 print("Style {}: {} {}...".format(style_filename, max_emotion, score))
 

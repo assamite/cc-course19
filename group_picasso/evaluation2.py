@@ -44,7 +44,7 @@ class DistanceEvaluator:
         k = 1.0
         l = k / len(images)
         for i in d:
-            h = (i[0],round(k,1))
+            h = (i[0],round(k,2))
             lista.append(h)
             k = k - l
                 
