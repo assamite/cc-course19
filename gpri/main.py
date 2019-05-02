@@ -48,7 +48,7 @@ class RandomImageCreator:
 
         # Each creator should have domain specified: title, poetry, music, image, etc.
         self.domain = 'image'
-        self.dims = kwargs.pop('resolution', [128, 128])
+        self.dims = kwargs.pop('resolution', [256, 256])
         self.folder = os.path.dirname(os.path.realpath(__file__))
         self.sess = None
         self.GAN_MODE = False
@@ -139,11 +139,12 @@ class RandomImageCreator:
         style_transfer.stylize(alpha=0.1, content_path=content_path,
                                style_path=google_style_path,
                                output_path=intermediate_output_path)
-        style_transfer.stylize(alpha=0.35,
+        style_transfer.stylize(alpha=0.1,
                                content_path=intermediate_output_path,
-                               style_path=style_path, output_path=output_path)
+                               style_path=style_path, output_path=output_path,
+                               keep_colors = True)
 
-        return output_path
+        return output_path, wpr
 
     def generate_styleImage(self, emotion):
         """
@@ -157,37 +158,32 @@ class RandomImageCreator:
 
         if emotion == "anger":
             print("Generating style image for anger ...")
-            image = style_image_funcs.create_anger_image((128, 128), 180, 15, 5,
-                                                         10)
+            image = style_image_funcs.create_anger_image((512, 512), 720, 40, 10, 10)
             imageio.imwrite(path, image)
 
         elif emotion == "disgust":
             print("Generating style image for disgust ...")
-            image = style_image_funcs.create_disgust_image((128, 128), 180, 10,
-                                                           5, 3)
+            image = style_image_funcs.create_disgust_image((512, 512), 720, 40, 10, 3)
             imageio.imwrite(path, image)
 
         elif emotion == "fear":
             print("Generating style image for fear ...")
-            image = style_image_funcs.create_fear_image((128, 128), 180, 15, 5,
-                                                        10)
+            image = style_image_funcs.create_fear_image((512, 512), 720, 40, 10, 10)
             imageio.imwrite(path, image)
 
         elif emotion == "happiness":
             print("Generating style image for happiness ...")
-            image = style_image_funcs.create_happiness_image((128, 128), 180,
-                                                             15, 5)
+            image = style_image_funcs.create_happiness_image((512, 512), 720, 40, 10)
             imageio.imwrite(path, image)
 
         elif emotion == "sadness":
             print("Generating style image for sadness ...")
-            image = style_image_funcs.create_sadness_image((128, 128), 180, 5)
+            image = style_image_funcs.create_sadness_image((512, 512), 720, 5)
             imageio.imwrite(path, image)
 
         elif emotion == "surprise":
             print("Generating style image for surprise ...")
-            image = style_image_funcs.create_surprise_image((128, 128), 180, 15,
-                                                            15, 25)
+            image = style_image_funcs.create_surprise_image((512, 512), 720, 25, 25, 25)
             imageio.imwrite(path, image)
 
         return path
@@ -226,8 +222,11 @@ class RandomImageCreator:
                      "size": "medium",
                      "format": "jpg",
                      "color_tye": "full-color",
-                     "no_download": True
+                     "no_download": True,
+                     "output_directory": self.folder + path_extension,
+                     "no_directory": True
                      }
+
         try:
             response = google_images_download.googleimagesdownload()
             response.download(arguments)
@@ -277,7 +276,7 @@ class RandomImageCreator:
 
         else:
             print("Generating image with GAN...")
-            truncation = 0.5  # scalar truncation value in [0.0, 1.0]
+            truncation = 0.2  # scalar truncation value in [0.0, 1.0]
             z = truncation * tf.random.truncated_normal(
                 [1, 140])  # noise sample
 
@@ -420,14 +419,9 @@ class RandomImageCreator:
         print("Group Example create with input args: {} {}".format(emotion,
                                                                    word_pairs))
 
-        ret = [(w, {'evaluation': self.evaluate(w)[0]}) for w in
+        ret = [(path, {'evaluation': self.evaluate(path)[0],
+               'emotion': emotion, 'word pair': wpr}) for path, wpr in
                [self.generate(emotion, word_pairs) for _ in
                 range(number_of_artifacts)]]
 
-        print('-' * 100)
-        print('-' * 100)
-
-        print(ret)
-        print('-' * 100)
-        print('-' * 100)
         return ret
