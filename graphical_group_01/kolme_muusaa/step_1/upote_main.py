@@ -14,7 +14,7 @@ from kolme_muusaa.utils import get_unique_save_path_name, debug_log, remove_imag
 __PRODUCE_ARTIFACTS_MODE__ = False
 
 
-def execute(word_pairs:list, n_art:int, threshold=0.5, n_images_per_word:int=20):
+def execute(word_pairs:list, n_art:int, threshold=0.5, n_images_per_word:int=10):
     """Generates artifacts to be evaluated.
 
     New images are saved under __STEP_1_EVAL_DIR__.

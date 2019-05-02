@@ -54,7 +54,7 @@ def evaluate(image_path=None, threshold=0.5):
     return np.random.rand()
 
 
-def evaluate_tf():
+# def evaluate_tf():
 
 
 
