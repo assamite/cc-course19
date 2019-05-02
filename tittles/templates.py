@@ -1,6 +1,6 @@
 import random
 import spacy
-
+from markov import MarkovChain
 
 nlp = spacy.load("en_core_web_sm")
 
@@ -36,10 +36,12 @@ class Title:
 
 class TemplateBank:
     def __init__(self, title_bank):
-        self.title_bank = title_bank
+        self.markov = MarkovChain(3)
+        for item in title_bank.values():
+            self.markov.add(item['title'].replace('—', '-'))
 
     def _random_template(self):
-        title = random.choice(list(self.title_bank.values()))["title"].replace('—', '-')
+        title = self.markov.generate()
 
         replacements = {}
         tokens = []
