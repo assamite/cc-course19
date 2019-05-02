@@ -13,7 +13,7 @@ except ModuleNotFoundError:
     from evaluator import Evaluator
 
 try:
-    from .wordpicker import WordPicker
+    from .wordpicker import WordPicker, AttributeNotFound
 except ModuleNotFoundError:
     from wordpicker import WordPicker
 
@@ -88,6 +88,8 @@ class tittlesTitle():
 
         ret = []
 
+        subsequent_catches = 0
+
         while len(ret) != number_of_artifacts:
             adjectives = (list(word_pair[1] for word_pair in word_pairs if word_pair[0] == 'animal'), list(word_pair[1] for word_pair in word_pairs if word_pair[0] == 'human'))
             weather = dict(word_pairs)['weather']
@@ -96,7 +98,16 @@ class tittlesTitle():
 
             template = self.template_bank.random_template()
             title = Title(template)
-            word_pair = self.find_words(adjectives, activity, location, weather, title.list_slots())
+            
+            try:
+                word_pair = self.find_words(adjectives, activity, location, weather, title.list_slots())
+                subsequent_catches = 0
+            except AttributeNotFound:
+                subsequent_catches += 1
+                if subsequent_catches > 20:
+                    # Really unlikely case.
+                    raise AttributeNotFound("Input attributes cannot be found from Thesaurus Rex.")
+
 
             self.inject(title, word_pair)
             v = self.evaluate(str(title))

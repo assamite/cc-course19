@@ -5,6 +5,11 @@ try:
 except ImportError:
     import thesaurus
 
+
+class AttributeNotFound(Exception):
+    pass
+
+
 class WordPicker():
 
     def __init__(self):
@@ -51,7 +56,10 @@ class WordPicker():
         Returns candidates for adjective
         """
         adjectives = self.thesaurus.find_nuances(activity)
-        return random.sample(list(adjectives), n)
+        try:
+            return random.sample(list(adjectives), n)
+        except ValueError:
+            raise AttributeNotFound("Input attributes cannot be found from Thesaurus Rex.")
 
     def get_noun(self, category, adjectives):
         """
