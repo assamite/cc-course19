@@ -8,12 +8,13 @@ from evaluation1 import EmotionEvaluator
 class StyleFilter:
     def __init__(self):
         self.folder = os.path.dirname(os.path.realpath(__file__))
-        self.dataset_name = "test"
+        self.dataset_name = "train"
         self.dataset_folder = os.path.join(self.folder, "images/dataset/" + self.dataset_name)
         self.style_folder = os.path.join(self.folder, "images/styles")
         self.emotion_evaluator = EmotionEvaluator()
         self.emotions = ["anger", "disgust", "fear", "happiness", "sadness", "surprise"]
         self.limits = {"anger": .4, "disgust": .85, "fear": .97, "happiness": .4, "sadness": .75, "surprise": .4}
+        Image.MAX_IMAGE_PIXELS = None
 
     def filter_styles(self):
         style_filenames = os.listdir(self.dataset_folder)

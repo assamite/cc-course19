@@ -78,7 +78,7 @@ class EmotionEvaluator:
         for k in self.counts:
             self.counts[k] = round((self.counts.get(k) / pixels), 2)
 
-        self.__print_top_colors()
+        # self.__print_top_colors()
 
         self.emotions["anger"] = self.__sum_counts(self.red_browns + self.red_oranges + self.dark_reds)
         self.emotions["sadness"] = self.__sum_counts(
@@ -91,7 +91,7 @@ class EmotionEvaluator:
             self.light_purples_violets + self.light_reds + self.mid_yellows)
         self.emotions["disgust"] = self.__sum_counts(self.mid_browns + self.dark_greens + self.dark_yellows)
 
-        self.__print_top_emotions()
+        # self.__print_top_emotions()
 
         max_emotion = max(self.emotions.items(), key=operator.itemgetter(1))[0]
         return max_emotion, self.emotions[max_emotion]
