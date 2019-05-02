@@ -4,20 +4,19 @@ Contains initialize- and create-functions.
 """
 
 import os
-import contextlib
 import sys
 import csv
 import time
 import cv2
 import urllib.request as ur
 import zipfile
+import scipy.misc as scm
 from io import StringIO
 import numpy as np
 import numpy.random as npr
 import tensorflow as tf
 import tensorflow_hub as hub
 import logging
-import shutil
 import imageio
 from google_images_download import google_images_download
 from .gpri_helper import style_image_funcs
@@ -251,7 +250,13 @@ class RandomImageCreator:
             try:
                 path, _ = ur.urlretrieve(url, self.folder + path_extension +
                                          cur_time + "_" + str(i) + ".jpg")
-                paths = paths + [path]
+                # Check if the image can actually be loaded as an image,
+                # and if not delete it
+                try:
+                    _ = scm.imread(path, mode='RGB')
+                    paths = paths + [path]
+                except:
+                    os.remove(path)
             except:
                 pass
             if len(paths) == num_imgs:
