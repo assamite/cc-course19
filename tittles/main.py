@@ -108,12 +108,16 @@ class tittlesTitle():
                     # Really unlikely case.
                     raise AttributeNotFound("Input attributes cannot be found from Thesaurus Rex.")
 
-
             self.inject(title, word_pair)
-            v = self.evaluate(str(title))
+
+            # Hacky fix to clean the output.
+            # Queried words contain underscores.
+            phenotype = str(title).replace("_", " ")
+
+            v = self.evaluate(phenotype)
             if v >= self.threshold:
-                ret.append((str(title), {"evaluation": v}))
-                self.evaluator.add_title(str(title))
+                ret.append((phenotype, {"evaluation": v}))
+                self.evaluator.add_title(phenotype)
 
         # Comment out if you want to keep the original titles
         self.evaluator.dump_titles()
