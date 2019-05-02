@@ -97,7 +97,7 @@ class RandomImageCreator:
             search_query, animal = search_image.get_query(emotion, word_pairs)
             content_path = search_image.get_image(search_query)
 
-            # content_path = os.path.join(self.folder, "images/content/bird.jpg")
+            # content_path = os.path.join(self.folder, "images/content/shark.jpg")
             # animal = self.__get_basename(content_path).split("_")[0]
 
             print("Animal is {}!".format(animal))
@@ -125,20 +125,14 @@ class RandomImageCreator:
     def __generate_artifact(self, emotion):
         print("Generating artifacts with different styles...")
 
-        # TODO
-        # style_selector = StyleSelector()
-
-        # Quick fix
         style_folder = os.path.join(self.root_style_folder, emotion)
         style_filenames = os.listdir(style_folder)
+
+        # style_filenames = os.listdir(os.path.join(self.folder, "images/styles/fear"))
 
         n_tries = 10
         artifacts = []
         for i in range(n_tries):
-            # TODO
-            # style_path = style_selector.select_style(self.style_folder, emotion)
-
-            # Quick fix
             style_filename = random.choice(style_filenames)
             style_path = os.path.join(style_folder, style_filename)
 
