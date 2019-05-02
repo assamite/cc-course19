@@ -141,7 +141,7 @@ class RandomImageCreator:
         style_transfer.stylize(alpha=0.1,
                                content_path=intermediate_output_path,
                                style_path=style_path, output_path=output_path,
-                               keep_colors = True)
+                               keep_colors = False)
 
         return output_path, wpr
 
