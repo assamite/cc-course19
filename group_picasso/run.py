@@ -97,7 +97,7 @@ class RandomImageCreator:
             search_query, animal = search_image.get_query(emotion, word_pairs)
             content_path = search_image.get_image(search_query)
 
-            # content_path = os.path.join(self.folder, "images/content/shark.jpg")
+            # content_path = os.path.join(self.folder, "images/content/otter_2.jpg")
             # animal = self.__get_basename(content_path).split("_")[0]
 
             print("Animal is {}!".format(animal))

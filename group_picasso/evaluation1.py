@@ -24,7 +24,7 @@ class EmotionEvaluator:
         self.emotions = {}
 
         self.dark_blues = ["blue", "cornflowerblue", "darkblue", "deepskyblue", "dodgerblue", "mediumblue",
-                           "midnightblue", "navy", "royalblue", "steelblue", "teal"]
+                           "midnightblue", "navy", "royalblue", "steelblue"]
         self.light_blues = ["lightsteelblue", "lightblue", "lightskyblue", "skyblue", "powderblue"]
         self.blacks = ["black"]
         self.light_browns = ["bisque", "blanchedalmond", "cornsilk", "navajowhite", "wheat"]
