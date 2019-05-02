@@ -1,0 +1,134 @@
+@import url('https://fonts.googleapis.com/css?family=Press+Start+2P');
+
+/* Font settings */
+h1, h2, h3, h4, h5, h6, p, label {
+    font-family: "Helvetica Neue", Helvetica, Arial, sans-serif;
+}
+
+p {
+    font-size: 2vh;
+}
+
+/* Line cursor settings */
+.line_cursor {
+    background-color: red;
+    z-index: 2;  /* Elevate it to draw over surfaces */
+    width: 25px;
+    height: 3px;
+    border: 0;
+    padding: 0;
+    margin: 0;
+    position: absolute;
+    pointer-events: none;
+    opacity: 0.6;
+}
+
+.triangle_down {
+	width: 0;
+	height: 0;
+	border-left: 8px solid transparent;
+	border-right: 8px solid transparent;
+	border-top: 16px solid red;
+}
+
+#max_indicator_arrow {
+    padding: 0;
+    margin: 0;
+}
+
+#max_indicator_container {
+    width: 12px;
+    height: 25px;
+    border: 0;
+    padding: 0;
+    margin: 0;
+    left: 0;
+}
+
+#max_indicator_text {
+    text-align: center;
+    font-size: 8px;
+    padding: 0;
+    margin: 0;
+    border: 0;
+}
+
+#cursor_line_left {
+    left: 0;
+}
+
+#plot {
+    border-width: 0;
+    margin: 0;
+    padding: 0;
+    height: 400px;
+    /*width: 3000px;*/
+}
+
+.canvas_div {
+    border-style: solid;
+    border-color: gray;
+    border-width: 1px;
+    margin: 0;
+    padding: 0;
+    /*display: table; !* The property "display: table" makes the div wrap tightly its content *!*/
+    /*position: relative;*/
+}
+
+.code {
+    font-family: "Bitstream Vera Sans Mono", "Ubuntu Mono", Monaco, "Courier New", Courier, monospace;
+    font-size: 10px;
+    line-height: 1;
+    white-space: pre-line; /* displays carriage returns and allows line wrap */
+}
+
+.hidden {
+    display: none;
+}
+
+.inline_text{
+    display: inline;
+}
+
+.top_text{
+    margin-right: 1em;
+}
+
+.error_msg {
+    /*font-weight: bold;*/
+    /*color: #510000;*/
+    background-color: lightpink;
+    /*text-shadow: 1px 1px 5px red;*/
+}
+
+.score {
+    font-family: 'Press Start 2P', "Bitstream Vera Sans Mono", "Ubuntu Mono", Monaco, "Courier New", Courier, monospace;
+    font-size: 80%;
+}
+
+button {
+    font-size: 6vh;
+    text-align: center;
+    padding: 4vh;
+    margin: 1vh;
+}
+
+#button-div {
+    text-align: center;
+}
+
+.align-center {
+    text-align: center;
+}
+
+#art {
+    max-height: 45vmin;
+    min-height: 45vmin;
+}
+
+form {
+    display: inline-block;
+    margin: 0;
+    padding: 0;
+    border: 0;
+}

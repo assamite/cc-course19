@@ -1,0 +1,59 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset='utf-8'>
+
+    <!-- Favicon -->
+    <link rel="icon" type="image/png" href="static/favicon.ico">
+
+    <!-- Standard CSS style -->
+    <link rel="stylesheet" href="static/style.css">
+
+    <!--Import these scripts in this order until transition to modules is complete-->
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
+
+    <title>KolmeMuusa: rate this artifact.</title>
+
+</head>
+<body>
+    <h1 class="align-center">Kolme Muusaa</h1>
+    {% if info_message %}
+    <p class="align-center info">{{ info_message }}</p>
+    {% endif %}
+
+    {% if not disable_eval %}
+    <p class="align-center">Please, rate this artifact. Is it novel? Is it beautiful? - Star only if exceptional!</p>
+    {% endif %}
+
+    <h2 class="align-center">Title: {{ art_name }}</h2>
+
+    {% if not disable_eval %}
+    <div class="align-center">
+        <img id="art" src="{{ image_path }}" alt="{{ art_name }}" >
+    </div>
+
+    <div id="button-div" class="align-center">
+        <form action="/" method="post">
+            <input name="art_name" type="text" hidden value="{{ art_name }}">
+            <input name="evaluation" type="number" hidden value=0.0>
+            <button id="dislike" type="submit">👎</button>
+        </form>
+        <form action="/" method="post">
+            <input name="art_name" type="text" hidden value="{{ art_name }}">
+            <input name="evaluation" type="number" hidden value=1.0>
+            <button id="like" type="submit">👍</button>
+        </form>
+        <form action="/" method="post">
+            <input name="art_name" type="text" hidden value="{{ art_name }}">
+            <input name="evaluation" type="number" hidden value=1.0>
+            <input name="star" type="checkbox" hidden checked value=True>
+            <button id="star" type="submit">🌟</button>
+        </form>
+    </div>
+    <div class="align-center">
+        <a href=".">Skip</a>
+    </div>
+    {% endif %}
+</body>
+</html>

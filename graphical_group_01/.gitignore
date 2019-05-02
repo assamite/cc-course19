@@ -22,9 +22,10 @@ resources/*
 resources/*/*
 !resources/*/__init__.py
 
-kolme_musaa/step_1/cache/*/*
-!kolme_musaa/step_1/cache/__init__.py
+kolme_muusaa/step_1/cache
+kolme_muusaa/step_1/cache/*/*
+!kolme_muusaa/step_1/cache/__init__.py
 
-kolme_musaa/step_1/eval_dir/*
-!kolme_musaa/step_1/eval_dir/__init__.py
+kolme_muusaa/step_1/eval_dir/*
+!kolme_muusaa/step_1/eval_dir/__init__.py
 
