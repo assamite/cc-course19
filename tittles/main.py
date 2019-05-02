@@ -46,13 +46,14 @@ class tittlesTitle():
         return self.evaluator.evaluate(title.split(" "), self.emotion)
 
     def inject(self, title, word_pair):
-        for i, cat in title.get_slots('NP'):
-            if cat == 'plural':
-                title.inject(pluralize(word_pair[0]).capitalize(), 'NP')
+        word_pair = iter(word_pair)
+        for i, slot in title.list_slots():
+            if slot == 'NOUN':
+                title.inject(singularize(next(word_pair)).capitalize(), slot, i)
+            elif slot == 'NOUNS':
+                title.inject(pluralize(next(word_pair)).capitalize(), slot, i)
             else:
-                title.inject(singularize(word_pair[0]).capitalize(), 'NP')
-        for i, cat in title.get_slots('ADJ'):
-            title.inject(word_pair[1].capitalize(), 'ADJ')
+                title.inject(next(word_pair).capitalize(), slot, i)
 
     def create(self, emotion, word_pairs, number_of_artifacts=10, **kwargs):
         """Create artifacts in the group's domain.
@@ -95,8 +96,8 @@ class tittlesTitle():
 
             template = self.template_bank.random_template()
             title = Title(template)
-            word_pair = self.find_words(adjectives, activity, location, weather, title.slots)
-            
+            word_pair = self.find_words(adjectives, activity, location, weather, title.list_slots())
+
             self.inject(title, word_pair)
             v = self.evaluate(str(title))
             if v >= self.threshold:

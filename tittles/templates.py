@@ -10,53 +10,26 @@ class Title:
         self.orig = template_string
         self.title = template_string.split(" ")
 
-        # Keep slots in memory for injections
-        self.slots = {
-            "ADJ": [],
-            "NP": [],
-            "PERSON": [],
-            "LOC": [],
-        }
-
+    def list_slots(self):
         for i, tok in enumerate(self.title):
             if tok == "[[ADJ]]":
-                self.slots["ADJ"].append((i, None))
-            elif tok in ["[[NOUN]]", "[[PROPN]]"]:
-                self.slots["NP"].append((i, "singular"))
-            elif tok in ["[[NOUNS]]", "[[PROPNS]]"]:
-                self.slots["NP"].append((i, "plural"))
+                yield (i, "ADJ")
+            elif tok == "[[NOUN]]":
+                yield (i, "NOUN")
+            elif tok == "[[NOUNS]]":
+                yield (i, "NOUNS")
             elif tok == "[[PERSON]]":
-                self.slots["PERSON"].append((i, None))
+                yield (i, "PERSON")
             elif tok == "[[LOC]]":
-                self.slots["LOC"].append((i, None))
+                yield (i, "LOC")
 
-    def get_slots(self, tag):
-        """Get slots for the given tag."""
-        assert tag in ["ADJ", "NP", "PERSON", "LOC"]
-        return self.slots[tag]
-
-    def inject(self, token, tag, pos=-1):
+    def inject(self, token, tag, pos):
         """Inject the given token into the title."""
-        # Fix these eventually
         assert pos >= -1
         assert pos < len(self.title)
-        assert tag in ["ADJ", "NP", "PERSON", "LOC"]
-
-        if len(self.slots[tag]) == 0:
-            return None
-
-        if pos >= 0:
-            if pos not in self.slots[tag]:
-                raise ValueError(
-                    "Given position index is not a slot for the given tag."
-                )
-        else:
-            # If 'pos' not given, inject to first available slot
-            pos = self.slots[tag][0][0]
-
+        assert tag in ["ADJ", "NOUN", "NOUNS", "PERSON", "LOC"]
+        assert self.title[pos] == "[[" + tag + "]]"
         self.title[pos] = token
-
-        return token, pos
 
     def __str__(self):
         return " ".join(self.title)

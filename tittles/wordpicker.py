@@ -10,7 +10,7 @@ class WordPicker():
     def __init__(self):
         self.thesaurus = thesaurus
 
-    def find_pairs(self, adjectives, activity, location, weather, tags):
+    def find_pairs(self, adjectives, activity, location, weather, slots):
         """
         Finds 2 candidates for each slot of adjectives and nouns and picks the best combination (4 combinations with 2 slots)
         tags: 0 = adjective, 1 = noun, 2 = person, 3 = location
@@ -18,24 +18,26 @@ class WordPicker():
         """
         candidates = []
         scores = []
-        tag_list = ['ADJ', 'NP', 'PERSON', 'LOC']
-        for i in range(4):
-            tag = tag_list[i]
-            for slot in tags[tag]:
-                if i == 0:
-                    candidates.append(self.get_adjective(activity, location, weather))
-                if i == 1:
-                    candidates.append(self.get_noun('animal', adjectives[0]))
-                if i == 2:
-                    candidates.append(self.get_noun('person', adjectives[1]))
-                if i == 3:
-                    nuance_adj = self.get_adjective(activity, location, weather, 3)
-                    candidates.append(self.get_noun('location', nuance_adj))
+        for i, slot in slots:
+            if slot == 'ADJ':
+                candidates.append(self.get_adjective(activity, location, weather))
+            elif slot == 'NOUN' or slot == 'NOUNS':
+                candidates.append(self.get_noun('animal', adjectives[0]))
+            elif slot == 'PERSON':
+                candidates.append(self.get_noun('person', adjectives[1]))
+            elif slot == 'LOC':
+                nuance_adj = self.get_adjective(activity, location, weather, 3)
+                candidates.append(self.get_noun('location', nuance_adj))
         #If template has only one slot, no need to get oppositeness score
         if len(candidates) == 1:
             return candidates[0][0]
 
-        candidate_pairs = [(candidates[0][0], candidates[1][0]), (candidates[0][0], candidates[1][1]), (candidates[0][1], candidates[1][0]), (candidates[0][1], candidates[1][1])]
+        candidate_pairs = [
+            (candidates[0][0], candidates[1][0]),
+            (candidates[0][0], candidates[1][1]),
+            (candidates[0][1], candidates[1][0]),
+            (candidates[0][1], candidates[1][1])
+        ]
         for i in range(len(candidate_pairs)):
             candidate = candidate_pairs[i]
             oppositeness = self.get_oppositeness_score(candidate[0], candidate[1])
