@@ -38,12 +38,7 @@ class TemplateBank:
     def __init__(self, title_bank):
         self.title_bank = title_bank
 
-    def random_template(self, recursion_count=0):
-        """Get random template from the bank."""
-
-        if recursion_count > 25:
-            raise RecursionError("Title generation was unable to find fitting template and produces deep recursion.")
-
+    def _random_template(self):
         title = random.choice(list(self.title_bank.values()))["title"].replace('—', '-')
 
         replacements = {}
@@ -75,10 +70,18 @@ class TemplateBank:
             i += 2
 
         if len(replacements) < 2:
-            return self.random_template(recursion_count=recursion_count+1)
+            return None
 
         # Create a template by replacing two random tokens with POS tags
         for i, replacement in random.sample(replacements.items(), 2):
             tokens[i] = replacement
 
         return tokens
+
+    def random_template(self):
+        """Get random template from the bank."""
+        for i in range(0, 25):
+            template = self._random_template()
+            if template is not None:
+                return template
+        raise RecursionError("Title generation was unable to find fitting template.")
