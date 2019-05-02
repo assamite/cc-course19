@@ -20,6 +20,9 @@ class DistanceEvaluator:
     
     def difference(self ,dlist, grayscale = False):
         """calculates the euclidean distance between images and gives them a score"""
+        if len(dlist) == 0:
+            return 0
+        
         images = []
         for t in dlist:
             if grayscale == False: 
@@ -44,7 +47,7 @@ class DistanceEvaluator:
         k = 1.0
         l = k / len(images)
         for i in d:
-            h = (i[0],round(k,2))
+            h = (i[0],round(k,1))
             lista.append(h)
             k = k - l
                 
