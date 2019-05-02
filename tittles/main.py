@@ -96,7 +96,7 @@ class tittlesTitle():
             template = self.template_bank.random_template()
             title = Title(template)
             word_pair = self.find_words(adjectives, activity, location, weather, title.slots)
-            print(word_pair)
+            
             self.inject(title, word_pair)
             v = self.evaluate(str(title))
             if v >= self.threshold:

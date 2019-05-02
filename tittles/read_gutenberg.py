@@ -71,7 +71,6 @@ def getrdfdata():
         xml.etree.ElementTree.Element: An etext meta-data definition.
     """
     if not os.path.exists(RDFFILES):
-        print(RDFFILES)
         import urllib.request
         _, _ = urllib.request.urlretrieve(RDFURL, RDFFILES)
     with tarfile.open(RDFFILES) as archive:
