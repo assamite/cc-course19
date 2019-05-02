@@ -21,7 +21,7 @@ class DistanceEvaluator:
     def difference(self ,dlist, grayscale = False):
         """calculates the euclidean distance between images and gives them a score"""
         if len(dlist) == 0:
-            return 0
+            return []
         
         images = []
         for t in dlist:
