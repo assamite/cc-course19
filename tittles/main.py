@@ -48,12 +48,13 @@ class tittlesTitle():
     def inject(self, title, word_pair):
         word_pair = iter(word_pair)
         for i, slot in title.list_slots():
+            next_word = next(word_pair).replace("_", " ").title()
             if slot == 'NOUN':
-                title.inject(singularize(next(word_pair)).capitalize(), slot, i)
+                title.inject(singularize(next_word), slot, i)
             elif slot == 'NOUNS':
-                title.inject(pluralize(next(word_pair)).capitalize(), slot, i)
+                title.inject(pluralize(singularize(next_word)), slot, i)
             else:
-                title.inject(next(word_pair).capitalize(), slot, i)
+                title.inject(next_word, slot, i)
 
     def create(self, emotion, word_pairs, number_of_artifacts=10, **kwargs):
         """Create artifacts in the group's domain.
@@ -110,10 +111,7 @@ class tittlesTitle():
 
             self.inject(title, word_pair)
 
-            # Hacky fix to clean the output.
-            # Queried words contain underscores.
-            phenotype = str(title).replace("_", " ")
-
+            phenotype = str(title)
             v = self.evaluate(phenotype)
             if v >= self.threshold:
                 ret.append((phenotype, {"evaluation": v}))
