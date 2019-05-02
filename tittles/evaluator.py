@@ -243,11 +243,14 @@ class Evaluator():
         """
         nov = self.eval_novelty(" ".join(title))*self.pref_novelty
         alli = self.eval_alliteration(title)*self.pref_alliteration
+        # Sentiment values seem to be consistently around 0.6, scale up closer to one.
+        # Still make sure, that value is not over 1.0
         senti = self.eval_sentiment(title, emotion)
+        scaled_senti = min(1.0, senti*1.4)
 
         # Novelty & Alliteration are weighted against each other to result in 1.0 weight together.
         # Sentiment has 1.0 weight at the moment, so scale everything down in same fractions, so that output range [0,1]
-        return (nov*0.25) + (alli*0.25) + (senti*0.5)
+        return (nov*0.25) + (alli*0.25) + (scaled_senti*0.5)
 
     def eval_novelty(self, title):
         if self.title_bank is None:
