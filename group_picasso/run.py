@@ -128,7 +128,7 @@ class RandomImageCreator:
         style_folder = os.path.join(self.root_style_folder, emotion)
         style_filenames = os.listdir(style_folder)
 
-        # style_filenames = os.listdir(os.path.join(self.folder, "images/styles/fear"))
+        # style_path = os.path.join(self.folder, "images/example_styles/Camille_Mauclair.jpg")
 
         n_tries = 10
         artifacts = []
