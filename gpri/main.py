@@ -11,6 +11,7 @@ import time
 import cv2
 import urllib.request as ur
 import zipfile
+from io import StringIO
 import numpy as np
 import numpy.random as npr
 import tensorflow as tf
@@ -120,6 +121,8 @@ class RandomImageCreator:
         # Sample one of the word_pairs for use:
         wpr = word_pairs[npr.choice(len(word_pairs))]
 
+        print("Selected word pair:" + str(wpr))
+
         # Generate content image
         content_path = self.generate_contentImage(wpr)
 
@@ -189,50 +192,73 @@ class RandomImageCreator:
 
         return path
 
-    def get_googleImage(self, keywords, style):
+    def get_googleImage(self, keywords, style, num_imgs=1):
         """
         Fetch the style image for the style transfer.
         :param keywords: List of words to search for
         :param style: Boolean, whether image should be abstract art, for the
             style image
+        :param num_imgs: How many images should be requested from Google.
         :return:
             Path to medium sized style or content image
         """
-        print('Downloading an image from Google...')
-        response = google_images_download.googleimagesdownload()
+        print('Downloading ' + str(num_imgs) + ' images from Google...')
+
+        # define term to search for
         search_term = ''
         for w in keywords:
             search_term = search_term + w + ' '
         if style:
-            search_term = search_term + 'abstract art'
+            search_term = search_term + 'abstract art painting -text -stock'
+            path_extension = "/images/style/"
+        else:
+            search_term = search_term + 'photograph -text -stock'
+            path_extension = "/images/content/"
 
+        # redirect stdout to string
+        old_stdout = sys.stdout
+        output = StringIO()
+        sys.stdout = output
+
+        # query and print urls for first 100 images belonging to the search term
         arguments = {"keywords": search_term,
-                     "limit": 1,
+                     "limit": 100,
                      "size": "medium",
                      "format": "jpg",
                      "color_tye": "full-color",
-                     "type": "photo",
-                     "output_directory": f"{str(self.folder)}",
-                     "image_directory": "images/google_style_dump"}
-
-        with open(os.devnull, 'w') as devnull:
-            with contextlib.redirect_stdout(devnull):
-                path = response.download(arguments)
-
-        path = [k for k in path.values()]
-        # rename the downloaded styleImage to a proper name
-        img_path = ''
+                     "no_download": True
+                     }
         try:
-            cur_time = str(int(time.time() % 1e7))
-            if style:
-                img_path = self.folder + "/images/style/" + cur_time + ".jpg"
-            else:
-                img_path = self.folder + "/images/content/" + cur_time + ".jpg"
-            shutil.move(str(path[0][0]), img_path)
+            response = google_images_download.googleimagesdownload()
+            response.download(arguments)
         except:
-            print('Image retrieved from Google could not be moved to correct '
-                  'location!')
-        return img_path
+            print('Error: Looks like Google is down :/')
+            return []
+
+        # restore the normal stdout and store urls in list
+        sys.stdout = old_stdout
+        output = output.getvalue()
+        urls = [line[11:] for line in output.split('\n') if
+                'Image URL:' in line]
+
+        # sample num_imgs of the 100 images and download them
+        # Going through all with stopping condition when num_imgs have been
+        # sampled is necessary, because downloads can and do fail and then we
+        # need to try download other images.
+        img_urls = npr.choice(urls, 100, replace=False)
+        paths = []
+        for i, url in enumerate(list(img_urls)):
+            cur_time = str(int(time.time() % 1e7))
+            try:
+                path, _ = ur.urlretrieve(url, self.folder + path_extension +
+                                         cur_time + "_" + str(i) + ".jpg")
+                paths = paths + [path]
+            except:
+                pass
+            if len(paths) == num_imgs:
+                break
+
+        return paths[0]
 
     def generate_contentImage(self, wpr):
         """
