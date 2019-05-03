@@ -1,5 +1,11 @@
 # Random_team, Computational Creativity course, 2019
 
+# Authors:
+
+Antti Lipsanen (@anttilip)
+Cecilia Äijälä
+Vladimir Dobrodeev (@dvy1989)
+
 ## How to run the stuff
 
 In our group folder there is a file called *random_team_main_config.json*. 
