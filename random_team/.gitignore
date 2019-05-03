@@ -2,3 +2,12 @@
 venv
 *.jpg
 !dummy.jpg
+
+out
+.vscode
+
+# No more additional changes, like *_sem images
+faces
+
+# Remove RESULT images
+RESULT*
