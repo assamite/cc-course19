@@ -4,7 +4,7 @@
 
 Antti Lipsanen [@anttilip](https://github.com/anttilip)
 
-Cecilia Äijälä
+Cecilia Äijälä [@shiera](https://github.com/shiera)
 
 Vladimir Dobrodeev [@dvy1989](https://github.com/dvy1989)
 
