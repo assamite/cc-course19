@@ -118,9 +118,9 @@ class tittlesTitle():
             self.inject(title, word_pair)
             logger.debug('final title: ' + str(title))
 
-            phenotype = str(title)
-            v = self.evaluate(phenotype)
+            v = self.evaluate(' '.join(title.tokens()))
             if v >= self.threshold:
+                phenotype = str(title)
                 ret.append((phenotype, {"evaluation": v}))
                 self.evaluator.add_title(phenotype)
             else:

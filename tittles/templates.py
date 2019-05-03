@@ -10,10 +10,10 @@ nlp = spacy.load("en_core_web_sm")
 
 class Title:
     def __init__(self, tokens):
-        self.tokens = tokens
+        self._tokens = tokens
 
     def list_slots(self):
-        for i, tok in enumerate(self.tokens):
+        for i, tok in enumerate(self._tokens):
             if tok == "[[ADJ]]":
                 yield (i, "ADJ")
             elif tok == "[[NOUN]]":
@@ -25,16 +25,22 @@ class Title:
             elif tok == "[[LOC]]":
                 yield (i, "LOC")
 
+    def tokens(self):
+        for i, tok in enumerate(self._tokens):
+            if len(tok.strip()) == 0:
+                continue
+            yield from tok.split()
+
     def inject(self, token, tag, pos):
         """Inject the given token into the title."""
         assert pos >= -1
-        assert pos < len(self.tokens)
+        assert pos < len(self._tokens)
         assert tag in ["ADJ", "NOUN", "NOUNS", "PERSON", "LOC"]
-        assert self.tokens[pos] == "[[" + tag + "]]"
-        self.tokens[pos] = token
+        assert self._tokens[pos] == "[[" + tag + "]]"
+        self._tokens[pos] = token
 
     def __str__(self):
-        return "".join(self.tokens)
+        return "".join(self._tokens)
 
 
 class TemplateBank:

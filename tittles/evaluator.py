@@ -245,6 +245,7 @@ class Evaluator():
             float : Weighted average of the different evaluations.
         """
 
+        logger.debug("input " + str(title))
 
         if self.eval_numbers(" ".join(title)) == 0.0:
             logger.debug("too many numbers in title")
