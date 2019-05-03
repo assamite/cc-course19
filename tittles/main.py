@@ -19,7 +19,7 @@ except ModuleNotFoundError:
 
 class tittlesTitle():
     def __init__(self):
-        self.threshold = 0.8
+        self.threshold = 0.85
         self.domain = 'word'
         self.folder = os.path.dirname(os.path.realpath(__file__))
         self.evaluator = Evaluator()

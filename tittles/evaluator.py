@@ -241,16 +241,27 @@ class Evaluator():
         Returns:
             float : Weighted average of the different evaluations.
         """
-        nov = self.eval_novelty(" ".join(title))*self.pref_novelty
-        alli = self.eval_alliteration(title)*self.pref_alliteration
+
+
+        if self.eval_numbers(" ".join(title)) == 0.0:
+            return 0.
+        if len(" ".join(title)) > 55:
+            return 0.
+
+        nov = self.eval_novelty(" ".join(title))
+        w_nov = nov*self.pref_novelty
+
+        alli = self.eval_alliteration(title)
+        w_alli = alli*self.pref_alliteration
+
         # Sentiment values seem to be consistently around 0.6, scale up closer to one.
         # Still make sure, that value is not over 1.0
         senti = self.eval_sentiment(title, emotion)
-        scaled_senti = min(1.0, senti*1.4)
+        w_senti = min(1.0, senti*1.4)
 
         # Novelty & Alliteration are weighted against each other to result in 1.0 weight together.
         # Sentiment has 1.0 weight at the moment, so scale everything down in same fractions, so that output range [0,1]
-        return (nov*0.25) + (alli*0.25) + (scaled_senti*0.5)
+        return (w_nov + w_alli)*0.5 + (w_senti*0.5)
 
     def eval_novelty(self, title):
         if self.title_bank is None:
@@ -328,3 +339,14 @@ class Evaluator():
             diff += (goal[i] - sentiment[i])**2
         #Normalize to range 0-1 and take complement, since small difference is good
         return 1 - math.sqrt(diff)/math.sqrt(6)
+
+
+    def eval_numbers(self, title):
+        digits = 0
+        for character in title:
+            if str.isdigit(character):
+                digits += 1
+        if digits > 3:
+            # Refuse more than 3 digits
+            return 0.
+        return 1 - (digits / (digits + len(title)))
