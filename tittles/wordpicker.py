@@ -27,7 +27,7 @@ class WordPicker():
             if slot == 'ADJ':
                 candidates.append(self.get_adjective(activity, location, weather))
             elif slot == 'NOUN' or slot == 'NOUNS':
-                candidates.append(self.get_noun('animal', adjectives[0]))
+                candidates.append(self.get_noun(random.choice(['animal', 'object', 'item', 'artefact']), adjectives[0]))
             elif slot == 'PERSON':
                 candidates.append(self.get_noun('person', adjectives[1]))
             elif slot == 'LOC':
