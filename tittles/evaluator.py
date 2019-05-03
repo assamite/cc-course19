@@ -6,6 +6,9 @@ import csv
 from operator import add
 import math
 
+import logging
+logger = logging.getLogger(__name__)
+
 class Evaluator():
     TITLE_DUMP_PATH = os.path.join(os.path.dirname(os.path.realpath(__file__)), "data", "titles.pickle")
     SENTIMENT_LEXICON_PATH = os.path.join(os.path.dirname(os.path.realpath(__file__)), "data", "EmotionLexicon.txt")
@@ -244,24 +247,35 @@ class Evaluator():
 
 
         if self.eval_numbers(" ".join(title)) == 0.0:
+            logger.debug("too many numbers in title")
             return 0.
         if len(" ".join(title)) > 55:
+            logger.debug("title too long")
             return 0.
 
         nov = self.eval_novelty(" ".join(title))
         w_nov = nov*self.pref_novelty
+        logger.debug(f"novelty {nov}")
+        logger.debug(f"weighted novelty {w_nov}")
 
         alli = self.eval_alliteration(title)
         w_alli = alli*self.pref_alliteration
+        logger.debug(f"alliteration {alli}")
+        logger.debug(f"weighted alliteration {w_alli}")
 
         # Sentiment values seem to be consistently around 0.6, scale up closer to one.
         # Still make sure, that value is not over 1.0
         senti = self.eval_sentiment(title, emotion)
         w_senti = min(1.0, senti*1.4)
+        logger.debug(f"sentiment {senti}")
+        logger.debug(f"weighted sentiment {w_senti}")
 
         # Novelty & Alliteration are weighted against each other to result in 1.0 weight together.
         # Sentiment has 1.0 weight at the moment, so scale everything down in same fractions, so that output range [0,1]
-        return (w_nov + w_alli)*0.5 + (w_senti*0.5)
+        result = (w_nov + w_alli)*0.5 + (w_senti*0.5)
+        logger.debug(f'final evaluation {result}')
+
+        return result
 
     def eval_novelty(self, title):
         if self.title_bank is None:

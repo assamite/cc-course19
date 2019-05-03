@@ -2,6 +2,9 @@ import random
 import spacy
 from markov import MarkovChain
 
+import logging
+logger = logging.getLogger(__name__)
+
 nlp = spacy.load("en_core_web_sm")
 
 
@@ -74,9 +77,13 @@ class TemplateBank:
         if len(replacements) < 2:
             return None
 
+        logger.debug('generated title: ' + ''.join(tokens))
+
         # Create a template by replacing two random tokens with POS tags
         for i, replacement in random.sample(replacements.items(), 2):
             tokens[i] = replacement
+
+        logger.debug('generated template: ' + ''.join(tokens))
 
         return tokens
 
