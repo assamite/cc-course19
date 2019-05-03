@@ -2,9 +2,12 @@
 
 # Authors:
 
-Antti Lipsanen (@anttilip)
+Antti Lipsanen [@anttilip](https://github.com/anttilip)
+
 Cecilia Äijälä
-Vladimir Dobrodeev (@dvy1989)
+
+Vladimir Dobrodeev [@dvy1989](https://github.com/dvy1989)
+
 
 ## How to run the stuff
 
