@@ -76,4 +76,4 @@ class RandomTeamImageGenerator:
         print("Group Example create with input args: {} {}".format(emotion, word_pairs))
         FACE_GENERATION_FEEDBACK = [(face, self.evaluate_emotion(face)) for face in [self.generate_face(emotion, word_pairs, self.path_to_group_folder) for _ in range(number_of_artifacts)]]
         generated_portraits = [generate_portrait(face, emotion, word_pairs) for face, evaluation in FACE_GENERATION_FEEDBACK]
-        return [(portrait, {'evaluation': evaluate_portrait(portrait)}) for portrait in generated_portraits]
+        return [(portrait, {'evaluation': evaluate_portrait(portrait), **meta}) for portrait, meta  in generated_portraits]
