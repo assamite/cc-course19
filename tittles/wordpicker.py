@@ -29,14 +29,14 @@ class WordPicker():
         scores = []
         for i, slot in slots:
             if slot == 'ADJ':
-                candidates.append(self.get_adjective(activity, location, weather))
+                candidates.append(self.get_adjective(random.choice([activity, location, weather])))
             elif slot == 'NOUN' or slot == 'NOUNS':
                 candidates.append(self.get_noun(random.choice(['animal', 'object', 'item', 'artefact']),
                                                 adjectives[0], True))
             elif slot == 'PERSON':
                 candidates.append(self.get_noun('person', adjectives[1], True))
             elif slot == 'LOC':
-                nuance_adj = self.get_adjective(activity, location, weather, 3)
+                nuance_adj = self.get_adjective(location, 3)
                 candidates.append(self.get_noun('location', nuance_adj, False))
 
         logger.debug('candidates: ' + str(candidates))
@@ -63,15 +63,15 @@ class WordPicker():
 
         return word_pair
 
-    def get_adjective(self, activity, location, weather, n=2):
+    def get_adjective(self, subject, n=2):
         """
         Returns candidates for adjective
         """
-        adjectives = set(self.thesaurus.find_nuances(activity))
-        logger.debug('nuances of ' + activity + ': ' + str(adjectives))
+        adjectives = set(self.thesaurus.find_nuances(subject))
+        logger.debug('nuances of ' + subject + ': ' + str(adjectives))
         for adj in list(adjectives):
             adjectives |= self.thesaurus.find_synonyms(adj)
-        logger.debug('nuances of ' + activity + ' with synonyms: ' + str(adjectives))
+        logger.debug('nuances of ' + subject + ' with synonyms: ' + str(adjectives))
         try:
             return random.sample(adjectives, n)
         except ValueError:
