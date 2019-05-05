@@ -98,7 +98,6 @@ class TemplateBank:
     def random_template(self):
         """Get random template from the bank."""
         for i in range(0, 25):
-            print("Creating random title {}".format(i))
             template = self._random_template()
             if template is not None:
                 return template

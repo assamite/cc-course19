@@ -117,9 +117,6 @@ class Evaluator():
         preferred_aestetic = observed_aestetics[-int(len(observed_aestetics)/10)]
         novelty, alliteration = preferred_aestetic[1]
 
-        print("Learned following weights (nov, alli)")
-        print(novelty, alliteration)
-
         return (novelty, alliteration)
 
     # Modified from https://www.python-course.eu/levenshtein_distance.php
@@ -260,7 +257,6 @@ class Evaluator():
             return 0.
 
         nov = self.eval_novelty(" ".join(title))
-        print("     Novelty: {}".format(nov))
         w_nov = nov*self.pref_novelty
         logger.debug(f"novelty {nov}")
         logger.debug(f"weighted novelty {w_nov}")
@@ -273,7 +269,6 @@ class Evaluator():
         # Sentiment values seem to be consistently around 0.6, scale up closer to one.
         # Still make sure, that value is not over 1.0
         senti = self.eval_sentiment(title, emotion)
-        print("     Sentiment: {}".format(senti))
         w_senti = min(1.0, senti*1.4)
         logger.debug(f"sentiment {senti}")
         logger.debug(f"weighted sentiment {w_senti}")
