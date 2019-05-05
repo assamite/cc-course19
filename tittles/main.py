@@ -114,6 +114,7 @@ class tittlesTitle():
                 if subsequent_catches > 20:
                     # Really unlikely case.
                     raise AttributeNotFound("Input attributes cannot be found from Thesaurus Rex.")
+                continue
 
             self.inject(title, word_pair)
             logger.debug('final title: ' + str(title))
