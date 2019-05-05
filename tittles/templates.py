@@ -1,6 +1,10 @@
 import random
 import spacy
-from markov import MarkovChain
+
+try:
+    from .markov import MarkovChain
+except ImportError:
+    from markov import MarkovChain
 
 import logging
 logger = logging.getLogger(__name__)

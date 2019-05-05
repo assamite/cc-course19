@@ -8,17 +8,17 @@ logger = logging.getLogger(__name__)
 
 try:
     from .templates import TemplateBank, Title
-except ModuleNotFoundError:
+except ImportError:
     from templates import TemplateBank, Title
 
 try:
     from .evaluator import Evaluator
-except ModuleNotFoundError:
+except ImportError:
     from evaluator import Evaluator
 
 try:
     from .wordpicker import WordPicker, AttributeNotFound
-except ModuleNotFoundError:
+except ImportError:
     from wordpicker import WordPicker, AttributeNotFound
 
 class tittlesTitle():
