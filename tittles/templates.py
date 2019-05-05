@@ -12,7 +12,8 @@ class Title:
     def __init__(self, tokens):
         self._tokens = tokens
 
-    def list_slots(self):
+    @property
+    def slots(self):
         for i, tok in enumerate(self._tokens):
             if tok == "[[ADJ]]":
                 yield (i, "ADJ")
@@ -25,6 +26,7 @@ class Title:
             elif tok == "[[LOC]]":
                 yield (i, "LOC")
 
+    @property
     def tokens(self):
         for i, tok in enumerate(self._tokens):
             if len(tok.strip()) == 0:

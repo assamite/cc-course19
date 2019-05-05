@@ -50,15 +50,14 @@ class tittlesTitle():
         return self.evaluator.evaluate(title.split(" "), self.emotion)
 
     def inject(self, title, word_pair):
-        word_pair = iter(word_pair)
-        for i, slot in title.list_slots():
-            next_word = next(word_pair).replace("_", " ").title()
+        for (i, slot), word in zip(title.slots, word_pair):
+            word = word.replace("_", " ").title()
             if slot == 'NOUN':
-                title.inject(singularize(next_word), slot, i)
+                title.inject(singularize(word), slot, i)
             elif slot == 'NOUNS':
-                title.inject(pluralize(singularize(next_word)), slot, i)
+                title.inject(pluralize(singularize(word)), slot, i)
             else:
-                title.inject(next_word, slot, i)
+                title.inject(word, slot, i)
 
     def create(self, emotion, word_pairs, number_of_artifacts=10, **kwargs):
         """Create artifacts in the group's domain.
@@ -107,7 +106,7 @@ class tittlesTitle():
             title = Title(template)
 
             try:
-                word_pair = self.find_words(adjectives, activity, location, weather, title.list_slots())
+                word_pair = self.find_words(adjectives, activity, location, weather, title.slots)
                 subsequent_catches = 0
             except AttributeNotFound:
                 subsequent_catches += 1
@@ -119,7 +118,7 @@ class tittlesTitle():
             self.inject(title, word_pair)
             logger.debug('final title: ' + str(title))
 
-            v = self.evaluate(' '.join(title.tokens()))
+            v = self.evaluate(' '.join(title.tokens))
             if v >= self.threshold:
                 phenotype = str(title)
                 ret.append((phenotype, {"evaluation": v}))
