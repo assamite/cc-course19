@@ -1,17 +1,21 @@
-import os
-from typing import List, Tuple
-import random
 import base64
-from io import BytesIO
-import uuid
 import json
-
-from bs4 import BeautifulSoup
-from PIL import Image
-import requests
+import os
+import random
 import shutil
+import uuid
+from io import BytesIO
+from typing import List, Tuple
+
 import cv2
 import numpy as np
+import requests
+import skimage.color as clr
+import skimage.future.graph as grh
+import skimage.segmentation as sgm
+import sklearn.cluster as cls
+from PIL import Image
+from bs4 import BeautifulSoup
 
 ANNOTATION_COLORS = np.flip(np.matrix([
     [0, 162, 232],
@@ -48,12 +52,12 @@ def select_style_image(emotion: str, word_pairs: List[Tuple[str, str]], use_exis
         # Build a URL and fetch HTML containing image search results
         url = "https://www.bing.com/images/search?q={}+art+-meme&qft=+filterui:face-face".format(description)
         html = requests.get(url).text
-        
+
         # Parse HTML and find all image tags (drop two first and the last image tags)
         soup = BeautifulSoup(html, features="html.parser")
         images = soup.find_all('img')[2:-1]
         img_el = random.choice(images)
-        
+
         # Download image thumbnails and save them to out/<description>.<extension>
         img_url = img_el.get('src')
         res = requests.get(img_url, stream=True)
@@ -65,7 +69,7 @@ def select_style_image(emotion: str, word_pairs: List[Tuple[str, str]], use_exis
             os.makedirs(os.path.dirname(out_file_path))
         with open(out_file_path, 'wb') as out_f:
             shutil.copyfileobj(res.raw, out_f)
-            
+
         style_image = out_file_path
 
     return style_image, used_keywords
@@ -79,21 +83,24 @@ def create_annotation_by_changing_colors(path_to_image: str) -> str:
     """
     # Read image
     image = cv2.imread(path_to_image)
-    # Replace image with a tensor for calculating distances to annotation colors
-    tmp = np.repeat(image, len(ANNOTATION_COLORS), axis=1).reshape((image.shape[0], image.shape[1], len(ANNOTATION_COLORS), 3))
-    # Convert tensor to matrix to make np.subtract working (it allows only subtracting an array from matrix rows)
-    tmp = tmp.reshape((tmp.shape[0] * tmp.shape[1], len(ANNOTATION_COLORS) * 3))
-    # Square all substations results
-    tmp = np.square(np.ravel(np.subtract(tmp, ANNOTATION_COLORS.flatten()))).reshape((image.shape[0] * image.shape[1], len(ANNOTATION_COLORS), 3))
-    # Calculate square roots
-    tmp = np.sqrt(np.sum(tmp, axis=2))
-    # Find minimal euclidean distance and use corresponding key from annotation colors
-    annotation = np.ravel(ANNOTATION_COLORS[np.argmin(tmp, axis=1)]).reshape(image.shape).astype(np.uint8)
-    # Create a path to a file with annotation
-    # This file will be saved to the same folder as original image
+    # Perform image segmentation
+    labels = sgm.slic(image, n_segments=400, compactness=30)
+    # Use average color for segments
+    segmented_image = clr.label2rgb(labels, image, kind="avg")
+    # Now let's make difference even more smoother with cuttting by threshold
+    labels = grh.cut_threshold(labels, grh.rag_mean_color(segmented_image, labels), thresh=29)
+    # And apply new labels
+    segmented_image = clr.label2rgb(labels, segmented_image, kind="avg")
+    # Prepare K-means cluster (use 4 clusters since annotation should have 4 colors)
+    model = cls.KMeans(n_clusters=4)
+    pixels = segmented_image.reshape(image.shape[0] * image.shape[1], 3)
+    # Cluster pixels of segmented image
+    model.fit(pixels)
+    # Create an annotation
+    annotation = ANNOTATION_COLORS[model.labels_.reshape((image.shape[0], image.shape[1]))]
     image_file_name = os.path.splitext(os.path.basename(path_to_image))[-2]
     path_to_annotation = "%s%s" % (os.path.join(os.path.dirname(path_to_image), "%s_sem" % image_file_name), os.path.splitext(os.path.basename(path_to_image))[-1])
-    # Save image
+    # Save annotation
     cv2.imwrite(path_to_annotation, annotation)
     # Return a path to an annotation file
     return path_to_annotation
@@ -105,7 +112,7 @@ def create_annotation(path_to_image: str, use_existing_style: bool = True) -> st
     :param path_to_image: Path to file with original image
     :return: Annotation
     """
-    
+
     if use_existing_style is True:
         # Use existing sample annotation
         dir_path = os.path.dirname(os.path.realpath(__file__))
@@ -148,7 +155,7 @@ def create_portrait(face: str, face_annotation: str, style_image: str, style_ima
     }
 
     URL = 'http://ec2-3-85-8-145.compute-1.amazonaws.com/doodle'
-    res = requests.post(URL, data=json.dumps(body), timeout=15*60, stream=True)
+    res = requests.post(URL, data=json.dumps(body), timeout=15 * 60, stream=True)
 
     dir_path = os.path.dirname(os.path.realpath(__file__))
     keyword_str = '-'.join(keywords)
