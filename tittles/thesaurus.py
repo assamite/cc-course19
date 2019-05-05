@@ -1,6 +1,7 @@
 import requests
 import xml.etree.ElementTree as ET
 from collections import Counter
+from nltk.corpus import wordnet as wn
 
 def _query(category, modifier):
     """Query Thesaurus Rex and return results with normalized weights"""
@@ -41,6 +42,17 @@ def find_members(category, adjectives):
     members = weights.keys()
     return {m: ((counts[m] - 1) / (len(adjectives) - 1) + weights[m] / len(adjectives)) / 2
             for m in members}
+
+def find_synonyms(word):
+    """Find synonyms from WordNet"""
+    words = set()
+    for s in wn.synsets(word, pos=wn.ADJ):
+        words |= set(s.lemma_names())
+        for a in s.similar_tos():
+            words |= set(a.lemma_names())
+        for a in s.also_sees():
+            words |= set(a.lemma_names())
+    return words
 
 if __name__ == "__main__":
     import sys

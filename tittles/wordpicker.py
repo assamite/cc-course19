@@ -5,6 +5,9 @@ try:
 except ImportError:
     import thesaurus
 
+import logging
+logger = logging.getLogger(__name__)
+
 
 class AttributeNotFound(Exception):
     pass
@@ -21,18 +24,23 @@ class WordPicker():
         tags: 0 = adjective, 1 = noun, 2 = person, 3 = location
         Todo: add singular/plural checking
         """
+
         candidates = []
         scores = []
         for i, slot in slots:
             if slot == 'ADJ':
                 candidates.append(self.get_adjective(activity, location, weather))
             elif slot == 'NOUN' or slot == 'NOUNS':
-                candidates.append(self.get_noun(random.choice(['animal', 'object', 'item', 'artefact']), adjectives[0]))
+                candidates.append(self.get_noun(random.choice(['animal', 'object', 'item', 'artefact']),
+                                                adjectives[0], True))
             elif slot == 'PERSON':
-                candidates.append(self.get_noun('person', adjectives[1]))
+                candidates.append(self.get_noun('person', adjectives[1], True))
             elif slot == 'LOC':
                 nuance_adj = self.get_adjective(activity, location, weather, 3)
-                candidates.append(self.get_noun('location', nuance_adj))
+                candidates.append(self.get_noun('location', nuance_adj, False))
+
+        logger.debug('candidates: ' + str(candidates))
+
         #If template has only one slot, no need to get oppositeness score
         if len(candidates) == 1:
             return candidates[0][0]
@@ -47,7 +55,11 @@ class WordPicker():
             candidate = candidate_pairs[i]
             oppositeness = self.get_oppositeness_score(candidate[0], candidate[1])
             scores.append(oppositeness)
+
+        logger.debug('candidate_pairs: ' + str(candidate_pairs))
+        logger.debug('scores: ' + str(scores))
         word_pair = candidate_pairs[scores.index(min(scores))]
+        logger.debug('word_pair: ' + str(word_pair))
 
         return word_pair
 
@@ -55,18 +67,33 @@ class WordPicker():
         """
         Returns candidates for adjective
         """
-        adjectives = self.thesaurus.find_nuances(activity)
+        adjectives = set(self.thesaurus.find_nuances(activity))
+        logger.debug('nuances of ' + activity + ': ' + str(adjectives))
+        for adj in list(adjectives):
+            adjectives |= self.thesaurus.find_synonyms(adj)
+        logger.debug('nuances of ' + activity + ' with synonyms: ' + str(adjectives))
         try:
-            return random.sample(list(adjectives), n)
+            return random.sample(adjectives, n)
         except ValueError:
             raise AttributeNotFound("Input attributes cannot be found from Thesaurus Rex.")
 
-    def get_noun(self, category, adjectives):
+    def get_noun(self, category, adjectives, search_synonyms):
         """
         Returns two candidates for adjective
         """
+        adjectives = set(adjectives)
+        logger.debug('adjectives of ' + category + ': ' + str(adjectives))
+        if search_synonyms:
+            n = len(adjectives)
+            for adj in list(adjectives):
+                adjectives |= self.thesaurus.find_synonyms(adj)
+            adjectives = random.sample(adjectives, min(2 * n, len(adjectives)))
+            logger.debug('adjectives of ' + category + ' with synonyms: ' + str(adjectives))
         candidates = self.thesaurus.find_members(category, adjectives)
-        return random.sample(list(candidates), 2)
+        try:
+            return random.sample(list(candidates), 2)
+        except ValueError:
+            raise AttributeNotFound("Input attributes cannot be found from Thesaurus Rex.")
 
 
     def get_oppositeness_score(self, word1, word2):
