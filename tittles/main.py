@@ -131,15 +131,18 @@ class tittlesTitle():
         return ret
 
 if __name__ == "__main__":
-    import pprint
     import sys
     sys.path.append(os.path.join(os.path.dirname(__file__), '..'))
     import inputs
-    pp = pprint.PrettyPrinter(indent=2)
     emotion, word_pairs = inputs.get_input(False)
     T = tittlesTitle()
     print('INPUT')
-    pp.pprint({'emotion': emotion, 'word_pairs': word_pairs})
+    print('emotion:', emotion)
+    for category, word in word_pairs:
+        print(category + ': ' + word)
     print('')
     print('OUTPUT')
-    pp.pprint(T.create(emotion, word_pairs, number_of_artifacts=3))
+    for title, meta in T.create(emotion, word_pairs, number_of_artifacts=3):
+        print('title:', title)
+        print('evaluation:', meta['evaluation'])
+        print('')
