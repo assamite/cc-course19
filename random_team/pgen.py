@@ -41,7 +41,7 @@ def select_style_image(emotion: str, word_pairs: List[Tuple[str, str]], use_exis
         available_styles = os.listdir(os.path.join(dir_path, 'style_samples', 'styles'))
         available_sem_maps = os.listdir(os.path.join(dir_path, 'style_samples', 'semantic_maps'))
         available_style_names = set(available_styles) | set(available_sem_maps)
-        
+
         # Choose randomly one style
         style_image = random.choice(list(available_style_names))
         used_keywords = [style_image]
