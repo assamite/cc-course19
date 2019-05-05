@@ -36,13 +36,15 @@ def select_style_image(emotion: str, word_pairs: List[Tuple[str, str]], use_exis
         # Use pre-defined set of style images and human created semantic maps
         available_styles = os.listdir(os.path.join(dir_path, 'style_samples', 'styles'))
         available_sem_maps = os.listdir(os.path.join(dir_path, 'style_samples', 'semantic_maps'))
-        available_style_names = set(available_sem_maps) | set(available_sem_maps)
+        available_style_names = set(available_styles) | set(available_sem_maps)
         
         # Choose randomly one style
-        style_image = random.choice(list(available_style_names)) 
+        style_image = random.choice(list(available_style_names))
+        used_keywords = [style_image]
     else:
         human_word_pairs = list(filter(lambda pair: pair[0] == 'human', word_pairs))
         (_, description) = random.choice(human_word_pairs)
+        used_keywords = [description]
         # Build a URL and fetch HTML containing image search results
         url = "https://www.bing.com/images/search?q={}+art+-meme&qft=+filterui:face-face".format(description)
         html = requests.get(url).text
@@ -66,7 +68,7 @@ def select_style_image(emotion: str, word_pairs: List[Tuple[str, str]], use_exis
             
         style_image = out_file_path
 
-    return style_image
+    return style_image, used_keywords
 
 
 def create_annotation_by_changing_colors(path_to_image: str) -> str:
@@ -115,7 +117,7 @@ def create_annotation(path_to_image: str, use_existing_style: bool = True) -> st
     return annotation_path
 
 
-def create_portrait(face: str, face_annotation: str, style_image: str, style_image_annotation: str) -> str:
+def create_portrait(face: str, face_annotation: str, style_image: str, style_image_annotation: str, emotion: str, keywords: List[str]) -> str:
     """
     Generates a portrait
     :param face:
@@ -149,7 +151,8 @@ def create_portrait(face: str, face_annotation: str, style_image: str, style_ima
     res = requests.post(URL, data=json.dumps(body), timeout=15*60, stream=True)
 
     dir_path = os.path.dirname(os.path.realpath(__file__))
-    out_file_name = 'RESULT-{}.png'.format(uuid.uuid4())
+    keyword_str = '-'.join(keywords)
+    out_file_name = 'RESULT-{}.png'.format('-'.join([emotion, keyword_str, uuid.uuid4().hex]))
     out_file_path = os.path.join(dir_path, out_file_name)
     with open(out_file_path, 'wb') as out_f:
         shutil.copyfileobj(res.raw, out_f)
@@ -175,13 +178,21 @@ def generate_portrait(face: str, emotion: str, word_pairs: List[Tuple[str, str]]
     :param word_pairs:
     :return:
     """
-    style_image = select_style_image(emotion, word_pairs, use_existing_style=False)
+    style_image, used_keywords = select_style_image(emotion, word_pairs, use_existing_style=False)
     style_image_annotation = create_annotation(style_image, use_existing_style=False)
     face_annotation = create_annotation(face, use_existing_style=False)
 
     evaluate_annotation(face_annotation, emotion, word_pairs)
     evaluate_annotation(style_image_annotation, emotion, word_pairs)
-    return create_portrait(face, face_annotation, style_image, style_image_annotation)
+    portrait = create_portrait(face, face_annotation, style_image, style_image_annotation, emotion, used_keywords)
+    meta = dict(
+        face=face,
+        face_annotation=face_annotation,
+        style_image=style_image,
+        style_image_annotation=style_image_annotation,
+        used_keywords=used_keywords,
+    )
+    return portrait, meta
 
 
 def evaluate_portrait(portrait: str) -> float:
