@@ -19,7 +19,7 @@ except ModuleNotFoundError:
 try:
     from .wordpicker import WordPicker, AttributeNotFound
 except ModuleNotFoundError:
-    from wordpicker import WordPicker
+    from wordpicker import WordPicker, AttributeNotFound
 
 class tittlesTitle():
     def __init__(self):
