@@ -70,7 +70,7 @@ class RandomImageCreator:
         n_tries = 10
         for i in range(number_of_artifacts):
             for j in range(n_tries):
-                print("Artifact #{} (attempt #{}):".format(i + 1, j + 1))
+                print("Artifact #{} (attempt {}/{}):".format(i + 1, j + 1, n_tries))
                 if not self.__generate_content(emotion, word_pairs):
                     print("Couldn't find good enough content!")
                     artifacts_paths_with_meta.append(self.__get_default_artifact_with_meta(emotion))
@@ -108,14 +108,14 @@ class RandomImageCreator:
         return False
 
     def __evaluate_content_with_vision(self, animal, content_path):
-        print("Evaluating content {} with vision...".format(self.__get_basename(content_path)))
+        print("Evaluating content \"{}\" with vision...".format(self.__get_basename(content_path)))
         with io.open(content_path, "rb") as image_file:
             content = image_file.read()
         image = vision.types.Image(content=content)
         response = self.client.label_detection(image=image)
         labels = response.label_annotations
         for label in labels:
-            print("\t{} {}".format(label.description.lower(), label.score))
+            # print("\t{} {}".format(label.description.lower(), label.score))
             for word in label.description.split():
                 if word.lower() == animal.lower() and label.score > .9:
                     print("Content OK!")
