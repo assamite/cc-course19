@@ -13,7 +13,7 @@ class StyleFilter:
         self.style_folder = os.path.join(self.folder, "images/styles")
         self.emotion_evaluator = EmotionEvaluator()
         self.emotions = ["anger", "disgust", "fear", "happiness", "sadness", "surprise"]
-        self.limits = {"anger": .4, "disgust": .85, "fear": .97, "happiness": .4, "sadness": .75, "surprise": .4}
+        self.limits = {"anger": .5, "disgust": .92, "fear": .99, "happiness": .6, "sadness": .75, "surprise": .45}
         Image.MAX_IMAGE_PIXELS = None
 
     def filter_styles(self):
@@ -26,7 +26,7 @@ class StyleFilter:
             except IndexError:
                 print("Error: {}".format(os.path.basename(style_path)))
                 continue
-            if score > self.limits[max_emotion]:
+            if score >= self.limits[max_emotion]:
                 print("Style {}: {} {}...".format(style_filename, max_emotion, score))
 
                 img = Image.open(style_path)
