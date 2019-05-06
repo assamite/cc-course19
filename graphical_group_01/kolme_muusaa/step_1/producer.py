@@ -6,7 +6,15 @@ import os
 from PIL import Image
 
 import kolme_muusaa.settings as s
-from kolme_muusaa.utils import debug_log
+from kolme_muusaa.utils import debug_log, get_unique_save_path_name
+
+import tensorflow as tf
+from tensorflow import keras
+
+import numpy as np
+import matplotlib.pyplot as plt
+
+
 
 def produce_assembling_parameters(word_pair):
     """
@@ -110,7 +118,6 @@ def estimate_best_parameters(im1, im2):
 
         If a function is in range [0, inf] use f: x / (1 - x)
     """
-
 
     # TODO: estimate best parameters
 

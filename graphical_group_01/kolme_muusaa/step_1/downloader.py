@@ -7,6 +7,7 @@ import certifi
 from kolme_muusaa.utils import _, egg_open, debug_log, get_unique_save_path_name
 import kolme_muusaa.settings as s
 import warnings
+import time
 
 
 def download(word, n_images=100):
@@ -88,20 +89,20 @@ def download(word, n_images=100):
 
     for i, im_url, im_path in zip(range(len(image_urls)), image_urls, image_paths):
         debug_log(f"Downloading '{word}' image [{i+1}/{len(image_urls)}]: {im_url}")
-        save_image(im_url, im_path, http)
+        save_file(im_url, im_path, http)
         debug_log(f"Done! Saved as {im_path}")
 
     return True
 
 
-def save_image(image_url, image_path, pool_manager):
+def save_file(file_url, file_path, pool_manager=None):
     """
     References: https://stackoverflow.com/a/17285906/2219492
 
     Parameters
     ----------
-    image_url
-    image_path
+    file_url
+    file_path
     pool_manager
 
     Returns
@@ -110,16 +111,24 @@ def save_image(image_url, image_path, pool_manager):
     """
     chunk_size = 2**16
 
-    r = pool_manager.request('GET', image_url, preload_content=False)
+    if pool_manager is None:
+        pool_manager = urllib3.PoolManager(cert_reqs='CERT_REQUIRED', ca_certs=certifi.where())
 
+    r = pool_manager.request('GET', file_url, preload_content=False)
 
+    last_time = time.time()
+    i = 0
 
-    with open(image_path, 'wb') as out:
+    with open(file_path, 'wb') as out:
         while True:
             data = r.read(chunk_size)
             if not data:
                 break
             out.write(data)
+            i += 1
+            if time.time() - last_time > 5:
+                print(f"Downloaded {i * chunk_size}bytes.. Hold on.. ")
+                last_time = time.time()
 
     r.release_conn()
 

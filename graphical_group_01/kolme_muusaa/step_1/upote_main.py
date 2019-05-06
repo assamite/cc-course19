@@ -1,20 +1,17 @@
 """ Main file for step 1 """
-import warnings
-import os
-import shutil
-from PIL import Image
-import numpy as np
 import json
+import os
+import warnings
 
-from kolme_muusaa.step_1 import assembler, classifier, downloader, producer
+from tensorflow import keras
+
 from kolme_muusaa import settings as s
+from kolme_muusaa.step_1 import assembler, classifier, downloader, producer
 from kolme_muusaa.utils import get_unique_save_path_name, debug_log, remove_images
-
 
 __PRODUCE_ARTIFACTS_MODE__ = False
 
-
-def execute(word_pairs:list, n_art:int, threshold=0.5, n_images_per_word:int=10):
+def execute(word_pairs: list, n_art: int, threshold=0.7, n_images_per_word: int = 10):
     """Generates artifacts to be evaluated.
 
     New images are saved under __STEP_1_EVAL_DIR__.
@@ -31,7 +28,31 @@ def execute(word_pairs:list, n_art:int, threshold=0.5, n_images_per_word:int=10)
     # Create the *eval* folder if it doesn't exist (with __init__.py)
     if not os.path.exists(s.__STEP_1_EVAL_DIR__):
         os.makedirs(s.__STEP_1_EVAL_DIR__)
-        open(os.path.join(s.__STEP_1_EVAL_DIR__, "__init__.py")).close()
+        open(os.path.join(s.__STEP_1_EVAL_DIR__, "__init__.py"), "w").close()
+
+    if not os.path.exists(s.__STEP_1_CACHE_DIR__):
+        os.makedirs(s.__STEP_1_CACHE_DIR__)
+        open(os.path.join(s.__STEP_1_CACHE_DIR__, "__init__.py"), "w").close()
+
+    if not os.path.exists(s.__RESOURCES_STEP_1_READY__):
+        os.makedirs(s.__RESOURCES_STEP_1_READY__)
+
+    if not os.path.exists(s.__RESOURCES_STEP_1_DISCARDED__):
+        os.makedirs(s.__RESOURCES_STEP_1_DISCARDED__)
+
+    # Assert we have our model
+    if not os.path.exists(classifier.__MODEL_PATH__):
+        debug_log("Model file not found. Downloading..")
+        import zipfile  # No need to import otherwise
+        model_zip_path = os.path.join(s.__RESOURCES_DIR__, "models.zip")
+        downloader.save_file(file_url="https://archive.org/download/all_data_kolme_muusaa/models.zip",
+                             file_path=model_zip_path)
+
+        debug_log("Model downloaded! Extracting zip file..")
+        with zipfile.ZipFile(model_zip_path, "r") as zip_archive:
+            zip_archive.extractall(s.__RESOURCES_DIR__)
+        debug_log("Done!")
+
 
     # Clear content of eval dir
     if __PRODUCE_ARTIFACTS_MODE__ == False:
@@ -70,7 +91,6 @@ def execute(word_pairs:list, n_art:int, threshold=0.5, n_images_per_word:int=10)
                 continue
         downloader.download(word=w, n_images=n_images_per_word)
 
-
     # Now learn the parameters for assembling the artifacts and judge them
     ready_list = list()
 
@@ -83,8 +103,10 @@ def execute(word_pairs:list, n_art:int, threshold=0.5, n_images_per_word:int=10)
 
         for i in range(artifacts_left):
             wp = word_pairs[i % len(word_pairs)]
-            len_1 = len([im for im in os.listdir(os.path.join(s.__STEP_1_CACHE_DIR__, wp[0])) if (im.endswith(".png") or im.endswith(".jpg"))])
-            len_2 = len([im for im in os.listdir(os.path.join(s.__STEP_1_CACHE_DIR__, wp[1])) if (im.endswith(".png") or im.endswith(".jpg"))])
+            len_1 = len([im for im in os.listdir(os.path.join(s.__STEP_1_CACHE_DIR__, wp[0])) if
+                         (im.endswith(".png") or im.endswith(".jpg"))])
+            len_2 = len([im for im in os.listdir(os.path.join(s.__STEP_1_CACHE_DIR__, wp[1])) if
+                         (im.endswith(".png") or im.endswith(".jpg"))])
 
             # Skip pair if there are not enough images
             if len_1 < 2:
@@ -94,8 +116,6 @@ def execute(word_pairs:list, n_art:int, threshold=0.5, n_images_per_word:int=10)
             if len_2 < 2:
                 debug_log(f"Not enough images for {wp[1]}: {len_2}")
                 continue
-
-
 
             assembling_parameters, image_path_1, image_path_2 = producer.produce_assembling_parameters(
                 word_pair=wp
@@ -126,31 +146,35 @@ def execute(word_pairs:list, n_art:int, threshold=0.5, n_images_per_word:int=10)
 
         if __PRODUCE_ARTIFACTS_MODE__ == True:
             debug_log("Produce mode is enabled. Not evaluating.")
+            debug_log(f"Your artifacts are in {s.__STEP_1_EVAL_DIR__}")
             return {}
 
         # Evaluate the produced artifacts
-        evals = classifier.evaluate_all()
+        classifier_model = classifier.get_evaluation_model()
+        evals = classifier.evaluate_all(classifier_model)
+        keras.backend.clear_session()
 
         # Decide what to do based on evaluation
         with open(s.__JSON_ART_DATA_STEP_1__) as json_file:
             json_data_dict = json.load(json_file)
         for art_path, art_dict in evals:
+            debug_log("Evaluation:", end=" ")
             im_eval = art_dict["evaluation"]
             art_name = os.path.basename(art_path)[:-4]
             json_data_dict[art_name]["evaluation"] = im_eval
             if im_eval > threshold:
                 debug_log(f"{art_name} good with: {im_eval} > {threshold}")
                 ready_art_path = get_unique_save_path_name(s.__RESOURCES_STEP_1_READY__,
-                                                             art_name,
-                                                             "png")
+                                                           art_name,
+                                                           "png")
                 os.rename(art_path, ready_art_path)
                 json_data_dict[art_name]["art_path"] = ready_art_path
                 ready_list.append((ready_art_path, json_data_dict[art_name]))
             else:
                 debug_log(f"{art_name} bad with {im_eval} <= {threshold}")
                 discarded_art_path = get_unique_save_path_name(s.__RESOURCES_STEP_1_DISCARDED__,
-                                                           art_name,
-                                                           "png")
+                                                               art_name,
+                                                               "png")
                 os.rename(art_path, discarded_art_path)
                 json_data_dict[art_name]["art_path"] = discarded_art_path
 
@@ -162,14 +186,14 @@ def execute(word_pairs:list, n_art:int, threshold=0.5, n_images_per_word:int=10)
             os.rename(s.__JSON_ART_DATA_STEP_1__ + ".tmp", s.__JSON_ART_DATA_STEP_1__)
 
         if len(ready_list) < n_art:
-            debug_log(f"Not enough art. Only [{len(ready_list) }/{n_art}]. Getting more inspiration..")
+            debug_log(f"Not enough art. Only [{len(ready_list)}/{n_art}]. Getting more inspiration..")
 
     # >>> end of big while
 
     # Finally save art metadata
     json_file_name = get_unique_save_path_name(directory=s.__RESOURCES_DIR__,
-                                        basename="art_data",
-                                        extension="json")
+                                               basename="art_data",
+                                               extension="json")
     debug_log(f"Saving final JSON_DICT {json_file_name}..", end="")
     with open(json_file_name, "w") as json_file:
         json.dump(json_data_dict, json_file)
@@ -187,7 +211,12 @@ def execute(word_pairs:list, n_art:int, threshold=0.5, n_images_per_word:int=10)
 if __name__ == "__main__":
 
     import sys
+
+    # Lets produce some artifacts
     sys.path.append(s.__GENERAL_PROJECT_ROOT__)
+    words_entropy = 5
+    n_artifacts = 10000
+    # __PRODUCE_ARTIFACTS_MODE__ = True
 
     import inputs
 
@@ -199,9 +228,10 @@ if __name__ == "__main__":
     word_list = set(word_list)
     print(f"Len of set: {len(word_list)}")
     print(word_list)
-    __PRODUCE_ARTIFACTS_MODE__ = True
-    execute(list(word_list), n_art=10000, threshold=-1)
+    # execute(
+    #     list(word_list),
+    #     n_art=n_artifacts,
+    #     # This avoids evaluation, putting all images in the same bucket. Likely not needed since skips evaluation
+    #     threshold=-1)
 
-    # execute([("adorable", "pet")], 5)
-
-
+    execute([("adorable", "pet")], 5)

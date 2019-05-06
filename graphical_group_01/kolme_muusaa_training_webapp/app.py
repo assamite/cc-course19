@@ -1,14 +1,13 @@
 """Main application access point"""
+import json
 import logging
 import os
 import time
-import json
 
-from shutil import copyfile
-
-from flask import Flask, render_template, request, send_from_directory, Markup
 import werkzeug
 import werkzeug.exceptions
+from flask import Flask, render_template, request, send_from_directory, Markup
+
 # import kolme_muusaa.settings as s
 
 
@@ -20,10 +19,11 @@ __DONE_DIR__ = os.path.join(__INSTANCE_PATH__, "done_dir")
 __STATIC_DIR__ = os.path.join(__WEB_APP_PATH__, "static")
 __LOG_PATH__ = os.path.join(__INSTANCE_PATH__, "log.txt")
 __LOCK_PATH__ = os.path.join(__INSTANCE_PATH__, "lock")
-__MAX_SLEEP_TIME__ = 5.0 # seconds
-__SLEEP_TIME__ = 0.45 # seconds
+__MAX_SLEEP_TIME__ = 5.0  # seconds
+__SLEEP_TIME__ = 0.45  # seconds
 __ART_DIR__ = "eval"
 __PICTURES_BASE_URL__ = "http://kolmemuusaa.tryfcomet.com/"
+
 
 # If eval is too large, make it smaller using the following command:
 # find . -iname '*.png' -exec convert \{} -verbose -resize 256x256\> \{} \;
@@ -53,11 +53,6 @@ def create_app():
     app = Flask(__name__,
                 instance_path=instance_path)
 
-    # Logging utility setup
-    # if app.config['ENV'] == 'development' or app.config['DEBUG'] == True:
-    #     log_level = logging.DEBUG
-    # else:
-    #     log_level = logging.WARNING
     log_level = logging.DEBUG
 
     logging.basicConfig(
@@ -146,7 +141,6 @@ def create_app():
             info_message += " Sorry, something went wrong while saving your evaluation.."
             logging.error(e)
 
-
         # Retrieve an image to evaluate
         current_art_name = None
 
@@ -203,9 +197,9 @@ def create_app():
         else:
             logging.info(f"Serving {current_art_name}..")
             return render_template('index.html',
-                               info_message=info_message,
-                               art_name=current_art_name,
-                               image_path=__PICTURES_BASE_URL__ + f"{current_art_name}.png")
+                                   info_message=info_message,
+                                   art_name=current_art_name,
+                                   image_path=__PICTURES_BASE_URL__ + f"{current_art_name}.png")
 
     return app
 
@@ -215,6 +209,7 @@ def write_lock(p=None):
         p = __LOCK_PATH__
     with open(p, 'w') as lock:
         lock.write(str(time.time()))
+
 
 def release_lock(p=None):
     if p == None:

@@ -15,6 +15,7 @@ __STEP_3_DIR__ = os.path.join(__KOLME_MUUSAA_PROJECT_ROOT__, "step_3")
 
 __STEP_1_EVAL_DIR__ = os.path.join(__STEP_1_DIR__, "eval_dir")
 __STEP_1_CACHE_DIR__ = os.path.join(__STEP_1_DIR__, 'cache')
+__STEP_1_DATASET_DIR__ = os.path.join(__STEP_1_DIR__, 'dataset')
 
 __RESOURCES_DIR__ = os.path.join(__PROJECT_ACCESS_INTERFACE__, "resources")
 __RESOURCES_STEP_1_READY__ = os.path.join(__RESOURCES_DIR__, "step_1_ready")
