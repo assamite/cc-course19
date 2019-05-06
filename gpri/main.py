@@ -60,6 +60,7 @@ class RandomImageCreator:
                     exist_ok=True)
         os.makedirs(self.folder + '/gpri_helper/glove_vecs', exist_ok=True)
 
+        # download style transfer models if necessary
         vgg_path = self.folder + "/gpri_helper/style_help/models/vgg_normalised.t7"
         if not os.path.isfile(vgg_path):
             print("Downloading the VGG model needed for style transfer...")
@@ -79,6 +80,7 @@ class RandomImageCreator:
                 zip_ref.extractall(models_path)
             os.remove(models_path + "/models.zip")
 
+        # download GLoVe vectors if necessary
         vecs_path = self.folder + "/gpri_helper/glove_vecs"
         if not os.path.isfile(vecs_path + "/glove_vecs.txt"):
             print("Downloading GloVe vectors which are needed during "
@@ -86,11 +88,11 @@ class RandomImageCreator:
             ur.urlretrieve("https://cloud.ception.net/s/LHfmew27qxBki3G"
                            "/download", vecs_path + "/glove_vecs.txt")
 
-        # load style transfer gan_module
+        # load style transfer module
         global style_transfer
         from .gpri_helper import style_transfer
 
-        # load inception gan_module for evaluation
+        # load inception module for evaluation
         print("Loading Inception v3 network...")
         self.inception_module = hub.Module(
             'https://tfhub.dev/google/imagenet/inception_v3/classification/1')
@@ -141,7 +143,7 @@ class RandomImageCreator:
         style_transfer.stylize(alpha=0.1,
                                content_path=intermediate_output_path,
                                style_path=style_path, output_path=output_path,
-                               keep_colors = False)
+                               keep_colors=False)
 
         return output_path, wpr
 
@@ -157,22 +159,26 @@ class RandomImageCreator:
 
         if emotion == "anger":
             print("Generating style image for anger ...")
-            image = style_image_funcs.create_anger_image((512, 512), 720, 40, 10, 10)
+            image = style_image_funcs.create_anger_image((512, 512), 720, 40,
+                                                         10, 10)
             imageio.imwrite(path, image)
 
         elif emotion == "disgust":
             print("Generating style image for disgust ...")
-            image = style_image_funcs.create_disgust_image((512, 512), 720, 40, 10, 3)
+            image = style_image_funcs.create_disgust_image((512, 512), 720, 40,
+                                                           10, 3)
             imageio.imwrite(path, image)
 
         elif emotion == "fear":
             print("Generating style image for fear ...")
-            image = style_image_funcs.create_fear_image((512, 512), 720, 40, 10, 10)
+            image = style_image_funcs.create_fear_image((512, 512), 720, 40, 10,
+                                                        10)
             imageio.imwrite(path, image)
 
         elif emotion == "happiness":
             print("Generating style image for happiness ...")
-            image = style_image_funcs.create_happiness_image((512, 512), 720, 40, 10)
+            image = style_image_funcs.create_happiness_image((512, 512), 720,
+                                                             40, 10)
             imageio.imwrite(path, image)
 
         elif emotion == "sadness":
@@ -182,7 +188,8 @@ class RandomImageCreator:
 
         elif emotion == "surprise":
             print("Generating style image for surprise ...")
-            image = style_image_funcs.create_surprise_image((512, 512), 720, 25, 25, 25)
+            image = style_image_funcs.create_surprise_image((512, 512), 720, 25,
+                                                            25, 25)
             imageio.imwrite(path, image)
 
         return path
@@ -322,6 +329,8 @@ class RandomImageCreator:
         """
 
         print("Starting evaluation...")
+
+        # prepare inception module and pictures
         if type(image_paths) == str:
             image_paths = [image_paths]
         imgs = [imageio.imread(ip) for ip in image_paths]
@@ -425,7 +434,7 @@ class RandomImageCreator:
                                                                    word_pairs))
 
         ret = [(path, {'evaluation': self.evaluate(path)[0],
-               'emotion': emotion, 'word pair': wpr}) for path, wpr in
+                       'emotion': emotion, 'word pair': wpr}) for path, wpr in
                [self.generate(emotion, word_pairs) for _ in
                 range(number_of_artifacts)]]
 
