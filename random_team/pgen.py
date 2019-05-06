@@ -97,7 +97,7 @@ def create_annotation_by_changing_colors(path_to_image: str) -> str:
     # Cluster pixels of segmented image
     model.fit(pixels)
     # Create an annotation
-    annotation = ANNOTATION_COLORS[model.labels_.reshape((image.shape[0], image.shape[1]))]
+    annotation = np.ravel(ANNOTATION_COLORS[model.labels_]).reshape(image.shape).astype(np.uint8)
     image_file_name = os.path.splitext(os.path.basename(path_to_image))[-2]
     path_to_annotation = "%s%s" % (os.path.join(os.path.dirname(path_to_image), "%s_sem" % image_file_name), os.path.splitext(os.path.basename(path_to_image))[-1])
     # Save annotation
