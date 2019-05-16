@@ -11,8 +11,11 @@ from datetime import datetime
 from PIL import Image
 from google.cloud import vision
 
+from group_picasso.evaluation1 import EmotionEvaluator
+from group_picasso.evaluation2 import DistanceEvaluator
 from group_picasso.libs.arbitrary_image_stylization.arbitrary_image_stylization_with_weights import code_entry_point
 from group_picasso.markov import MarkovChain
+from group_picasso.search_handler import SearchImage
 
 
 class RandomImageCreator:
@@ -25,6 +28,7 @@ class RandomImageCreator:
         """
         self.domain = 'image'
         self.folder = os.path.dirname(os.path.realpath(__file__))
+        self.root_style_folder = os.path.join(self.folder, "images/styles")
         self.picasso_path = os.path.join(self.folder, "images/picasso.jpg")
         os.environ["GOOGLE_APPLICATION_CREDENTIALS"] = os.path.join(self.folder, "cc-course19-f3aafd62afc9.json")
         self.client = vision.ImageAnnotatorClient()
@@ -66,8 +70,8 @@ class RandomImageCreator:
         n_tries = 10
         for i in range(number_of_artifacts):
             for j in range(n_tries):
-                print("Artifact #{} (attempt #{}):".format(i + 1, j + 1))
-                if not self.__generate_content(word_pairs):
+                print("Artifact #{} (attempt {}/{}):".format(i + 1, j + 1, n_tries))
+                if not self.__generate_content(emotion, word_pairs):
                     print("Couldn't find good enough content!")
                     artifacts_paths_with_meta.append(self.__get_default_artifact_with_meta(emotion))
                     break
@@ -85,21 +89,16 @@ class RandomImageCreator:
     def __get_artifact_with_meta(self, emotion):
         return self.artifact_path, {"evaluation": self.__evaluate_artifact_with_emotion(self.artifact_path, emotion)}
 
-    def __generate_content(self, word_pairs):
-        # TODO
-        # search_query_generator = SearchQueryGenerator()
-        # content_downloader = ContentDownloader()
-
+    def __generate_content(self, emotion, word_pairs):
+        search_image = SearchImage()
         print("Generating content...")
-        n_tries = 10
+        n_tries = 20
         for i in range(n_tries):
-            # TODO
-            # search_query, animal = search_query_generator.generate(word_pairs)
-            # content_path = content_downloader.get_content(search_query)
+            search_query, animal = search_image.get_query(emotion, word_pairs)
+            content_path = search_image.get_image(search_query)
 
-            # Quick fix
-            content_path = os.path.join(self.folder, "images/content/shark.jpg")
-            animal = self.__get_basename(content_path).split("_")[0]
+            # content_path = os.path.join(self.folder, "images/content/otter_2.jpg")
+            # animal = self.__get_basename(content_path).split("_")[0]
 
             print("Animal is {}!".format(animal))
             if self.__evaluate_content_with_vision(animal, content_path):
@@ -109,39 +108,36 @@ class RandomImageCreator:
         return False
 
     def __evaluate_content_with_vision(self, animal, content_path):
-        print("Evaluating content with vision...")
+        print("Evaluating content \"{}\" with vision...".format(self.__get_basename(content_path)))
         with io.open(content_path, "rb") as image_file:
             content = image_file.read()
         image = vision.types.Image(content=content)
         response = self.client.label_detection(image=image)
         labels = response.label_annotations
         for label in labels:
-            print("\t{} {}".format(label.description.lower(), label.score))
+            # print("\t{} {}".format(label.description.lower(), label.score))
             for word in label.description.split():
-                if word.lower() == animal.lower() and label.score > 0.95:
+                if word.lower() == animal.lower() and label.score > .9:
                     print("Content OK!")
                     return True
         return False
 
     def __generate_artifact(self, emotion):
-        # TODO
-        # style_selector = StyleSelector()
-
-        # Quick fix
-        style_filenames = os.listdir(os.path.join(self.folder, "images/styles"))
-
         print("Generating artifacts with different styles...")
-        best_path = None
-        best_style = None
-        best_score = 0
-        n_tries = len(style_filenames)
+
+        style_folder = os.path.join(self.root_style_folder, emotion)
+        style_filenames = os.listdir(style_folder)
+
+        # style_path = os.path.join(self.folder, "images/example_styles/Camille_Mauclair.jpg")
+
+        n_tries = 10
+        artifacts = []
         for i in range(n_tries):
-            # TODO
-            # style_path = style_selector.get_random()
+            style_filename = random.choice(style_filenames)
+            style_path = os.path.join(style_folder, style_filename)
 
-            # Quick fix
-            style_path = os.path.join(self.folder, "images/styles/{}".format(style_filenames[i]))
-
+            style_name = self.__get_basename(style_path)
+            print("Step {}/{}: using style {}...".format(i + 1, n_tries, style_name))
             timestamp = datetime.now().strftime("%Y%m%d-%H%M%S-%f")
             markovified_path = os.path.join(self.folder, "images/tmp/{}.png".format(timestamp))
             tmp_path = os.path.join(self.folder,
@@ -151,17 +147,34 @@ class RandomImageCreator:
                                                                                               style_path)))
             self.__generate_markovified(markovified_path, style_path)
             self.__transfer_style(markovified_path, tmp_path, style_path)
+            [os.remove(path) for path in [markovified_path, tmp_path]]
             artifact_score = self.__evaluate_artifact_with_emotion(artifact_path, emotion)
 
-            print("\t{} {}".format(self.__get_basename(style_path), artifact_score))
-            if artifact_score > best_score:
-                best_score = artifact_score
-                best_path = artifact_path
-                best_style = style_path
-        print("Best emotion score {} with style {}!".format(best_score, self.__get_basename(best_style)))
-        if best_score > .5:
-            print("Enough emotion!")
-            self.artifact_path = best_path
+            if artifact_score > 0:
+                artifacts.append({"path": artifact_path, "style_name": style_name, "emotion_score": artifact_score})
+
+        distance_evaluator = DistanceEvaluator()
+        artifacts = distance_evaluator.difference(dlist=artifacts, grayscale=True)
+
+        print("Scores:")
+        keys = ["style_name", "emotion_score", "distance_score"]
+        best_artifact = None
+        for artifact in artifacts:
+            if best_artifact is None or artifact["emotion_score"] + artifact["distance_score"] > \
+                    best_artifact["emotion_score"] + best_artifact["distance_score"]:
+                best_artifact = artifact
+            print(dict((key, artifact[key]) for key in artifact.keys() if key in keys))
+        print()
+
+        if best_artifact:
+            if best_artifact:
+                print("Enough {} with style {}: emotion score is {} and distance score is {}!".format(
+                    emotion,
+                    best_artifact["style_name"],
+                    best_artifact["emotion_score"],
+                    best_artifact["distance_score"]
+                ))
+                self.artifact_path = best_artifact["path"]
             return True
         else:
             print("Not enough emotion!")
@@ -211,9 +224,9 @@ class RandomImageCreator:
     def __evaluate_artifact_with_emotion(artifact_path, emotion):
         """Evaluate image.
         """
-        # TODO
-        # emotion_evaluator = EmotionEvaluator(artifact_path)
-        # return emotion_evaluator.evaluate(emotion)
-
-        # Quick fix
-        return random.random()
+        emotion_evaluator = EmotionEvaluator()
+        max_emotion, score = emotion_evaluator.emotions_by_colours(artifact_path)
+        if max_emotion == emotion:
+            return score
+        else:
+            return 0
