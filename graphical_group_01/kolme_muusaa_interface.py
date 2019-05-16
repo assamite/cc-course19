@@ -6,12 +6,19 @@ Test it with (from repo root): "python3 main.py -c graphical_group_01/main_confi
 """
 import sys
 
-from kolme_musaa import settings as s
-from kolme_musaa.utils import debug_log
-from kolme_musaa.main import run_pipeline
+import os
 
-sys.path.append(s.__KOLME_MUUSAA_PROJECT_ROOT__)
-sys.path.append(s.__GENERAL_PROJECT_ROOT__)
+__KOLME_MUUSAA_PROJECT_ROOT__ = os.path.dirname(os.path.realpath(__file__))
+__PROJECT_ACCESS_INTERFACE__ = os.path.dirname(__KOLME_MUUSAA_PROJECT_ROOT__)
+__GENERAL_PROJECT_ROOT__ = os.path.dirname(__PROJECT_ACCESS_INTERFACE__)
+
+
+from kolme_muusaa import settings as s
+from kolme_muusaa.utils import debug_log
+from kolme_muusaa.main import run_pipeline
+
+sys.path.append(__KOLME_MUUSAA_PROJECT_ROOT__)
+sys.path.append(__GENERAL_PROJECT_ROOT__)
 
 
 class KolmeMuusaaInterface:
