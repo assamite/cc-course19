@@ -1,83 +1,108 @@
 import random
+import spacy
+
+try:
+    from .markov import MarkovChain
+except ImportError:
+    from markov import MarkovChain
+
+import logging
+logger = logging.getLogger(__name__)
+
+nlp = spacy.load("en_core_web_sm")
 
 
 class Title:
-    def __init__(self, template_string):
-        self.orig = template_string
-        self.title = template_string.split(" ")
+    def __init__(self, tokens):
+        self._tokens = tokens
 
-        # Keep slots in memory for injections
-        self.slots = {
-            "ADJ": [],
-            "NP": []
-        }
-
-        for i, tok in enumerate(self.title):
+    @property
+    def slots(self):
+        for i, tok in enumerate(self._tokens):
             if tok == "[[ADJ]]":
-                self.slots["ADJ"].append((i, None))
-            elif tok in ["[[NOUN]]", "[[PROPN]]"]:
-                self.slots["NP"].append((i, "singular"))
-            elif tok in ["[[NOUNS]]", "[[PROPNS]]"]:
-                self.slots["NP"].append((i, "plural"))
+                yield (i, "ADJ")
+            elif tok == "[[NOUN]]":
+                yield (i, "NOUN")
+            elif tok == "[[NOUNS]]":
+                yield (i, "NOUNS")
+            elif tok == "[[PERSON]]":
+                yield (i, "PERSON")
+            elif tok == "[[LOC]]":
+                yield (i, "LOC")
 
-    def get_slots(self, tag):
-        """Get slots for the given tag."""
-        assert tag in ["ADJ", "NP"]
-        return self.slots[tag]
+    @property
+    def tokens(self):
+        for i, tok in enumerate(self._tokens):
+            if len(tok.strip()) == 0:
+                continue
+            yield from tok.split()
 
-    def inject(self, token, tag, pos=-1):
+    def inject(self, token, tag, pos):
         """Inject the given token into the title."""
-        # Fix these eventually
         assert pos >= -1
-        assert pos < len(self.title)
-        assert tag in ["ADJ", "NP"]
-
-        if len(self.slots[tag]) == 0:
-            return None
-
-        if pos >= 0:
-            if pos not in self.slots[tag]:
-                raise ValueError(
-                    "Given position index is not a slot for the given tag."
-                )
-        else:
-            # If 'pos' not given, inject to first available slot
-            pos = self.slots[tag][0][0]
-
-        self.title[pos] = token
-
-        return token, pos
+        assert pos < len(self._tokens)
+        assert tag in ["ADJ", "NOUN", "NOUNS", "PERSON", "LOC"]
+        assert self._tokens[pos] == "[[" + tag + "]]"
+        self._tokens[pos] = token
 
     def __str__(self):
-        return " ".join(self.title)
+        return "".join(self._tokens)
 
 
 class TemplateBank:
-    def __init__(self, filepath=None):
-        self.template_strings = []
-        if filepath:
-            self.read_templates(filepath)
+    def __init__(self, title_bank):
+        self.markov = MarkovChain(3)
+        for item in title_bank.values():
+            self.markov.add(item['title'].replace('—', '-'))
 
-    def read_templates(self, filepath):
-        """Read tempaltes from the given file."""
-        try:
-            with open(filepath, "r") as f:
-                self.template_strings = [l.strip() for l in f.readlines()]
-        except FileNotFoundError:
-            return 0
+    def _random_template(self):
+        title = self.markov.generate()
 
-        return len(self.template_strings)
+        replacements = {}
+        tokens = []
+        doc = nlp(title)
 
-    def __len__(self):
-        return len(self.template_strings)
+        i = 0
+        for token in doc:
+            # Consider named entities as single token.
+            if token.ent_type_ in ('PERSON', 'FAC', 'GPE', 'LOC'):
+                if token.ent_iob == 1:
+                    tokens[-2] += tokens[-1] + token.text
+                    tokens[-1] = token.whitespace_
+                else:
+                    tokens.append(token.text)
+                    tokens.append(token.whitespace_)
+                    replacements[i] = '[[PERSON]]' if token.ent_type_ == 'PERSON' else '[[LOC]]'
+                    i += 2
+                continue
 
-    def __getitem__(self, i):
-        if (i < 0) or (i >= len(self)):
-            raise ValueError("Got index {} while bank has {} templates".format(
-                i, len(self)))
+            tokens.append(token.text)
+            tokens.append(token.whitespace_)
+            if token.tag_ in ("NN", "NNP"):
+                replacements[i] = "[[NOUN]]"
+            elif token.tag_ in ("NNS", "NNPS"):
+                replacements[i] = "[[NOUNS]]"
+            elif token.pos_ == "ADJ":
+                replacements[i] = "[[ADJ]]"
+            i += 2
 
-        return self.template_strings[i]
+        if len(replacements) < 2:
+            return None
+
+        logger.debug('generated title: ' + ''.join(tokens))
+
+        # Create a template by replacing two random tokens with POS tags
+        for i, replacement in random.sample(replacements.items(), 2):
+            tokens[i] = replacement
+
+        logger.debug('generated template: ' + ''.join(tokens))
+
+        return tokens
 
     def random_template(self):
         """Get random template from the bank."""
-        return self.template_strings[random.randint(0, len(self) - 1)]
+        for i in range(0, 25):
+            template = self._random_template()
+            if template is not None:
+                return template
+        raise RecursionError("Title generation was unable to find fitting template.")
