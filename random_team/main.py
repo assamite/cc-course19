@@ -3,10 +3,16 @@
 Should contain initialize- and create-functions.
 """
 import os
-import time
+from typing import List, Tuple
 
-import cv2
-import numpy as np
+from .fgen import generate_face, create_noise_vector, select_image
+from .pgen import generate_portrait, evaluate_portrait
+
+"""
+This global variable will store feedback of face emotion evaluation
+This storage could be useful if this feedback is somehow cumulative
+"""
+FACE_GENERATION_FEEDBACK = None
 
 
 class RandomTeamImageGenerator:
@@ -18,40 +24,28 @@ class RandomTeamImageGenerator:
         Only keyword arguments are supported in config.json
         """
         print("Random team fancy image generator initialization started")
-        self.path_to_dummy_image = "dummy.jpg"
 
         # Each creator should have domain specified: title, poetry, music, image, etc.
         self.domain = 'image'
+
+        # This code gets an absolute path to our group folder
+        # Please, note, that we should use only absolute paths
+        # So use this folder path for all files which we read/write in our code
         self.path_to_group_folder = os.path.dirname(os.path.realpath(__file__))
         print("Initialization is finished")
 
-    def generate(self, *args, **kwargs):
-        """Random image generator.
-        """
+    def generate_face(self, emotion: str, word_pairs: List[Tuple[str, str]], output_folder, **kwargs):
+        global FACE_GENERATION_FEEDBACK
+        generated_face = generate_face(create_noise_vector(emotion, word_pairs, FACE_GENERATION_FEEDBACK), select_image(emotion, word_pairs, FACE_GENERATION_FEEDBACK), output_folder)
+        return generated_face
 
-        # Read dummy image
-        dummy_image = cv2.imread(os.path.join(self.path_to_group_folder, self.path_to_dummy_image), cv2.IMREAD_COLOR)
-        random_variable = np.random.randint(1, 3)
-        if random_variable == 1:
-            print("Creating HSV image")
-            hsv_transformed = cv2.cvtColor(dummy_image, cv2.COLOR_BGR2HSV)
-            created_image_path = os.path.join(self.path_to_group_folder, str("%s.%s.jpg" % (time.time(), "hsv")))
-            print("Image is saved to %s" % created_image_path)
-            cv2.imwrite(created_image_path, hsv_transformed)
-        elif random_variable == 2:
-            print("Creating Grayscale image")
-            created_image_path = os.path.join(self.path_to_group_folder, str("%s.%s.jpg" % (time.time(), "grayscale")))
-            print("Image is saved to %s" % created_image_path)
-            grayscale_transformed = cv2.cvtColor(dummy_image, cv2.COLOR_BGR2GRAY)
-            cv2.imwrite(created_image_path, grayscale_transformed)
-        return created_image_path
-
-    def evaluate(self, word):
+    def evaluate_emotion(self, face_image):
         """Evaluate word by counting how many vocals it has.
         """
-        return word is not None
+        return face_image is not None
 
-    def create(self, emotion, word_pairs, number_of_artifacts=10, **kwargs):
+    def create(self, emotion: str, word_pairs: List[Tuple[str, str]], number_of_artifacts=10, **kwargs):
+        global FACE_GENERATION_FEEDBACK
         """Create artifacts in the group's domain.
 
         The given inputs can be parsed and deciphered by the system using any methods available.
@@ -80,5 +74,6 @@ class RandomTeamImageGenerator:
 
         """
         print("Group Example create with input args: {} {}".format(emotion, word_pairs))
-        ret = [(w, {'evaluation': self.evaluate(w)}) for w in [self.generate() for _ in range(number_of_artifacts)]]
-        return ret
+        FACE_GENERATION_FEEDBACK = [(face, self.evaluate_emotion(face)) for face in [self.generate_face(emotion, word_pairs, self.path_to_group_folder) for _ in range(number_of_artifacts)]]
+        generated_portraits = [generate_portrait(face, emotion, word_pairs) for face, evaluation in FACE_GENERATION_FEEDBACK]
+        return [(portrait, {'evaluation': evaluate_portrait(portrait), **meta}) for portrait, meta  in generated_portraits]

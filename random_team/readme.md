@@ -1,5 +1,14 @@
 # Random_team, Computational Creativity course, 2019
 
+# Authors:
+
+Antti Lipsanen [@anttilip](https://github.com/anttilip)
+
+Cecilia Äijälä [@shiera](https://github.com/shiera)
+
+Vladimir Dobrodeev [@dvy1989](https://github.com/dvy1989)
+
+
 ## How to run the stuff
 
 In our group folder there is a file called *random_team_main_config.json*. 
@@ -39,3 +48,23 @@ pip install opencv-contrib-python
 This installs exactly the same version as listed in requirements. Please, note, that all libraries
 following *opencv-contrib-python* in *requirements.txt* will not be installed
 if installation fails at that step. So, you'll have to install them manually.
+
+To run Neural Doodle on AWS with CUDA you should clone repository:
+
+```bash
+git clone https://github.com/alexjc/neural-doodle.git
+```
+
+And then create an image using `api/Dockerfile`. This Dockerfile contains valid versions of dependencies which are compatible to AWS Deep Learning EC2 machine setup. Then you need to install the following Python dependencies:
+
+```bash
+pip install flask gevent
+```
+
+And finally run `server.py`:
+
+```bash
+python server.py
+```
+
+Please note, that `server.py` uses port 80.
