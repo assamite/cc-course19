@@ -1,11 +1,10 @@
 from __future__ import print_function, division
 
 import argparse
-import functools
 import time
-import tensorflow as tf, numpy as np, os, random
-from utils import get_files, get_img_random_crop
-from model import WCTModel
+import tensorflow as tf, numpy as np, os
+from .utils import get_files, get_img_random_crop
+from .model import WCTModel
 import threading
 
 

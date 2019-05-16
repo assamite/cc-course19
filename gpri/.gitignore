@@ -1,0 +1,4 @@
+models/
+glove_vecs/
+*.jpg
+*.ipynb

@@ -1,0 +1,1001 @@
+WORDS,NEW_LABELS,"activity, animal, location, weather, human"
+tench,animal,http://wordnet-rdf.princeton.edu/wn30/01440764-n
+goldfish,animal,http://wordnet-rdf.princeton.edu/wn30/01443537-n
+great white shark,animal,http://wordnet-rdf.princeton.edu/wn30/01484850-n
+tiger shark,animal,http://wordnet-rdf.princeton.edu/wn30/01491361-n
+hammerhead shark,animal,http://wordnet-rdf.princeton.edu/wn30/01494475-n
+electric ray,animal,http://wordnet-rdf.princeton.edu/wn30/01496331-n
+stingray,animal,http://wordnet-rdf.princeton.edu/wn30/01498041-n
+cock,animal,http://wordnet-rdf.princeton.edu/wn30/01514668-n
+hen,animal,http://wordnet-rdf.princeton.edu/wn30/01514859-n
+ostrich,animal,http://wordnet-rdf.princeton.edu/wn30/01518878-n
+brambling,animal,http://wordnet-rdf.princeton.edu/wn30/01530575-n
+goldfinch,animal,http://wordnet-rdf.princeton.edu/wn30/01531178-n
+house finch,animal,http://wordnet-rdf.princeton.edu/wn30/01532829-n
+junco,animal,http://wordnet-rdf.princeton.edu/wn30/01534433-n
+indigo bunting,animal,http://wordnet-rdf.princeton.edu/wn30/01537544-n
+American robin,animal,http://wordnet-rdf.princeton.edu/wn30/01558993-n
+bulbul,animal,http://wordnet-rdf.princeton.edu/wn30/01560419-n
+jay,animal,http://wordnet-rdf.princeton.edu/wn30/01580077-n
+magpie,animal,http://wordnet-rdf.princeton.edu/wn30/01582220-n
+chickadee,animal,http://wordnet-rdf.princeton.edu/wn30/01592084-n
+American dipper,animal,http://wordnet-rdf.princeton.edu/wn30/01601694-n
+kite,animal,http://wordnet-rdf.princeton.edu/wn30/01608432-n
+bald eagle,animal,http://wordnet-rdf.princeton.edu/wn30/01614925-n
+vulture,animal,http://wordnet-rdf.princeton.edu/wn30/01616318-n
+great grey owl,animal,http://wordnet-rdf.princeton.edu/wn30/01622779-n
+fire salamander,animal,http://wordnet-rdf.princeton.edu/wn30/01629819-n
+smooth newt,animal,http://wordnet-rdf.princeton.edu/wn30/01630670-n
+newt,animal,http://wordnet-rdf.princeton.edu/wn30/01631663-n
+spotted salamander,animal,http://wordnet-rdf.princeton.edu/wn30/01632458-n
+axolotl,animal,http://wordnet-rdf.princeton.edu/wn30/01632777-n
+American bullfrog,animal,http://wordnet-rdf.princeton.edu/wn30/01641577-n
+tree frog,animal,http://wordnet-rdf.princeton.edu/wn30/01644373-n
+tailed frog,animal,http://wordnet-rdf.princeton.edu/wn30/01644900-n
+loggerhead sea turtle,animal,http://wordnet-rdf.princeton.edu/wn30/01664065-n
+leatherback sea turtle,animal,http://wordnet-rdf.princeton.edu/wn30/01665541-n
+mud turtle,animal,http://wordnet-rdf.princeton.edu/wn30/01667114-n
+terrapin,animal,http://wordnet-rdf.princeton.edu/wn30/01667778-n
+box turtle,animal,http://wordnet-rdf.princeton.edu/wn30/01669191-n
+banded gecko,animal,http://wordnet-rdf.princeton.edu/wn30/01675722-n
+green iguana,animal,http://wordnet-rdf.princeton.edu/wn30/01677366-n
+Carolina anole,animal,http://wordnet-rdf.princeton.edu/wn30/01682714-n
+desert grassland whiptail lizard,animal,http://wordnet-rdf.princeton.edu/wn30/01685808-n
+agama,animal,http://wordnet-rdf.princeton.edu/wn30/01687978-n
+frilled-necked lizard,animal,http://wordnet-rdf.princeton.edu/wn30/01688243-n
+alligator lizard,animal,http://wordnet-rdf.princeton.edu/wn30/01689811-n
+Gila monster,animal,http://wordnet-rdf.princeton.edu/wn30/01692333-n
+European green lizard,animal,http://wordnet-rdf.princeton.edu/wn30/01693334-n
+chameleon,animal,http://wordnet-rdf.princeton.edu/wn30/01694178-n
+Komodo dragon,animal,http://wordnet-rdf.princeton.edu/wn30/01695060-n
+Nile crocodile,animal,http://wordnet-rdf.princeton.edu/wn30/01697457-n
+American alligator,animal,http://wordnet-rdf.princeton.edu/wn30/01698640-n
+triceratops,animal,http://wordnet-rdf.princeton.edu/wn30/01704323-n
+worm snake,animal,http://wordnet-rdf.princeton.edu/wn30/01728572-n
+ring-necked snake,animal,http://wordnet-rdf.princeton.edu/wn30/01728920-n
+eastern hog-nosed snake,animal,http://wordnet-rdf.princeton.edu/wn30/01729322-n
+smooth green snake,animal,http://wordnet-rdf.princeton.edu/wn30/01729977-n
+kingsnake,animal,http://wordnet-rdf.princeton.edu/wn30/01734418-n
+garter snake,animal,http://wordnet-rdf.princeton.edu/wn30/01735189-n
+water snake,animal,http://wordnet-rdf.princeton.edu/wn30/01737021-n
+vine snake,animal,http://wordnet-rdf.princeton.edu/wn30/01739381-n
+night snake,animal,http://wordnet-rdf.princeton.edu/wn30/01740131-n
+boa constrictor,animal,http://wordnet-rdf.princeton.edu/wn30/01742172-n
+African rock python,animal,http://wordnet-rdf.princeton.edu/wn30/01744401-n
+Indian cobra,animal,http://wordnet-rdf.princeton.edu/wn30/01748264-n
+green mamba,animal,http://wordnet-rdf.princeton.edu/wn30/01749939-n
+sea snake,animal,http://wordnet-rdf.princeton.edu/wn30/01751748-n
+Saharan horned viper,animal,http://wordnet-rdf.princeton.edu/wn30/01753488-n
+eastern diamondback rattlesnake,animal,http://wordnet-rdf.princeton.edu/wn30/01755581-n
+sidewinder,animal,http://wordnet-rdf.princeton.edu/wn30/01756291-n
+trilobite,animal,http://wordnet-rdf.princeton.edu/wn30/01768244-n
+harvestman,animal,http://wordnet-rdf.princeton.edu/wn30/01770081-n
+scorpion,animal,http://wordnet-rdf.princeton.edu/wn30/01770393-n
+yellow garden spider,animal,http://wordnet-rdf.princeton.edu/wn30/01773157-n
+barn spider,animal,http://wordnet-rdf.princeton.edu/wn30/01773549-n
+European garden spider,animal,http://wordnet-rdf.princeton.edu/wn30/01773797-n
+southern black widow,animal,http://wordnet-rdf.princeton.edu/wn30/01774384-n
+tarantula,animal,http://wordnet-rdf.princeton.edu/wn30/01774750-n
+wolf spider,animal,http://wordnet-rdf.princeton.edu/wn30/01775062-n
+tick,animal,http://wordnet-rdf.princeton.edu/wn30/01776313-n
+centipede,animal,http://wordnet-rdf.princeton.edu/wn30/01784675-n
+black grouse,animal,http://wordnet-rdf.princeton.edu/wn30/01795545-n
+ptarmigan,animal,http://wordnet-rdf.princeton.edu/wn30/01796340-n
+ruffed grouse,animal,http://wordnet-rdf.princeton.edu/wn30/01797886-n
+prairie grouse,animal,http://wordnet-rdf.princeton.edu/wn30/01798484-n
+peacock,animal,http://wordnet-rdf.princeton.edu/wn30/01806143-n
+quail,animal,http://wordnet-rdf.princeton.edu/wn30/01806567-n
+partridge,animal,http://wordnet-rdf.princeton.edu/wn30/01807496-n
+grey parrot,animal,http://wordnet-rdf.princeton.edu/wn30/01817953-n
+macaw,animal,http://wordnet-rdf.princeton.edu/wn30/01818515-n
+sulphur-crested cockatoo,animal,http://wordnet-rdf.princeton.edu/wn30/01819313-n
+lorikeet,animal,http://wordnet-rdf.princeton.edu/wn30/01820546-n
+coucal,animal,http://wordnet-rdf.princeton.edu/wn30/01824575-n
+bee eater,animal,http://wordnet-rdf.princeton.edu/wn30/01828970-n
+hornbill,animal,http://wordnet-rdf.princeton.edu/wn30/01829413-n
+hummingbird,animal,http://wordnet-rdf.princeton.edu/wn30/01833805-n
+jacamar,animal,http://wordnet-rdf.princeton.edu/wn30/01843065-n
+toucan,animal,http://wordnet-rdf.princeton.edu/wn30/01843383-n
+duck,animal,http://wordnet-rdf.princeton.edu/wn30/01847000-n
+red-breasted merganser,animal,http://wordnet-rdf.princeton.edu/wn30/01855032-n
+goose,animal,http://wordnet-rdf.princeton.edu/wn30/01855672-n
+black swan,animal,http://wordnet-rdf.princeton.edu/wn30/01860187-n
+tusker,animal,http://wordnet-rdf.princeton.edu/wn30/01871265-n
+echidna,animal,http://wordnet-rdf.princeton.edu/wn30/01872401-n
+platypus,animal,http://wordnet-rdf.princeton.edu/wn30/01873310-n
+wallaby,animal,http://wordnet-rdf.princeton.edu/wn30/01877812-n
+koala,animal,http://wordnet-rdf.princeton.edu/wn30/01882714-n
+wombat,animal,http://wordnet-rdf.princeton.edu/wn30/01883070-n
+jellyfish,animal,http://wordnet-rdf.princeton.edu/wn30/01910747-n
+sea anemone,animal,http://wordnet-rdf.princeton.edu/wn30/01914609-n
+brain coral,animal,http://wordnet-rdf.princeton.edu/wn30/01917289-n
+flatworm,animal,http://wordnet-rdf.princeton.edu/wn30/01924916-n
+nematode,animal,http://wordnet-rdf.princeton.edu/wn30/01930112-n
+conch,animal,http://wordnet-rdf.princeton.edu/wn30/01943899-n
+snail,animal,http://wordnet-rdf.princeton.edu/wn30/01944390-n
+slug,animal,http://wordnet-rdf.princeton.edu/wn30/01945685-n
+sea slug,animal,http://wordnet-rdf.princeton.edu/wn30/01950731-n
+chiton,animal,http://wordnet-rdf.princeton.edu/wn30/01955084-n
+chambered nautilus,animal,http://wordnet-rdf.princeton.edu/wn30/01968897-n
+Dungeness crab,animal,http://wordnet-rdf.princeton.edu/wn30/01978287-n
+rock crab,animal,http://wordnet-rdf.princeton.edu/wn30/01978455-n
+fiddler crab,animal,http://wordnet-rdf.princeton.edu/wn30/01980166-n
+red king crab,animal,http://wordnet-rdf.princeton.edu/wn30/01981276-n
+American lobster,animal,http://wordnet-rdf.princeton.edu/wn30/01983481-n
+spiny lobster,animal,http://wordnet-rdf.princeton.edu/wn30/01984695-n
+crayfish,animal,http://wordnet-rdf.princeton.edu/wn30/01985128-n
+hermit crab,animal,http://wordnet-rdf.princeton.edu/wn30/01986214-n
+isopod,animal,http://wordnet-rdf.princeton.edu/wn30/01990800-n
+white stork,animal,http://wordnet-rdf.princeton.edu/wn30/02002556-n
+black stork,animal,http://wordnet-rdf.princeton.edu/wn30/02002724-n
+spoonbill,animal,http://wordnet-rdf.princeton.edu/wn30/02006656-n
+flamingo,animal,http://wordnet-rdf.princeton.edu/wn30/02007558-n
+little blue heron,animal,http://wordnet-rdf.princeton.edu/wn30/02009229-n
+great egret,animal,http://wordnet-rdf.princeton.edu/wn30/02009912-n
+bittern,animal,http://wordnet-rdf.princeton.edu/wn30/02011460-n
+crane,animal,http://wordnet-rdf.princeton.edu/wn30/03126707-n
+limpkin,animal,http://wordnet-rdf.princeton.edu/wn30/02013706-n
+common gallinule,animal,http://wordnet-rdf.princeton.edu/wn30/02017213-n
+American coot,animal,http://wordnet-rdf.princeton.edu/wn30/02018207-n
+bustard,animal,http://wordnet-rdf.princeton.edu/wn30/02018795-n
+ruddy turnstone,animal,http://wordnet-rdf.princeton.edu/wn30/02025239-n
+dunlin,animal,http://wordnet-rdf.princeton.edu/wn30/02027492-n
+common redshank,animal,http://wordnet-rdf.princeton.edu/wn30/02028035-n
+dowitcher,animal,http://wordnet-rdf.princeton.edu/wn30/02033041-n
+oystercatcher,animal,http://wordnet-rdf.princeton.edu/wn30/02037110-n
+pelican,animal,http://wordnet-rdf.princeton.edu/wn30/02051845-n
+king penguin,animal,http://wordnet-rdf.princeton.edu/wn30/02056570-n
+albatross,animal,http://wordnet-rdf.princeton.edu/wn30/02058221-n
+grey whale,animal,http://wordnet-rdf.princeton.edu/wn30/02066245-n
+killer whale,animal,http://wordnet-rdf.princeton.edu/wn30/02071294-n
+dugong,animal,http://wordnet-rdf.princeton.edu/wn30/02074367-n
+sea lion,animal,http://wordnet-rdf.princeton.edu/wn30/02077923-n
+Chihuahua,animal,http://wordnet-rdf.princeton.edu/wn30/02085620-n
+Japanese Chin,animal,http://wordnet-rdf.princeton.edu/wn30/02085782-n
+Maltese,animal,http://wordnet-rdf.princeton.edu/wn30/02085936-n
+Pekingese,animal,http://wordnet-rdf.princeton.edu/wn30/02086079-n
+Shih Tzu,animal,http://wordnet-rdf.princeton.edu/wn30/02086240-n
+King Charles Spaniel,animal,http://wordnet-rdf.princeton.edu/wn30/02086646-n
+Papillon,animal,http://wordnet-rdf.princeton.edu/wn30/02086910-n
+toy terrier,animal,http://wordnet-rdf.princeton.edu/wn30/02087046-n
+Rhodesian Ridgeback,animal,http://wordnet-rdf.princeton.edu/wn30/02087394-n
+Afghan Hound,animal,http://wordnet-rdf.princeton.edu/wn30/02088094-n
+Basset Hound,animal,http://wordnet-rdf.princeton.edu/wn30/02088238-n
+Beagle,animal,http://wordnet-rdf.princeton.edu/wn30/02088364-n
+Bloodhound,animal,http://wordnet-rdf.princeton.edu/wn30/02088466-n
+Bluetick Coonhound,animal,http://wordnet-rdf.princeton.edu/wn30/02088632-n
+Black and Tan Coonhound,animal,http://wordnet-rdf.princeton.edu/wn30/02089078-n
+Treeing Walker Coonhound,animal,http://wordnet-rdf.princeton.edu/wn30/02089867-n
+English foxhound,animal,http://wordnet-rdf.princeton.edu/wn30/02089973-n
+Redbone Coonhound,animal,http://wordnet-rdf.princeton.edu/wn30/02090379-n
+borzoi,animal,http://wordnet-rdf.princeton.edu/wn30/02090622-n
+Irish Wolfhound,animal,http://wordnet-rdf.princeton.edu/wn30/02090721-n
+Italian Greyhound,animal,http://wordnet-rdf.princeton.edu/wn30/02091032-n
+Whippet,animal,http://wordnet-rdf.princeton.edu/wn30/02091134-n
+Ibizan Hound,animal,http://wordnet-rdf.princeton.edu/wn30/02091244-n
+Norwegian Elkhound,animal,http://wordnet-rdf.princeton.edu/wn30/02091467-n
+Otterhound,animal,http://wordnet-rdf.princeton.edu/wn30/02091635-n
+Saluki,animal,http://wordnet-rdf.princeton.edu/wn30/02091831-n
+Scottish Deerhound,animal,http://wordnet-rdf.princeton.edu/wn30/02092002-n
+Weimaraner,animal,http://wordnet-rdf.princeton.edu/wn30/02092339-n
+Staffordshire Bull Terrier,animal,http://wordnet-rdf.princeton.edu/wn30/02093256-n
+American Staffordshire Terrier,animal,http://wordnet-rdf.princeton.edu/wn30/02093428-n
+Bedlington Terrier,animal,http://wordnet-rdf.princeton.edu/wn30/02093647-n
+Border Terrier,animal,http://wordnet-rdf.princeton.edu/wn30/02093754-n
+Kerry Blue Terrier,animal,http://wordnet-rdf.princeton.edu/wn30/02093859-n
+Irish Terrier,animal,http://wordnet-rdf.princeton.edu/wn30/02093991-n
+Norfolk Terrier,animal,http://wordnet-rdf.princeton.edu/wn30/02094114-n
+Norwich Terrier,animal,http://wordnet-rdf.princeton.edu/wn30/02094258-n
+Yorkshire Terrier,animal,http://wordnet-rdf.princeton.edu/wn30/02094433-n
+Wire Fox Terrier,animal,http://wordnet-rdf.princeton.edu/wn30/02095314-n
+Lakeland Terrier,animal,http://wordnet-rdf.princeton.edu/wn30/02095570-n
+Sealyham Terrier,animal,http://wordnet-rdf.princeton.edu/wn30/02095889-n
+Airedale Terrier,animal,http://wordnet-rdf.princeton.edu/wn30/02096051-n
+Cairn Terrier,animal,http://wordnet-rdf.princeton.edu/wn30/02096177-n
+Australian Terrier,animal,http://wordnet-rdf.princeton.edu/wn30/02096294-n
+Dandie Dinmont Terrier,animal,http://wordnet-rdf.princeton.edu/wn30/02096437-n
+Boston Terrier,animal,http://wordnet-rdf.princeton.edu/wn30/02096585-n
+Miniature Schnauzer,animal,http://wordnet-rdf.princeton.edu/wn30/02097047-n
+Giant Schnauzer,animal,http://wordnet-rdf.princeton.edu/wn30/02097130-n
+Standard Schnauzer,animal,http://wordnet-rdf.princeton.edu/wn30/02097209-n
+Scottish Terrier,animal,http://wordnet-rdf.princeton.edu/wn30/02097298-n
+Tibetan Terrier,animal,http://wordnet-rdf.princeton.edu/wn30/02097474-n
+Australian Silky Terrier,animal,http://wordnet-rdf.princeton.edu/wn30/02097658-n
+Soft-coated Wheaten Terrier,animal,http://wordnet-rdf.princeton.edu/wn30/02098105-n
+West Highland White Terrier,animal,http://wordnet-rdf.princeton.edu/wn30/02098286-n
+Lhasa Apso,animal,http://wordnet-rdf.princeton.edu/wn30/02098413-n
+Flat-Coated Retriever,animal,http://wordnet-rdf.princeton.edu/wn30/02099267-n
+Curly-coated Retriever,animal,http://wordnet-rdf.princeton.edu/wn30/02099429-n
+Golden Retriever,animal,http://wordnet-rdf.princeton.edu/wn30/02099601-n
+Labrador Retriever,animal,http://wordnet-rdf.princeton.edu/wn30/02099712-n
+Chesapeake Bay Retriever,animal,http://wordnet-rdf.princeton.edu/wn30/02099849-n
+German Shorthaired Pointer,animal,http://wordnet-rdf.princeton.edu/wn30/02100236-n
+Vizsla,animal,http://wordnet-rdf.princeton.edu/wn30/02100583-n
+English Setter,animal,http://wordnet-rdf.princeton.edu/wn30/02100735-n
+Irish Setter,animal,http://wordnet-rdf.princeton.edu/wn30/02100877-n
+Gordon Setter,animal,http://wordnet-rdf.princeton.edu/wn30/02101006-n
+Brittany,animal,http://wordnet-rdf.princeton.edu/wn30/02101388-n
+Clumber Spaniel,animal,http://wordnet-rdf.princeton.edu/wn30/02101556-n
+English Springer Spaniel,animal,http://wordnet-rdf.princeton.edu/wn30/02102040-n
+Welsh Springer Spaniel,animal,http://wordnet-rdf.princeton.edu/wn30/02102177-n
+Cocker Spaniels,animal,http://wordnet-rdf.princeton.edu/wn30/02102318-n
+Sussex Spaniel,animal,http://wordnet-rdf.princeton.edu/wn30/02102480-n
+Irish Water Spaniel,animal,http://wordnet-rdf.princeton.edu/wn30/02102973-n
+Kuvasz,animal,http://wordnet-rdf.princeton.edu/wn30/02104029-n
+Schipperke,animal,http://wordnet-rdf.princeton.edu/wn30/02104365-n
+Groenendael,animal,http://wordnet-rdf.princeton.edu/wn30/02105056-n
+Malinois,animal,http://wordnet-rdf.princeton.edu/wn30/02105162-n
+Briard,animal,http://wordnet-rdf.princeton.edu/wn30/02105251-n
+Australian Kelpie,animal,http://wordnet-rdf.princeton.edu/wn30/02105412-n
+Komondor,animal,http://wordnet-rdf.princeton.edu/wn30/02105505-n
+Old English Sheepdog,animal,http://wordnet-rdf.princeton.edu/wn30/02105641-n
+Shetland Sheepdog,animal,http://wordnet-rdf.princeton.edu/wn30/02105855-n
+collie,animal,http://wordnet-rdf.princeton.edu/wn30/02106030-n
+Border Collie,animal,http://wordnet-rdf.princeton.edu/wn30/02106166-n
+Bouvier des Flandres,animal,http://wordnet-rdf.princeton.edu/wn30/02106382-n
+Rottweiler,animal,http://wordnet-rdf.princeton.edu/wn30/02106550-n
+German Shepherd Dog,animal,http://wordnet-rdf.princeton.edu/wn30/02106662-n
+Dobermann,animal,http://wordnet-rdf.princeton.edu/wn30/02107142-n
+Miniature Pinscher,animal,http://wordnet-rdf.princeton.edu/wn30/02107312-n
+Greater Swiss Mountain Dog,animal,http://wordnet-rdf.princeton.edu/wn30/02107574-n
+Bernese Mountain Dog,animal,http://wordnet-rdf.princeton.edu/wn30/02107683-n
+Appenzeller Sennenhund,animal,http://wordnet-rdf.princeton.edu/wn30/02107908-n
+Entlebucher Sennenhund,animal,http://wordnet-rdf.princeton.edu/wn30/02108000-n
+Boxer,animal,http://wordnet-rdf.princeton.edu/wn30/02108089-n
+Bullmastiff,animal,http://wordnet-rdf.princeton.edu/wn30/02108422-n
+Tibetan Mastiff,animal,http://wordnet-rdf.princeton.edu/wn30/02108551-n
+French Bulldog,animal,http://wordnet-rdf.princeton.edu/wn30/02108915-n
+Great Dane,animal,http://wordnet-rdf.princeton.edu/wn30/02109047-n
+St. Bernard,animal,http://wordnet-rdf.princeton.edu/wn30/02109525-n
+husky,animal,http://wordnet-rdf.princeton.edu/wn30/02109961-n
+Alaskan Malamute,animal,http://wordnet-rdf.princeton.edu/wn30/02110063-n
+Siberian Husky,animal,http://wordnet-rdf.princeton.edu/wn30/02110185-n
+Dalmatian,animal,http://wordnet-rdf.princeton.edu/wn30/02110341-n
+Affenpinscher,animal,http://wordnet-rdf.princeton.edu/wn30/02110627-n
+Basenji,animal,http://wordnet-rdf.princeton.edu/wn30/02110806-n
+pug,animal,http://wordnet-rdf.princeton.edu/wn30/02110958-n
+Leonberger,animal,http://wordnet-rdf.princeton.edu/wn30/02111129-n
+Newfoundland,animal,http://wordnet-rdf.princeton.edu/wn30/02111277-n
+Pyrenean Mountain Dog,animal,http://wordnet-rdf.princeton.edu/wn30/02111500-n
+Samoyed,animal,http://wordnet-rdf.princeton.edu/wn30/02111889-n
+Pomeranian,animal,http://wordnet-rdf.princeton.edu/wn30/02112018-n
+Chow Chow,animal,http://wordnet-rdf.princeton.edu/wn30/02112137-n
+Keeshond,animal,http://wordnet-rdf.princeton.edu/wn30/02112350-n
+Griffon Bruxellois,animal,http://wordnet-rdf.princeton.edu/wn30/02112706-n
+Pembroke Welsh Corgi,animal,http://wordnet-rdf.princeton.edu/wn30/02113023-n
+Cardigan Welsh Corgi,animal,http://wordnet-rdf.princeton.edu/wn30/02113186-n
+Toy Poodle,animal,http://wordnet-rdf.princeton.edu/wn30/02113624-n
+Miniature Poodle,animal,http://wordnet-rdf.princeton.edu/wn30/02113712-n
+Standard Poodle,animal,http://wordnet-rdf.princeton.edu/wn30/02113799-n
+Mexican hairless dog,animal,http://wordnet-rdf.princeton.edu/wn30/02113978-n
+grey wolf,animal,http://wordnet-rdf.princeton.edu/wn30/02114367-n
+Alaskan tundra wolf,animal,http://wordnet-rdf.princeton.edu/wn30/02114548-n
+red wolf,animal,http://wordnet-rdf.princeton.edu/wn30/02114712-n
+coyote,animal,http://wordnet-rdf.princeton.edu/wn30/02114855-n
+dingo,animal,http://wordnet-rdf.princeton.edu/wn30/02115641-n
+dhole,animal,http://wordnet-rdf.princeton.edu/wn30/02115913-n
+African wild dog,animal,http://wordnet-rdf.princeton.edu/wn30/02116738-n
+hyena,animal,http://wordnet-rdf.princeton.edu/wn30/02117135-n
+red fox,animal,http://wordnet-rdf.princeton.edu/wn30/02119022-n
+kit fox,animal,http://wordnet-rdf.princeton.edu/wn30/02119789-n
+Arctic fox,animal,http://wordnet-rdf.princeton.edu/wn30/02120079-n
+grey fox,animal,http://wordnet-rdf.princeton.edu/wn30/02120505-n
+tabby cat,animal,http://wordnet-rdf.princeton.edu/wn30/02123045-n
+tiger cat,animal,http://wordnet-rdf.princeton.edu/wn30/02123159-n
+Persian cat,animal,http://wordnet-rdf.princeton.edu/wn30/02123394-n
+Siamese cat,animal,http://wordnet-rdf.princeton.edu/wn30/02123597-n
+Egyptian Mau,animal,http://wordnet-rdf.princeton.edu/wn30/02124075-n
+cougar,animal,http://wordnet-rdf.princeton.edu/wn30/02125311-n
+lynx,animal,http://wordnet-rdf.princeton.edu/wn30/02127052-n
+leopard,animal,http://wordnet-rdf.princeton.edu/wn30/02128385-n
+snow leopard,animal,http://wordnet-rdf.princeton.edu/wn30/02128757-n
+jaguar,animal,http://wordnet-rdf.princeton.edu/wn30/02128925-n
+lion,animal,http://wordnet-rdf.princeton.edu/wn30/02129165-n
+tiger,animal,http://wordnet-rdf.princeton.edu/wn30/02129604-n
+cheetah,animal,http://wordnet-rdf.princeton.edu/wn30/02130308-n
+brown bear,animal,http://wordnet-rdf.princeton.edu/wn30/02132136-n
+American black bear,animal,http://wordnet-rdf.princeton.edu/wn30/02133161-n
+polar bear,animal,http://wordnet-rdf.princeton.edu/wn30/02134084-n
+sloth bear,animal,http://wordnet-rdf.princeton.edu/wn30/02134418-n
+mongoose,animal,http://wordnet-rdf.princeton.edu/wn30/02137549-n
+meerkat,animal,http://wordnet-rdf.princeton.edu/wn30/02138441-n
+tiger beetle,animal,http://wordnet-rdf.princeton.edu/wn30/02165105-n
+ladybug,animal,http://wordnet-rdf.princeton.edu/wn30/02165456-n
+ground beetle,animal,http://wordnet-rdf.princeton.edu/wn30/02167151-n
+longhorn beetle,animal,http://wordnet-rdf.princeton.edu/wn30/02168699-n
+leaf beetle,animal,http://wordnet-rdf.princeton.edu/wn30/02169497-n
+dung beetle,animal,http://wordnet-rdf.princeton.edu/wn30/02172182-n
+rhinoceros beetle,animal,http://wordnet-rdf.princeton.edu/wn30/02174001-n
+weevil,animal,http://wordnet-rdf.princeton.edu/wn30/02177972-n
+fly,animal,http://wordnet-rdf.princeton.edu/wn30/02190166-n
+bee,animal,http://wordnet-rdf.princeton.edu/wn30/02206856-n
+ant,animal,http://wordnet-rdf.princeton.edu/wn30/02219486-n
+grasshopper,animal,http://wordnet-rdf.princeton.edu/wn30/02226429-n
+cricket,animal,http://wordnet-rdf.princeton.edu/wn30/02229544-n
+stick insect,animal,http://wordnet-rdf.princeton.edu/wn30/02231487-n
+cockroach,animal,http://wordnet-rdf.princeton.edu/wn30/02233338-n
+mantis,animal,http://wordnet-rdf.princeton.edu/wn30/02236044-n
+cicada,animal,http://wordnet-rdf.princeton.edu/wn30/02256656-n
+leafhopper,animal,http://wordnet-rdf.princeton.edu/wn30/02259212-n
+lacewing,animal,http://wordnet-rdf.princeton.edu/wn30/02264363-n
+dragonfly,animal,http://wordnet-rdf.princeton.edu/wn30/02268443-n
+damselfly,animal,http://wordnet-rdf.princeton.edu/wn30/02268853-n
+red admiral,animal,http://wordnet-rdf.princeton.edu/wn30/02276258-n
+ringlet,animal,http://wordnet-rdf.princeton.edu/wn30/02277742-n
+monarch butterfly,animal,http://wordnet-rdf.princeton.edu/wn30/02279972-n
+small white,animal,http://wordnet-rdf.princeton.edu/wn30/02280649-n
+sulphur butterfly,animal,http://wordnet-rdf.princeton.edu/wn30/02281406-n
+gossamer-winged butterfly,animal,http://wordnet-rdf.princeton.edu/wn30/02281787-n
+starfish,animal,http://wordnet-rdf.princeton.edu/wn30/02317335-n
+sea urchin,animal,http://wordnet-rdf.princeton.edu/wn30/02319095-n
+sea cucumber,animal,http://wordnet-rdf.princeton.edu/wn30/02321529-n
+cottontail rabbit,animal,http://wordnet-rdf.princeton.edu/wn30/02325366-n
+hare,animal,http://wordnet-rdf.princeton.edu/wn30/02326432-n
+Angora rabbit,animal,http://wordnet-rdf.princeton.edu/wn30/02328150-n
+hamster,animal,http://wordnet-rdf.princeton.edu/wn30/02342885-n
+porcupine,animal,http://wordnet-rdf.princeton.edu/wn30/02346627-n
+fox squirrel,animal,http://wordnet-rdf.princeton.edu/wn30/02356798-n
+marmot,animal,http://wordnet-rdf.princeton.edu/wn30/02361337-n
+beaver,animal,http://wordnet-rdf.princeton.edu/wn30/02363005-n
+guinea pig,animal,http://wordnet-rdf.princeton.edu/wn30/02364673-n
+common sorrel,animal,http://wordnet-rdf.princeton.edu/wn30/02389026-n
+zebra,animal,http://wordnet-rdf.princeton.edu/wn30/02391049-n
+pig,animal,http://wordnet-rdf.princeton.edu/wn30/02395406-n
+wild boar,animal,http://wordnet-rdf.princeton.edu/wn30/02396427-n
+warthog,animal,http://wordnet-rdf.princeton.edu/wn30/02397096-n
+hippopotamus,animal,http://wordnet-rdf.princeton.edu/wn30/02398521-n
+ox,animal,http://wordnet-rdf.princeton.edu/wn30/02403003-n
+water buffalo,animal,http://wordnet-rdf.princeton.edu/wn30/02408429-n
+bison,animal,http://wordnet-rdf.princeton.edu/wn30/02410509-n
+ram,animal,http://wordnet-rdf.princeton.edu/wn30/02412080-n
+bighorn sheep,animal,http://wordnet-rdf.princeton.edu/wn30/02415577-n
+Alpine ibex,animal,http://wordnet-rdf.princeton.edu/wn30/02417914-n
+hartebeest,animal,http://wordnet-rdf.princeton.edu/wn30/02422106-n
+impala,animal,http://wordnet-rdf.princeton.edu/wn30/02422699-n
+gazelle,animal,http://wordnet-rdf.princeton.edu/wn30/02423022-n
+dromedary,animal,http://wordnet-rdf.princeton.edu/wn30/02437312-n
+llama,animal,http://wordnet-rdf.princeton.edu/wn30/02437616-n
+weasel,animal,http://wordnet-rdf.princeton.edu/wn30/02441942-n
+mink,animal,http://wordnet-rdf.princeton.edu/wn30/02442845-n
+European polecat,animal,http://wordnet-rdf.princeton.edu/wn30/02443114-n
+black-footed ferret,animal,http://wordnet-rdf.princeton.edu/wn30/02443484-n
+otter,animal,http://wordnet-rdf.princeton.edu/wn30/02444819-n
+skunk,animal,http://wordnet-rdf.princeton.edu/wn30/02445715-n
+badger,animal,http://wordnet-rdf.princeton.edu/wn30/02447366-n
+armadillo,animal,http://wordnet-rdf.princeton.edu/wn30/02454379-n
+three-toed sloth,animal,http://wordnet-rdf.princeton.edu/wn30/02457408-n
+orangutan,animal,http://wordnet-rdf.princeton.edu/wn30/02480495-n
+gorilla,animal,http://wordnet-rdf.princeton.edu/wn30/02480855-n
+chimpanzee,animal,http://wordnet-rdf.princeton.edu/wn30/02481823-n
+gibbon,animal,http://wordnet-rdf.princeton.edu/wn30/02483362-n
+siamang,animal,http://wordnet-rdf.princeton.edu/wn30/02483708-n
+guenon,animal,http://wordnet-rdf.princeton.edu/wn30/02484975-n
+patas monkey,animal,http://wordnet-rdf.princeton.edu/wn30/02486261-n
+baboon,animal,http://wordnet-rdf.princeton.edu/wn30/02486410-n
+macaque,animal,http://wordnet-rdf.princeton.edu/wn30/02487347-n
+langur,animal,http://wordnet-rdf.princeton.edu/wn30/02488291-n
+black-and-white colobus,animal,http://wordnet-rdf.princeton.edu/wn30/02488702-n
+proboscis monkey,animal,http://wordnet-rdf.princeton.edu/wn30/02489166-n
+marmoset,animal,http://wordnet-rdf.princeton.edu/wn30/02490219-n
+white-headed capuchin,animal,http://wordnet-rdf.princeton.edu/wn30/02492035-n
+howler monkey,animal,http://wordnet-rdf.princeton.edu/wn30/02492660-n
+titi,animal,http://wordnet-rdf.princeton.edu/wn30/02493509-n
+Geoffroy's spider monkey,animal,http://wordnet-rdf.princeton.edu/wn30/02493793-n
+common squirrel monkey,animal,http://wordnet-rdf.princeton.edu/wn30/02494079-n
+ring-tailed lemur,animal,http://wordnet-rdf.princeton.edu/wn30/02497673-n
+indri,animal,http://wordnet-rdf.princeton.edu/wn30/02500267-n
+Asian elephant,animal,http://wordnet-rdf.princeton.edu/wn30/02504013-n
+African bush elephant,animal,http://wordnet-rdf.princeton.edu/wn30/02504458-n
+red panda,animal,http://wordnet-rdf.princeton.edu/wn30/02509815-n
+giant panda,animal,http://wordnet-rdf.princeton.edu/wn30/02510455-n
+snoek,animal,http://wordnet-rdf.princeton.edu/wn30/02514041-n
+eel,animal,http://wordnet-rdf.princeton.edu/wn30/02526121-n
+coho salmon,animal,http://wordnet-rdf.princeton.edu/wn30/02536864-n
+rock beauty,animal,http://wordnet-rdf.princeton.edu/wn30/02606052-n
+clownfish,animal,http://wordnet-rdf.princeton.edu/wn30/02607072-n
+sturgeon,animal,http://wordnet-rdf.princeton.edu/wn30/02640242-n
+garfish,animal,http://wordnet-rdf.princeton.edu/wn30/02641379-n
+lionfish,animal,http://wordnet-rdf.princeton.edu/wn30/02643566-n
+pufferfish,animal,http://wordnet-rdf.princeton.edu/wn30/02655020-n
+abacus,activity,http://wordnet-rdf.princeton.edu/wn30/02666196-n
+abaya,activity,http://wordnet-rdf.princeton.edu/wn30/02667093-n
+academic gown,activity,http://wordnet-rdf.princeton.edu/wn30/02669723-n
+accordion,activity,http://wordnet-rdf.princeton.edu/wn30/02672831-n
+acoustic guitar,activity,http://wordnet-rdf.princeton.edu/wn30/02676566-n
+aircraft carrier,activity,http://wordnet-rdf.princeton.edu/wn30/02687172-n
+airliner,activity,http://wordnet-rdf.princeton.edu/wn30/02690373-n
+airship,activity,http://wordnet-rdf.princeton.edu/wn30/02692877-n
+altar,activity,http://wordnet-rdf.princeton.edu/wn30/02699494-n
+ambulance,activity,http://wordnet-rdf.princeton.edu/wn30/02701002-n
+amphibious vehicle,activity,http://wordnet-rdf.princeton.edu/wn30/02704792-n
+analog clock,activity,http://wordnet-rdf.princeton.edu/wn30/02708093-n
+apiary,activity,http://wordnet-rdf.princeton.edu/wn30/02727426-n
+apron,activity,http://wordnet-rdf.princeton.edu/wn30/02730930-n
+waste container,activity,http://wordnet-rdf.princeton.edu/wn30/02747177-n
+assault rifle,activity,http://wordnet-rdf.princeton.edu/wn30/02749479-n
+backpack,activity,http://wordnet-rdf.princeton.edu/wn30/02769748-n
+bakery,location,http://wordnet-rdf.princeton.edu/wn30/02776631-n
+balance beam,activity,http://wordnet-rdf.princeton.edu/wn30/02777292-n
+balloon,activity,http://wordnet-rdf.princeton.edu/wn30/02782093-n
+ballpoint pen,activity,http://wordnet-rdf.princeton.edu/wn30/02783161-n
+Band-Aid,activity,http://wordnet-rdf.princeton.edu/wn30/02786058-n
+banjo,activity,http://wordnet-rdf.princeton.edu/wn30/02787622-n
+baluster,activity,http://wordnet-rdf.princeton.edu/wn30/02788148-n
+barbell,activity,http://wordnet-rdf.princeton.edu/wn30/02790996-n
+barber chair,activity,http://wordnet-rdf.princeton.edu/wn30/02791124-n
+barbershop,location,http://wordnet-rdf.princeton.edu/wn30/02791270-n
+barn,animal,http://wordnet-rdf.princeton.edu/wn30/02793495-n
+barometer,activity,http://wordnet-rdf.princeton.edu/wn30/02794156-n
+barrel,activity,http://wordnet-rdf.princeton.edu/wn30/02795169-n
+wheelbarrow,activity,http://wordnet-rdf.princeton.edu/wn30/02797295-n
+baseball,activity,http://wordnet-rdf.princeton.edu/wn30/02799071-n
+basketball,activity,http://wordnet-rdf.princeton.edu/wn30/02802426-n
+bassinet,activity,http://wordnet-rdf.princeton.edu/wn30/02804414-n
+bassoon,activity,http://wordnet-rdf.princeton.edu/wn30/02804610-n
+swimming cap,activity,http://wordnet-rdf.princeton.edu/wn30/02807133-n
+bath towel,activity,http://wordnet-rdf.princeton.edu/wn30/02808304-n
+bathtub,activity,http://wordnet-rdf.princeton.edu/wn30/02808440-n
+station wagon,activity,http://wordnet-rdf.princeton.edu/wn30/02814533-n
+lighthouse,activity,http://wordnet-rdf.princeton.edu/wn30/02814860-n
+beaker,activity,http://wordnet-rdf.princeton.edu/wn30/02815834-n
+military cap,activity,http://wordnet-rdf.princeton.edu/wn30/02817516-n
+beer bottle,activity,http://wordnet-rdf.princeton.edu/wn30/02823428-n
+beer glass,activity,http://wordnet-rdf.princeton.edu/wn30/02823750-n
+bell-cot,activity,http://wordnet-rdf.princeton.edu/wn30/02825657-n
+bib,activity,http://wordnet-rdf.princeton.edu/wn30/02834397-n
+tandem bicycle,activity,http://wordnet-rdf.princeton.edu/wn30/02835271-n
+bikini,activity,http://wordnet-rdf.princeton.edu/wn30/02837789-n
+ring binder,activity,http://wordnet-rdf.princeton.edu/wn30/02840245-n
+binoculars,activity,http://wordnet-rdf.princeton.edu/wn30/02841315-n
+birdhouse,location,http://wordnet-rdf.princeton.edu/wn30/02843684-n
+boathouse,activity,http://wordnet-rdf.princeton.edu/wn30/02859443-n
+bobsleigh,activity,http://wordnet-rdf.princeton.edu/wn30/02860847-n
+bolo tie,activity,http://wordnet-rdf.princeton.edu/wn30/02865351-n
+poke bonnet,activity,http://wordnet-rdf.princeton.edu/wn30/02869837-n
+bookcase,activity,http://wordnet-rdf.princeton.edu/wn30/02870880-n
+bookstore,activity,http://wordnet-rdf.princeton.edu/wn30/02871525-n
+bottle cap,activity,http://wordnet-rdf.princeton.edu/wn30/02877765-n
+bow,activity,http://wordnet-rdf.princeton.edu/wn30/02879718-n
+bow tie,activity,http://wordnet-rdf.princeton.edu/wn30/02883205-n
+brass,activity,http://wordnet-rdf.princeton.edu/wn30/02892201-n
+bra,activity,http://wordnet-rdf.princeton.edu/wn30/02892767-n
+breakwater,activity,http://wordnet-rdf.princeton.edu/wn30/02894605-n
+breastplate,activity,http://wordnet-rdf.princeton.edu/wn30/02895154-n
+broom,activity,http://wordnet-rdf.princeton.edu/wn30/02906734-n
+bucket,activity,http://wordnet-rdf.princeton.edu/wn30/02909870-n
+buckle,activity,http://wordnet-rdf.princeton.edu/wn30/02910353-n
+bulletproof vest,activity,http://wordnet-rdf.princeton.edu/wn30/02916936-n
+high-speed train,location,http://wordnet-rdf.princeton.edu/wn30/02917067-n
+butcher shop,location,http://wordnet-rdf.princeton.edu/wn30/02927161-n
+taxicab,location,http://wordnet-rdf.princeton.edu/wn30/02930766-n
+cauldron,activity,http://wordnet-rdf.princeton.edu/wn30/02939185-n
+candle,activity,http://wordnet-rdf.princeton.edu/wn30/02948072-n
+cannon,activity,http://wordnet-rdf.princeton.edu/wn30/02950826-n
+canoe,activity,http://wordnet-rdf.princeton.edu/wn30/02951358-n
+can opener,activity,http://wordnet-rdf.princeton.edu/wn30/02951585-n
+cardigan,activity,http://wordnet-rdf.princeton.edu/wn30/02963159-n
+car mirror,activity,http://wordnet-rdf.princeton.edu/wn30/02965783-n
+carousel,activity,http://wordnet-rdf.princeton.edu/wn30/02966193-n
+tool kit,activity,http://wordnet-rdf.princeton.edu/wn30/02966687-n
+carton,activity,http://wordnet-rdf.princeton.edu/wn30/02971356-n
+car wheel,activity,http://wordnet-rdf.princeton.edu/wn30/02974003-n
+automated teller machine,activity,http://wordnet-rdf.princeton.edu/wn30/02977058-n
+cassette,activity,http://wordnet-rdf.princeton.edu/wn30/02978881-n
+cassette player,activity,http://wordnet-rdf.princeton.edu/wn30/02979186-n
+castle,activity,http://wordnet-rdf.princeton.edu/wn30/02980441-n
+catamaran,activity,http://wordnet-rdf.princeton.edu/wn30/02981792-n
+CD player,activity,http://wordnet-rdf.princeton.edu/wn30/02988304-n
+cello,activity,http://wordnet-rdf.princeton.edu/wn30/02992211-n
+mobile phone,activity,http://wordnet-rdf.princeton.edu/wn30/02992529-n
+chain,activity,http://wordnet-rdf.princeton.edu/wn30/02999410-n
+chain-link fence,activity,http://wordnet-rdf.princeton.edu/wn30/03000134-n
+chain mail,activity,http://wordnet-rdf.princeton.edu/wn30/03000247-n
+chainsaw,activity,http://wordnet-rdf.princeton.edu/wn30/03000684-n
+chest,activity,http://wordnet-rdf.princeton.edu/wn30/03014705-n
+chiffonier,activity,http://wordnet-rdf.princeton.edu/wn30/03016953-n
+chime,activity,http://wordnet-rdf.princeton.edu/wn30/03017168-n
+china cabinet,location,http://wordnet-rdf.princeton.edu/wn30/03018349-n
+Christmas stocking,activity,http://wordnet-rdf.princeton.edu/wn30/03026506-n
+church,location,http://wordnet-rdf.princeton.edu/wn30/03028079-n
+movie theater,location,http://wordnet-rdf.princeton.edu/wn30/03032252-n
+cleaver,activity,http://wordnet-rdf.princeton.edu/wn30/03041632-n
+cliff dwelling,activity,http://wordnet-rdf.princeton.edu/wn30/03042490-n
+cloak,activity,http://wordnet-rdf.princeton.edu/wn30/03045698-n
+clogs,activity,http://wordnet-rdf.princeton.edu/wn30/03047690-n
+cocktail shaker,activity,http://wordnet-rdf.princeton.edu/wn30/03062245-n
+coffee mug,activity,http://wordnet-rdf.princeton.edu/wn30/03063599-n
+coffeemaker,activity,http://wordnet-rdf.princeton.edu/wn30/03063689-n
+coil,activity,http://wordnet-rdf.princeton.edu/wn30/03065424-n
+combination lock,activity,http://wordnet-rdf.princeton.edu/wn30/03075370-n
+computer keyboard,activity,http://wordnet-rdf.princeton.edu/wn30/03085013-n
+confectionery store,location,http://wordnet-rdf.princeton.edu/wn30/03089624-n
+container ship,activity,http://wordnet-rdf.princeton.edu/wn30/03095699-n
+convertible,activity,http://wordnet-rdf.princeton.edu/wn30/03100240-n
+corkscrew,activity,http://wordnet-rdf.princeton.edu/wn30/03109150-n
+cornet,activity,http://wordnet-rdf.princeton.edu/wn30/03110669-n
+cowboy boot,activity,http://wordnet-rdf.princeton.edu/wn30/03124043-n
+cowboy hat,activity,http://wordnet-rdf.princeton.edu/wn30/03124170-n
+cradle,activity,http://wordnet-rdf.princeton.edu/wn30/03125729-n
+crane,activity,http://wordnet-rdf.princeton.edu/wn30/03126707-n
+crash helmet,activity,http://wordnet-rdf.princeton.edu/wn30/03127747-n
+crate,activity,http://wordnet-rdf.princeton.edu/wn30/03127925-n
+infant bed,activity,http://wordnet-rdf.princeton.edu/wn30/03131574-n
+Crock Pot,activity,http://wordnet-rdf.princeton.edu/wn30/03133878-n
+croquet ball,activity,http://wordnet-rdf.princeton.edu/wn30/03134739-n
+crutch,activity,http://wordnet-rdf.princeton.edu/wn30/03141823-n
+cuirass,activity,http://wordnet-rdf.princeton.edu/wn30/03146219-n
+dam,activity,http://wordnet-rdf.princeton.edu/wn30/03160309-n
+desk,activity,http://wordnet-rdf.princeton.edu/wn30/03179701-n
+desktop computer,activity,http://wordnet-rdf.princeton.edu/wn30/03180011-n
+rotary dial telephone,activity,http://wordnet-rdf.princeton.edu/wn30/03187595-n
+diaper,activity,http://wordnet-rdf.princeton.edu/wn30/03188531-n
+digital clock,activity,http://wordnet-rdf.princeton.edu/wn30/03196217-n
+digital watch,activity,http://wordnet-rdf.princeton.edu/wn30/03197337-n
+dining table,activity,http://wordnet-rdf.princeton.edu/wn30/03201208-n
+dishcloth,activity,http://wordnet-rdf.princeton.edu/wn30/03207743-n
+dishwasher,activity,http://wordnet-rdf.princeton.edu/wn30/03207941-n
+disc brake,activity,http://wordnet-rdf.princeton.edu/wn30/03208938-n
+dock,activity,http://wordnet-rdf.princeton.edu/wn30/03216828-n
+dog sled,activity,http://wordnet-rdf.princeton.edu/wn30/03218198-n
+dome,activity,http://wordnet-rdf.princeton.edu/wn30/03220513-n
+doormat,activity,http://wordnet-rdf.princeton.edu/wn30/03223299-n
+drilling rig,activity,http://wordnet-rdf.princeton.edu/wn30/03240683-n
+drum,activity,http://wordnet-rdf.princeton.edu/wn30/03249569-n
+drumstick,activity,http://wordnet-rdf.princeton.edu/wn30/03250847-n
+dumbbell,activity,http://wordnet-rdf.princeton.edu/wn30/03255030-n
+Dutch oven,activity,http://wordnet-rdf.princeton.edu/wn30/03259280-n
+electric fan,activity,http://wordnet-rdf.princeton.edu/wn30/03271574-n
+electric guitar,activity,http://wordnet-rdf.princeton.edu/wn30/03272010-n
+electric locomotive,activity,http://wordnet-rdf.princeton.edu/wn30/03272562-n
+entertainment center,activity,http://wordnet-rdf.princeton.edu/wn30/03290653-n
+envelope,activity,http://wordnet-rdf.princeton.edu/wn30/03291819-n
+espresso machine,activity,http://wordnet-rdf.princeton.edu/wn30/03297495-n
+face powder,activity,http://wordnet-rdf.princeton.edu/wn30/03314780-n
+feather boa,activity,http://wordnet-rdf.princeton.edu/wn30/03325584-n
+filing cabinet,activity,http://wordnet-rdf.princeton.edu/wn30/03337140-n
+fireboat,activity,http://wordnet-rdf.princeton.edu/wn30/03344393-n
+fire engine,activity,http://wordnet-rdf.princeton.edu/wn30/03345487-n
+fire screen sheet,activity,http://wordnet-rdf.princeton.edu/wn30/03347037-n
+flagpole,activity,http://wordnet-rdf.princeton.edu/wn30/03355925-n
+flute,activity,http://wordnet-rdf.princeton.edu/wn30/03372029-n
+folding chair,activity,http://wordnet-rdf.princeton.edu/wn30/03376595-n
+football helmet,activity,http://wordnet-rdf.princeton.edu/wn30/03379051-n
+forklift,activity,http://wordnet-rdf.princeton.edu/wn30/03384352-n
+fountain,location,http://wordnet-rdf.princeton.edu/wn30/03388043-n
+fountain pen,activity,http://wordnet-rdf.princeton.edu/wn30/03388183-n
+four-poster bed,activity,http://wordnet-rdf.princeton.edu/wn30/03388549-n
+freight car,activity,http://wordnet-rdf.princeton.edu/wn30/03393912-n
+French horn,activity,http://wordnet-rdf.princeton.edu/wn30/03394916-n
+frying pan,activity,http://wordnet-rdf.princeton.edu/wn30/03400231-n
+fur coat,activity,http://wordnet-rdf.princeton.edu/wn30/03404251-n
+garbage truck,activity,http://wordnet-rdf.princeton.edu/wn30/03417042-n
+gas mask,activity,http://wordnet-rdf.princeton.edu/wn30/03424325-n
+gas pump,activity,http://wordnet-rdf.princeton.edu/wn30/03425413-n
+goblet,activity,http://wordnet-rdf.princeton.edu/wn30/03443371-n
+go-kart,activity,http://wordnet-rdf.princeton.edu/wn30/03444034-n
+golf ball,activity,http://wordnet-rdf.princeton.edu/wn30/03445777-n
+golf cart,activity,http://wordnet-rdf.princeton.edu/wn30/03445924-n
+gondola,activity,http://wordnet-rdf.princeton.edu/wn30/03447447-n
+gong,activity,http://wordnet-rdf.princeton.edu/wn30/03447721-n
+gown,activity,http://wordnet-rdf.princeton.edu/wn30/03450230-n
+grand piano,activity,http://wordnet-rdf.princeton.edu/wn30/03452741-n
+greenhouse,location,http://wordnet-rdf.princeton.edu/wn30/03457902-n
+grille,activity,http://wordnet-rdf.princeton.edu/wn30/03459775-n
+grocery store,location,http://wordnet-rdf.princeton.edu/wn30/03461385-n
+guillotine,activity,http://wordnet-rdf.princeton.edu/wn30/03467068-n
+barrette,activity,http://wordnet-rdf.princeton.edu/wn30/03476684-n
+hair spray,activity,http://wordnet-rdf.princeton.edu/wn30/03476991-n
+half-track,activity,http://wordnet-rdf.princeton.edu/wn30/03478589-n
+hammer,activity,http://wordnet-rdf.princeton.edu/wn30/03481172-n
+hamper,activity,http://wordnet-rdf.princeton.edu/wn30/03482405-n
+hair dryer,activity,http://wordnet-rdf.princeton.edu/wn30/03483316-n
+hand-held computer,activity,http://wordnet-rdf.princeton.edu/wn30/03485407-n
+handkerchief,activity,http://wordnet-rdf.princeton.edu/wn30/03485794-n
+hard disk drive,activity,http://wordnet-rdf.princeton.edu/wn30/03492542-n
+harmonica,activity,http://wordnet-rdf.princeton.edu/wn30/03494278-n
+harp,activity,http://wordnet-rdf.princeton.edu/wn30/03495258-n
+harvester,activity,http://wordnet-rdf.princeton.edu/wn30/03496892-n
+hatchet,activity,http://wordnet-rdf.princeton.edu/wn30/03498962-n
+holster,activity,http://wordnet-rdf.princeton.edu/wn30/03527444-n
+home theater,activity,http://wordnet-rdf.princeton.edu/wn30/03529860-n
+honeycomb,activity,http://wordnet-rdf.princeton.edu/wn30/03530642-n
+hook,activity,http://wordnet-rdf.princeton.edu/wn30/03532672-n
+hoop skirt,activity,http://wordnet-rdf.princeton.edu/wn30/03534580-n
+horizontal bar,activity,http://wordnet-rdf.princeton.edu/wn30/03535780-n
+horse-drawn vehicle,activity,http://wordnet-rdf.princeton.edu/wn30/03538406-n
+hourglass,activity,http://wordnet-rdf.princeton.edu/wn30/03544143-n
+iPod,activity,http://wordnet-rdf.princeton.edu/wn30/03584254-n
+clothes iron,activity,http://wordnet-rdf.princeton.edu/wn30/03584829-n
+jack-o'-lantern,activity,http://wordnet-rdf.princeton.edu/wn30/03590841-n
+jeans,activity,http://wordnet-rdf.princeton.edu/wn30/03594734-n
+jeep,activity,http://wordnet-rdf.princeton.edu/wn30/03594945-n
+T-shirt,activity,http://wordnet-rdf.princeton.edu/wn30/03595614-n
+jigsaw puzzle,activity,http://wordnet-rdf.princeton.edu/wn30/03598930-n
+pulled rickshaw,activity,http://wordnet-rdf.princeton.edu/wn30/03599486-n
+joystick,activity,http://wordnet-rdf.princeton.edu/wn30/03602883-n
+kimono,activity,http://wordnet-rdf.princeton.edu/wn30/03617480-n
+knee pad,activity,http://wordnet-rdf.princeton.edu/wn30/03623198-n
+knot,activity,http://wordnet-rdf.princeton.edu/wn30/03627232-n
+lab coat,activity,http://wordnet-rdf.princeton.edu/wn30/03630383-n
+ladle,activity,http://wordnet-rdf.princeton.edu/wn30/03633091-n
+lampshade,activity,http://wordnet-rdf.princeton.edu/wn30/03637318-n
+laptop computer,activity,http://wordnet-rdf.princeton.edu/wn30/03642806-n
+lawn mower,activity,http://wordnet-rdf.princeton.edu/wn30/03649909-n
+lens cap,activity,http://wordnet-rdf.princeton.edu/wn30/03657121-n
+paper knife,activity,http://wordnet-rdf.princeton.edu/wn30/03658185-n
+library,location,http://wordnet-rdf.princeton.edu/wn30/03661043-n
+lifeboat,activity,http://wordnet-rdf.princeton.edu/wn30/03662601-n
+lighter,activity,http://wordnet-rdf.princeton.edu/wn30/03666591-n
+limousine,location,http://wordnet-rdf.princeton.edu/wn30/03670208-n
+ocean liner,activity,http://wordnet-rdf.princeton.edu/wn30/03673027-n
+lipstick,activity,http://wordnet-rdf.princeton.edu/wn30/03676483-n
+slip-on shoe,activity,http://wordnet-rdf.princeton.edu/wn30/03680355-n
+lotion,activity,http://wordnet-rdf.princeton.edu/wn30/03690938-n
+speaker,activity,http://wordnet-rdf.princeton.edu/wn30/03691459-n
+loupe,activity,http://wordnet-rdf.princeton.edu/wn30/03692522-n
+sawmill,activity,http://wordnet-rdf.princeton.edu/wn30/03697007-n
+magnetic compass,activity,http://wordnet-rdf.princeton.edu/wn30/03706229-n
+mail bag,activity,http://wordnet-rdf.princeton.edu/wn30/03709823-n
+mailbox,activity,http://wordnet-rdf.princeton.edu/wn30/03710193-n
+tights,activity,http://wordnet-rdf.princeton.edu/wn30/03710637-n
+tank suit,activity,http://wordnet-rdf.princeton.edu/wn30/03710721-n
+manhole cover,activity,http://wordnet-rdf.princeton.edu/wn30/03717622-n
+maraca,activity,http://wordnet-rdf.princeton.edu/wn30/03720891-n
+marimba,activity,http://wordnet-rdf.princeton.edu/wn30/03721384-n
+mask,activity,http://wordnet-rdf.princeton.edu/wn30/03724870-n
+match,activity,http://wordnet-rdf.princeton.edu/wn30/03729826-n
+maypole,activity,http://wordnet-rdf.princeton.edu/wn30/03733131-n
+maze,activity,http://wordnet-rdf.princeton.edu/wn30/03733281-n
+measuring cup,activity,http://wordnet-rdf.princeton.edu/wn30/03733805-n
+medicine chest,activity,http://wordnet-rdf.princeton.edu/wn30/03742115-n
+megalith,activity,http://wordnet-rdf.princeton.edu/wn30/03743016-n
+microphone,activity,http://wordnet-rdf.princeton.edu/wn30/03759954-n
+microwave oven,activity,http://wordnet-rdf.princeton.edu/wn30/03761084-n
+military uniform,activity,http://wordnet-rdf.princeton.edu/wn30/03763968-n
+milk can,activity,http://wordnet-rdf.princeton.edu/wn30/03764736-n
+minibus,activity,http://wordnet-rdf.princeton.edu/wn30/03769881-n
+miniskirt,activity,http://wordnet-rdf.princeton.edu/wn30/03770439-n
+minivan,activity,http://wordnet-rdf.princeton.edu/wn30/03770679-n
+missile,activity,http://wordnet-rdf.princeton.edu/wn30/03773504-n
+mitten,activity,http://wordnet-rdf.princeton.edu/wn30/03775071-n
+mixing bowl,activity,http://wordnet-rdf.princeton.edu/wn30/03775546-n
+mobile home,location,http://wordnet-rdf.princeton.edu/wn30/03776460-n
+Model T,activity,http://wordnet-rdf.princeton.edu/wn30/03777568-n
+modem,activity,http://wordnet-rdf.princeton.edu/wn30/03777754-n
+monastery,location,http://wordnet-rdf.princeton.edu/wn30/03781244-n
+monitor,activity,http://wordnet-rdf.princeton.edu/wn30/03782006-n
+moped,activity,http://wordnet-rdf.princeton.edu/wn30/03785016-n
+mortar,activity,http://wordnet-rdf.princeton.edu/wn30/03786901-n
+square academic cap,activity,http://wordnet-rdf.princeton.edu/wn30/03787032-n
+mosque,location,http://wordnet-rdf.princeton.edu/wn30/03788195-n
+mosquito net,activity,http://wordnet-rdf.princeton.edu/wn30/03788365-n
+scooter,activity,http://wordnet-rdf.princeton.edu/wn30/03791053-n
+mountain bike,activity,http://wordnet-rdf.princeton.edu/wn30/03792782-n
+tent,location,http://wordnet-rdf.princeton.edu/wn30/03792972-n
+computer mouse,activity,http://wordnet-rdf.princeton.edu/wn30/03793489-n
+mousetrap,activity,http://wordnet-rdf.princeton.edu/wn30/03794056-n
+moving van,location,http://wordnet-rdf.princeton.edu/wn30/03796401-n
+muzzle,activity,http://wordnet-rdf.princeton.edu/wn30/03803284-n
+nail,activity,http://wordnet-rdf.princeton.edu/wn30/03804744-n
+neck brace,activity,http://wordnet-rdf.princeton.edu/wn30/03814639-n
+necklace,activity,http://wordnet-rdf.princeton.edu/wn30/03814906-n
+nipple,activity,http://wordnet-rdf.princeton.edu/wn30/03825788-n
+notebook computer,activity,http://wordnet-rdf.princeton.edu/wn30/03832673-n
+obelisk,location,http://wordnet-rdf.princeton.edu/wn30/03837869-n
+oboe,activity,http://wordnet-rdf.princeton.edu/wn30/03838899-n
+ocarina,activity,http://wordnet-rdf.princeton.edu/wn30/03840681-n
+odometer,activity,http://wordnet-rdf.princeton.edu/wn30/03841143-n
+oil filter,activity,http://wordnet-rdf.princeton.edu/wn30/03843555-n
+organ,activity,http://wordnet-rdf.princeton.edu/wn30/03854065-n
+oscilloscope,activity,http://wordnet-rdf.princeton.edu/wn30/03857828-n
+overskirt,activity,http://wordnet-rdf.princeton.edu/wn30/03866082-n
+bullock cart,activity,http://wordnet-rdf.princeton.edu/wn30/03868242-n
+oxygen mask,activity,http://wordnet-rdf.princeton.edu/wn30/03868863-n
+packet,activity,http://wordnet-rdf.princeton.edu/wn30/03871628-n
+paddle,activity,http://wordnet-rdf.princeton.edu/wn30/03873416-n
+paddle wheel,activity,http://wordnet-rdf.princeton.edu/wn30/03874293-n
+padlock,activity,http://wordnet-rdf.princeton.edu/wn30/03874599-n
+paintbrush,activity,http://wordnet-rdf.princeton.edu/wn30/03876231-n
+pajamas,activity,http://wordnet-rdf.princeton.edu/wn30/03877472-n
+palace,location,http://wordnet-rdf.princeton.edu/wn30/03877845-n
+pan flute,activity,http://wordnet-rdf.princeton.edu/wn30/03884397-n
+paper towel,activity,http://wordnet-rdf.princeton.edu/wn30/03887697-n
+parachute,activity,http://wordnet-rdf.princeton.edu/wn30/03888257-n
+parallel bars,location,http://wordnet-rdf.princeton.edu/wn30/03888605-n
+park bench,location,http://wordnet-rdf.princeton.edu/wn30/03891251-n
+parking meter,activity,http://wordnet-rdf.princeton.edu/wn30/03891332-n
+passenger car,location,http://wordnet-rdf.princeton.edu/wn30/03895866-n
+patio,location,http://wordnet-rdf.princeton.edu/wn30/03899768-n
+payphone,activity,http://wordnet-rdf.princeton.edu/wn30/03902125-n
+pedestal,location,http://wordnet-rdf.princeton.edu/wn30/03903868-n
+pencil case,activity,http://wordnet-rdf.princeton.edu/wn30/03908618-n
+pencil sharpener,activity,http://wordnet-rdf.princeton.edu/wn30/03908714-n
+perfume,activity,http://wordnet-rdf.princeton.edu/wn30/03916031-n
+Petri dish,activity,http://wordnet-rdf.princeton.edu/wn30/03920288-n
+photocopier,activity,http://wordnet-rdf.princeton.edu/wn30/03924679-n
+plectrum,activity,http://wordnet-rdf.princeton.edu/wn30/03929660-n
+Pickelhaube,activity,http://wordnet-rdf.princeton.edu/wn30/03929855-n
+picket fence,activity,http://wordnet-rdf.princeton.edu/wn30/03930313-n
+pickup truck,activity,http://wordnet-rdf.princeton.edu/wn30/03930630-n
+pier,activity,http://wordnet-rdf.princeton.edu/wn30/03933933-n
+piggy bank,activity,http://wordnet-rdf.princeton.edu/wn30/03935335-n
+pill bottle,activity,http://wordnet-rdf.princeton.edu/wn30/03937543-n
+pillow,activity,http://wordnet-rdf.princeton.edu/wn30/03938244-n
+ping-pong ball,activity,http://wordnet-rdf.princeton.edu/wn30/03942813-n
+pinwheel,activity,http://wordnet-rdf.princeton.edu/wn30/03944341-n
+pirate ship,location,http://wordnet-rdf.princeton.edu/wn30/03947888-n
+pitcher,activity,http://wordnet-rdf.princeton.edu/wn30/03950228-n
+hand plane,location,http://wordnet-rdf.princeton.edu/wn30/03954731-n
+planetarium,location,http://wordnet-rdf.princeton.edu/wn30/03956157-n
+plastic bag,activity,http://wordnet-rdf.princeton.edu/wn30/03958227-n
+plate rack,activity,http://wordnet-rdf.princeton.edu/wn30/03961711-n
+plow,activity,http://wordnet-rdf.princeton.edu/wn30/03967562-n
+plunger,activity,http://wordnet-rdf.princeton.edu/wn30/03970156-n
+Polaroid camera,activity,http://wordnet-rdf.princeton.edu/wn30/03976467-n
+pole,activity,http://wordnet-rdf.princeton.edu/wn30/03976657-n
+police van,activity,http://wordnet-rdf.princeton.edu/wn30/03977966-n
+poncho,activity,http://wordnet-rdf.princeton.edu/wn30/03980874-n
+billiard table,activity,http://wordnet-rdf.princeton.edu/wn30/03982430-n
+soda bottle,activity,http://wordnet-rdf.princeton.edu/wn30/03983396-n
+pot,activity,http://wordnet-rdf.princeton.edu/wn30/03991062-n
+potter's wheel,activity,http://wordnet-rdf.princeton.edu/wn30/03992509-n
+power drill,activity,http://wordnet-rdf.princeton.edu/wn30/03995372-n
+prayer rug,activity,http://wordnet-rdf.princeton.edu/wn30/03998194-n
+printer,activity,http://wordnet-rdf.princeton.edu/wn30/04004767-n
+prison,location,http://wordnet-rdf.princeton.edu/wn30/04005630-n
+projectile,activity,http://wordnet-rdf.princeton.edu/wn30/04008634-n
+projector,activity,http://wordnet-rdf.princeton.edu/wn30/04009552-n
+hockey puck,activity,http://wordnet-rdf.princeton.edu/wn30/04019541-n
+punching bag,activity,http://wordnet-rdf.princeton.edu/wn30/04023962-n
+purse,activity,http://wordnet-rdf.princeton.edu/wn30/04026417-n
+quill,activity,http://wordnet-rdf.princeton.edu/wn30/04033901-n
+quilt,activity,http://wordnet-rdf.princeton.edu/wn30/04033995-n
+race car,activity,http://wordnet-rdf.princeton.edu/wn30/04037443-n
+racket,activity,http://wordnet-rdf.princeton.edu/wn30/04039381-n
+radiator,activity,http://wordnet-rdf.princeton.edu/wn30/04040759-n
+radio,activity,http://wordnet-rdf.princeton.edu/wn30/04041544-n
+radio telescope,activity,http://wordnet-rdf.princeton.edu/wn30/04044716-n
+rain barrel,activity,http://wordnet-rdf.princeton.edu/wn30/04049303-n
+recreational vehicle,activity,http://wordnet-rdf.princeton.edu/wn30/04065272-n
+reel,activity,http://wordnet-rdf.princeton.edu/wn30/04067472-n
+reflex camera,activity,http://wordnet-rdf.princeton.edu/wn30/04069434-n
+refrigerator,activity,http://wordnet-rdf.princeton.edu/wn30/04070727-n
+remote control,activity,http://wordnet-rdf.princeton.edu/wn30/04074963-n
+restaurant,location,http://wordnet-rdf.princeton.edu/wn30/04081281-n
+revolver,activity,http://wordnet-rdf.princeton.edu/wn30/04086273-n
+rifle,activity,http://wordnet-rdf.princeton.edu/wn30/04090263-n
+rocking chair,activity,http://wordnet-rdf.princeton.edu/wn30/04099969-n
+rotisserie,activity,http://wordnet-rdf.princeton.edu/wn30/04111531-n
+eraser,activity,http://wordnet-rdf.princeton.edu/wn30/04116512-n
+rugby ball,activity,http://wordnet-rdf.princeton.edu/wn30/04118538-n
+ruler,activity,http://wordnet-rdf.princeton.edu/wn30/04118776-n
+running shoe,activity,http://wordnet-rdf.princeton.edu/wn30/04120489-n
+safe,activity,http://wordnet-rdf.princeton.edu/wn30/04125021-n
+safety pin,activity,http://wordnet-rdf.princeton.edu/wn30/04127249-n
+salt shaker,activity,http://wordnet-rdf.princeton.edu/wn30/04131690-n
+sandal,activity,http://wordnet-rdf.princeton.edu/wn30/04133789-n
+sarong,activity,http://wordnet-rdf.princeton.edu/wn30/04136333-n
+saxophone,activity,http://wordnet-rdf.princeton.edu/wn30/04141076-n
+scabbard,activity,http://wordnet-rdf.princeton.edu/wn30/04141327-n
+weighing scale,activity,http://wordnet-rdf.princeton.edu/wn30/04141975-n
+school bus,activity,http://wordnet-rdf.princeton.edu/wn30/04146614-n
+schooner,activity,http://wordnet-rdf.princeton.edu/wn30/04147183-n
+scoreboard,activity,http://wordnet-rdf.princeton.edu/wn30/04149813-n
+CRT screen,activity,http://wordnet-rdf.princeton.edu/wn30/04152593-n
+screw,activity,http://wordnet-rdf.princeton.edu/wn30/04153751-n
+screwdriver,activity,http://wordnet-rdf.princeton.edu/wn30/04154565-n
+seat belt,activity,http://wordnet-rdf.princeton.edu/wn30/04162706-n
+sewing machine,activity,http://wordnet-rdf.princeton.edu/wn30/04179913-n
+shield,activity,http://wordnet-rdf.princeton.edu/wn30/04192698-n
+shoe store,activity,http://wordnet-rdf.princeton.edu/wn30/04200800-n
+shoji,activity,http://wordnet-rdf.princeton.edu/wn30/04201297-n
+shopping basket,activity,http://wordnet-rdf.princeton.edu/wn30/04204238-n
+shopping cart,activity,http://wordnet-rdf.princeton.edu/wn30/04204347-n
+shovel,activity,http://wordnet-rdf.princeton.edu/wn30/04208210-n
+shower cap,activity,http://wordnet-rdf.princeton.edu/wn30/04209133-n
+shower curtain,activity,http://wordnet-rdf.princeton.edu/wn30/04209239-n
+ski,activity,http://wordnet-rdf.princeton.edu/wn30/04228054-n
+ski mask,activity,http://wordnet-rdf.princeton.edu/wn30/04229816-n
+sleeping bag,activity,http://wordnet-rdf.princeton.edu/wn30/04235860-n
+slide rule,activity,http://wordnet-rdf.princeton.edu/wn30/04238763-n
+sliding door,activity,http://wordnet-rdf.princeton.edu/wn30/04239074-n
+slot machine,activity,http://wordnet-rdf.princeton.edu/wn30/04243546-n
+snorkel,activity,http://wordnet-rdf.princeton.edu/wn30/04251144-n
+snowmobile,activity,http://wordnet-rdf.princeton.edu/wn30/04252077-n
+snowplow,activity,http://wordnet-rdf.princeton.edu/wn30/04252225-n
+soap dispenser,activity,http://wordnet-rdf.princeton.edu/wn30/04254120-n
+soccer ball,activity,http://wordnet-rdf.princeton.edu/wn30/04254680-n
+sock,activity,http://wordnet-rdf.princeton.edu/wn30/04254777-n
+solar thermal collector,activity,http://wordnet-rdf.princeton.edu/wn30/04258138-n
+sombrero,activity,http://wordnet-rdf.princeton.edu/wn30/04259630-n
+soup bowl,activity,http://wordnet-rdf.princeton.edu/wn30/04263257-n
+space bar,activity,http://wordnet-rdf.princeton.edu/wn30/04264628-n
+space heater,activity,http://wordnet-rdf.princeton.edu/wn30/04265275-n
+space shuttle,activity,http://wordnet-rdf.princeton.edu/wn30/04266014-n
+spatula,activity,http://wordnet-rdf.princeton.edu/wn30/04270147-n
+motorboat,activity,http://wordnet-rdf.princeton.edu/wn30/04273569-n
+spider web,activity,http://wordnet-rdf.princeton.edu/wn30/04275548-n
+spindle,activity,http://wordnet-rdf.princeton.edu/wn30/04277352-n
+sports car,activity,http://wordnet-rdf.princeton.edu/wn30/04285008-n
+spotlight,activity,http://wordnet-rdf.princeton.edu/wn30/04286575-n
+stage,activity,http://wordnet-rdf.princeton.edu/wn30/04296562-n
+steam locomotive,activity,http://wordnet-rdf.princeton.edu/wn30/04310018-n
+through arch bridge,activity,http://wordnet-rdf.princeton.edu/wn30/04311004-n
+steel drum,activity,http://wordnet-rdf.princeton.edu/wn30/04311174-n
+stethoscope,activity,http://wordnet-rdf.princeton.edu/wn30/04317175-n
+scarf,activity,http://wordnet-rdf.princeton.edu/wn30/04325704-n
+stone wall,location,http://wordnet-rdf.princeton.edu/wn30/04326547-n
+stopwatch,activity,http://wordnet-rdf.princeton.edu/wn30/04328186-n
+stove,activity,http://wordnet-rdf.princeton.edu/wn30/04330267-n
+strainer,activity,http://wordnet-rdf.princeton.edu/wn30/04332243-n
+tram,activity,http://wordnet-rdf.princeton.edu/wn30/04335435-n
+stretcher,activity,http://wordnet-rdf.princeton.edu/wn30/04336792-n
+couch,activity,http://wordnet-rdf.princeton.edu/wn30/04344873-n
+stupa,activity,http://wordnet-rdf.princeton.edu/wn30/04346328-n
+submarine,location,http://wordnet-rdf.princeton.edu/wn30/04347754-n
+suit,activity,http://wordnet-rdf.princeton.edu/wn30/04350905-n
+sundial,activity,http://wordnet-rdf.princeton.edu/wn30/04355338-n
+sunglass,activity,http://wordnet-rdf.princeton.edu/wn30/04355933-n
+sunglasses,activity,http://wordnet-rdf.princeton.edu/wn30/04356056-n
+sunscreen,activity,http://wordnet-rdf.princeton.edu/wn30/04357314-n
+suspension bridge,activity,http://wordnet-rdf.princeton.edu/wn30/04366367-n
+mop,activity,http://wordnet-rdf.princeton.edu/wn30/04367480-n
+sweatshirt,activity,http://wordnet-rdf.princeton.edu/wn30/04370456-n
+swimsuit,activity,http://wordnet-rdf.princeton.edu/wn30/04371430-n
+swing,activity,http://wordnet-rdf.princeton.edu/wn30/04371774-n
+switch,activity,http://wordnet-rdf.princeton.edu/wn30/04372370-n
+syringe,activity,http://wordnet-rdf.princeton.edu/wn30/04376876-n
+table lamp,activity,http://wordnet-rdf.princeton.edu/wn30/04380533-n
+tank,activity,http://wordnet-rdf.princeton.edu/wn30/04389033-n
+tape player,activity,http://wordnet-rdf.princeton.edu/wn30/04392985-n
+teapot,activity,http://wordnet-rdf.princeton.edu/wn30/04398044-n
+teddy bear,activity,http://wordnet-rdf.princeton.edu/wn30/04399382-n
+television,activity,http://wordnet-rdf.princeton.edu/wn30/04404412-n
+tennis ball,activity,http://wordnet-rdf.princeton.edu/wn30/04409515-n
+thatched roof,activity,http://wordnet-rdf.princeton.edu/wn30/04417672-n
+front curtain,activity,http://wordnet-rdf.princeton.edu/wn30/04418357-n
+thimble,activity,http://wordnet-rdf.princeton.edu/wn30/04423845-n
+threshing machine,activity,http://wordnet-rdf.princeton.edu/wn30/04428191-n
+throne,activity,http://wordnet-rdf.princeton.edu/wn30/04429376-n
+tile roof,activity,http://wordnet-rdf.princeton.edu/wn30/04435653-n
+toaster,activity,http://wordnet-rdf.princeton.edu/wn30/04442312-n
+tobacco shop,activity,http://wordnet-rdf.princeton.edu/wn30/04443257-n
+toilet seat,activity,http://wordnet-rdf.princeton.edu/wn30/04447861-n
+torch,activity,http://wordnet-rdf.princeton.edu/wn30/04456115-n
+totem pole,activity,http://wordnet-rdf.princeton.edu/wn30/04458633-n
+tow truck,activity,http://wordnet-rdf.princeton.edu/wn30/04461696-n
+toy store,activity,http://wordnet-rdf.princeton.edu/wn30/04462240-n
+tractor,activity,http://wordnet-rdf.princeton.edu/wn30/04465501-n
+semi-trailer truck,activity,http://wordnet-rdf.princeton.edu/wn30/04467665-n
+tray,activity,http://wordnet-rdf.princeton.edu/wn30/04476259-n
+trench coat,activity,http://wordnet-rdf.princeton.edu/wn30/04479046-n
+tricycle,activity,http://wordnet-rdf.princeton.edu/wn30/04482393-n
+trimaran,activity,http://wordnet-rdf.princeton.edu/wn30/04483307-n
+tripod,activity,http://wordnet-rdf.princeton.edu/wn30/04485082-n
+triumphal arch,activity,http://wordnet-rdf.princeton.edu/wn30/04486054-n
+trolleybus,activity,http://wordnet-rdf.princeton.edu/wn30/04487081-n
+trombone,activity,http://wordnet-rdf.princeton.edu/wn30/04487394-n
+tub,activity,http://wordnet-rdf.princeton.edu/wn30/04493381-n
+turnstile,activity,http://wordnet-rdf.princeton.edu/wn30/04501370-n
+typewriter keyboard,activity,http://wordnet-rdf.princeton.edu/wn30/04505470-n
+umbrella,activity,http://wordnet-rdf.princeton.edu/wn30/04507155-n
+unicycle,activity,http://wordnet-rdf.princeton.edu/wn30/04509417-n
+upright piano,activity,http://wordnet-rdf.princeton.edu/wn30/04515003-n
+vacuum cleaner,activity,http://wordnet-rdf.princeton.edu/wn30/04517823-n
+vase,activity,http://wordnet-rdf.princeton.edu/wn30/04522168-n
+vault,activity,http://wordnet-rdf.princeton.edu/wn30/04523525-n
+velvet,activity,http://wordnet-rdf.princeton.edu/wn30/04525038-n
+vending machine,activity,http://wordnet-rdf.princeton.edu/wn30/04525305-n
+vestment,activity,http://wordnet-rdf.princeton.edu/wn30/04532106-n
+viaduct,activity,http://wordnet-rdf.princeton.edu/wn30/04532670-n
+violin,activity,http://wordnet-rdf.princeton.edu/wn30/04536866-n
+volleyball,activity,http://wordnet-rdf.princeton.edu/wn30/04540053-n
+waffle iron,activity,http://wordnet-rdf.princeton.edu/wn30/04542943-n
+wall clock,activity,http://wordnet-rdf.princeton.edu/wn30/04548280-n
+wallet,activity,http://wordnet-rdf.princeton.edu/wn30/04548362-n
+wardrobe,activity,http://wordnet-rdf.princeton.edu/wn30/04550184-n
+military aircraft,activity,http://wordnet-rdf.princeton.edu/wn30/04552348-n
+sink,activity,http://wordnet-rdf.princeton.edu/wn30/04553703-n
+washing machine,activity,http://wordnet-rdf.princeton.edu/wn30/04554684-n
+water bottle,activity,http://wordnet-rdf.princeton.edu/wn30/04557648-n
+water jug,activity,http://wordnet-rdf.princeton.edu/wn30/04560804-n
+water tower,activity,http://wordnet-rdf.princeton.edu/wn30/04562935-n
+whiskey jug,activity,http://wordnet-rdf.princeton.edu/wn30/04579145-n
+whistle,activity,http://wordnet-rdf.princeton.edu/wn30/04579432-n
+wig,activity,http://wordnet-rdf.princeton.edu/wn30/04584207-n
+window screen,activity,http://wordnet-rdf.princeton.edu/wn30/04589890-n
+window shade,activity,http://wordnet-rdf.princeton.edu/wn30/04590129-n
+Windsor tie,activity,http://wordnet-rdf.princeton.edu/wn30/04591157-n
+wine bottle,activity,http://wordnet-rdf.princeton.edu/wn30/04591713-n
+wing,activity,http://wordnet-rdf.princeton.edu/wn30/04592741-n
+wok,activity,http://wordnet-rdf.princeton.edu/wn30/04596742-n
+wooden spoon,activity,http://wordnet-rdf.princeton.edu/wn30/04597913-n
+wool,activity,http://wordnet-rdf.princeton.edu/wn30/04599235-n
+split-rail fence,activity,http://wordnet-rdf.princeton.edu/wn30/04604644-n
+shipwreck,location,http://wordnet-rdf.princeton.edu/wn30/04606251-n
+yawl,activity,http://wordnet-rdf.princeton.edu/wn30/04612504-n
+yurt,activity,http://wordnet-rdf.princeton.edu/wn30/04613696-n
+website,location,http://wordnet-rdf.princeton.edu/wn30/06359193-n
+comic book,activity,http://wordnet-rdf.princeton.edu/wn30/06596364-n
+crossword,activity,http://wordnet-rdf.princeton.edu/wn30/06785654-n
+traffic sign,activity,http://wordnet-rdf.princeton.edu/wn30/06794110-n
+traffic light,activity,http://wordnet-rdf.princeton.edu/wn30/06874185-n
+dust jacket,activity,http://wordnet-rdf.princeton.edu/wn30/07248320-n
+menu,activity,http://wordnet-rdf.princeton.edu/wn30/07565083-n
+plate,activity,http://wordnet-rdf.princeton.edu/wn30/07579787-n
+guacamole,activity,http://wordnet-rdf.princeton.edu/wn30/07583066-n
+consomme,activity,http://wordnet-rdf.princeton.edu/wn30/07584110-n
+hot pot,activity,http://wordnet-rdf.princeton.edu/wn30/07590611-n
+trifle,activity,http://wordnet-rdf.princeton.edu/wn30/07613480-n
+ice cream,activity,http://wordnet-rdf.princeton.edu/wn30/07614500-n
+ice pop,activity,http://wordnet-rdf.princeton.edu/wn30/07615774-n
+baguette,activity,http://wordnet-rdf.princeton.edu/wn30/07684084-n
+bagel,activity,http://wordnet-rdf.princeton.edu/wn30/07693725-n
+pretzel,activity,http://wordnet-rdf.princeton.edu/wn30/07695742-n
+cheeseburger,activity,http://wordnet-rdf.princeton.edu/wn30/07697313-n
+hot dog,activity,http://wordnet-rdf.princeton.edu/wn30/07697537-n
+mashed potato,activity,http://wordnet-rdf.princeton.edu/wn30/07711569-n
+cabbage,activity,http://wordnet-rdf.princeton.edu/wn30/07714571-n
+broccoli,activity,http://wordnet-rdf.princeton.edu/wn30/07714990-n
+cauliflower,activity,http://wordnet-rdf.princeton.edu/wn30/07715103-n
+zucchini,activity,http://wordnet-rdf.princeton.edu/wn30/07716358-n
+spaghetti squash,activity,http://wordnet-rdf.princeton.edu/wn30/07716906-n
+acorn squash,activity,http://wordnet-rdf.princeton.edu/wn30/07717410-n
+butternut squash,activity,http://wordnet-rdf.princeton.edu/wn30/07717556-n
+cucumber,activity,http://wordnet-rdf.princeton.edu/wn30/07718472-n
+artichoke,activity,http://wordnet-rdf.princeton.edu/wn30/07718747-n
+bell pepper,activity,http://wordnet-rdf.princeton.edu/wn30/07720875-n
+cardoon,activity,http://wordnet-rdf.princeton.edu/wn30/07730033-n
+mushroom,activity,http://wordnet-rdf.princeton.edu/wn30/07734744-n
+Granny Smith,activity,http://wordnet-rdf.princeton.edu/wn30/07742313-n
+strawberry,activity,http://wordnet-rdf.princeton.edu/wn30/07745940-n
+orange,activity,http://wordnet-rdf.princeton.edu/wn30/07747607-n
+lemon,activity,http://wordnet-rdf.princeton.edu/wn30/07749582-n
+fig,activity,http://wordnet-rdf.princeton.edu/wn30/07753113-n
+pineapple,activity,http://wordnet-rdf.princeton.edu/wn30/07753275-n
+banana,activity,http://wordnet-rdf.princeton.edu/wn30/07753592-n
+jackfruit,activity,http://wordnet-rdf.princeton.edu/wn30/07754684-n
+custard apple,activity,http://wordnet-rdf.princeton.edu/wn30/07760859-n
+pomegranate,activity,http://wordnet-rdf.princeton.edu/wn30/07768694-n
+hay,activity,http://wordnet-rdf.princeton.edu/wn30/07802026-n
+carbonara,activity,http://wordnet-rdf.princeton.edu/wn30/07831146-n
+chocolate syrup,activity,http://wordnet-rdf.princeton.edu/wn30/07836838-n
+dough,activity,http://wordnet-rdf.princeton.edu/wn30/07860988-n
+meatloaf,activity,http://wordnet-rdf.princeton.edu/wn30/07871810-n
+pizza,activity,http://wordnet-rdf.princeton.edu/wn30/07873807-n
+pot pie,activity,http://wordnet-rdf.princeton.edu/wn30/07875152-n
+burrito,activity,http://wordnet-rdf.princeton.edu/wn30/07880968-n
+red wine,activity,http://wordnet-rdf.princeton.edu/wn30/07892512-n
+espresso,activity,http://wordnet-rdf.princeton.edu/wn30/07920052-n
+cup,activity,http://wordnet-rdf.princeton.edu/wn30/07930864-n
+eggnog,activity,http://wordnet-rdf.princeton.edu/wn30/07932039-n
+alp,activity,http://wordnet-rdf.princeton.edu/wn30/09193705-n
+bubble,activity,http://wordnet-rdf.princeton.edu/wn30/09229709-n
+cliff,activity,http://wordnet-rdf.princeton.edu/wn30/09246464-n
+coral reef,activity,http://wordnet-rdf.princeton.edu/wn30/09256479-n
+geyser,activity,http://wordnet-rdf.princeton.edu/wn30/09288635-n
+lakeshore,activity,http://wordnet-rdf.princeton.edu/wn30/09332890-n
+promontory,activity,http://wordnet-rdf.princeton.edu/wn30/09399592-n
+shoal,activity,http://wordnet-rdf.princeton.edu/wn30/09421951-n
+seashore,activity,http://wordnet-rdf.princeton.edu/wn30/09428293-n
+valley,activity,http://wordnet-rdf.princeton.edu/wn30/09468604-n
+volcano,activity,http://wordnet-rdf.princeton.edu/wn30/09472597-n
+baseball player,activity,http://wordnet-rdf.princeton.edu/wn30/09835506-n
+bridegroom,activity,http://wordnet-rdf.princeton.edu/wn30/10148035-n
+scuba diver,activity,http://wordnet-rdf.princeton.edu/wn30/10565667-n
+rapeseed,activity,http://wordnet-rdf.princeton.edu/wn30/11879895-n
+daisy,activity,http://wordnet-rdf.princeton.edu/wn30/11939491-n
+yellow lady's slipper,activity,http://wordnet-rdf.princeton.edu/wn30/12057211-n
+corn,activity,http://wordnet-rdf.princeton.edu/wn30/12144580-n
+acorn,activity,http://wordnet-rdf.princeton.edu/wn30/12267677-n
+rose hip,activity,http://wordnet-rdf.princeton.edu/wn30/12620546-n
+horse chestnut seed,activity,http://wordnet-rdf.princeton.edu/wn30/12768682-n
+coral fungus,activity,http://wordnet-rdf.princeton.edu/wn30/12985857-n
+agaric,activity,http://wordnet-rdf.princeton.edu/wn30/12998815-n
+gyromitra,activity,http://wordnet-rdf.princeton.edu/wn30/13037406-n
+stinkhorn mushroom,activity,http://wordnet-rdf.princeton.edu/wn30/13040303-n
+earth star,activity,http://wordnet-rdf.princeton.edu/wn30/13044778-n
+hen-of-the-woods,activity,http://wordnet-rdf.princeton.edu/wn30/13052670-n
+bolete,activity,http://wordnet-rdf.princeton.edu/wn30/13054560-n
+ear,activity,http://wordnet-rdf.princeton.edu/wn30/13133613-n
+toilet paper,activity,http://wordnet-rdf.princeton.edu/wn30/15075141-n

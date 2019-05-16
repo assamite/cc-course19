@@ -1,13 +1,9 @@
 from __future__ import division, print_function
 
-import os
 import numpy as np
 import time
 from .model import WCTModel
 import tensorflow as tf
-from .ops import wct_np
-from .coral import coral_numpy
-import scipy.misc
 from .utils import swap_filter_fit, center_crop_to
 
 

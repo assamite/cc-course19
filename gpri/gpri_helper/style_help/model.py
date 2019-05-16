@@ -1,12 +1,10 @@
 from __future__ import division, print_function
 
 import tensorflow as tf
-import numpy as np
 from .vgg_normalised import vgg_from_t7
-from keras import backend as K
 from keras.models import Model
 from keras.layers import Input, UpSampling2D, Lambda
-from .ops import pad_reflect, Conv2DReflect, torch_decay, wct_tf, wct_style_swap, adain
+from .ops import Conv2DReflect, torch_decay, wct_tf, wct_style_swap, adain
 from collections import namedtuple
 
 
